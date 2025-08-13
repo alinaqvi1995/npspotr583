@@ -1,0 +1,124 @@
+[12-Aug-2025 19:28:45 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:28:55 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:29:05 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:29:16 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:29:29 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:29:39 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:29:48 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:29:53 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:30:00 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php on line 7
+[12-Aug-2025 19:30:05 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:30:09 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:30:10 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php on line 7
+[12-Aug-2025 19:30:16 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:30:17 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:30:32 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:30:42 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:30:46 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:30:48 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:30:48 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:30:49 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php on line 7
+[12-Aug-2025 19:31:18 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:31:22 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:31:38 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:31:41 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:32:12 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/User.php on line 10
+[12-Aug-2025 19:32:14 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Quote.php on line 7
+[12-Aug-2025 19:32:25 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:32:45 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:33:08 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
+[12-Aug-2025 19:33:36 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Service.php on line 7
+[12-Aug-2025 19:33:39 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/housesre/bridgeway.alliedfilterhouse.store/app/Models/Blog.php on line 7
