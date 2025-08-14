@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\QuoteController;
 use App\Http\Controllers\Frontend\BlogController;
+use App\Http\Controllers\Backend\AdminController;
 
 // 🔹 Static pages
 Route::view('/', 'site.home')->name('home');
@@ -45,6 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('subcategories', SubcategoryController::class);
+    Route::get('/quotes', [AdminController::class, 'index'])->name('admin.quotes.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
