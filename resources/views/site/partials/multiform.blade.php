@@ -33,16 +33,20 @@
         <div id="step2" class="vehicle_quote_info" style="display: none;">
             <div class="row">
                 <h4 class="title text-center">Vehicle Information</h4>
-                <select id="tabSelector" required>
-                    <option value="" selected disabled>Select a Vehicle</option>
-                    <option value="Atv">Atv Utv Transport</option>
+                <select id="tabSelector">
+                    <option value="">-- Select Vehicle --</option>
+                    <option value="Atv">ATV</option>
                     <option value="Boat-Transport">Boat Transport</option>
                     <option value="Car">Car</option>
                     <option value="Golf-Cart">Golf Cart</option>
-                    <option value="Heavy-Equipment">Heavy Equipment Transport</option>
+                    <option value="Heavy-Equipment">Heavy Equipment</option>
                     <option value="Motorcycle">Motorcycle</option>
                     <option value="RV-Transport">RV Transport</option>
                 </select>
+
+                <div id="firstVehicle"></div>
+                <button type="button" id="addVehicleBtn" style="display:none;">Add Vehicle</button>
+
                 <div class="tab-content mt-3" id="additionalContent"></div>
             </div>
             <div class="row mt-2 justify-content-evenly">
