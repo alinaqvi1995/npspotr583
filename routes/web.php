@@ -40,7 +40,7 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // 🔐 Auth & Profile
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->middleware('verified')->name('dashboard');
+    Route::get('/dashboard', fn() => view('admin.index'))->middleware('verified')->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
