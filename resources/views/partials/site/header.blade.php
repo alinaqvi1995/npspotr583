@@ -173,18 +173,6 @@
                                             <li><a href="{{ route('quote.car') }}">Car Quote</a></li>
                                             <li><a href="{{ route('quote.motorcycle') }}">Motorcycle Quote</a></li>
                                             <li><a href="{{ route('quote.heavyEquipment') }}">Heavy Equipment Quote</a></li>
-                                            <li><a href="{{ route('quote.freight') }}">Freight Quote</a></li>
-                                            <li><a href="{{ route('quote.golf_cart') }}">Golf Cart Quote</a></li>
-                                            <li><a href="{{ route('quote.atv_utv') }}">ATV/UTV Quote</a></li>
-                                            <li><a href="{{ route('quote.boat') }}">Boat Quote</a></li>
-                                            <li><a href="{{ route('quote.roro') }}">RORO Shipping Quote</a></li>
-                                            <li><a href="{{ route('form.recreational-vehicle') }}">Recreational Vehicle Quote</a></li>
-                                            <li><a href="{{ route('quote.form.combine') }}">Combined Quote Form</a></li>
-                                            <li><a href="{{ route('commercial.truck.transport') }}">Commercial Truck Transport Quote</a></li>
-                                            <li><a href="{{ route('frontend.forms.construction_transport') }}">Construction Transport Quote</a></li>
-                                            <li><a href="{{ route('frontend.forms.excavator') }}">Excavator Quote</a></li>
-                                            <li><a href="{{ route('frontend.forms.farm_transport') }}">Farm Transport Quote</a></li>
-                                            <li><a href="{{ route('frontend.forms.rv_transport') }}">RV Transport Quote</a></li>
                                         </ul>
                                     </li>
 
