@@ -171,8 +171,8 @@
                                         <a href="{{ route('quote.index') }}">Get a Quote</a>
                                         <ul class="list-gap sub-menu-list">
                                             <li><a href="{{ route('quote.car') }}">Car Quote</a></li>
-                                            <li><a href="{{ route('quote.motorcycle') }}">Motorcycle Quote</a></li>
-                                            <li><a href="{{ route('quote.heavyEquipment') }}">Heavy Equipment Quote</a></li>
+                                            {{-- <li><a href="{{ route('quote.motorcycle') }}">Motorcycle Quote</a></li>
+                                            <li><a href="{{ route('quote.heavyEquipment') }}">Heavy Equipment Quote</a></li> --}}
                                         </ul>
                                     </li>
 
