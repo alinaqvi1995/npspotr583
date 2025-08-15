@@ -212,4 +212,22 @@
             </div>
         </div>
     </section>
+    <section class="tj-video-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tj-video-area text-center">
+                        <div class="tj-video-popup">
+                            <div class="circle pulse video-icon">
+                                <a class="venobox popup-videos-button" data-autoplay="true" data-vbtype="video" href="https://www.youtube.com/watch?v=ADmQTw4qqTY">
+                                    <i class="fa-solid fa-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="video-title">Offers Excellentcom Bination of Location &amp; Quality</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
