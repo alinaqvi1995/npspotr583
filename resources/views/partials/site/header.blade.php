@@ -168,7 +168,7 @@
                                         </ul>
                                     </li>
                                     <li class="menu-item-has-children">
-                                        <a href="{{ route('quote.index') }}">Get a Quote</a>
+                                        <a href="#">Get a Quote</a>
                                         <ul class="list-gap sub-menu-list">
                                             <li><a href="{{ route('quote.atv_utv') }}">ATV-UTV Quote</a></li>
                                             <li><a href="{{ route('quote.car') }}">Car Quote</a></li>
