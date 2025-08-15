@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('quotes', function (Blueprint $table) {
-        $table->enum('status', ['New','Pending','Completed','Canceled'])->default('New')->change();
+            $table->enum('status', ['New','Pending','Completed','Canceled'])->default('New')->after('additional_info');
         });
     }
 
