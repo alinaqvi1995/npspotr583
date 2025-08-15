@@ -39,7 +39,7 @@
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
                         <div class="tj-blog-item">
                             <div class="tj-blog-image">
-                                <a href="blog-details.html"> <img src="web-assets/images/blog/blog-1.jpg" alt="Blog" /></a>
+                                <a href="{{ route('blog.show') }}"> <img src="web-assets/images/blog/blog-1.jpg" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-meta">
@@ -59,7 +59,7 @@
                                 <div class="blog-text-box">
                                     <div class="blog-header">
                                         <h4>
-                                            <a class="title-link" href="blog-details.html">
+                                            <a class="title-link" href="{{ route('blog.show') }}">
                                                 Guarantees varying Complexity, Long-Term</a
                                             >
                                         </h4>
@@ -71,7 +71,7 @@
                                     <div class="blog-button">
                                         <ul class="list-gap">
                                             <li>
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('blog.show') }}">
                                                     Read More <i class="fa-regular fa-arrow-right"></i
                                                 ></a>
                                             </li>
@@ -84,7 +84,7 @@
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
                         <div class="tj-blog-item">
                             <div class="tj-blog-image">
-                                <a href="blog-details.html"> <img src="web-assets/images/blog/blog-2.jpg" alt="Blog" /></a>
+                                <a href="{{ route('blog.show') }}"> <img src="web-assets/images/blog/blog-2.jpg" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-meta">
@@ -104,7 +104,7 @@
                                 <div class="blog-text-box">
                                     <div class="blog-header">
                                         <h4>
-                                            <a class="title-link" href="blog-details.html">
+                                            <a class="title-link" href="{{ route('blog.show') }}">
                                                 Introduce new suas boat service in this spring</a
                                             >
                                         </h4>
@@ -116,7 +116,7 @@
                                     <div class="blog-button">
                                         <ul class="list-gap">
                                             <li>
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('blog.show') }}">
                                                     Read More <i class="fa-regular fa-arrow-right"></i
                                                 ></a>
                                             </li>
@@ -129,7 +129,7 @@
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
                         <div class="tj-blog-item">
                             <div class="tj-blog-image">
-                                <a href="blog-details.html"> <img src="web-assets/images/blog/blog-3.jpg" alt="Blog" /></a>
+                                <a href="{{ route('blog.show') }}"> <img src="web-assets/images/blog/blog-3.jpg" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-meta">
@@ -149,7 +149,7 @@
                                 <div class="blog-text-box">
                                     <div class="blog-header">
                                         <h4>
-                                            <a class="title-link" href="blog-details.html">
+                                            <a class="title-link" href="{{ route('blog.show') }}">
                                                 We very careful handling the valuable goods</a
                                             >
                                         </h4>
@@ -161,7 +161,7 @@
                                     <div class="blog-button">
                                         <ul class="list-gap">
                                             <li>
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('blog.show') }}">
                                                     Read More <i class="fa-regular fa-arrow-right"></i
                                                 ></a>
                                             </li>
@@ -174,7 +174,7 @@
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
                         <div class="tj-blog-item">
                             <div class="tj-blog-image">
-                                <a href="blog-details.html"> <img src="web-assets/images/blog/blog-17.jpg" alt="Blog" /></a>
+                                <a href="{{ route('blog.show') }}"> <img src="web-assets/images/blog/blog-17.jpg" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-meta">
@@ -194,7 +194,7 @@
                                 <div class="blog-text-box">
                                     <div class="blog-header">
                                         <h4>
-                                            <a class="title-link" href="blog-details.html">
+                                            <a class="title-link" href="{{ route('blog.show') }}">
                                                 Guarantees varying Complexity, Long-Term</a
                                             >
                                         </h4>
@@ -206,7 +206,7 @@
                                     <div class="blog-button">
                                         <ul class="list-gap">
                                             <li>
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('blog.show') }}">
                                                     Read More <i class="fa-regular fa-arrow-right"></i
                                                 ></a>
                                             </li>
@@ -219,7 +219,7 @@
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
                         <div class="tj-blog-item">
                             <div class="tj-blog-image">
-                                <a href="blog-details.html"> <img src="web-assets/images/blog/blog-18.jpg" alt="Blog" /></a>
+                                <a href="{{ route('blog.show') }}"> <img src="web-assets/images/blog/blog-18.jpg" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-meta">
@@ -239,7 +239,7 @@
                                 <div class="blog-text-box">
                                     <div class="blog-header">
                                         <h4>
-                                            <a class="title-link" href="blog-details.html">
+                                            <a class="title-link" href="{{ route('blog.show') }}">
                                                 Introduce new suas boat service in this spring</a
                                             >
                                         </h4>
@@ -251,7 +251,7 @@
                                     <div class="blog-button">
                                         <ul class="list-gap">
                                             <li>
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('blog.show') }}">
                                                     Read More <i class="fa-regular fa-arrow-right"></i
                                                 ></a>
                                             </li>
@@ -264,7 +264,7 @@
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
                         <div class="tj-blog-item">
                             <div class="tj-blog-image">
-                                <a href="blog-details.html"> <img src="web-assets/images/blog/blog-19.jpg" alt="Blog" /></a>
+                                <a href="{{ route('blog.show') }}"> <img src="web-assets/images/blog/blog-19.jpg" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-meta">
@@ -284,7 +284,7 @@
                                 <div class="blog-text-box">
                                     <div class="blog-header">
                                         <h4>
-                                            <a class="title-link" href="blog-details.html">
+                                            <a class="title-link" href="{{ route('blog.show') }}">
                                                 We very careful handling the valuable goods</a
                                             >
                                         </h4>
@@ -296,7 +296,7 @@
                                     <div class="blog-button">
                                         <ul class="list-gap">
                                             <li>
-                                                <a href="blog-details.html">
+                                                <a href="{{ route('blog.show') }}">
                                                     Read More <i class="fa-regular fa-arrow-right"></i
                                                 ></a>
                                             </li>
