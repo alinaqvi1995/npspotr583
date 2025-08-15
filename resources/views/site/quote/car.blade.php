@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-content">
-                        <h1 class="breadcrumb-title text-center">Vehicle - Car</h1>
+                        <h1 class="breadcrumb-title text-center mb-5">Vehicle - Car</h1>
                         <div class="breadcrumb-link">
                             <span><a href="#"><span>Home</span></a></span> > <span><span> Vehicle - Car</span></span>
                         </div>
@@ -17,7 +17,7 @@
             </div>
         </div>
     </section>
-    <section class="tj-service-section-three">
+    <section class="tj-service-section-three pb-0">
         <div class="container">
             <div class="row">
                 <div class="tj-section-heading text-center">
