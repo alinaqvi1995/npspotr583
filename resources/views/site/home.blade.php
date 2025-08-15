@@ -498,54 +498,55 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <!-- Car Transport Service -->
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-8.jpg" alt="Car Transport Service" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-delivery-van"></i>
+                <div class="row">
+                    <!-- Car Transport Service -->
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                        <div class="service-item-three">
+                            <div class="service-image">
+                                <img src="web-assets/images/service/service-8.jpg" alt="Car Transport Service" />
                             </div>
-                            <h4><a class="title" href="{{ route('services/car') }}">Car Transport Service</a></h4>
-                            <p>Safe and reliable car transportation tailored to your schedule and destination.</p>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="flaticon-delivery-van"></i>
+                                </div>
+                                <h4><a class="title" href="{{ route('services.car-shipping') }}">Car Transport Service</a></h4>
+                                <p>Safe and reliable car transportation tailored to your schedule and destination.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heavy Equipment Transport -->
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
+                        <div class="service-item-three">
+                            <div class="service-image">
+                                <img src="web-assets/images/service/service-9.jpg" alt="Heavy Equipment Services" />
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="flaticon-cargo-ship-1"></i>
+                                </div>
+                                <h4><a class="title" href="{{ route('services.heavy-equipment-shipping') }}">Heavy Equipment Services</a></h4>
+                                <p>Expert transport solutions for construction, farming, and commercial heavy equipment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motorcycle Transport Service -->
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
+                        <div class="service-item-three">
+                            <div class="service-image">
+                                <img src="web-assets/images/service/service-10.jpg" alt="Motorcycle Transport Service" />
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="flaticon-air-freight"></i>
+                                </div>
+                                <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}">Motorcycle Transport Service</a></h4>
+                                <p>Safe and reliable motorcycle transportation tailored to your schedule and destination safely.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Heavy Equipment Transport -->
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-9.jpg" alt="Heavy Equipment Services" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-cargo-ship-1"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services/car') }}">Heavy Equipment Services</a></h4>
-                            <p>Expert transport solutions for construction, farming, and commercial heavy equipment.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Freight Transportation - Reefer Transport -->
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-10.jpg" alt="Motorcycle Transport Service
-                                    " />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-air-freight"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services/car') }}">Motorcycle Transport Service</a></h4>
-                            <p>Safe and reliable motorcycle transportation tailored to your schedule and destination saftly.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 <!--========== Service Section End ==============-->
