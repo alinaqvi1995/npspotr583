@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-content">
-                    <h1 class="breadcrumb-title text-center">Vehicle - ATV-UTV</h1>
+                    <h1 class="breadcrumb-title text-center mb-5">Vehicle - ATV-UTV</h1>
                     <div class="breadcrumb-link">
                         <span><a href="#"><span>Home</span></a></span> > <span><span> Vehicle - ATV-UTV</span></span>
                     </div>
