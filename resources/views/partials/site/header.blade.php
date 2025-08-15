@@ -3,7 +3,7 @@
         <div class="animation-preloader">
             <div class="spinner">
                 <div class="loader-icon">
-                    <img src="web-assets/images/logo/loder.png" alt="Bridgeway Logistics LLC" />
+                    {{-- <img src="web-assets/images/logo/loder.png" alt="Bridgeway Logistics LLC" /> --}}
                 </div>
             </div>
             <div class="txt-loading">
@@ -27,7 +27,7 @@
     <div class="tj-offcanvas-area">
         <div class="tj-offcanvas-header d-flex align-items-center justify-content-between">
             <div class="logo-area text-center">
-                <a href="index.html"><img src="web-assets/images/logo/logo.png" alt="Bridgeway Logistics LLC" /></a>
+                <a href="{{ route('home') }}"><img src="web-assets/images/logo/logo2.png" alt="Bridgeway Logistics LLC" /></a>
             </div>
             <div class="offcanvas-icon">
                 <a id="canva_close" href="#">
@@ -110,7 +110,7 @@
                     <div class="search_wrapper">
                         <div class="search_top d-flex justify-content-between align-items-center">
                             <div class="search_logo">
-                                <a href="index.html">
+                                <a href="{{ route('home') }}">
                                     <img src="web-assets/images/logo/logo2.png" alt="Bridgeway Logistics LLC" />
                                 </a>
                             </div>
