@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\QuoteController;
 use App\Http\Controllers\Frontend\BlogController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RoleController;
 
 // 🔹 Static pages
-Route::view('/', 'site.home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about', 'site.about')->name('about');
 Route::view('/contact', 'site.contact')->name('contact');
 
@@ -22,20 +23,8 @@ Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('servic
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');
 Route::get('/car', [QuoteController::class, 'car'])->name('quote.car');
+Route::get('/atv-utv', [QuoteController::class, 'motorcycle'])->name('quote.atv_utv');
 Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.motorcycle');
-Route::get('/golf-cart', [QuoteController::class, 'golf_cart'])->name('quote.golf_cart');
-Route::get('/atv-utv', [QuoteController::class, 'atv_utv'])->name('quote.atv_utv');
-Route::get('/boat', [QuoteController::class, 'boat'])->name('quote.boat');
-Route::get('/heavy', [QuoteController::class, 'heavyEquipment'])->name('quote.heavyEquipment');
-Route::get('/freight', [QuoteController::class, 'freight'])->name('quote.freight');
-Route::get('/roro-shipping', [QuoteController::class, 'roro'])->name('quote.roro');
-Route::get('/recreational-vehicle', [QuoteController::class, 'recreationalVehicle'])->name('form.recreational-vehicle');
-Route::get('/quote-form', [QuoteController::class, 'quoteForm'])->name('quote.form.combine');
-Route::get('/commercial-truck-transport', [QuoteController::class, 'commercialTruck'])->name('commercial.truck.transport');
-Route::get('/construction_transport', [QuoteController::class, 'constructionTransport'])->name('frontend.forms.construction_transport');
-Route::get('/excavator', [QuoteController::class, 'excavator'])->name('frontend.forms.excavator');
-Route::get('/farm_transport', [QuoteController::class, 'farmTransport'])->name('frontend.forms.farm_transport');
-Route::get('/rv_transport', [QuoteController::class, 'rvTransport'])->name('frontend.forms.rv_transport');
 
 // submit quote
 Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');

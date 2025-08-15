@@ -1,5 +1,4 @@
-{% load static %}
-{% block navbar %}
+
 <!--================= Header Section Start Here =================-->
 <!--start header-->
 <header class="top-header">
