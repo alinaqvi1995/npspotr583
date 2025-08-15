@@ -11,7 +11,9 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RoleController;
 
 // 🔹 Static pages
-Route::view('/', 'site.home')->name('home');
+Route::get('/', function () {
+    return view('site.home');
+})->name('home');
 Route::view('/about', 'site.about')->name('about');
 Route::view('/contact', 'site.contact')->name('contact');
 
