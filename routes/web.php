@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\QuoteController;
 use App\Http\Controllers\Frontend\BlogController;
@@ -11,9 +12,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RoleController;
 
 // 🔹 Static pages
-Route::get('/', function () {
-    return view('site.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about', 'site.about')->name('about');
 Route::view('/contact', 'site.contact')->name('contact');
 
