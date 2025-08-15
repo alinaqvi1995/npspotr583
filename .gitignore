@@ -19,6 +19,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+/public/quote/vehicle_images/*
 Homestead.json
 Homestead.yaml
 Thumbs.db
