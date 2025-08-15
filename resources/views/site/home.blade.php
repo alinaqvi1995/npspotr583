@@ -894,7 +894,7 @@
                 <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
                     <div class="tj-blog-item-three">
                         <div class="tj-blog-image">
-                            <a href="blog-details.html"><img src="web-assets/images/blog/blog-5.jpg" alt="Blog" /></a>
+                            <a href="{{ route('blog.show') }}"><img src="web-assets/images/blog/blog-5.jpg" alt="Blog" /></a>
                         </div>
                         <div class="meta-date">
                             <ul class="list-gap">
@@ -914,14 +914,14 @@
                             <div class="blog-text-box">
                                 <div class="blog-header">
                                     <h4>
-                                        <a class="title-link" href="blog-details.html">
+                                        <a class="title-link" href="{{ route('blog.show') }}">
                                             Top 5 Tips for Efficient Vehicle Transport</a>
                                     </h4>
                                 </div>
                                 <div class="blog-button">
                                     <ul class="list-gap">
                                         <li>
-                                            <a href="blog-details.html">
+                                            <a href="{{ route('blog.show') }}">
                                                 Read More <i class="fa-regular fa-arrow-right"></i>
                                             </a>
                                         </li>
@@ -934,7 +934,7 @@
                 <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
                     <div class="tj-blog-item-three">
                         <div class="tj-blog-image">
-                            <a href="blog-details.html"><img src="web-assets/images/blog/blog-6.jpg" alt="Blog" /></a>
+                            <a href="{{ route('blog.show') }}"><img src="web-assets/images/blog/blog-6.jpg" alt="Blog" /></a>
                         </div>
                         <div class="meta-date">
                             <ul class="list-gap">
@@ -954,14 +954,14 @@
                             <div class="blog-text-box">
                                 <div class="blog-header">
                                     <h4>
-                                        <a class="title-link" href="blog-details.html">
+                                        <a class="title-link" href="{{ route('blog.show') }}">
                                             Understanding Enclosed vs Open Auto Transport</a>
                                     </h4>
                                 </div>
                                 <div class="blog-button">
                                     <ul class="list-gap">
                                         <li>
-                                            <a href="blog-details.html">
+                                            <a href="{{ route('blog.show') }}">
                                                 Read More <i class="fa-regular fa-arrow-right"></i>
                                             </a>
                                         </li>
@@ -974,7 +974,7 @@
                 <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
                     <div class="tj-blog-item-three">
                         <div class="tj-blog-image">
-                            <a href="blog-details.html"><img src="web-assets/images/blog/blog-7.jpg" alt="Blog" /></a>
+                            <a href="{{ route('blog.show') }}"><img src="web-assets/images/blog/blog-7.jpg" alt="Blog" /></a>
                         </div>
                         <div class="meta-date">
                             <ul class="list-gap">
@@ -994,14 +994,14 @@
                             <div class="blog-text-box">
                                 <div class="blog-header">
                                     <h4>
-                                        <a class="title-link" href="blog-details.html">
+                                        <a class="title-link" href="{{ route('blog.show') }}">
                                             How to Prepare Your Vehicle for Transport</a>
                                     </h4>
                                 </div>
                                 <div class="blog-button">
                                     <ul class="list-gap">
                                         <li>
-                                            <a href="blog-details.html">
+                                            <a href="{{ route('blog.show') }}">
                                                 Read More <i class="fa-regular fa-arrow-right"></i>
                                             </a>
                                         </li>

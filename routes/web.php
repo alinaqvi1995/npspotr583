@@ -33,7 +33,7 @@ Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('fro
 
 // 🔹 Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/detail', [BlogController::class, 'show'])->name('blog.show');
 
 // 🔐 Auth & Profile
 Route::middleware('auth')->group(function () {
