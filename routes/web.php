@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\QuoteController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\RoleController;
 
 // 🔹 Static pages
 Route::view('/', 'site.home')->name('home');
@@ -36,6 +37,8 @@ Route::get('/excavator', [QuoteController::class, 'excavator'])->name('frontend.
 Route::get('/farm_transport', [QuoteController::class, 'farmTransport'])->name('frontend.forms.farm_transport');
 Route::get('/rv_transport', [QuoteController::class, 'rvTransport'])->name('frontend.forms.rv_transport');
 
+// submit quote
+Route::post('/rv_transport', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
 
 // 🔹 Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -52,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
     Route::get('/quotes', [AdminController::class, 'index'])->name('admin.quotes.index');
+
+    Route::resource('roles', RoleController::class);
 });
 
 require __DIR__ . '/auth.php';

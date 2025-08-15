@@ -34,9 +34,4 @@ class Quote extends Model
     {
         return $this->hasMany(Vehicle::class);
     }
-
-    public function heavy()
-    {
-        return $this->hasMany(HeavyVehicle::class);
-    }
 }
