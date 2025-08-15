@@ -4,7 +4,7 @@
 
 @section('content')
 <!--========== breadcrumb Start ==============-->
-<section class="breadcrumb-wrapper" data-bg-image="web-assets/images/banner/breadcrumb.jpg">
+<section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/breadcrumb.jpg') }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -37,7 +37,7 @@
                     <div class="tj-blog-item-three">
                         <div class="tj-blog-image">
                             <a href="blog-details.html">
-                                <img src="web-assets/images/blog/blog-9.jpg" alt="Blog"
+                                <img src="{{ asset('web-assets/images/blog/blog-9.jpg') }}" alt="Blog"
                             /></a>
                         </div>
                         <div class="active-text">
@@ -73,7 +73,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-5 col-md-6">
                             <div class="check-image">
-                                <img src="web-assets/images/blog/blog-10.jpg" alt="Blog" />
+                                <img src="{{ asset('web-assets/images/blog/blog-10.jpg') }}" alt="Blog" />
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-6">
@@ -101,7 +101,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="video-image">
-                                    <img src="web-assets/images/blog/blog-11.jpg" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/blog/blog-11.jpg') }}" alt="Image" />
                                     <div class="video-box">
                                         <a
                                             class="popup-videos-button"
@@ -116,7 +116,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="blog-image">
-                                    <img src="web-assets/images/blog/blog-12.jpg" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/blog/blog-12.jpg') }}" alt="Image" />
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                             needs.
                         </p>
                         <div class="details-quote-box">
-                            <img src="web-assets/images/icon/quote.svg" alt="Icon" />
+                            <img src="{{ asset('web-assets/images/icon/quote.svg') }}" alt="Icon" />
                             <p>
                                 Tosser argy-bargy mush loo at public school Elizabeth up the duff buggered
                                 chinwag on your bike mate don’t get shirty with me super, Jeffrey bobby Richard
@@ -159,7 +159,7 @@
                         <h4 class="details_title">Comments (2)</h4>
                         <div class="comment-auother-box">
                             <div class="auother-image">
-                                <img src="web-assets/images/blog/blog-1.png" alt="Blog" />
+                                <img src="{{ asset('web-assets/images/blog/blog-1.png') }}" alt="Blog" />
                             </div>
                             <div class="auother-content">
                                 <h4><a class="title-link" href="blog-details.html"> Isaac Herman</a></h4>
@@ -176,7 +176,7 @@
                         </div>
                         <div class="comment-auother-box">
                             <div class="auother-image">
-                                <img src="web-assets/images/blog/blog-2.png" alt="Blog" />
+                                <img src="{{ asset('web-assets/images/blog/blog-2.png') }}" alt="Blog" />
                             </div>
                             <div class="auother-content">
                                 <h4><a class="title-link" href="blog-details.html"> John Doe</a></h4>
@@ -263,7 +263,7 @@
                         <div class="tj-post-content">
                             <div class="tj-auother-img">
                                 <a href="blog-details.html">
-                                    <img src="web-assets/images/blog/blog-13.png" alt="Blog"
+                                    <img src="{{ asset('web-assets/images/blog/blog-13.png') }}" alt="Blog"
                                 /></a>
                             </div>
                             <div class="tj-details-text">
@@ -283,7 +283,7 @@
                         <div class="tj-post-content">
                             <div class="tj-auother-img">
                                 <a href="blog-details.html">
-                                    <img src="web-assets/images/blog/blog-14.png" alt="Blog"
+                                    <img src="{{ asset('web-assets/images/blog/blog-14.png') }}" alt="Blog"
                                 /></a>
                             </div>
                             <div class="tj-details-text">
@@ -303,7 +303,7 @@
                         <div class="tj-post-content">
                             <div class="tj-auother-img">
                                 <a href="blog-details.html">
-                                    <img src="web-assets/images/blog/blog-15.png" alt="Blog"
+                                    <img src="{{ asset('web-assets/images/blog/blog-15.png') }}" alt="Blog"
                                 /></a>
                             </div>
                             <div class="tj-details-text">
