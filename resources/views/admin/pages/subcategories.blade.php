@@ -38,11 +38,7 @@
                                 <td>{{ $subcategory->name }}</td>
                                 <td>{{ $subcategory->category?->name ?? '-' }}</td>
                                 <td>{{ $subcategory->description }}</td>
-                                <td>
-                                    <span class="badge {{ $subcategory->status ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $subcategory->status ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </td>
+                                <td>{!! $category->status_label !!}</td>
                                 <td>{{ $subcategory->creator?->name ?? '-' }}</td>
                                 <td>{{ $subcategory->editor?->name ?? '-' }}</td>
                                 <td>

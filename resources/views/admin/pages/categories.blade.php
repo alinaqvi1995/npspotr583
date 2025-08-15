@@ -36,11 +36,7 @@
                             <tr>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->description }}</td>
-                                <td>
-                                    <span class="badge {{ $category->status ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $category->status ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </td>
+                                <td>{!! $category->status_label !!}</td>
                                 <td>{{ $category->creator?->name ?? '-' }}</td>
                                 <td>{{ $category->editor?->name ?? '-' }}</td>
                                 <td>
@@ -106,49 +102,48 @@
 @endsection
 
 @section('extra_js')
-<script>
-    $(document).ready(function() {
-        // Add Category button
-        $('#addCategoryBtn').click(function() {
-            $('#categoryForm').attr('action', "{{ route('categories.store') }}");
-            $('#formMethod').val('POST');
-            $('#categoryModalLabel').text('Add Category');
-            $('#categoryForm')[0].reset();
+    <script>
+        $(document).ready(function() {
+            // Add Category button
+            $('#addCategoryBtn').click(function() {
+                $('#categoryForm').attr('action', "{{ route('categories.store') }}");
+                $('#formMethod').val('POST');
+                $('#categoryModalLabel').text('Add Category');
+                $('#categoryForm')[0].reset();
 
-            // Show modal using Bootstrap 5
-            let modalEl = document.getElementById('categoryModal');
-            let modal = new bootstrap.Modal(modalEl);
-            modal.show();
-        });
+                // Show modal using Bootstrap 5
+                let modalEl = document.getElementById('categoryModal');
+                let modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            });
 
-        // Edit Category buttons
-        $('.editCategoryBtn').click(function() {
-            const id = $(this).data('id');
-            const name = $(this).data('name');
-            const description = $(this).data('description');
-            const status = $(this).data('status');
+            // Edit Category buttons
+            $('.editCategoryBtn').click(function() {
+                const id = $(this).data('id');
+                const name = $(this).data('name');
+                const description = $(this).data('description');
+                const status = $(this).data('status');
 
-            $('#categoryForm').attr('action', '/categories/' + id);
-            $('#formMethod').val('PUT');
-            $('#categoryModalLabel').text('Edit Category');
-            $('#categoryName').val(name);
-            $('#categoryDescription').val(description);
-            $('#categoryStatus').val(status);
+                $('#categoryForm').attr('action', '/categories/' + id);
+                $('#formMethod').val('PUT');
+                $('#categoryModalLabel').text('Edit Category');
+                $('#categoryName').val(name);
+                $('#categoryDescription').val(description);
+                $('#categoryStatus').val(status);
 
-            // Show modal using Bootstrap 5
-            let modalEl = document.getElementById('categoryModal');
-            let modal = new bootstrap.Modal(modalEl);
-            modal.show();
-        });
+                // Show modal using Bootstrap 5
+                let modalEl = document.getElementById('categoryModal');
+                let modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            });
 
-        // Simple search filter
-        $('#searchCategory').on('keyup', function() {
-            const value = $(this).val().toLowerCase();
-            $('#categoryTable tbody tr').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            // Simple search filter
+            $('#searchCategory').on('keyup', function() {
+                const value = $(this).val().toLowerCase();
+                $('#categoryTable tbody tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
             });
         });
-    });
-</script>
+    </script>
 @endsection
-

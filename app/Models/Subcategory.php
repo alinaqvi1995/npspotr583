@@ -51,4 +51,31 @@ class Subcategory extends Model
             }
         });
     }
+
+    public function getStatusFormattedAttribute()
+    {
+        return $this->status == 1 ? 'Active' : 'Inactive';
+    }
+
+    public function getStatusLabelAttribute()
+    {
+        switch ($this->status) {
+            case 1:
+                return '<span class="badge bg-success">Active</span>';
+            case 0:
+                return '<span class="badge bg-danger">Inactive</span>';
+            default:
+                return '<span class="badge bg-secondary">Unknown</span>';
+        }
+    }
+
+    public function getCreatedAtFormattedAttribute()
+    {
+        return $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '-';
+    }
+
+    public function getUpdatedAtFormattedAttribute()
+    {
+        return $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : '-';
+    }
 }

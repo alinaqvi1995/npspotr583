@@ -51,10 +51,8 @@
                                 </td>
                                 <td>{{ $quote->pickup_location }}</td>
                                 <td>{{ $quote->delivery_location }}</td>
-                                <td>{{ $quote->pickup_date ? \Carbon\Carbon::parse($quote->pickup_date)->format('Y-m-d') : '-' }}
-                                </td>
-                                <td>{{ $quote->delivery_date ? \Carbon\Carbon::parse($quote->delivery_date)->format('Y-m-d') : '-' }}
-                                </td>
+                                <td>{{ $quote->pickup_date_formatted }}</td>
+                                <td>{{ $quote->delivery_date_formatted }}</td>
                                 <td>
                                     @foreach ($quote->vehicles as $vehicle)
                                         <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
