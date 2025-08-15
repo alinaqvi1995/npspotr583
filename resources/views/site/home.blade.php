@@ -10,7 +10,7 @@
         <div class="slider_shape2"><img src="web-assets/images/banner/shape-2.png" alt="Image" /></div>
         <div class="swiper thumb-slider2">
             <div class="swiper-wrapper">
-                <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-1.webp">
+                <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-3.webp">
                     <div class="container container-two">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-2.webp">
+                <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-1.webp ">
                     <div class="container container-two">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-3.webp">
+                <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-2.webp">
                     <div class="slide-image sc-image-layer"></div>
                     <div class="container container-two">
                         <div class="row align-items-center">
@@ -121,13 +121,13 @@
         <div class="swiper thumb-slider">
             <div class="swiper-wrapper thumb_slider">
                 <div class="swiper-slide thumb_slide">
+                    <img src="web-assets/images/banner/arrow-image3.webp" alt="Icons" />
+                </div>
+                <div class="swiper-slide thumb_slide">
                     <img src="web-assets/images/banner/arrow-image.webp" alt="Icons" />
                 </div>
                 <div class="swiper-slide thumb_slide">
                     <img src="web-assets/images/banner/arrow-image2.webp" alt="Icons" />
-                </div>
-                <div class="swiper-slide thumb_slide">
-                    <img src="web-assets/images/banner/arrow-image3.webp" alt="Icons" />
                 </div>
             </div>
         </div>
