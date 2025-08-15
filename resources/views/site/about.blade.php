@@ -147,99 +147,57 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="tj-section-heading text-center">
-                        <span class="sub-title active-shape"> Our Workers</span>
-                        <h2 class="title">Our Delivery Team</h2>
+                        <span class="sub-title active-shape"> Our Services</span>
+                        <h2 class="title">What We Offer</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
                     <div class="team-item-three">
-                        <img src="web-assets/images/team/team-4.jpg" alt="Image" />
+                        <img src="web-assets/images/team/team-4.jpg" alt="Car Shipping" />
                         <div class="arrow-icon">
                             <ul class="team-social list-gap">
                                 <li class="social-active">
                                     <i class="flaticon-plus"></i>
-                                    <ul class="list-gap team-social-dropdown">
-                                        <li>
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-instagram"></i></a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="tj-project-content">
-                            <span class="sub-title"> Founder</span>
-                            <h4><a href="team-details.html" class="title-link"> Selina Donald</a></h4>
+                            <span class="sub-title"> Premium Service</span>
+                            <h4><a href="service-details.html" class="title-link">Car Shipping</a></h4>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
                     <div class="team-item-three">
-                        <img src="web-assets/images/team/team-5.jpg" alt="Image" />
+                        <img src="web-assets/images/team/team-5.jpg" alt="Motorcycle Shipping" />
                         <div class="arrow-icon">
                             <ul class="team-social list-gap">
                                 <li class="social-active">
                                     <i class="flaticon-plus"></i>
-                                    <ul class="list-gap team-social-dropdown">
-                                        <li>
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-instagram"></i></a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="tj-project-content">
-                            <span class="sub-title"> Senior Manager</span>
-                            <h4><a href="team-details.html" class="title-link"> Jessica Brown</a></h4>
+                            <span class="sub-title"> Fast & Secure</span>
+                            <h4><a href="service-details.html" class="title-link">Motorcycle Shipping</a></h4>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
                     <div class="team-item-three">
-                        <img src="web-assets/images/team/team-6.jpg" alt="Image" />
+                        <img src="web-assets/images/team/team-6.jpg" alt="Heavy Equipment Shipping" />
                         <div class="arrow-icon">
                             <ul class="team-social list-gap">
                                 <li class="social-active">
                                     <i class="flaticon-plus"></i>
-                                    <ul class="list-gap team-social-dropdown">
-                                        <li>
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-instagram"></i></a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="tj-project-content">
-                            <span class="sub-title"> Senior Manager</span>
-                            <h4><a href="team-details.html" class="title-link"> Kevin Martin</a></h4>
+                            <span class="sub-title"> Reliable Handling</span>
+                            <h4><a href="service-details.html" class="title-link">Heavy Equipment Shipping</a></h4>
                         </div>
                     </div>
                 </div>
