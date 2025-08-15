@@ -25,7 +25,7 @@ Route::get('/car', [QuoteController::class, 'car'])->name('quote.car');
 Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.motorcycle');
 
 // submit quote
-Route::post('/rv_transport', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
+Route::post('/', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
 
 // 🔹 Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
