@@ -35,4 +35,9 @@ class Vehicle extends Model
     {
         return $this->belongsTo(Quote::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(VehicleImage::class);
+    }
 }
