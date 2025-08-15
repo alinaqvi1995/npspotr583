@@ -18,7 +18,9 @@ Route::view('/contact', 'site.contact')->name('contact');
 
 // 🔹 Services
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+Route::get('/services/car', [ServiceController::class, 'carservice'])->name('services.car-shipping');
+Route::get('/services/motorcycle', [ServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
+Route::get('/services/car', [ServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
 
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');

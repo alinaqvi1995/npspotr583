@@ -509,7 +509,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-delivery-van"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html">Car Transport Service</a></h4>
+                            <h4><a class="title" href="{{ route('services.car-shipping') }}">Car Transport Service</a></h4>
                             <p>Safe and reliable car transportation tailored to your schedule and destination.</p>
                         </div>
                     </div>
@@ -524,7 +524,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-cargo-ship-1"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html">Heavy Equipment Services</a></h4>
+                            <h4><a class="title" href="{{ route('services.heavy-equipment-shipping') }}">Heavy Equipment Services</a></h4>
                             <p>Expert transport solutions for construction, farming, and commercial heavy equipment.</p>
                         </div>
                     </div>
@@ -540,7 +540,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-air-freight"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html">Motorcycle Transport Service</a></h4>
+                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}">Motorcycle Transport Service</a></h4>
                             <p>Safe and reliable motorcycle transportation tailored to your schedule and destination saftly.</p>
                         </div>
                     </div>
