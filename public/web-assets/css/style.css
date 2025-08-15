@@ -2518,7 +2518,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 }
 
 .tj-cta-section-three {
-    background: url(../images/banner/cta-bg.jpg);
+    background: url(../images/banner/cta-bg.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
