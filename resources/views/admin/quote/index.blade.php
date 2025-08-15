@@ -51,15 +51,19 @@
                                 </td>
                                 <td>{{ $quote->pickup_location }}</td>
                                 <td>{{ $quote->delivery_location }}</td>
-                                <td>{{ $quote->pickup_date?->format('Y-m-d') }}</td>
-                                <td>{{ $quote->delivery_date?->format('Y-m-d') }}</td>
+                                <td>{{ $quote->pickup_date ? \Carbon\Carbon::parse($quote->pickup_date)->format('Y-m-d') : '-' }}
+                                </td>
+                                <td>{{ $quote->delivery_date ? \Carbon\Carbon::parse($quote->delivery_date)->format('Y-m-d') : '-' }}
+                                </td>
                                 <td>
-                                    @foreach($quote->vehicles as $vehicle)
-                                        <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}</p>
-                                        @if($vehicle->images->count())
+                                    @foreach ($quote->vehicles as $vehicle)
+                                        <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
+                                        </p>
+                                        @if ($vehicle->images->count())
                                             <div class="d-flex flex-wrap mb-2">
-                                                @foreach($vehicle->images as $img)
-                                                    <img src="{{ asset($img->image_path) }}" alt="Vehicle Image" width="50" height="50" class="rounded-circle me-1 mb-1">
+                                                @foreach ($vehicle->images as $img)
+                                                    <img src="{{ asset($img->image_path) }}" alt="Vehicle Image"
+                                                        width="50" height="50" class="rounded-circle me-1 mb-1">
                                                 @endforeach
                                             </div>
                                         @endif
@@ -67,7 +71,7 @@
                                 </td>
                                 <td>
                                     @php
-                                        $statusClass = match($quote->status ?? 'New') {
+                                        $statusClass = match ($quote->status ?? 'New') {
                                             'Completed' => 'bg-success bg-opacity-10 text-success',
                                             'Pending' => 'bg-warning bg-opacity-10 text-warning',
                                             'Canceled' => 'bg-danger bg-opacity-10 text-danger',

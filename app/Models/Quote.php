@@ -17,7 +17,7 @@ class Quote extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
-        'additional_info', 
+        'additional_info',
         'status'
     ];
 
@@ -25,7 +25,7 @@ class Quote extends Model
         'status' => 'New',
     ];
 
-     public function category()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
@@ -39,4 +39,9 @@ class Quote extends Model
     {
         return $this->hasMany(Vehicle::class);
     }
+
+    protected $casts = [
+        'pickup_date' => 'datetime',
+        'delivery_date' => 'datetime',
+    ];
 }
