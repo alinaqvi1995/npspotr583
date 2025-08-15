@@ -23,6 +23,7 @@ Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('servic
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');
 Route::get('/car', [QuoteController::class, 'car'])->name('quote.car');
+Route::get('/atv-utv', [QuoteController::class, 'motorcycle'])->name('quote.atv_utv');
 Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.motorcycle');
 
 // submit quote
