@@ -1,4 +1,4 @@
-{% load static %}
+
 
 <div class="maxton-sidebar">
     <a href="#" class="maxton-sidebar__close">

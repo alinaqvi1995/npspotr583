@@ -1,4 +1,3 @@
-{% load static %}
 
 <!--start cart-->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
