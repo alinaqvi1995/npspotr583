@@ -38,7 +38,7 @@ Route::get('/farm_transport', [QuoteController::class, 'farmTransport'])->name('
 Route::get('/rv_transport', [QuoteController::class, 'rvTransport'])->name('frontend.forms.rv_transport');
 
 // submit quote
-Route::post('/rv_transport', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
+Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
 
 // 🔹 Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -54,7 +54,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
 
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
-    Route::get('/quotes', [AdminController::class, 'index'])->name('admin.quotes.index');
+    Route::get('/quotes', [AdminController::class, 'allQuotes'])->name('admin.quotes.index');
+    Route::get('/quotes/{id}', [AdminController::class, 'quoteDetail'])->name('admin.quotes.details');
 
     Route::resource('roles', RoleController::class);
 });
