@@ -21,250 +21,202 @@
         </div>
     </div>
 </section>
-<section class="tj-tabs-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="tabs-box">
-                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
-                                <i class="flaticon-box"></i> Request A Quote
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
-                                <i class="flaticon-tracking"></i> Track &amp; Trace
-                            </button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="tabs-form-box">
-                                        <h6 class="title">Personal Data</h6>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="nameOne" name="name" placeholder="Name*" required="">
+    <section class="tj-service-section-three pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="tj-section-heading text-center">
+                    <span class="sub-title active-shape"> What We Do</span>
+                    <h2 class="title">Logistic &amp; Transport</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="tj-tabs-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-box">
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        {{-- Success message --}}
+                                        @if (session('success'))
+                                            <div class="alert alert-success">{{ session('success') }}</div>
+                                        @endif
+
+                                        {{-- Generic error message --}}
+                                        @if (session('error'))
+                                            <div class="alert alert-danger">{{ session('error') }}</div>
+                                        @endif
+
+                                        {{-- Validation errors --}}
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <form action="{{ route('frontend.submit.quote') }}" method="post"
+                                            class="rd-mailform validate-form"
+                                            id="calculatePriceFrom"
+                                            novalidate data-parsley-validate data-parsley-errors-messages-disabled
+                                            enctype="multipart/form-data">
+                                                @csrf
+                                                @php $today = date('Y-m-d'); @endphp
+
+                                                <input type="hidden" name="vehicle_opt" value="vehicle">
+                                                <input type="hidden" name="type" value="car">
+
+                                            <!-- Personal Data -->
+                                            <div class="tabs-form-box">
+                                                <h6 class="title">Personal Data</h6>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="tabs-input">
+                                                            <input type="text" id="name" name="customer_name" placeholder="Full Name*" 
+                                                                required value="{{ old('customer_name') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="tabs-input">
+                                                            <input type="tel" id="phone" name="customer_phone" placeholder="Phone Number*" 
+                                                                required value="{{ old('customer_phone') }}">
+                                                            <input type="hidden" name="country_code" id="country_code" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="tabs-input">
+                                                            <input type="email" id="email" name="customer_email" placeholder="Email*" 
+                                                                required value="{{ old('customer_email') }}">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="emailThree" name="email" placeholder="Mail*" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="emailTwo" name="phone" placeholder="Phone*" required="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tabs-form-box">
-                                        <h6 class="title">Shipment Data</h6>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="freightOne" name="name" placeholder="Freight Type" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="departureOne" name="email" placeholder="City of Departure" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="deliveryOne" name="phone" placeholder="Delivery City" required="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tabs-form-box">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="incotermsOne" name="name" placeholder="Incoterms" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
+
+                                            <!-- Shipment Data -->
+                                            <div class="tabs-form-box">
+                                                <h6 class="title">Shipment Data</h6>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="tabs-input">
-                                                            <input type="text" id="weightOne" name="email" placeholder="Weight" required="">
+                                                            <input type="text" id="pickup-location" name="pickup_location"
+                                                                placeholder="Pickup Location*" required
+                                                                value="{{ old('pickup_location') }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="tabs-input">
-                                                            <input type="text" id="heightOne" name="email" placeholder="Height" required="">
+                                                            <input type="text" id="delivery-location" name="delivery_location"
+                                                                placeholder="Delivery Location*" required
+                                                                value="{{ old('delivery_location') }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-6">
+                                                        <div class="tabs-input">
+                                                            <input type="date" name="pickup_date" required min="{{ $today }}"
+                                                                value="{{ old('pickup_date') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="tabs-input">
+                                                            <input type="date" name="delivery_date" required min="{{ $today }}"
+                                                                value="{{ old('delivery_date') }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+
+                                            <!-- Vehicle Info -->
+                                            <div class="tabs-form-box">
+                                                <h6 class="title">AtV-UTV Information</h6>
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="tabs-input">
-                                                            <input type="text" id="width" name="email" placeholder="Width" required="">
+                                                            <input type="text" name="vehicles[0][year]" placeholder="Year*" required
+                                                                value="{{ old('vehicles.0.year') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="tabs-input">
+                                                            <input type="text" name="vehicles[0][make]" placeholder="Make*" required
+                                                                value="{{ old('vehicles.0.make') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="tabs-input">
+                                                            <input type="text" name="vehicles[0][model]" placeholder="Model*" required
+                                                                value="{{ old('vehicles.0.model') }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-2">
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" name="vehicles[0][trailer_type]">
+                                                            <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                                                            <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" name="vehicles[0][condition]">
+                                                            <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                                                            <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Vehicle Images -->
+                                                <div class="mt-2">
+                                                    <input class="form-control image_input" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                                                    <div class="image-preview-container" id="imagePreviewContainer"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Additional Info -->
+                                            <div class="tabs-form-box">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-6">
+                                                        <label>
+                                                            <input type="checkbox" name="modified" value="1" {{ old('modified') ? 'checked' : '' }}> Modified?
+                                                        </label>
+                                                        <div class="mt-2" style="display: {{ old('modified') ? 'block' : 'none' }}">
+                                                            <input class="form-control" type="text" name="modified_info"
+                                                                placeholder="Modification Information"
+                                                                value="{{ old('modified_info') }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="tabs-input">
-                                                            <input type="text" id="lengthOne" name="email" placeholder="length" required="">
+                                                        <label>
+                                                            <input type="checkbox" name="available_at_auction" value="1" {{ old('available_at_auction') ? 'checked' : '' }}> Available at Auction?
+                                                        </label>
+                                                        <div class="mt-2" style="display: {{ old('available_at_auction') ? 'block' : 'none' }}">
+                                                            <input class="form-control" type="url" name="available_link"
+                                                                placeholder="Auction Link" value="{{ old('available_link') }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- Submit -->
+                                            <div class="tj-theme-button text-center mt-3">
+                                                <button class="tj-primary-btn tabs-button" type="submit">
+                                                    Request For A Quote <i class="flaticon-right-1"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="tabs-image">
+                                            <img src="web-assets/images/about/benefits.webp" alt="Image">
                                         </div>
-                                    </div>
-                                    <div class="tj-quiz-list">
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Fragile
-                                        </label>
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Express Delivery
-                                        </label>
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Insurance
-                                        </label>
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Packaging
-                                        </label>
-                                    </div>
-                                    <div class="tj-theme-button">
-                                        <button class="tj-primary-btn tabs-button" type="submit" value="submit">
-                                            Request For A Quote <i class="flaticon-right-1"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="tabs-image">
-                                        <img src="assets/images/project/tabs-1.jpg" alt="Image">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="tabs-form-box">
-                                        <h6 class="title">Personal Data</h6>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="name" name="name" placeholder="Name*" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="emailFour" name="email" placeholder="Mail*" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="email" name="phone" placeholder="Phone*" required="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tabs-form-box">
-                                        <h6 class="title">Shipment Data</h6>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="freight" name="name" placeholder="Freight Type" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="departure" name="email" placeholder="City of Departure" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="delivery" name="phone" placeholder="Delivery City" required="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tabs-form-box">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="tabs-input">
-                                                    <input type="text" id="incoterms" name="name" placeholder="Incoterms" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="tabs-input">
-                                                            <input type="text" id="weight" name="email" placeholder="Weight" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="tabs-input">
-                                                            <input type="text" id="height" name="email" placeholder="Height" required="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="tabs-input">
-                                                            <input type="text" id="widthOne" name="email" placeholder="Width" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="tabs-input">
-                                                            <input type="text" id="length" name="email" placeholder="length" required="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tj-quiz-list">
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Fragile
-                                        </label>
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Express Delivery
-                                        </label>
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Insurance
-                                        </label>
-                                        <label class="quiz-check">
-                                            <input type="radio" name="radio">
-                                            <span class="checkmark"></span>
-                                            Packaging
-                                        </label>
-                                    </div>
-                                    <div class="tj-theme-button">
-                                        <button class="tj-primary-btn tabs-button" type="submit" value="submit">
-                                            Request For A Quote <i class="flaticon-right-1"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="tabs-image">
-                                        <img src="assets/images/project/tabs-2.png" alt="Image">
                                     </div>
                                 </div>
                             </div>
@@ -273,6 +225,23 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <section class="tj-video-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tj-video-area text-center">
+                        <div class="tj-video-popup">
+                            <div class="circle pulse video-icon">
+                                <a class="venobox popup-videos-button" data-autoplay="true" data-vbtype="video" href="https://www.youtube.com/watch?v=ADmQTw4qqTY">
+                                    <i class="fa-solid fa-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="video-title">Offers Excellentcom Bination of Location &amp; Quality</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
