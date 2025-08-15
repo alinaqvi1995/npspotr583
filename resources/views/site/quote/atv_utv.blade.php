@@ -12,9 +12,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-content">
-                    <h1 class="breadcrumb-title text-center">Vehicle - AtV-UTV</h1>
+                    <h1 class="breadcrumb-title text-center">Vehicle - ATV-UTV</h1>
                     <div class="breadcrumb-link">
-                        <span><a href="#"><span>Home</span></a></span> > <span><span> Vehicle - AtV-UTV</span></span>
+                        <span><a href="#"><span>Home</span></a></span> > <span><span> Vehicle - ATV-UTV</span></span>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
 
                                             <!-- Vehicle Info -->
                                             <div class="tabs-form-box">
-                                                <h6 class="title">AtV-UTV Information</h6>
+                                                <h6 class="title">ATV-UTV Information</h6>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="tabs-input">
