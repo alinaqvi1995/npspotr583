@@ -67,14 +67,15 @@
                                 </td>
                                 <td>
                                     @php
-                                        $statusClass = match($quote->status ?? 'Pending') {
+                                        $statusClass = match($quote->status ?? 'New') {
                                             'Completed' => 'bg-success bg-opacity-10 text-success',
                                             'Pending' => 'bg-warning bg-opacity-10 text-warning',
                                             'Canceled' => 'bg-danger bg-opacity-10 text-danger',
+                                            'New' => 'bg-info bg-opacity-10 text-info',
                                             default => 'bg-secondary bg-opacity-10 text-secondary',
                                         };
                                     @endphp
-                                    <p class="dash-lable mb-0 {{ $statusClass }}">{{ $quote->status ?? 'Pending' }}</p>
+                                    <p class="dash-lable mb-0 {{ $statusClass }}">{{ $quote->status ?? 'New' }}</p>
                                 </td>
                             </tr>
                         @empty
@@ -84,6 +85,11 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-3">
+                {{ $quotes->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
