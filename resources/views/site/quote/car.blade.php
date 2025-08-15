@@ -211,7 +211,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="tabs-image">
-                                            <img src="assets/images/project/tabs-1.jpg" alt="Image">
+                                            <img src="web-assets/images/about/benefits.webp" alt="Image">
                                         </div>
                                     </div>
                                 </div>
