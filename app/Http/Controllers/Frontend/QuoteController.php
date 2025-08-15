@@ -74,90 +74,94 @@ class QuoteController extends Controller
     {
         return view('site.quote.rv_transport');
     }
-
     public function submitQuote(Request $request)
     {
-        // Validate only the required fields. Everything else is optional.
-        $request->validate([
-            'category_id' => 'nullable|exists:categories,id',
-            'subcategory_id' => 'nullable|exists:subcategories,id',
-            'vehicle_type' => 'nullable|string|max:255',
-            'pickup_location' => 'nullable|string|max:255',
-            'delivery_location' => 'nullable|string|max:255',
-            'pickup_date' => 'nullable|date',
-            'delivery_date' => 'nullable|date|after_or_equal:pickup_date',
-            'customer_name' => 'nullable|string|max:255',
-            'customer_email' => 'nullable|email|max:255',
-            'customer_phone' => 'nullable|string|max:50',
-            'additional_info' => 'nullable|string',
+        try {
+            // Validate request
+            $request->validate([
+                'category_id' => 'nullable|exists:categories,id',
+                'subcategory_id' => 'nullable|exists:subcategories,id',
+                'vehicle_type' => 'nullable|string|max:255',
+                'pickup_location' => 'nullable|string|max:255',
+                'delivery_location' => 'nullable|string|max:255',
+                'pickup_date' => 'nullable|date|after_or_equal:' . date('Y-m-d'),
+                'delivery_date' => 'nullable|date|after_or_equal:pickup_date',
+                'customer_name' => 'nullable|string|max:255',
+                'customer_email' => 'nullable|email|max:255',
+                'customer_phone' => 'nullable|string|max:50',
+                'additional_info' => 'nullable|string',
+                'vehicles' => 'nullable|array|min:1',
+                'vehicles.*.make' => 'required_with:vehicles|string|max:255',
+                'vehicles.*.model' => 'required_with:vehicles|string|max:255',
+                'vehicles.*.year' => 'required_with:vehicles|integer',
+                'vehicles.*.color' => 'nullable|string|max:50',
+                'vehicles.*.vin' => 'nullable|string|max:50',
+                'vehicles.*.length_ft' => 'nullable|integer',
+                'vehicles.*.length_in' => 'nullable|integer',
+                'vehicles.*.width_ft' => 'nullable|integer',
+                'vehicles.*.width_in' => 'nullable|integer',
+                'vehicles.*.height_ft' => 'nullable|integer',
+                'vehicles.*.height_in' => 'nullable|integer',
+                'vehicles.*.weight' => 'nullable|numeric',
+                'vehicles.*.condition' => 'nullable|in:Running,Non-Running',
+                'vehicles.*.modified' => 'nullable|boolean',
+                'vehicles.*.modified_info' => 'nullable|string',
+                'vehicles.*.available_at_auction' => 'nullable|boolean',
+                'vehicles.*.available_link' => 'nullable|string|max:255',
+                'vehicles.*.trailer_type' => 'nullable|string|max:100',
+                'vehicles.*.load_method' => 'nullable|string|max:100',
+                'vehicles.*.unload_method' => 'nullable|string|max:100',
+                'vehicles.*.type' => 'nullable|in:car,heavy',
+                'vehicles.*.images' => 'nullable|array',
+                'vehicles.*.images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            ]);
 
-            // Vehicles array
-            'vehicles' => 'nullable|array|min:1',
-            'vehicles.*.make' => 'required_with:vehicles|string|max:255',
-            'vehicles.*.model' => 'required_with:vehicles|string|max:255',
-            'vehicles.*.year' => 'required_with:vehicles|integer',
-            'vehicles.*.color' => 'nullable|string|max:50',
-            'vehicles.*.vin' => 'nullable|string|max:50',
-            'vehicles.*.length_ft' => 'nullable|integer',
-            'vehicles.*.length_in' => 'nullable|integer',
-            'vehicles.*.width_ft' => 'nullable|integer',
-            'vehicles.*.width_in' => 'nullable|integer',
-            'vehicles.*.height_ft' => 'nullable|integer',
-            'vehicles.*.height_in' => 'nullable|integer',
-            'vehicles.*.weight' => 'nullable|numeric',
-            'vehicles.*.condition' => 'nullable|in:Running,Non-Running',
-            'vehicles.*.modified' => 'nullable|boolean',
-            'vehicles.*.modified_info' => 'nullable|string',
-            'vehicles.*.available_at_auction' => 'nullable|boolean',
-            'vehicles.*.available_link' => 'nullable|string|max:255',
-            'vehicles.*.trailer_type' => 'nullable|string|max:100',
-            'vehicles.*.load_method' => 'nullable|string|max:100',
-            'vehicles.*.unload_method' => 'nullable|string|max:100',
-            'vehicles.*.type' => 'nullable|in:car,heavy',
+            // Create the quote
+            $quote = Quote::create($request->only([
+                'category_id',
+                'subcategory_id',
+                'vehicle_type',
+                'pickup_location',
+                'delivery_location',
+                'pickup_date',
+                'delivery_date',
+                'customer_name',
+                'customer_email',
+                'customer_phone',
+                'additional_info'
+            ]));
 
-            // Vehicle images are fully optional
-            'vehicles.*.images' => 'nullable|array',
-            'vehicles.*.images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
-        ]);
+            // Handle vehicles and their images
+            if ($request->filled('vehicles')) {
+                foreach ($request->vehicles as $index => $vehicleData) {
+                    $vehicleData['quote_id'] = $quote->id;
+                    $vehicle = Vehicle::create($vehicleData);
 
-        // Create the quote
-        $quote = Quote::create($request->only([
-            'category_id',
-            'subcategory_id',
-            'vehicle_type',
-            'pickup_location',
-            'delivery_location',
-            'pickup_date',
-            'delivery_date',
-            'customer_name',
-            'customer_email',
-            'customer_phone',
-            'additional_info',
-        ]));
-
-        // Handle vehicles
-        if ($request->has('vehicles')) {
-            foreach ($request->vehicles as $vehicleData) {
-                $images = $vehicleData['images'] ?? [];
-                unset($vehicleData['images']); // remove images from vehicleData
-
-                $vehicleData['quote_id'] = $quote->id;
-                $vehicle = Vehicle::create($vehicleData);
-
-                // Save images if provided
-                foreach ($images as $image) {
-                    $filename = time() . '_' . $image->getClientOriginalName();
-                    $image->move(public_path('quote/vehicle_images'), $filename);
-
-                    VehicleImage::create([
-                        'quote_id'   => $quote->id,
-                        'vehicle_id' => $vehicle->id,
-                        'image_path' => 'quote/vehicle_images/' . $filename,
-                    ]);
+                    $vehicleImages = $request->file("images.$index");
+                    if ($vehicleImages) {
+                        foreach ($vehicleImages as $image) {
+                            $filename = time() . '_' . $image->getClientOriginalName();
+                            $image->move(public_path('quote/vehicle_images'), $filename);
+                            VehicleImage::create([
+                                'quote_id' => $quote->id,
+                                'vehicle_id' => $vehicle->id,
+                                'image_path' => 'quote/vehicle_images/' . $filename,
+                            ]);
+                        }
+                    }
                 }
             }
-        }
 
-        return redirect()->back()->with('success', 'Quote submitted successfully!');
+            return redirect()->back()->with('success', 'Quote submitted successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Validation failed.')
+                ->with('validation_errors', $e->errors());
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
     }
 }
