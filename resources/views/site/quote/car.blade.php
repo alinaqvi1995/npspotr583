@@ -17,7 +17,131 @@
             </div>
         </div>
     </section>
-
+    <section class="tj-tabs-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-box">
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        </ul>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="tabs-form-box">
+                                    <h6 class="title">Personal Data</h6>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="tabs-input">
+                                                <input type="text" id="nameOne" name="name" placeholder="Name*" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="tabs-input">
+                                                <input type="text" id="emailThree" name="email" placeholder="Mail*" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="tabs-input">
+                                                <input type="text" id="emailTwo" name="phone" placeholder="Phone*" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tabs-form-box">
+                                    <h6 class="title">Shipment Data</h6>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="tabs-input">
+                                                <input type="text" id="freightOne" name="name" placeholder="Freight Type" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="tabs-input">
+                                                <input type="text" id="departureOne" name="email" placeholder="City of Departure" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="tabs-input">
+                                                <input type="text" id="deliveryOne" name="phone" placeholder="Delivery City" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tabs-form-box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="tabs-input">
+                                                <input type="text" id="incotermsOne" name="name" placeholder="Incoterms" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="tabs-input">
+                                                        <input type="text" id="weightOne" name="email" placeholder="Weight" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="tabs-input">
+                                                        <input type="text" id="heightOne" name="email" placeholder="Height" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="tabs-input">
+                                                        <input type="text" id="width" name="email" placeholder="Width" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="tabs-input">
+                                                        <input type="text" id="lengthOne" name="email" placeholder="length" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tj-quiz-list">
+                                    <label class="quiz-check">
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                        Fragile
+                                    </label>
+                                    <label class="quiz-check">
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                        Express Delivery
+                                    </label>
+                                    <label class="quiz-check">
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                        Insurance
+                                    </label>
+                                    <label class="quiz-check">
+                                        <input type="radio" name="radio">
+                                        <span class="checkmark"></span>
+                                        Packaging
+                                    </label>
+                                </div>
+                                <div class="tj-theme-button">
+                                    <button class="tj-primary-btn tabs-button" type="submit" value="submit">
+                                        Request For A Quote <i class="flaticon-right-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="tabs-image">
+                                    <img src="assets/images/project/tabs-1.jpg" alt="Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="tj-choose-us-section">
         <div class="container-flude">
             <div class="row">
