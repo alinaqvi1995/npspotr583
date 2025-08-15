@@ -17,7 +17,12 @@ class Quote extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
-        'additional_info'
+        'additional_info', 
+        'status'
+    ];
+
+    protected $attributes = [
+        'status' => 'New',
     ];
 
      public function category()

@@ -116,22 +116,23 @@ class QuoteController extends Controller
                 'vehicles.*.images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             ]);
 
-            // Create the quote
-            $quote = Quote::create($request->only([
-                'category_id',
-                'subcategory_id',
-                'vehicle_type',
-                'pickup_location',
-                'delivery_location',
-                'pickup_date',
-                'delivery_date',
-                'customer_name',
-                'customer_email',
-                'customer_phone',
-                'additional_info'
-            ]));
+            $quote = Quote::create(array_merge(
+                $request->only([
+                    'category_id',
+                    'subcategory_id',
+                    'vehicle_type',
+                    'pickup_location',
+                    'delivery_location',
+                    'pickup_date',
+                    'delivery_date',
+                    'customer_name',
+                    'customer_email',
+                    'customer_phone',
+                    'additional_info'
+                ]),
+                ['status' => 'New']
+            ));
 
-            // Handle vehicles and their images
             if ($request->filled('vehicles')) {
                 foreach ($request->vehicles as $index => $vehicleData) {
                     $vehicleData['quote_id'] = $quote->id;
