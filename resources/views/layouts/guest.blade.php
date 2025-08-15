@@ -79,6 +79,6 @@
         <script src="web-assets/js/jquery.nice-select.min.js"></script>
         <!-- Main JS -->
         <script src="web-assets/js/main.js"></script>
-
+<script src="web-assets/js/extra.js"></script>
     </body>
 </html>
