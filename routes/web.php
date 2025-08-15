@@ -20,7 +20,7 @@ Route::view('/contact', 'site.contact')->name('contact');
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/car', [ServiceController::class, 'carservice'])->name('services.car-shipping');
 Route::get('/services/motorcycle', [ServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
-Route::get('/services/car', [ServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
+Route::get('/services/heavy', [ServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
 
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');
