@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Activity;
 
 class PermissionController extends Controller
 {
@@ -38,20 +39,24 @@ class PermissionController extends Controller
 
         $permission = Permission::create($request->only(['name', 'slug']));
 
-        activity('permission')
-            ->causedBy(Auth::user())
-            ->performedOn($permission)
-            ->withProperties([
-                'new_values' => $permission->getAttributes(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+        Activity::create([
+            'log_name'     => 'permission',
+            'description'  => 'Permission created',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => Permission::class,
+            'subject_id'   => $permission->id,
+            'properties'   => [
+                'new_values'  => $permission->getAttributes(),
+                'ip_address'  => $request->ip(),
+                'user_agent'  => $request->userAgent(),
+                'location'    => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Permission created');
+            ],
+        ]);
 
         return redirect()->route('permissions.index')->with('success', 'Permission created successfully.');
     }
@@ -64,24 +69,27 @@ class PermissionController extends Controller
         ]);
 
         $original = $permission->getOriginal();
-
         $permission->update($request->only(['name', 'slug']));
 
-        activity('permission')
-            ->causedBy(Auth::user())
-            ->performedOn($permission)
-            ->withProperties([
-                'old_values' => $original,
-                'new_values' => $permission->getAttributes(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+        Activity::create([
+            'log_name'     => 'permission',
+            'description'  => 'Permission updated',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => Permission::class,
+            'subject_id'   => $permission->id,
+            'properties'   => [
+                'old_values'  => $original,
+                'new_values'  => $permission->getAttributes(),
+                'ip_address'  => $request->ip(),
+                'user_agent'  => $request->userAgent(),
+                'location'    => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Permission updated');
+            ],
+        ]);
 
         return redirect()->route('permissions.index')->with('success', 'Permission updated successfully.');
     }
@@ -89,24 +97,27 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $attributes = $permission->getAttributes();
-
         $permission->roles()->detach();
         $permission->delete();
 
-        activity('permission')
-            ->causedBy(Auth::user())
-            ->performedOn($permission)
-            ->withProperties([
-                'old_values' => $attributes,
-                'ip_address' => request()->ip(),
-                'user_agent' => request()->userAgent(),
-                'location' => [
-                    'city' => request()->header('X-Geo-City'),
+        Activity::create([
+            'log_name'     => 'permission',
+            'description'  => 'Permission deleted',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => Permission::class,
+            'subject_id'   => $permission->id,
+            'properties'   => [
+                'old_values'  => $attributes,
+                'ip_address'  => request()->ip(),
+                'user_agent'  => request()->userAgent(),
+                'location'    => [
+                    'city'   => request()->header('X-Geo-City'),
                     'region' => request()->header('X-Geo-Region'),
-                    'country' => request()->header('X-Geo-Country'),
+                    'country'=> request()->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Permission deleted');
+            ],
+        ]);
 
         return redirect()->route('permissions.index')->with('success', 'Permission deleted successfully.');
     }

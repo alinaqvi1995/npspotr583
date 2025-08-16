@@ -9,20 +9,17 @@ use App\Models\Role;
 use App\Models\PanelType;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Hash;
-use App\Services\ActivityLogService;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Activity;
 
 class UserManagementController extends Controller
 {
-    protected $activityLog;
-
-    public function __construct(ActivityLogService $activityLog)
+    public function __construct()
     {
-        $this->activityLog = $activityLog;
-
         $permissions = [
             'allUsers'   => 'view-users',
-            'userUpdate'  => 'edit-users',
-            'userDestroy' => 'delete-users',
+            'userUpdate' => 'edit-users',
+            'userDestroy'=> 'delete-users',
         ];
 
         foreach ($permissions as $method => $permission) {
@@ -77,19 +74,29 @@ class UserManagementController extends Controller
         $user->panelTypes()->sync($request->panel_types ?? []);
         $user->directPermissions()->sync($request->permissions ?? []);
 
-        // Log detailed activity
-        $this->activityLog->log(
-            'user',
-            'User updated',
-            $user,
-            $original,
-            $user->getAttributes(),
-            [
-                'roles' => $request->roles ?? [],
+        // Log detailed activity using Auth
+        Activity::create([
+            'log_name'     => 'user',
+            'description'  => 'User updated',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => User::class,
+            'subject_id'   => $user->id,
+            'properties'   => [
+                'old_values'  => $original,
+                'new_values'  => $user->getAttributes(),
+                'roles'       => $request->roles ?? [],
                 'permissions' => $request->permissions ?? [],
-                'panel_types' => $request->panel_types ?? []
-            ]
-        );
+                'panel_types' => $request->panel_types ?? [],
+                'ip_address'  => $request->ip(),
+                'user_agent'  => $request->userAgent(),
+                'location'    => [
+                    'city'   => $request->header('X-Geo-City'),
+                    'region' => $request->header('X-Geo-Region'),
+                    'country'=> $request->header('X-Geo-Country'),
+                ],
+            ],
+        ]);
 
         return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
     }
@@ -98,19 +105,27 @@ class UserManagementController extends Controller
     {
         $user = User::findOrFail($id);
 
-        // Log before delete
-        $this->activityLog->log(
-            'user',
-            'User deleted',
-            $user,
-            $user->getOriginal(),
-            [],
-            [
-                'roles' => $user->roles()->pluck('id')->toArray(),
+        Activity::create([
+            'log_name'     => 'user',
+            'description'  => 'User deleted',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => User::class,
+            'subject_id'   => $user->id,
+            'properties'   => [
+                'old_values'  => $user->getOriginal(),
+                'roles'       => $user->roles()->pluck('id')->toArray(),
                 'permissions' => $user->directPermissions()->pluck('id')->toArray(),
-                'panel_types' => $user->panelTypes()->pluck('id')->toArray()
-            ]
-        );
+                'panel_types' => $user->panelTypes()->pluck('id')->toArray(),
+                'ip_address'  => request()->ip(),
+                'user_agent'  => request()->userAgent(),
+                'location'    => [
+                    'city'   => request()->header('X-Geo-City'),
+                    'region' => request()->header('X-Geo-Region'),
+                    'country'=> request()->header('X-Geo-Country'),
+                ],
+            ],
+        ]);
 
         $user->delete();
 

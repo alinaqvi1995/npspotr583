@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 
 class SubcategoryController extends Controller
@@ -45,20 +46,24 @@ class SubcategoryController extends Controller
             'status'
         ]));
 
-        activity('subcategory')
-            ->causedBy(Auth::user())
-            ->performedOn($subcategory)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'subcategory',
+            'description'  => 'Subcategory created',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => Subcategory::class,
+            'subject_id'   => $subcategory->id,
+            'properties'   => [
                 'new_values' => $subcategory->getAttributes(),
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Subcategory created');
+            ],
+        ]);
 
         return redirect()->route('subcategories.index')->with('success', 'Subcategory created successfully.');
     }
@@ -81,21 +86,25 @@ class SubcategoryController extends Controller
             'status'
         ]));
 
-        activity('subcategory')
-            ->causedBy(Auth::user())
-            ->performedOn($subcategory)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'subcategory',
+            'description'  => 'Subcategory updated',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => Subcategory::class,
+            'subject_id'   => $subcategory->id,
+            'properties'   => [
                 'old_values' => $original,
                 'new_values' => $subcategory->getAttributes(),
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Subcategory updated');
+            ],
+        ]);
 
         return redirect()->route('subcategories.index')->with('success', 'Subcategory updated successfully.');
     }
@@ -105,20 +114,24 @@ class SubcategoryController extends Controller
         $attributes = $subcategory->getAttributes();
         $subcategory->delete();
 
-        activity('subcategory')
-            ->causedBy(Auth::user())
-            ->performedOn($subcategory)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'subcategory',
+            'description'  => 'Subcategory deleted',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => Subcategory::class,
+            'subject_id'   => $subcategory->id,
+            'properties'   => [
                 'old_values' => $attributes,
                 'ip_address' => request()->ip(),
                 'user_agent' => request()->userAgent(),
-                'location' => [
-                    'city' => request()->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => request()->header('X-Geo-City'),
                     'region' => request()->header('X-Geo-Region'),
-                    'country' => request()->header('X-Geo-Country'),
+                    'country'=> request()->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Subcategory deleted');
+            ],
+        ]);
 
         return redirect()->route('subcategories.index')->with('success', 'Subcategory deleted successfully.');
     }

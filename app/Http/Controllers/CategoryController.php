@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
@@ -38,20 +39,24 @@ class CategoryController extends Controller
 
         $category = Category::create($request->only(['name', 'description', 'status']));
 
-        activity('category')
-            ->causedBy(Auth::user())
-            ->performedOn($category)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'category',
+            'description'  => 'Category created',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => $category::class,
+            'subject_id'   => $category->id,
+            'properties'   => [
                 'new_values' => $category->getAttributes(),
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Category created');
+            ],
+        ]);
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
@@ -68,21 +73,25 @@ class CategoryController extends Controller
 
         $category->update($request->only(['name', 'description', 'status']));
 
-        activity('category')
-            ->causedBy(Auth::user())
-            ->performedOn($category)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'category',
+            'description'  => 'Category updated',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => $category::class,
+            'subject_id'   => $category->id,
+            'properties'   => [
                 'old_values' => $original,
                 'new_values' => $category->getAttributes(),
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Category updated');
+            ],
+        ]);
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
@@ -93,20 +102,24 @@ class CategoryController extends Controller
         $category->subcategories()->delete();
         $category->delete();
 
-        activity('category')
-            ->causedBy(Auth::user())
-            ->performedOn($category)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'category',
+            'description'  => 'Category deleted',
+            'causer_type'  => Auth::user()::class,
+            'causer_id'    => Auth::id(),
+            'subject_type' => $category::class,
+            'subject_id'   => $category->id,
+            'properties'   => [
                 'old_values' => $attributes,
                 'ip_address' => request()->ip(),
                 'user_agent' => request()->userAgent(),
-                'location' => [
-                    'city' => request()->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => request()->header('X-Geo-City'),
                     'region' => request()->header('X-Geo-Region'),
-                    'country' => request()->header('X-Geo-Country'),
+                    'country'=> request()->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Category deleted');
+            ],
+        ]);
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }

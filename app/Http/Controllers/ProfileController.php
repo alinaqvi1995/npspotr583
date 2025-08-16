@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Activity;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ class ProfileController extends Controller
             $this->middleware("permission:{$permission}")->only($method);
         }
     }
+
     /**
      * Display the user's profile form.
      */
@@ -48,21 +50,25 @@ class ProfileController extends Controller
 
         $user->save();
 
-        activity('profile')
-            ->causedBy($user)
-            ->performedOn($user)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'profile',
+            'description'  => 'Profile updated',
+            'causer_type'  => $user::class,
+            'causer_id'    => $user->id,
+            'subject_type' => $user::class,
+            'subject_id'   => $user->id,
+            'properties'   => [
                 'old_values' => $original,
                 'new_values' => $user->getAttributes(),
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Profile updated');
+            ],
+        ]);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
@@ -79,20 +85,24 @@ class ProfileController extends Controller
         $user = $request->user();
         $attributes = $user->getAttributes();
 
-        activity('profile')
-            ->causedBy($user)
-            ->performedOn($user)
-            ->withProperties([
+        Activity::create([
+            'log_name'     => 'profile',
+            'description'  => 'Profile deleted',
+            'causer_type'  => $user::class,
+            'causer_id'    => $user->id,
+            'subject_type' => $user::class,
+            'subject_id'   => $user->id,
+            'properties'   => [
                 'old_values' => $attributes,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
-                'location' => [
-                    'city' => $request->header('X-Geo-City'),
+                'location'   => [
+                    'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
+                    'country'=> $request->header('X-Geo-Country'),
                 ],
-            ])
-            ->log('Profile deleted');
+            ],
+        ]);
 
         Auth::logout();
         $user->delete();
