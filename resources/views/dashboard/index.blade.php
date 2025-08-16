@@ -664,7 +664,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (\App\Models\Quote::latest()->take(10)->get() as $quote)
+                                @foreach (\App\Models\Quote::latest()->take(5)->get() as $quote)
                                     <tr>
                                         <td>
                                             <a href="{{ route('dashboard.quotes.details', $quote->id) }}"
