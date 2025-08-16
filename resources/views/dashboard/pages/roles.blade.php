@@ -16,13 +16,8 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="order-search position-relative my-3">
-                <input class="form-control rounded-5 px-5" type="text" placeholder="Search" id="searchRole">
-                <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
-            </div>
-
             <div class="table-responsive">
-                <table class="table align-middle" id="roleTable">
+                <table class="table align-middle datatable" id="roleTable">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -120,6 +115,16 @@
                 dropdownParent: $('#roleModal')
             });
 
+            // Initialize DataTable
+            var table = $('#roleTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                lengthChange: false,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+            });
+
             // Add Role
             $('#addRoleBtn').click(function() {
                 $('#roleForm').attr('action', "{{ route('roles.store') }}");
@@ -152,14 +157,6 @@
                     $('#rolePermissions').val(permissions).trigger('change');
                     $(this).removeData('permissions');
                 }
-            });
-
-            // Search filter
-            $('#searchRole').on('keyup', function() {
-                const value = $(this).val().toLowerCase();
-                $('#roleTable tbody tr').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
             });
 
         });

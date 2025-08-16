@@ -23,13 +23,27 @@
                 </div>
             </div>
 
-            <div class="order-search position-relative my-3">
-                <input class="form-control rounded-5 px-5" type="text" placeholder="Search">
-                <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <select id="columnSearchSelect" class="form-select">
+                        <option value="">Search All Columns</option>
+                        <option value="0">Name</option>
+                        <option value="1">Email</option>
+                        {{-- <option value="2">Roles</option>
+                        <option value="3">Panel Types</option>
+                        <option value="4">Created At</option>
+                        <option value="5">Updated At</option> --}}
+                    </select>
+                </div>
+                <div class="col-md-8 position-relative">
+                    <input class="form-control rounded-5 px-5" type="text" placeholder="Search" id="columnSearchInput">
+                    <span
+                        class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
+                </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table align-middle">
+                <table class="table align-middle datatable" id="usersTable">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -89,11 +103,29 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- Pagination -->
-            <div class="mt-3">
-                {{ $users->links('pagination::bootstrap-5') }}
-            </div>
         </div>
     </div>
+@endsection
+
+@section('extra_js')
+    <script>
+        $(document).ready(function() {
+            // Column-specific search
+            $('#columnSearchInput').on('keyup', function() {
+                var colIndex = $('#columnSearchSelect').val();
+                var searchTerm = this.value;
+                if (colIndex === "") {
+                    // global search
+                    table.search(searchTerm).draw();
+                } else {
+                    // search only in selected column
+                    table.column(colIndex).search(searchTerm).draw();
+                }
+            });
+
+            $('#columnSearchSelect').on('change', function() {
+                $('#columnSearchInput').trigger('keyup'); // apply search immediately
+            });
+        });
+    </script>
 @endsection

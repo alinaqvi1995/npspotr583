@@ -16,18 +16,12 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="order-search position-relative my-3">
-                <input class="form-control rounded-5 px-5" type="text" placeholder="Search" id="searchSubcategory">
-                <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
-            </div>
-
             <div class="table-responsive">
-                <table class="table align-middle" id="subcategoryTable">
+                <table class="table align-middle datatable" id="subcategoryTable">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Category</th>
-                            {{-- <th>Description</th> --}}
                             <th>Status</th>
                             <th>Created By</th>
                             <th>Modified By</th>
@@ -39,7 +33,6 @@
                             <tr>
                                 <td>{{ $subcategory->name }}</td>
                                 <td>{{ $subcategory->category_name ?? '-' }}</td>
-                                {{-- <td>{{ $subcategory->description }}</td> --}}
                                 <td>{!! $subcategory->status_label !!}</td>
                                 <td>{{ $subcategory->creator_name ?? '-' }}</td>
                                 <td>{{ $subcategory->editor_name ?? '-' }}</td>
@@ -72,7 +65,7 @@
         </div>
     </div>
 
-    <!-- Add/Edit Modal -->
+    <!-- Add/Edit Subcategory Modal -->
     <div class="modal fade" id="subcategoryModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <form id="subcategoryForm" method="POST" action="">
@@ -117,7 +110,6 @@
             </form>
         </div>
     </div>
-
 @endsection
 
 @section('extra_js')
@@ -129,39 +121,20 @@
                 $('#formMethod').val('POST');
                 $('#subcategoryModalLabel').text('Add Subcategory');
                 $('#subcategoryForm')[0].reset();
-
-                var modalEl = document.getElementById('subcategoryModal');
-                var modal = new bootstrap.Modal(modalEl);
-                modal.show();
+                new bootstrap.Modal(document.getElementById('subcategoryModal')).show();
             });
 
             // Edit Subcategory buttons
             $('.editSubcategoryBtn').click(function() {
                 const id = $(this).data('id');
-                const category_id = $(this).data('category_id');
-                const name = $(this).data('name');
-                const description = $(this).data('description');
-                const status = $(this).data('status');
-
                 $('#subcategoryForm').attr('action', '/subcategories/' + id);
                 $('#formMethod').val('PUT');
                 $('#subcategoryModalLabel').text('Edit Subcategory');
-                $('#subcategoryCategory').val(category_id);
-                $('#subcategoryName').val(name);
-                $('#subcategoryDescription').val(description);
-                $('#subcategoryStatus').val(status);
-
-                var modalEl = document.getElementById('subcategoryModal');
-                var modal = new bootstrap.Modal(modalEl);
-                modal.show();
-            });
-
-            // Search filter
-            $('#searchSubcategory').on('keyup', function() {
-                const value = $(this).val().toLowerCase();
-                $('#subcategoryTable tbody tr').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
+                $('#subcategoryCategory').val($(this).data('category_id'));
+                $('#subcategoryName').val($(this).data('name'));
+                $('#subcategoryDescription').val($(this).data('description'));
+                $('#subcategoryStatus').val($(this).data('status'));
+                new bootstrap.Modal(document.getElementById('subcategoryModal')).show();
             });
         });
     </script>

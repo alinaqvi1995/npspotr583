@@ -7,6 +7,7 @@
     <hr>
     <div class="card">
         <div class="card-body">
+
             <div class="d-flex align-items-start justify-content-between mb-3">
                 <div>
                     <h5 class="mb-0">Recent Quotes</h5>
@@ -23,13 +24,19 @@
                 </div>
             </div>
 
-            <div class="order-search position-relative my-3">
-                <input class="form-control rounded-5 px-5" type="text" placeholder="Search">
-                <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
+            <div class="d-flex mb-3">
+                <select id="columnFilter" class="form-select w-auto me-2">
+                    <option value="">All Columns</option>
+                    <option value="0">Customer</option>
+                    <option value="1">Vehicles</option>
+                    <option value="2">Pickup / Delivery</option>
+                    <option value="3">Status</option>
+                </select>
+                <input class="form-control rounded-5 px-3" type="text" placeholder="Search..." id="quoteSearch">
             </div>
 
             <div class="table-responsive">
-                <table class="table align-middle">
+                <table class="table table-bordered table-striped align-middle" id="quoteTable">
                     <thead>
                         <tr>
                             <th>Customer</th>
@@ -47,8 +54,8 @@
                                     <small>{{ $quote->customer_email }}</small><br>
                                     <small>{{ $quote->customer_phone }}</small>
                                 </td>
-
                                 <td>
+                                    <strong>Total: {{ $quote->vehicles->count() }}</strong>
                                     @foreach ($quote->vehicles as $vehicle)
                                         <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
                                         </p>
@@ -65,20 +72,13 @@
                                 </td>
                                 <td>
                                     <strong>Pickup:</strong><br>
-                                    Pickup Location:
                                     <a href="https://www.google.com/maps/search/{{ urlencode($quote->pickup_location) }}"
-                                        target="_blank">
-                                        {{ $quote->pickup_location }}
-                                    </a><br>
-                                    <span>Time: {{ $quote->pickup_date_formatted }}</span><br><br>
-
+                                        target="_blank">{{ $quote->pickup_location }}</a><br>
+                                    <span>{{ $quote->pickup_date_formatted }}</span><br>
                                     <strong>Delivery:</strong><br>
-                                    Delivery Location:
                                     <a href="https://www.google.com/maps/search/{{ urlencode($quote->delivery_location) }}"
-                                        target="_blank">
-                                        {{ $quote->delivery_location }}
-                                    </a><br>
-                                    <span>Time: {{ $quote->delivery_date_formatted }}</span>
+                                        target="_blank">{{ $quote->delivery_location }}</a><br>
+                                    <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
                                 <td>{!! $quote->status_label !!}</td>
                                 <td>
@@ -92,17 +92,45 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">No quotes found.</td>
+                                <td colspan="5" class="text-center">No quotes found.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <div class="mt-3">
-                {{ $quotes->links('pagination::bootstrap-5') }}
-            </div>
         </div>
     </div>
+@endsection
+
+@section('extra_js')
+    <script>
+        $(document).ready(function() {
+
+            // Initialize DataTable
+            var table = $('#quoteTable').DataTable({
+                pageLength: 10,
+                autoWidth: false,
+                order: [
+                    [0, 'asc']
+                ],
+                columnDefs: [{
+                        orderable: false,
+                        targets: [1, 4]
+                    } // Vehicles & Actions not sortable
+                ]
+            });
+
+            // Column-specific filter
+            $('#quoteSearch').on('keyup', function() {
+                var colIndex = $('#columnFilter').val();
+                if (colIndex === '') {
+                    table.search(this.value).draw();
+                } else {
+                    table.column(colIndex).search(this.value).draw();
+                }
+            });
+
+        });
+    </script>
 @endsection

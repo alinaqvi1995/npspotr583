@@ -12,6 +12,9 @@
     <link href="{{ asset('admin/css/pace.min.css') }}" rel="stylesheet">
     <script src="{{ asset('admin/js/pace.min.js') }}"></script>
 
+    {{-- Datatables --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
     <!--plugins-->
     <link href="{{ asset('admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/plugins/fullcalendar/css/main.min.css') }}" rel="stylesheet">
@@ -76,17 +79,37 @@
 
     <!--end main wrapper-->
 
-    <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
     {{-- <script src="{{ asset('admin/js/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('admin/plugins/metismenu/metisMenu.min.js') }}"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Bootstrap bundle -->
+    <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
 
     @yield('extra_js')
 
     <script>
+        // Initialize DataTable
+        let table = $('.datatable').DataTable({
+            "paging": true,
+            "pageLength": 10,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+
+        // modal
         $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
         $('.select2').select2({

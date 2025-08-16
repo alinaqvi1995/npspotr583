@@ -16,13 +16,8 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="order-search position-relative my-3">
-                <input class="form-control rounded-5 px-5" type="text" placeholder="Search" id="searchPermission">
-                <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
-            </div>
-
             <div class="table-responsive">
-                <table class="table align-middle" id="permissionTable">
+                <table class="table align-middle datatable" id="permissionTable">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -101,7 +96,6 @@
 @section('extra_js')
     <script>
         $(document).ready(function() {
-
             // Add Permission button
             $('#addPermissionBtn').click(function() {
                 $('#permissionForm').attr('action', "{{ route('permissions.store') }}");
@@ -125,13 +119,6 @@
                 $('#permissionModal').modal('show');
             });
 
-            // Search filter
-            $('#searchPermission').on('keyup', function() {
-                const value = $(this).val().toLowerCase();
-                $('#permissionTable tbody tr').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-            });
         });
     </script>
 @endsection
