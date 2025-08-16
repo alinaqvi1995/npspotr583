@@ -684,14 +684,21 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <strong>Pickup:</strong> <a
-                                                href="https://www.google.com/maps/search/{{ urlencode($quote->pickup_location) }}"
-                                                target="_blank">{{ $quote->pickup_location }}</a> at
-                                            {{ $quote->pickup_date_formatted }}<br>
-                                            <strong>Delivery:</strong> <a
-                                                href="https://www.google.com/maps/search/{{ urlencode($quote->delivery_location) }}"
-                                                target="_blank">{{ $quote->delivery_location }}</a> at
-                                            {{ $quote->delivery_date_formatted }}
+                                            <strong>Pickup:</strong><br>
+                                            Pickup Location:
+                                            <a href="https://www.google.com/maps/search/{{ urlencode($quote->pickup_location) }}"
+                                                target="_blank">
+                                                {{ $quote->pickup_location }}
+                                            </a><br>
+                                            <span>Time: {{ $quote->pickup_date_formatted }}</span><br><br>
+
+                                            <strong>Delivery:</strong><br>
+                                            Delivery Location:
+                                            <a href="https://www.google.com/maps/search/{{ urlencode($quote->delivery_location) }}"
+                                                target="_blank">
+                                                {{ $quote->delivery_location }}
+                                            </a><br>
+                                            <span>Time: {{ $quote->delivery_date_formatted }}</span>
                                         </td>
                                         <td>
                                             {!! $quote->status_label !!}
