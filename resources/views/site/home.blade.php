@@ -657,6 +657,40 @@
     </section>
 <!--=========== About Section End =========-->
 
+<section class="tj-cta-section-two">
+    <div class="tj_cta_image sal-animate" data-sal="slide-right" data-sal-duration="800" data-sal-delay="100"></div>
+    <div class="tj_cta_image1 sal-animate" data-sal="slide-left" data-sal-duration="800" data-sal-delay="100"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 sal-animate" data-sal="slide-right" data-sal-duration="800" data-sal-delay="100">
+                <div class="tj-cta-content">
+                    <div class="tj-section-heading">
+                        <span class="sub-title active-shape2"> Here We Are</span>
+                        <h2 class="title fs-4">Get Any Type of Quote for Your Shipping Needs</h2>
+                    </div>
+                    <div class="tj-theme-button">
+                        <a class="tj-transparent-btn" href="#">
+                            Get Quote<i class="flaticon-right-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 sal-animate" data-sal="slide-left" data-sal-duration="800" data-sal-delay="100">
+                <div class="tj-cta-content tj-cta-content2">
+                    <div class="tj-section-heading">
+                        <span class="sub-title active-shape2"> Support Center 24/7 </span>
+                        <h2 class="title fs-4">Feel Free To Contact Us For Additional Info</h2>
+                    </div>
+                    <div class="tj-theme-button">
+                        <a class="tj-transparent-btn" href="#">
+                            Get Support<i class="flaticon-right-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!--========== FAQ Section Start ==============-->
     <section class="tj-faq-section">
