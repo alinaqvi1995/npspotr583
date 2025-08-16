@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Activity extends Model
 {
+    protected $table = 'activity_log';
+    
     /**
      * Casts for JSON / datetime columns.
      */
