@@ -42,13 +42,15 @@
                                 <td>{{ $subcategory->creator?->name ?? '-' }}</td>
                                 <td>{{ $subcategory->editor?->name ?? '-' }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-info editSubcategoryBtn" data-id="{{ $subcategory->id }}"
-                                        data-category_id="{{ $subcategory->category_id }}"
-                                        data-name="{{ $subcategory->name }}"
-                                        data-description="{{ $subcategory->description }}"
-                                        data-status="{{ $subcategory->status }}">
-                                        <i class="material-icons-outlined">edit</i>
-                                    </button>
+                                    {{-- @can('edit-subcategories') --}}
+                                        <button class="btn btn-sm btn-info editSubcategoryBtn" data-id="{{ $subcategory->id }}"
+                                            data-category_id="{{ $subcategory->category_id }}"
+                                            data-name="{{ $subcategory->name }}"
+                                            data-description="{{ $subcategory->description }}"
+                                            data-status="{{ $subcategory->status }}">
+                                            <i class="material-icons-outlined">edit</i>
+                                        </button>
+                                    {{-- @endcan --}}
 
                                     <form action="{{ route('subcategories.destroy', $subcategory->id) }}" method="POST"
                                         class="d-inline">
