@@ -657,11 +657,11 @@
                             <thead>
                                 <tr>
                                     <th>Quote #</th>
-                                    <th>Amount</th>
                                     <th>Customer</th>
                                     <th>Vehicles</th>
+                                    <th>Pickup/ Delivery Location</th>
+                                    <th>Pickup / Delivery Time</th>
                                     <th>Status</th>
-                                    <th>Created At</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -673,21 +673,28 @@
                                                 #{{ $quote->id }}
                                             </a>
                                         </td>
-                                        <td>${{ number_format($quote->amount ?? 0, 2) }}</td>
-                                        <td>{{ $quote->customer_name ?? 'N/A' }}</td>
                                         <td>
-                                            @if ($quote->vehicles->count())
-                                                <ul class="mb-0 ps-3">
-                                                    @foreach ($quote->vehicles as $vehicle)
-                                                        <li>{{ $vehicle->name ?? ($vehicle->type ?? 'N/A') }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                -
-                                            @endif
+                                            {{ $quote->customer_name }}<br>
+                                            <small>{{ $quote->customer_email }}</small><br>
+                                            <small>{{ $quote->customer_phone }}</small>
                                         </td>
-                                        <td>{!! $quote->status_label !!}</td>
-                                        <td>{{ $quote->created_at_formatted }}</td>
+                                        <td>
+                                            @foreach ($quote->vehicles as $vehicle)
+                                                <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }}
+                                                    {{ $vehicle->model }}</p>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            Pickup: {{ $quote->pickup_location }}<br>
+                                            Delivery: {{ $quote->delivery_location }}
+                                        </td>
+                                        <td>
+                                            Pickup: {{ $quote->pickup_date_formatted }}<br>
+                                            Delivery: {{ $quote->delivery_date_formatted }}
+                                        </td>
+                                        <td>
+                                            {!! $quote->status_label !!}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

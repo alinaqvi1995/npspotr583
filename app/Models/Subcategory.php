@@ -85,11 +85,11 @@ class Subcategory extends Model
 
     public function getCreatedAtFormattedAttribute()
     {
-        return $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '-';
+        return $this->created_at ? $this->created_at->format('M d, Y h:ia') : '-';
     }
 
     public function getUpdatedAtFormattedAttribute()
     {
-        return $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : '-';
+        return $this->updated_at ? $this->updated_at->format('M d, Y h:ia') : '-';
     }
 }
