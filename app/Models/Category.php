@@ -78,12 +78,12 @@ class Category extends Model
         }
     }
 
-    public function getCreatedByFormattedAttribute()
+    public function getCreatorNameAttribute()
     {
         return $this->creator ? $this->creator->name : 'System';
     }
 
-    public function getModifiedByFormattedAttribute()
+    public function getEditorNameAttribute()
     {
         return $this->editor ? $this->editor->name : 'System';
     }

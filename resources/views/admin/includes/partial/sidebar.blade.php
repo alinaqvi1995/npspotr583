@@ -13,172 +13,113 @@
     </div>
 
     <div class="sidebar-nav">
-        <ul class="metismenu" id="sidenav">
+        <ul class="metismenu" id="menu">
 
             <!-- Dashboard -->
             <li>
-                <a href="{{ route('dashboard') }}" class="">
-                    <div class="parent-icon"><i class="material-icons-outlined">home</i></div>
+                <a href="{{ route('dashboard') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">dashboard</i></div>
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
-            <li class="menu-label">Elements</li>
+
+            <!-- Categories -->
+            <li class="menu-label">Categories</li>
             <li>
                 <a href="{{ route('categories.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">view_list</i></div>
-                    <div class="menu-title">Categories</div>
+                    <div class="parent-icon"><i class="material-icons-outlined">category</i></div>
+                    <div class="menu-title">
+                        Categories
+                        <span class="badge bg-primary float-end">{{ $categoriesCount ?? 0 }}</span>
+                    </div>
                 </a>
             </li>
             <li>
                 <a href="{{ route('subcategories.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">view_list</i></div>
-                    <div class="menu-title">Subcategories</div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('services.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">build_circle</i></div>
-                    <div class="menu-title">Services</div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('blog.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">article</i></div>
-                    <div class="menu-title">Blogs</div>
+                    <div class="parent-icon"><i class="material-icons-outlined">subtitles</i></div>
+                    <div class="menu-title">
+                        Subcategories
+                        <span class="badge bg-primary float-end">{{ $subcategoriesCount ?? 0 }}</span>
+                    </div>
                 </a>
             </li>
 
-            <!-- Quotes Management -->
+            <!-- Quotes -->
             <li class="menu-label">Quotes</li>
             <li>
                 <a href="{{ route('admin.quotes.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">request_quote</i></div>
-                    <div class="menu-title">All Quotes</div>
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    <div class="parent-icon"><i class="material-icons-outlined">fiber_new</i></div>
-                    <div class="menu-title">New Quotes</div>
-                </a>
-            </li>
-            <li>
-                <a href="}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">autorenew</i></div>
-                    <div class="menu-title">In Progress</div>
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    <div class="parent-icon"><i class="material-icons-outlined">check_circle</i></div>
-                    <div class="menu-title">Completed</div>
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    <div class="parent-icon"><i class="material-icons-outlined">cancel</i></div>
-                    <div class="menu-title">Cancelled</div>
+                    <div class="menu-title">
+                        All Quotes
+                        <span class="badge bg-primary float-end">{{ $quotesCount ?? 0 }}</span>
+                    </div>
                 </a>
             </li>
 
-            <!-- Site Settings -->
-            <li class="menu-label">Site Settings</li>
+            <!-- Quote Statuses Dropdown -->
             <li>
-                <a href="">
-                    <div class="parent-icon"><i class="material-icons-outlined">settings</i></div>
-                    <div class="menu-title">General Settings</div>
+                <a class="has-arrow" href="javascript:void(0);">
+                    <div class="parent-icon"><i class="material-icons-outlined">timeline</i></div>
+                    <div class="menu-title">Quote Statuses</div>
                 </a>
+                <ul>
+                    @php
+                        $statuses = [
+                            'New' => 'fiber_new',
+                            'In Progress' => 'hourglass_top',
+                            'Completed' => 'check_circle',
+                            'Cancelled' => 'cancel',
+                            'Asking Low' => 'trending_down',
+                            'Interested' => 'thumb_up',
+                            'Follow Up' => 'schedule',
+                            'Not Interested' => 'thumb_down',
+                            'No Response' => 'phone_missed',
+                            'Booked' => 'event_available',
+                            'Payment Missing' => 'payment',
+                            'Listed' => 'list',
+                            'Dispatch' => 'local_shipping',
+                            'Pickup' => 'shopping_bag',
+                            'Delivery' => 'done_all',
+                            'Deleted' => 'delete',
+                        ];
+                    @endphp
+
+                    @foreach ($statuses as $status => $icon)
+                        <li>
+                            <a href="{{ route('admin.quotes.index', ['status' => Str::slug($status)]) }}">
+                                <i class="material-icons-outlined">{{ $icon }}</i>
+                                {{ $status }}
+                                <span class="badge bg-secondary float-end">
+                                    {{ $quoteStatusCounts[$status] ?? 0 }}
+                                </span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
             </li>
+
+            <!-- Users -->
+            <li class="menu-label">Users & Roles</li>
             <li>
                 <a href="{{ route('admin.users.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">people</i></div>
-                    <div class="menu-title">User Management</div>
+                    <div class="menu-title">Users
+                        <span class="badge bg-primary float-end">{{ $usersCount ?? 0 }}</span>
+                    </div>
+                </a>
+            </li>
+            {{-- <li>
+                <a href="{{ route('roles.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">admin_panel_settings</i></div>
+                    <div class="menu-title">Roles</div>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Asking Low</div>
+                <a href="{{ route('permissions.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">lock</i></div>
+                    <div class="menu-title">Permissions</div>
                 </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Interested</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Follow Up</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Not Interested</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">No Respons</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Booked</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Payment Missing</div>
-                </a>
-            </li>
-                        <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Listed</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Dispatch</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Pickup</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Delivery</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Completed</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Deleted</div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Canceled</div>
-                </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </aside>

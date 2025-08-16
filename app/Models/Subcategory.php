@@ -74,11 +74,11 @@ class Subcategory extends Model
         return $this->category ? $this->category->name : 'N/A';
     }
 
-    public function getCreatedByNameAttribute()
+    public function getCreatorNameAttribute()
     {
         return $this->creator ? $this->creator->name : 'N/A';
     }
-    public function getUpdatedByNameAttribute()
+    public function getEditorNameAttribute()
     {
         return $this->editor ? $this->editor->name : 'N/A';
     }

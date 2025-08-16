@@ -24,7 +24,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Description</th>
+                            {{-- <th>Description</th> --}}
                             <th>Status</th>
                             <th>Created By</th>
                             <th>Modified By</th>
@@ -35,10 +35,10 @@
                         @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $category->name }}</td>
-                                <td>{{ $category->description }}</td>
+                                {{-- <td>{{ $category->description }}</td> --}}
                                 <td>{!! $category->status_label !!}</td>
-                                <td>{{ $category->creator?->name ?? '-' }}</td>
-                                <td>{{ $category->editor?->name ?? '-' }}</td>
+                                <td>{{ $category->creator_name ?? '-' }}</td>
+                                <td>{{ $category->editor_name ?? '-' }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-info editCategoryBtn" data-id="{{ $category->id }}"
                                         data-name="{{ $category->name }}" data-description="{{ $category->description }}"

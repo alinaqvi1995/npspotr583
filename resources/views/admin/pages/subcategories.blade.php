@@ -25,7 +25,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Category</th>
-                            <th>Description</th>
+                            {{-- <th>Description</th> --}}
                             <th>Status</th>
                             <th>Created By</th>
                             <th>Modified By</th>
@@ -37,10 +37,10 @@
                             <tr>
                                 <td>{{ $subcategory->name }}</td>
                                 <td>{{ $subcategory->category_name ?? '-' }}</td>
-                                <td>{{ $subcategory->description }}</td>
+                                {{-- <td>{{ $subcategory->description }}</td> --}}
                                 <td>{!! $subcategory->status_label !!}</td>
-                                <td>{{ $subcategory->creator?->name ?? '-' }}</td>
-                                <td>{{ $subcategory->editor?->name ?? '-' }}</td>
+                                <td>{{ $subcategory->creator_name ?? '-' }}</td>
+                                <td>{{ $subcategory->editor_name ?? '-' }}</td>
                                 <td>
                                     {{-- @can('edit-subcategories') --}}
                                         <button class="btn btn-sm btn-info editSubcategoryBtn" data-id="{{ $subcategory->id }}"
