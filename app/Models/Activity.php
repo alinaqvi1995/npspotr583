@@ -8,19 +8,23 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Activity extends Model
 {
     protected $table = 'activity_log';
-    
+
     /**
      * Casts for JSON / datetime columns.
      */
+    protected $fillable = [
+        'log_name',
+        'description',
+        'causer_type',
+        'causer_id',
+        'subject_type',
+        'subject_id',
+        'properties',
+    ];
+
+    // If 'properties' is JSON, cast it
     protected $casts = [
-        'properties'    => 'collection',
-        'ip_address'    => 'string',
-        'user_agent'    => 'string',
-        'location'      => 'array',      // city, region, country
-        'old_values'    => 'array',
-        'new_values'    => 'array',
-        'created_at'    => 'datetime',
-        'updated_at'    => 'datetime',
+        'properties' => 'array',
     ];
 
     /**
