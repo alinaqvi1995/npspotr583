@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Spatie\Activitylog\Models\Activity as SpatieActivity;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Activity extends SpatieActivity
+class Activity extends Model
 {
     /**
      * Casts for JSON / datetime columns.
