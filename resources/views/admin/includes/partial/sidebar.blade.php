@@ -22,7 +22,7 @@
             <li class="menu-label">Elements</li>
             <li>
                 <a href="{{ route('categories.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">Category</i></div>
+                    <div class="parent-icon"><i class="material-icons-outlined">view_list</i></div>
                     <div class="menu-title">Categories</div>
                 </a>
             </li>
@@ -41,7 +41,7 @@
             <li>
                 <a href="#">
                     <div class="parent-icon"><i class="material-icons-outlined"></i></div>
-                    <div class="menu-title">Asking</div>
+                    <div class="menu-title">Asking Low</div>
                 </a>
             </li>
             <li>
