@@ -13,9 +13,12 @@
     </div>
 
     <div class="sidebar-nav">
+        @php
+            $currentStatus = request()->query('status'); // Detect selected quote status
+        @endphp
         <ul class="metismenu" id="menu">
 
-            <!-- Dashboard (everyone can see) -->
+            <!-- Dashboard -->
             <li>
                 <a href="{{ route('dashboard') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">dashboard</i></div>
@@ -66,11 +69,15 @@
             <!-- Quote Statuses Dropdown -->
             @can('view-quotes')
                 <li>
-                    <a class="has-arrow" href="javascript:void(0);">
+                    <a class="d-flex align-items-center" href="#quoteStatusMenu" data-bs-toggle="collapse"
+                        aria-expanded="{{ $currentStatus ? 'true' : 'false' }}">
                         <div class="parent-icon"><i class="material-icons-outlined">timeline</i></div>
-                        <div class="menu-title">Quote Statuses</div>
+                        <div class="menu-title flex-grow-1">Quote Statuses</div>
+                        <div class="ms-auto">
+                            <i class="material-icons-outlined">expand_more</i>
+                        </div>
                     </a>
-                    <ul>
+                    <ul class="collapse list-unstyled ps-3 {{ $currentStatus ? 'show' : '' }}" id="quoteStatusMenu">
                         @php
                             $statuses = [
                                 'New' => 'fiber_new',
@@ -94,12 +101,10 @@
 
                         @foreach ($statuses as $status => $icon)
                             <li>
-                                <a href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}">
-                                    <i class="material-icons-outlined">{{ $icon }}</i>
-                                    {{ $status }}
-                                    <span class="badge bg-secondary float-end">
-                                        {{ $quoteStatusCounts[$status] ?? 0 }}
-                                    </span>
+                                <a class="d-flex justify-content-between align-items-center {{ Str::slug($status) === $currentStatus ? 'active' : '' }}"
+                                    href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}">
+                                    <span><i class="material-icons-outlined me-1">{{ $icon }}</i> {{ $status }}</span>
+                                    <span class="badge bg-secondary">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
                                 </a>
                             </li>
                         @endforeach
@@ -139,14 +144,6 @@
                 </li>
             @endcan
 
-            {{-- @can('view-permissions')
-                <li>
-                    <a href="{{ route('permissions.index') }}">
-                        <div class="parent-icon"><i class="material-icons-outlined">lock</i></div>
-                        <div class="menu-title">Permissions</div>
-                    </a>
-                </li>
-            @endcan --}}
         </ul>
     </div>
 </aside>
