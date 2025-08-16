@@ -9,13 +9,13 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission:view-quotes')->only(['index']);
-        $this->middleware('permission:create-quotes')->only(['store']);
-        $this->middleware('permission:edit-quotes')->only(['update']);
-        $this->middleware('permission:delete-quotes')->only(['destroy']);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('permission:view-quotes')->only(['index']);
+    //     $this->middleware('permission:create-quotes')->only(['store']);
+    //     $this->middleware('permission:edit-quotes')->only(['update']);
+    //     $this->middleware('permission:delete-quotes')->only(['destroy']);
+    // }
 
     public function allQuotes(Request $request)
     {
