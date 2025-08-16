@@ -51,9 +51,6 @@
                                     <div class="slider-client">
                                         <div class="client-wrapper">
                                             <img src="web-assets/images/team/author-2.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-3.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-4.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-5.jpg" alt="Image" />
                                         </div>
                                         <div class="client-auother">
                                             <p>Trusted Nationwide Carrier</p>
@@ -87,9 +84,6 @@
                                     <div class="slider-client">
                                         <div class="client-wrapper">
                                             <img src="web-assets/images/team/author-2.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-3.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-4.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-5.jpg" alt="Image" />
                                         </div>
                                         <div class="client-auother">
                                             <p>100% Driver & Vehicle Safety Standards</p>
