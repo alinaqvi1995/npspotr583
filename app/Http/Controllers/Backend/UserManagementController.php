@@ -9,14 +9,15 @@ use App\Models\Role;
 use App\Models\PanelType;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Hash;
+use App\Services\ActivityLogService;
 
 class UserManagementController extends Controller
 {
-    public function __construct()
+    protected $activityLog;
+
+    public function __construct(ActivityLogService $activityLog)
     {
-        // $this->middleware('permission:view-users')->only(['allUsers']);
-        // $this->middleware('permission:edit-users')->only(['userEdit', 'userUpdate']);
-        // $this->middleware('permission:delete-users')->only(['destroy']);
+        $this->activityLog = $activityLog;
     }
 
     public function allUsers(Request $request)
@@ -50,6 +51,8 @@ class UserManagementController extends Controller
             'permissions' => 'nullable|array',
         ]);
 
+        $original = $user->getOriginal();
+
         $user->name = $request->name;
         $user->email = $request->email;
 
@@ -59,9 +62,24 @@ class UserManagementController extends Controller
 
         $user->save();
 
+        // Sync pivots
         $user->roles()->sync($request->roles);
         $user->panelTypes()->sync($request->panel_types ?? []);
         $user->directPermissions()->sync($request->permissions ?? []);
+
+        // Log detailed activity
+        $this->activityLog->log(
+            'user',
+            'User updated',
+            $user,
+            $original,
+            $user->getAttributes(),
+            [
+                'roles' => $request->roles ?? [],
+                'permissions' => $request->permissions ?? [],
+                'panel_types' => $request->panel_types ?? []
+            ]
+        );
 
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
@@ -69,6 +87,21 @@ class UserManagementController extends Controller
     public function userDestroy($id)
     {
         $user = User::findOrFail($id);
+
+        // Log before delete
+        $this->activityLog->log(
+            'user',
+            'User deleted',
+            $user,
+            $user->getOriginal(),
+            [],
+            [
+                'roles' => $user->roles()->pluck('id')->toArray(),
+                'permissions' => $user->directPermissions()->pluck('id')->toArray(),
+                'panel_types' => $user->panelTypes()->pluck('id')->toArray()
+            ]
+        );
+
         $user->delete();
 
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');

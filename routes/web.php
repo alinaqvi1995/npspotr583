@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('admin.users.update');
     Route::delete('/users/{id}', [UserManagementController::class, 'userDestroy'])->name('admin.users.destroy');
     
+    Route::get('/activity_logs', [AdminController::class, 'activityLogs'])->name('admin.activity_logs');
+
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quote;
+use App\Models\Activity;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -32,11 +33,17 @@ class AdminController extends Controller
 
         return view('admin.quote.index', compact('quotes'));
     }
-    
+
     public function quoteDetail($id)
     {
         $quote = Quote::with('vehicles.images')->findOrFail($id);
 
         return view('admin.quote.details', compact('quote'));
+    }
+
+    public function activityLogs()
+    {
+        $logs = Activity::latest()->paginate(20);
+        return view('admin.pages.activity_logs', compact('logs'));
     }
 }

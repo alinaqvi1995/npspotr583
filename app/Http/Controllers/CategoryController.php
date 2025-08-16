@@ -21,7 +21,7 @@ class CategoryController extends Controller
     //         $this->middleware("permission:{$permission}")->only($method);
     //     }
     // }
-
+    
     public function index()
     {
         $categories = Category::with('subcategories', 'creator', 'editor')->get();
@@ -36,7 +36,22 @@ class CategoryController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        Category::create($request->only(['name', 'description', 'status']));
+        $category = Category::create($request->only(['name', 'description', 'status']));
+
+        activity('category')
+            ->causedBy(Auth::user())
+            ->performedOn($category)
+            ->withProperties([
+                'new_values' => $category->getAttributes(),
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'location' => [
+                    'city' => $request->header('X-Geo-City'),
+                    'region' => $request->header('X-Geo-Region'),
+                    'country' => $request->header('X-Geo-Country'),
+                ],
+            ])
+            ->log('Category created');
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
@@ -49,15 +64,49 @@ class CategoryController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
+        $original = $category->getOriginal();
+
         $category->update($request->only(['name', 'description', 'status']));
+
+        activity('category')
+            ->causedBy(Auth::user())
+            ->performedOn($category)
+            ->withProperties([
+                'old_values' => $original,
+                'new_values' => $category->getAttributes(),
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'location' => [
+                    'city' => $request->header('X-Geo-City'),
+                    'region' => $request->header('X-Geo-Region'),
+                    'country' => $request->header('X-Geo-Country'),
+                ],
+            ])
+            ->log('Category updated');
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy(Category $category)
     {
+        $attributes = $category->getAttributes();
         $category->subcategories()->delete();
         $category->delete();
+
+        activity('category')
+            ->causedBy(Auth::user())
+            ->performedOn($category)
+            ->withProperties([
+                'old_values' => $attributes,
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'location' => [
+                    'city' => request()->header('X-Geo-City'),
+                    'region' => request()->header('X-Geo-Region'),
+                    'country' => request()->header('X-Geo-Country'),
+                ],
+            ])
+            ->log('Category deleted');
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }

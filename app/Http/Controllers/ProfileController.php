@@ -26,13 +26,32 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $original = $user->getOriginal();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->fill($request->validated());
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
+
+        activity('profile')
+            ->causedBy($user)
+            ->performedOn($user)
+            ->withProperties([
+                'old_values' => $original,
+                'new_values' => $user->getAttributes(),
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'location' => [
+                    'city' => $request->header('X-Geo-City'),
+                    'region' => $request->header('X-Geo-Region'),
+                    'country' => $request->header('X-Geo-Country'),
+                ],
+            ])
+            ->log('Profile updated');
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
@@ -47,9 +66,24 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        $attributes = $user->getAttributes();
+
+        activity('profile')
+            ->causedBy($user)
+            ->performedOn($user)
+            ->withProperties([
+                'old_values' => $attributes,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'location' => [
+                    'city' => $request->header('X-Geo-City'),
+                    'region' => $request->header('X-Geo-Region'),
+                    'country' => $request->header('X-Geo-Country'),
+                ],
+            ])
+            ->log('Profile deleted');
 
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();

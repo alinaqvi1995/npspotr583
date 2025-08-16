@@ -108,6 +108,12 @@
                     </div>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.activity_logs') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">people</i></div>
+                    <div class="menu-title">Activity Logs</div>
+                </a>
+            </li>
             {{-- <li>
                 <a href="{{ route('roles.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">admin_panel_settings</i></div>
