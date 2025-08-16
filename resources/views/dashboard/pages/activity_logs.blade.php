@@ -23,7 +23,7 @@
                 <table class="table align-middle" id="logsTable">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Sr#.</th>
                             <th>Log Name</th>
                             <th>Description</th>
                             <th>Causer</th>
@@ -39,7 +39,7 @@
                     <tbody>
                         @foreach ($logs as $log)
                             <tr>
-                                <td>{{ $log->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $log->log_name }}</td>
                                 <td>{{ $log->description }}</td>
                                 <td>
