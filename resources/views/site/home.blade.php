@@ -17,10 +17,7 @@
                                 <div class="slider-content p-z-idex">
                                     <div class="slider-client">
                                         <div class="client-wrapper">
-                                            <img src="web-assets/images/team/author-2.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-3.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-4.jpg" alt="Image" />
-                                            <img src="web-assets/images/team/author-5.jpg" alt="Image" />
+                                            <img src="web-assets/images/team/fmcsa.jpeg" alt="Image" />
                                         </div>
                                         <div class="client-auother">
                                             <p>Licensed & Insured by FMCSA & USDOT</p>
@@ -699,14 +696,14 @@
                     <div class="faq-icon"><i class="fa-regular fa-check"></i></div>
                     <div class="faq-text">
                     <h6 class="title">Reliable & Transparent</h6>
-                    <p>We work only with licensed carriers—no brokers, no hidden fees—ensuring clarity and peace of mind.:contentReference[oaicite:0]{index=0}</p>
+                    <p>We work only with licensed carriers—no brokers, no hidden fees—ensuring clarity and peace of mind.</p>
                     </div>
                 </div>
                 <div class="faq-content">
                     <div class="faq-icon"><i class="fa-regular fa-check"></i></div>
                     <div class="faq-text">
                     <h6 class="title">Comprehensive Coverage</h6>
-                    <p>Every transport quote includes full insurance coverage, so your vehicle is protected throughout the journey.:contentReference[oaicite:1]{index=1}</p>
+                    <p>Every transport quote includes full insurance coverage, so your vehicle is protected throughout the journey.</p>
                     </div>
                 </div>
                 </div>
@@ -725,7 +722,7 @@
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                        Bridgeway offers reliable vehicle transport across the U.S., including sedans, SUVs, motorcycles, heavy equipment, boats, and more, all with competitive pricing and smooth communication.:contentReference[oaicite:2]{index=2}
+                        Bridgeway offers reliable vehicle transport across the U.S., including sedans, SUVs, motorcycles, heavy equipment, boats, and more, all with competitive pricing and smooth communication.
                         </div>
                     </div>
                     </div>
@@ -740,7 +737,7 @@
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                        You can easily reach them via phone at +1 (713) 470‑6157 or via email at <a href="mailto:quote@bridgewaylogisticsllc.com">quote@bridgewaylogisticsllc.com</a>.:contentReference[oaicite:3]{index=3}
+                        You can easily reach them via phone at +1 (713) 470‑6157 or via email at <a href="mailto:quote@bridgewaylogisticsllc.com">quote@bridgewaylogisticsllc.com</a>.
                         </div>
                     </div>
                     </div>
@@ -755,7 +752,7 @@
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                        While quotes typically include coverage and standard charges, final pricing may vary depending on distance and unique circumstances. Bridgeway prides itself on transparent communication throughout the process.:contentReference[oaicite:4]{index=4}
+                        While quotes typically include coverage and standard charges, final pricing may vary depending on distance and unique circumstances. Bridgeway prides itself on transparent communication throughout the process.
                         </div>
                     </div>
                     </div>
@@ -770,7 +767,7 @@
                     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                        Bridgeway supports multiple payment methods including credit/debit cards, bank transfers, and major digital platforms for your convenience.:contentReference[oaicite:5]{index=5}
+                        Bridgeway supports multiple payment methods including credit/debit cards, bank transfers, and major digital platforms for your convenience.
                         </div>
                     </div>
                     </div>
@@ -785,7 +782,7 @@
                     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                        According to employee feedback, raises are typically offered on a quarterly basis for delivery staff.:contentReference[oaicite:6]{index=6}
+                        According to employee feedback, raises are typically offered on a quarterly basis for delivery staff.
                         </div>
                     </div>
                     </div>

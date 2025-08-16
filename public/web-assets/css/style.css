@@ -1558,7 +1558,7 @@ body [class*=" icon-"]::before {
 }
 
 .tj-slider-section-three .slider-client .client-wrapper img {
-    width: 50px;
+    width: 80px;
     height: 50px;
     border-radius: 500px;
     display: inline-block;
