@@ -659,8 +659,7 @@
                                     <th>Quote #</th>
                                     <th>Customer</th>
                                     <th>Vehicles</th>
-                                    <th>Pickup/ Delivery Location</th>
-                                    <th>Pickup / Delivery Time</th>
+                                    <th>Pickup / Delivery</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -685,12 +684,14 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            Pickup: {{ $quote->pickup_location }}<br>
-                                            Delivery: {{ $quote->delivery_location }}
-                                        </td>
-                                        <td>
-                                            Pickup: {{ $quote->pickup_date_formatted }}<br>
-                                            Delivery: {{ $quote->delivery_date_formatted }}
+                                            <strong>Pickup:</strong> <a
+                                                href="https://www.google.com/maps/search/{{ urlencode($quote->pickup_location) }}"
+                                                target="_blank">{{ $quote->pickup_location }}</a> at
+                                            {{ $quote->pickup_date_formatted }}<br>
+                                            <strong>Delivery:</strong> <a
+                                                href="https://www.google.com/maps/search/{{ urlencode($quote->delivery_location) }}"
+                                                target="_blank">{{ $quote->delivery_location }}</a> at
+                                            {{ $quote->delivery_date_formatted }}
                                         </td>
                                         <td>
                                             {!! $quote->status_label !!}
