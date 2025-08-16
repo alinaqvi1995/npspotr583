@@ -78,12 +78,6 @@ class Category extends Model
         }
     }
 
-    public function setStatusAttribute($value)
-    {
-        $this->attributes['status'] = strtolower($value) === 'active' ? 1 : 0;
-    }
-
-
     public function getCreatedByFormattedAttribute()
     {
         return $this->creator ? $this->creator->name : 'System';
