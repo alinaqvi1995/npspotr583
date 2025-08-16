@@ -5,8 +5,8 @@
                     <div class="col-xl-6 col-lg-6">
                         <div class="footer-contact-box">
                             <div class="footer-logo">
-                                <a href="index.html">
-                                    <img src="web-assets/images/logo/footer-logo.png" alt="Bridgeway Logistics Logo" />
+                                <a href="{{ route('home') }}">
+                                    <img src="{{ asset('web-assets/images/logo/logo2.png') }}" alt="Bridgeway Logistics Logo" />
                                 </a>
                             </div>
                             <p>

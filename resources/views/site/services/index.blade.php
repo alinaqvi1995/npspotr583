@@ -48,7 +48,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-air-freight"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html"> Air Freight Service</a></h4>
+                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Air Freight Service</a></h4>
                             <p>Long established fact that reader will be distracted by the</p>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-cargo-ship-1"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html"> Ocean Freight</a></h4>
+                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Ocean Freight</a></h4>
                             <p>Long established fact that reader will be distracted by the</p>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-delivery-van"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html"> Road Transport</a></h4>
+                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Road Transport</a></h4>
                             <p>Long established fact that reader will be distracted by the</p>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-air-freight"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html"> Third Party Logistics</a></h4>
+                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Third Party Logistics</a></h4>
                             <p>Long established fact that reader will be distracted by the</p>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-cargo-ship-1"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html"> Distribution Center</a></h4>
+                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Distribution Center</a></h4>
                             <p>Long established fact that reader will be distracted by the</p>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                             <div class="service-icon">
                                 <i class="flaticon-delivery-van"></i>
                             </div>
-                            <h4><a class="title" href="service-details.html"> Train Transportation</a></h4>
+                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Train Transportation</a></h4>
                             <p>Long established fact that reader will be distracted by the</p>
                         </div>
                     </div>

@@ -12,21 +12,16 @@ class ServiceController extends Controller
     {
         return view('site.services.index');
     }
-    public function show($slug)
+    public function carservice()
     {
-        // Map slugs to view names
-        $pages = [
-            'car-shipping' => 'services.car-shipping',
-            'motorcycle-shipping' => 'services.motorcycle-shipping',
-            'heavy-equipment-shipping' => 'services.heavy-equipment-shipping',
-        ];
-
-        // If slug exists in map, load it, else 404
-        if (array_key_exists($slug, $pages)) {
-            return view($pages[$slug]);
-        }
-
-        abort(404);
+        return view('site.services.car-shipping');
     }
-
+    public function bikeservice()
+    {
+        return view('site.services.motorcycle-shipping');
+    }
+    public function heavyservice()
+    {
+        return view('site.services.heavy-equipment-shipping');
+    }
 }

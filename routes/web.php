@@ -20,12 +20,14 @@ Route::view('/contact', 'site.contact')->name('contact');
 
 // 🔹 Services
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+Route::get('/services/car', [ServiceController::class, 'carservice'])->name('services.car-shipping');
+Route::get('/services/motorcycle', [ServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
+Route::get('/services/heavy', [ServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
 
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');
 Route::get('/car', [QuoteController::class, 'car'])->name('quote.car');
-Route::get('/atv-utv', [QuoteController::class, 'motorcycle'])->name('quote.atv_utv');
+Route::get('/atv-utv', [QuoteController::class, 'atv_utv'])->name('quote.atv_utv');
 Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.motorcycle');
 
 // submit quote
@@ -33,7 +35,7 @@ Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('fro
 
 // 🔹 Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/detail', [BlogController::class, 'show'])->name('blog.show');
 
 // 🔐 Auth & Profile
 Route::middleware('auth')->group(function () {

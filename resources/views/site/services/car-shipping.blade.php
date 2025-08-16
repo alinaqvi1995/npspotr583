@@ -3,7 +3,7 @@
 @section('content')
 
 <!--========== breadcrumb Start ==============-->
-    <section class="breadcrumb-wrapper" data-bg-image="assets/images/banner/breadcrumb.jpg">
+    <section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -36,7 +36,7 @@
                         <div class="tj-blog-item-three">
                             <div class="tj-blog-image">
                                 <a href="service-details.html">
-                                    <img src="assets/images/service/service-11.jpg" alt="Blog"
+                                    <img src="{{ asset('web-assets/images/service/service-11.jpg') }}" alt="Blog"
                                 /></a>
                             </div>
                             <div class="blog-content-area">
@@ -58,7 +58,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-5 col-md-6">
                                 <div class="check-image">
-                                    <img src="assets/images/blog/blog-12.jpg" alt="Blog" />
+                                    <img src="{{ asset('web-assets/images/blog/blog-12.jpg') }}" alt="Blog" />
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-6">
@@ -94,12 +94,12 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="sevice-image">
-                                        <img src="assets/images/service/service-13.jpg" alt="Image" />
+                                        <img src="{{ asset('web-assets/images/service/service-13.jpg') }}" alt="Image" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="sevice-image">
-                                        <img src="assets/images/service/service-14.jpg" alt="Image" />
+                                        <img src="{{ asset('web-assets/images/service/service-14.jpg') }}" alt="Image" />
                                     </div>
                                 </div>
                             </div>
@@ -321,10 +321,10 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="tj-appointment-box" data-bg-image="assets/images/service/service-15.jpg">
+                        <div class="tj-appointment-box" data-bg-image="{{ asset('web-assets/images/service/service-15.jpg') }}">
                             <div
                                 class="tj-appointment-bg"
-                                data-bg-image="assets/images/banner/service_shape.png"
+                                data-bg-image="{{ asset('web-assets/images/banner/service_shape.png') }}"
                             ></div>
                             <div class="tj-appointment-body">
                                 <div class="appointment-percent text-center">
@@ -359,11 +359,11 @@
                 <div class="col-lg-12">
                     <div
                         class="subscribe-content-box d-flex align-items-center justify-content-between"
-                        data-bg-image="assets/images/banner/subscribe.png"
+                        data-bg-image="{{ asset('web-assets/images/banner/subscribe.png') }}"
                     >
                         <div class="subscribe-content d-flex align-items-center">
                             <div class="mail-icon">
-                                <img src="assets/images/icon/email.svg" alt="Icon" />
+                                <img src="{{ asset('web-assets/images/icon/email.svg') }}" alt="Icon" />
                             </div>
                             <div class="subscribe-title">
                                 <h3 class="title">Subscribe Our Newslatter</h3>
