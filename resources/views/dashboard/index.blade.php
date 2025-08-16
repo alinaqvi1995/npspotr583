@@ -639,7 +639,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('quotes.index') }}">View All</a>
+                                    <a class="dropdown-item" href="{{ route('dashboard.quotes.index') }}">View All</a>
                                 </li>
                             </ul>
                         </div>
@@ -668,7 +668,7 @@
                                 @foreach (\App\Models\Quote::latest()->take(10)->get() as $quote)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('quotes.show', $quote->id) }}"
+                                            <a href="{{ route('dashboard.quotes.details', $quote->id) }}"
                                                 class="text-decoration-none">
                                                 #{{ $quote->id }}
                                             </a>
