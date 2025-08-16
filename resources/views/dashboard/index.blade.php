@@ -632,6 +632,17 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between mb-3">
                         <h5 class="mb-0">Recent Quotes</h5>
+                        <div class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                                <span class="material-icons-outlined fs-5">more_vert</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('quotes.index') }}">View All</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="order-search position-relative my-3">
@@ -648,6 +659,7 @@
                                     <th>Quote #</th>
                                     <th>Amount</th>
                                     <th>Customer</th>
+                                    <th>Vehicles</th>
                                     <th>Status</th>
                                     <th>Created At</th>
                                 </tr>
@@ -656,33 +668,26 @@
                                 @foreach (\App\Models\Quote::latest()->take(10)->get() as $quote)
                                     <tr>
                                         <td>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div class="">
-                                                    <img src="{{ $quote->customer?->avatar ?? 'https://placehold.co/50x50/png' }}"
-                                                        class="rounded-circle" width="50" height="50"
-                                                        alt="">
-                                                </div>
-                                                <p class="mb-0">#{{ $quote->id }}</p>
-                                            </div>
+                                            <a href="{{ route('quotes.show', $quote->id) }}"
+                                                class="text-decoration-none">
+                                                #{{ $quote->id }}
+                                            </a>
                                         </td>
-                                        <td>${{ number_format($quote->amount, 2) }}</td>
-                                        <td>{{ $quote->customer?->name ?? 'N/A' }}</td>
+                                        <td>${{ number_format($quote->amount ?? 0, 2) }}</td>
+                                        <td>{{ $quote->customer_name ?? 'N/A' }}</td>
                                         <td>
-                                            @php
-                                                $statusColors = [
-                                                    'New' => 'bg-primary text-primary',
-                                                    'In Progress' => 'bg-warning text-warning',
-                                                    'Completed' => 'bg-success text-success',
-                                                    'Cancelled' => 'bg-danger text-danger',
-                                                    'Follow Up' => 'bg-info text-info',
-                                                ];
-                                                $color = $statusColors[$quote->status] ?? 'bg-secondary text-secondary';
-                                            @endphp
-                                            <p class="dash-lable mb-0 {{ $color }} bg-opacity-10 rounded-2">
-                                                {{ $quote->status }}
-                                            </p>
+                                            @if ($quote->vehicles->count())
+                                                <ul class="mb-0 ps-3">
+                                                    @foreach ($quote->vehicles as $vehicle)
+                                                        <li>{{ $vehicle->name ?? ($vehicle->type ?? 'N/A') }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                -
+                                            @endif
                                         </td>
-                                        <td>{{ $quote->created_at->format('Y-m-d H:i') }}</td>
+                                        <td>{!! $quote->status_label !!}</td>
+                                        <td>{{ $quote->created_at_formatted }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -691,7 +696,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <script src="{{ asset('static/plugins/peity/jquery.peity.min.js') }}"></script>
     <script src="{{ asset('static/plugins/apexchart/apexcharts.min.js') }}"></script>
