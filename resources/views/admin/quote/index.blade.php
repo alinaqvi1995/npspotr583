@@ -39,6 +39,7 @@
                             <th>Delivery Date</th>
                             <th>Vehicles</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,6 +79,11 @@
                                         };
                                     @endphp
                                     <p class="dash-lable mb-0 {{ $statusClass }}">{{ $quote->status ?? 'New' }}</p>
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.quotes.details', $quote->id) }}" class="btn btn-sm btn-info">
+                                        <i class="material-icons-outlined">edit</i>
+                                    </a>
                                 </td>
                             </tr>
                         @empty

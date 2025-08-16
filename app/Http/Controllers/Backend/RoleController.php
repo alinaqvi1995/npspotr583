@@ -5,52 +5,67 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\Permission;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view-roles')->only(['index']);
+        $this->middleware('permission:create-roles')->only(['store']);
+        $this->middleware('permission:edit-roles')->only(['update']);
+        $this->middleware('permission:delete-roles')->only(['destroy']);
+    }
+
+    // List all roles with their permissions
     public function index()
     {
-        $roles = Role::all();
-        return view('backend.roles.index', compact('roles'));
+        $roles = Role::with('permissions')->get();
+        return view('admin.pages.roles', compact('roles'));
     }
 
-    public function create()
-    {
-        return view('backend.roles.create');
-    }
-
+    // Store a new role
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:roles,name',
-            'description' => 'nullable|string',
+            'slug' => 'required|string|max:255|unique:roles,slug',
+            'permissions' => 'nullable|array',
         ]);
 
-        Role::create($request->only(['name', 'description']));
+        $role = Role::create($request->only(['name', 'slug']));
+
+        if ($request->filled('permissions')) {
+            $role->permissions()->sync($request->permissions);
+        }
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
 
-    public function edit(Role $role)
-    {
-        return view('backend.roles.edit', compact('role'));
-    }
-
+    // Update existing role
     public function update(Request $request, Role $role)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
-            'description' => 'nullable|string',
+            'slug' => 'required|string|max:255|unique:roles,slug,' . $role->id,
+            'permissions' => 'nullable|array',
         ]);
 
-        $role->update($request->only(['name', 'description']));
+        $role->update($request->only(['name', 'slug']));
+
+        // Sync permissions
+        $role->permissions()->sync($request->permissions ?? []);
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
+    // Delete a role
     public function destroy(Role $role)
     {
+        $role->permissions()->detach();
+        $role->users()->detach();      
         $role->delete();
+
         return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }
 }

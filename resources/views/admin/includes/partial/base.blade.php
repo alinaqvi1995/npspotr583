@@ -18,11 +18,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/plugins/metismenu/metisMenu.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/plugins/metismenu/mm-vertical.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/plugins/simplebar/css/simplebar.css') }}">
-    
+
     <!--bootstrap css-->
     <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+
+    {{-- select2 --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
 
     <!--main css-->
     <link href="{{ asset('admin/css/bootstrap-extended.css') }}" rel="stylesheet">
@@ -72,11 +77,25 @@
     <!--end main wrapper-->
 
     <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('admin/js/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('admin/plugins/metismenu/metisMenu.min.js') }}"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     @yield('extra_js')
+
+    <script>
+        $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+        $('.select2').select2({
+            theme: 'bootstrap-5',
+            width: '100%',
+            allowClear: true,
+        });
+    </script>
+
 
     <script src="{{ asset('admin/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('admin/js/main.js') }}"></script>

@@ -10,6 +10,8 @@ use App\Http\Controllers\Frontend\QuoteController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\UserManagementController;
+use App\Http\Controllers\Backend\PermissionController;
 
 // 🔹 Static pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -43,10 +45,17 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
+    
     Route::get('/quotes', [AdminController::class, 'allQuotes'])->name('admin.quotes.index');
     Route::get('/quotes/{id}', [AdminController::class, 'quoteDetail'])->name('admin.quotes.details');
-
+    
+    Route::get('/users', [UserManagementController::class, 'allUsers'])->name('admin.users.index');
+    Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('admin.users.update');
+    Route::delete('/users/{id}', [UserManagementController::class, 'userDestroy'])->name('admin.users.destroy');
+    
     Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
 });
 
 require __DIR__ . '/auth.php';

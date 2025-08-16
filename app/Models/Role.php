@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'slug'];
 
-    public function getCreatedAtFormattedAttribute()
+    public function users()
     {
-        return $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '-';
+        return $this->belongsToMany(User::class, 'role_user');
     }
 
-    public function getUpdatedAtFormattedAttribute()
+    public function permissions()
     {
-        return $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : '-';
+        return $this->belongsToMany(Permission::class, 'permission_role');
     }
 }

@@ -8,6 +8,14 @@ use App\Models\Category;
 
 class SubcategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view-subcategories')->only(['index']);
+        $this->middleware('permission:create-subcategories')->only(['store']);
+        $this->middleware('permission:edit-subcategories')->only(['update']);
+        $this->middleware('permission:delete-subcategories')->only(['destroy']);
+    }
+
     public function index()
     {
         $subcategories = Subcategory::with(['category', 'creator', 'editor'])->get();

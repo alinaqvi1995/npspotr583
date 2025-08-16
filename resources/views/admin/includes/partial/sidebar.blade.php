@@ -11,15 +11,20 @@
             <span class="material-icons-outlined">close</span>
         </div>
     </div>
+
     <div class="sidebar-nav">
         <ul class="metismenu" id="sidenav">
+
+            <!-- Dashboard -->
             <li>
-                <a href="{{ route('dashboard') }}" class="has-arrow">
+                <a href="{{ route('dashboard') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">home</i></div>
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
-            <li class="menu-label">UI Elements</li>
+
+            <!-- Content Management -->
+            <li class="menu-label">Content Management</li>
             <li>
                 <a href="{{ route('categories.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">category</i></div>
@@ -33,9 +38,63 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('services.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">build_circle</i></div>
+                    <div class="menu-title">Services</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('blog.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">article</i></div>
+                    <div class="menu-title">Blogs</div>
+                </a>
+            </li>
+
+            <!-- Quotes Management -->
+            <li class="menu-label">Quotes</li>
+            <li>
                 <a href="{{ route('admin.quotes.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">request_quote</i></div>
-                    <div class="menu-title">Quotes</div>
+                    <div class="menu-title">All Quotes</div>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <div class="parent-icon"><i class="material-icons-outlined">fiber_new</i></div>
+                    <div class="menu-title">New Quotes</div>
+                </a>
+            </li>
+            <li>
+                <a href="}}">
+                    <div class="parent-icon"><i class="material-icons-outlined">autorenew</i></div>
+                    <div class="menu-title">In Progress</div>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <div class="parent-icon"><i class="material-icons-outlined">check_circle</i></div>
+                    <div class="menu-title">Completed</div>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <div class="parent-icon"><i class="material-icons-outlined">cancel</i></div>
+                    <div class="menu-title">Cancelled</div>
+                </a>
+            </li>
+
+            <!-- Site Settings -->
+            <li class="menu-label">Site Settings</li>
+            <li>
+                <a href="">
+                    <div class="parent-icon"><i class="material-icons-outlined">settings</i></div>
+                    <div class="menu-title">General Settings</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.users.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">people</i></div>
+                    <div class="menu-title">User Management</div>
                 </a>
             </li>
         </ul>

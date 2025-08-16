@@ -69,6 +69,20 @@ class Subcategory extends Model
         }
     }
 
+    public function getCategoryNameAttribute()
+    {
+        return $this->category ? $this->category->name : 'N/A';
+    }
+
+    public function getCreatedByNameAttribute()
+    {
+        return $this->creator ? $this->creator->name : 'N/A';
+    }
+    public function getUpdatedByNameAttribute()
+    {
+        return $this->editor ? $this->editor->name : 'N/A';
+    }
+
     public function getCreatedAtFormattedAttribute()
     {
         return $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '-';
