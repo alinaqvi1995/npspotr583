@@ -43,6 +43,7 @@
                     </thead>
                     <tbody>
                         @forelse($users as $user)
+                            @continue($user->hasRole('admin'))
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>

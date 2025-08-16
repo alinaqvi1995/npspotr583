@@ -80,9 +80,6 @@ class User extends Authenticatable
             ->unique('id')
             ->values();
 
-        // Debug dump to verify
-        // dd($all->pluck('slug')->toArray());
-
         return $all;
     }
 
