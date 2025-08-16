@@ -43,7 +43,6 @@
                     </thead>
                     <tbody>
                         @forelse($users as $user)
-                            @continue($user->hasRole('admin'))
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
@@ -60,21 +59,26 @@
                                 <td>{{ $user->created_at_formatted }}</td>
                                 <td>{{ $user->updated_at_formatted }}</td>
                                 <td>
-                                    @can('edit-users')
-                                        <a href="{{ route('dashboard.users.edit', $user->id) }}" class="btn btn-sm btn-info">
-                                            <i class="material-icons-outlined">edit</i>
-                                        </a>
-                                    @endcan
-                                    @can('delete-users')
-                                        <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="material-icons-outlined">delete</i>
-                                            </button>
-                                        </form>
-                                    @endcan
+                                    @if (!$user->hasRole('admin'))
+                                        @can('edit-users')
+                                            <a href="{{ route('dashboard.users.edit', $user->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                <i class="material-icons-outlined">edit</i>
+                                            </a>
+                                        @endcan
+                                        @can('delete-users')
+                                            <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="material-icons-outlined">delete</i>
+                                                </button>
+                                            </form>
+                                        @endcan
+                                    @else
+                                        <span class="">Admin - no actions</span>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
