@@ -36,9 +36,9 @@
                         @foreach ($subcategories as $subcategory)
                             <tr>
                                 <td>{{ $subcategory->name }}</td>
-                                <td>{{ $subcategory->category?->name ?? '-' }}</td>
+                                <td>{{ $subcategory->category_name ?? '-' }}</td>
                                 <td>{{ $subcategory->description }}</td>
-                                <td>{!! $category->status_label !!}</td>
+                                <td>{!! $subcategory->status_label !!}</td>
                                 <td>{{ $subcategory->creator?->name ?? '-' }}</td>
                                 <td>{{ $subcategory->editor?->name ?? '-' }}</td>
                                 <td>
