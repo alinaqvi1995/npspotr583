@@ -106,23 +106,11 @@
 @section('extra_js')
     <script>
         $(document).ready(function() {
-
-            // Initialize Select2 for modal
             $('#rolePermissions').select2({
                 theme: 'bootstrap-5',
                 width: '100%',
                 allowClear: true,
                 dropdownParent: $('#roleModal')
-            });
-
-            // Initialize DataTable
-            var table = $('#roleTable').DataTable({
-                paging: true,
-                pageLength: 10,
-                lengthChange: false,
-                ordering: true,
-                info: true,
-                autoWidth: false,
             });
 
             // Add Role
