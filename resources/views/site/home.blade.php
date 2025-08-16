@@ -49,7 +49,7 @@
                             <div class="col-lg-7">
                                 <div class="slider-content p-z-idex">
                                     <div class="slider-client">
-                                        <div class="client-wrapper">
+                                        <div class="client-wrapper mx-3">
                                             <img src="web-assets/images/team/author-2.jpg" alt="Image" />
                                         </div>
                                         <div class="client-auother">
@@ -82,7 +82,7 @@
                             <div class="col-lg-7">
                                 <div class="slider-content p-z-idex">
                                     <div class="slider-client">
-                                        <div class="client-wrapper">
+                                        <div class="client-wrapper mx-3">
                                             <img src="web-assets/images/team/author-2.jpg" alt="Image" />
                                         </div>
                                         <div class="client-auother">
