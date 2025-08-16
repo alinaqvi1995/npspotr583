@@ -693,7 +693,7 @@
 </section>
 
 <!--========== FAQ Section Start ==============-->
-    <section class="tj-faq-section">
+    <section class="tj-faq-section pt-5">
         <div class="container">
             <div class="row">
             <div class="col-lg-12">
