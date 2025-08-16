@@ -120,7 +120,7 @@
             <li class="nav-item d-lg-none mobile-search-btn">
                 <a class="nav-link" href="javascript:;"><i class="material-icons-outlined">search</i></a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <form action="">
                     @csrf
                     <select name="panel_type_id" class="form-select" onchange="this.form.submit()">
@@ -132,7 +132,7 @@
                         @endforeach
                     </select>
                 </form>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="avascript:;"
                     data-bs-toggle="dropdown"><img src="{% static 'images/county/02.png' %}" width="22"
