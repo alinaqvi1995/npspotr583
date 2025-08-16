@@ -632,25 +632,13 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between mb-3">
                         <h5 class="mb-0">Recent Quotes</h5>
-                        <div class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle"
-                                data-bs-toggle="dropdown">
-                                <span class="material-icons-outlined fs-5">more_vert</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('dashboard.quotes.index') }}">View All</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <!-- Direct "View All" link instead of three-dot dropdown -->
+                        <a href="{{ route('dashboard.quotes.index') }}" class="btn btn-sm btn-outline-primary">
+                            View All
+                        </a>
                     </div>
 
-                    <div class="order-search position-relative my-3">
-                        <input class="form-control rounded-5 px-5" type="text" placeholder="Search">
-                        <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">
-                            search
-                        </span>
-                    </div>
+                    <!-- Removed the search bar -->
 
                     <div class="table-responsive">
                         <table class="table align-middle">
