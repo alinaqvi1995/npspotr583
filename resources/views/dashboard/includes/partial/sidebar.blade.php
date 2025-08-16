@@ -126,14 +126,14 @@
                 </li>
             @endcan
 
-            @can('view-activityLogs')
+            {{-- @can('view-activityLogs')
                 <li>
                     <a href="{{ route('view.activity_logs') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">people</i></div>
                         <div class="menu-title">Activity Logs</div>
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
 
             @can('view-roles')
                 <li>
