@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Quotes')
 
@@ -81,9 +81,11 @@
                                     <p class="dash-lable mb-0 {{ $statusClass }}">{{ $quote->status ?? 'New' }}</p>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.quotes.details', $quote->id) }}" class="btn btn-sm btn-info">
-                                        <i class="material-icons-outlined">edit</i>
-                                    </a>
+                                    @can('view-quoteDetail')
+                                        <a href="{{ route('dashboard.quotes.details', $quote->id) }}" class="btn btn-sm btn-info">
+                                            <i class="material-icons-outlined">edit</i>
+                                        </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

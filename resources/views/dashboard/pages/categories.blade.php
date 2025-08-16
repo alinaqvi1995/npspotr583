@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Categories')
 
@@ -6,11 +6,13 @@
     <h6 class="mb-0 text-uppercase">Categories</h6>
     <hr>
 
-    <div class="mb-3 text-end">
-        <button class="btn btn-grd-primary" data-bs-toggle="modal" data-bs-target="#categoryModal" id="addCategoryBtn">
-            <i class="material-icons-outlined">add</i> Add Category
-        </button>
-    </div>
+    @can('create-categories')
+        <div class="mb-3 text-end">
+            <button class="btn btn-grd-primary" data-bs-toggle="modal" data-bs-target="#categoryModal" id="addCategoryBtn">
+                <i class="material-icons-outlined">add</i> Add Category
+            </button>
+        </div>
+    @endcan
 
     <div class="card">
         <div class="card-body">
@@ -40,19 +42,23 @@
                                 <td>{{ $category->creator_name ?? '-' }}</td>
                                 <td>{{ $category->editor_name ?? '-' }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-info editCategoryBtn" data-id="{{ $category->id }}"
-                                        data-name="{{ $category->name }}" data-description="{{ $category->description }}"
-                                        data-status="{{ $category->status }}">
-                                        <i class="material-icons-outlined">edit</i>
-                                    </button>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                            <i class="material-icons-outlined">delete</i>
+                                    @can('edit-categories')
+                                        <button class="btn btn-sm btn-info editCategoryBtn" data-id="{{ $category->id }}"
+                                            data-name="{{ $category->name }}" data-description="{{ $category->description }}"
+                                            data-status="{{ $category->status }}">
+                                            <i class="material-icons-outlined">edit</i>
                                         </button>
-                                    </form>
+                                    @endcan
+                                    @can('delete-categories')
+                                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                <i class="material-icons-outlined">delete</i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

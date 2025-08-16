@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Users')
 
@@ -59,17 +59,21 @@
                                 <td>{{ $user->created_at_formatted }}</td>
                                 <td>{{ $user->updated_at_formatted }}</td>
                                 <td>
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-info">
-                                        <i class="material-icons-outlined">edit</i>
-                                    </a>
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="material-icons-outlined">delete</i>
-                                        </button>
-                                    </form>
+                                    @can('edit-users')
+                                        <a href="{{ route('dashboard.users.edit', $user->id) }}" class="btn btn-sm btn-info">
+                                            <i class="material-icons-outlined">edit</i>
+                                        </a>
+                                    @endcan
+                                    @can('delete-users')
+                                        <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="material-icons-outlined">delete</i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

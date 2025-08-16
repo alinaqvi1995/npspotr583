@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Edit User')
 
@@ -8,7 +8,7 @@
         <h6>Edit User: {{ $user->name }}</h6>
     </div>
     <div class="card-body">
-        <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+        <form action="{{ route('dashboard.users.update', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -94,7 +94,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update User</button>
-            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ route('dashboard.users.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>

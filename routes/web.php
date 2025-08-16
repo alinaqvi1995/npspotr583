@@ -39,24 +39,24 @@ Route::get('/blog/detail', [BlogController::class, 'show'])->name('blog.show');
 
 // 🔐 Auth & Profile
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.index'))->middleware('verified')->name('dashboard');
+    Route::get('/dashboard', fn() => view('dashboard.index'))->middleware('verified')->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
     
-    Route::get('/quotes', [AdminController::class, 'allQuotes'])->name('admin.quotes.index');
-    Route::get('/quotes/{id}', [AdminController::class, 'quoteDetail'])->name('admin.quotes.details');
+    Route::get('/quotes', [AdminController::class, 'allQuotes'])->name('dashboard.quotes.index');
+    Route::get('/quotes/{id}', [AdminController::class, 'quoteDetail'])->name('dashboard.quotes.details');
     
-    Route::get('/users', [UserManagementController::class, 'allUsers'])->name('admin.users.index');
-    Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('admin.users.edit');
-    Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('admin.users.update');
-    Route::delete('/users/{id}', [UserManagementController::class, 'userDestroy'])->name('admin.users.destroy');
+    Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
+    Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');
+    Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('dashboard.users.update');
+    Route::delete('/users/{id}', [UserManagementController::class, 'userDestroy'])->name('dashboard.users.destroy');
     
-    Route::get('/activity_logs', [AdminController::class, 'activityLogs'])->name('admin.activity_logs');
+    Route::get('/activity_logs', [AdminController::class, 'activityLogs'])->name('view.activity_logs');
 
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);

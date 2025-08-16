@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Subcategories')
 
@@ -6,11 +6,13 @@
     <h6 class="mb-0 text-uppercase">Subcategories</h6>
     <hr>
 
-    <div class="mb-3 text-end">
-        <button class="btn btn-grd-primary" id="addSubcategoryBtn">
-            <i class="material-icons-outlined">add</i> Add Subcategory
-        </button>
-    </div>
+    @can('create-subcategories')
+        <div class="mb-3 text-end">
+            <button class="btn btn-grd-primary" id="addSubcategoryBtn">
+                <i class="material-icons-outlined">add</i> Add Subcategory
+            </button>
+        </div>
+    @endcan
 
     <div class="card">
         <div class="card-body">
@@ -42,7 +44,7 @@
                                 <td>{{ $subcategory->creator_name ?? '-' }}</td>
                                 <td>{{ $subcategory->editor_name ?? '-' }}</td>
                                 <td>
-                                    {{-- @can('edit-subcategories') --}}
+                                    @can('edit-subcategories')
                                         <button class="btn btn-sm btn-info editSubcategoryBtn" data-id="{{ $subcategory->id }}"
                                             data-category_id="{{ $subcategory->category_id }}"
                                             data-name="{{ $subcategory->name }}"
@@ -50,16 +52,17 @@
                                             data-status="{{ $subcategory->status }}">
                                             <i class="material-icons-outlined">edit</i>
                                         </button>
-                                    {{-- @endcan --}}
-
-                                    <form action="{{ route('subcategories.destroy', $subcategory->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                            <i class="material-icons-outlined">delete</i>
-                                        </button>
-                                    </form>
+                                    @endcan
+                                    @can('delete-subcategories')
+                                        <form action="{{ route('subcategories.destroy', $subcategory->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                <i class="material-icons-outlined">delete</i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

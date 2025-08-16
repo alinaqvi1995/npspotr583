@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Roles')
 
@@ -6,11 +6,13 @@
     <h6 class="mb-0 text-uppercase">Roles</h6>
     <hr>
 
-    <div class="mb-3 text-end">
-        <button class="btn btn-grd-primary" data-bs-toggle="modal" data-bs-target="#roleModal" id="addRoleBtn">
-            <i class="material-icons-outlined">add</i> Add Role
-        </button>
-    </div>
+    @can('create-roles')
+        <div class="mb-3 text-end">
+            <button class="btn btn-grd-primary" data-bs-toggle="modal" data-bs-target="#roleModal" id="addRoleBtn">
+                <i class="material-icons-outlined">add</i> Add Role
+            </button>
+        </div>
+    @endcan
 
     <div class="card">
         <div class="card-body">
@@ -41,18 +43,22 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-info editRoleBtn" data-id="{{ $role->id }}"
-                                        data-name="{{ $role->name }}" data-slug="{{ $role->slug }}"
-                                        data-permissions='@json($role->permissions->pluck('id'))'>
-                                        <i class="material-icons-outlined">edit</i>
-                                    </button>
-                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                            <i class="material-icons-outlined">delete</i>
+                                    @can('edit-roles')
+                                        <button class="btn btn-sm btn-info editRoleBtn" data-id="{{ $role->id }}"
+                                            data-name="{{ $role->name }}" data-slug="{{ $role->slug }}"
+                                            data-permissions='@json($role->permissions->pluck('id'))'>
+                                            <i class="material-icons-outlined">edit</i>
                                         </button>
-                                    </form>
+                                    @endcan
+                                    @can('delete-roles')
+                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                <i class="material-icons-outlined">delete</i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

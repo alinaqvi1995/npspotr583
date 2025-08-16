@@ -328,8 +328,10 @@
                 </a>
                 <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
                     <hr class="dropdown-divider">
-                    <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;"><i
-                            class="material-icons-outlined">person_outline</i>Profile</a>
+                    @can('edit-profile')
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('profile.edit') }}"><i
+                                class="material-icons-outlined">person_outline</i>Profile</a>
+                    @endcan
                     <hr class="dropdown-divider">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

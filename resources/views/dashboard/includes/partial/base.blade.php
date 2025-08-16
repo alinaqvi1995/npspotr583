@@ -44,11 +44,11 @@
 <body>
 
     @section('navbar')
-        @include('admin.includes.partial.nav')
+        @include('dashboard.includes.partial.nav')
     @show
 
     @section('sidebar')
-        @include('admin.includes.partial.sidebar')
+        @include('dashboard.includes.partial.sidebar')
     @show
 
     <!--================= Wrapper Start Here =================-->
@@ -63,15 +63,15 @@
     <!--end overlay-->
 
     @section('footer')
-        @include('admin.includes.partial.footer')
+        @include('dashboard.includes.partial.footer')
     @show
 
     @section('cart')
-        @include('admin.includes.partial.cart')
+        @include('dashboard.includes.partial.cart')
     @show
 
     @section('switcher')
-        @include('admin.includes.partial.switcher')
+        @include('dashboard.includes.partial.switcher')
     @show
 
     <!--end main wrapper-->

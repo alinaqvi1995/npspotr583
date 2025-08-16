@@ -10,13 +10,18 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('permission:view-quotes')->only(['index']);
-    //     $this->middleware('permission:create-quotes')->only(['store']);
-    //     $this->middleware('permission:edit-quotes')->only(['update']);
-    //     $this->middleware('permission:delete-quotes')->only(['destroy']);
-    // }
+    public function __construct()
+    {
+        $permissions = [
+            'allQuotes'   => 'view-quotes',
+            'quoteDetail'   => 'view-quoteDetail',
+            'activityLogs' => 'view-activityLogs',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
+    }
 
     public function allQuotes(Request $request)
     {
@@ -31,19 +36,19 @@ class AdminController extends Controller
 
         $quotes = $query->paginate(10);
 
-        return view('admin.quote.index', compact('quotes'));
+        return view('dashboard.quote.index', compact('quotes'));
     }
 
     public function quoteDetail($id)
     {
         $quote = Quote::with('vehicles.images')->findOrFail($id);
 
-        return view('admin.quote.details', compact('quote'));
+        return view('dashboard.quote.details', compact('quote'));
     }
 
     public function activityLogs()
     {
         $logs = Activity::latest()->paginate(20);
-        return view('admin.pages.activity_logs', compact('logs'));
+        return view('dashboard.pages.activity_logs', compact('logs'));
     }
 }

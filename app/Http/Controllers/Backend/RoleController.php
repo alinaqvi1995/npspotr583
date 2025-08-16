@@ -12,17 +12,23 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('permission:view-roles')->only(['index']);
-        // $this->middleware('permission:create-roles')->only(['store']);
-        // $this->middleware('permission:edit-roles')->only(['update']);
-        // $this->middleware('permission:delete-roles')->only(['destroy']);
+        $permissions = [
+            'index'   => 'view-roles',
+            'store'   => 'create-roles',
+            'update'  => 'edit-roles',
+            'destroy' => 'delete-roles',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
     }
 
     // List all roles with their permissions
     public function index()
     {
         $roles = Role::with('permissions')->get();
-        return view('admin.pages.roles', compact('roles'));
+        return view('dashboard.pages.roles', compact('roles'));
     }
 
     // Store a new role

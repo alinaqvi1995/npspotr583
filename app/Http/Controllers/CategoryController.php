@@ -8,24 +8,24 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $permissions = [
-    //         'index'   => 'view-categories',
-    //         'store'   => 'create-categories',
-    //         'update'  => 'edit-categories',
-    //         'destroy' => 'delete-categories',
-    //     ];
+    public function __construct()
+    {
+        $permissions = [
+            'index'   => 'view-categories',
+            'store'   => 'create-categories',
+            'update'  => 'edit-categories',
+            'destroy' => 'delete-categories',
+        ];
 
-    //     foreach ($permissions as $method => $permission) {
-    //         $this->middleware("permission:{$permission}")->only($method);
-    //     }
-    // }
-    
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
+    }
+
     public function index()
     {
         $categories = Category::with('subcategories', 'creator', 'editor')->get();
-        return view('admin.pages.categories', compact('categories'));
+        return view('dashboard.pages.categories', compact('categories'));
     }
 
     public function store(Request $request)

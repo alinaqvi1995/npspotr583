@@ -9,10 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class SubcategoryController extends Controller
 {
+    public function __construct()
+    {
+        $permissions = [
+            'index'   => 'view-subcategories',
+            'store'   => 'create-subcategories',
+            'update'  => 'edit-subcategories',
+            'destroy' => 'delete-subcategories',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
+    }
+
     public function index()
     {
         $subcategories = Subcategory::with(['category', 'creator', 'editor'])->get();
-        return view('admin.pages.subcategories', compact('subcategories'));
+        return view('dashboard.pages.subcategories', compact('subcategories'));
     }
 
     public function store(Request $request)

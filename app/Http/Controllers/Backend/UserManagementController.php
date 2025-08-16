@@ -18,6 +18,16 @@ class UserManagementController extends Controller
     public function __construct(ActivityLogService $activityLog)
     {
         $this->activityLog = $activityLog;
+
+        $permissions = [
+            'allUsers'   => 'view-users',
+            'userUpdate'  => 'edit-users',
+            'userDestroy' => 'delete-users',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
     }
 
     public function allUsers(Request $request)
@@ -25,7 +35,7 @@ class UserManagementController extends Controller
         $users = User::orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('admin.users.index', compact('users'));
+        return view('dashboard.users.index', compact('users'));
     }
 
     public function userEdit($id)
@@ -35,7 +45,7 @@ class UserManagementController extends Controller
         $permissions = Permission::all();
         $panelTypes = PanelType::all();
 
-        return view('admin.users.edit', compact('user', 'roles', 'permissions', 'panelTypes'));
+        return view('dashboard.users.edit', compact('user', 'roles', 'permissions', 'panelTypes'));
     }
 
     public function userUpdate(Request $request, $id)
@@ -81,7 +91,7 @@ class UserManagementController extends Controller
             ]
         );
 
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
     }
 
     public function userDestroy($id)
@@ -104,6 +114,6 @@ class UserManagementController extends Controller
 
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('dashboard.users.index')->with('success', 'User deleted successfully.');
     }
 }

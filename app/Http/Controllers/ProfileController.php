@@ -11,12 +11,23 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $permissions = [
+            'update'  => 'edit-profile',
+            'destroy' => 'delete-profile',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
+    }
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('dashboard.profile.edit', [
             'user' => $request->user(),
         ]);
     }

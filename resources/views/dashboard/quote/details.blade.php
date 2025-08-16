@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Quote Details')
 
@@ -164,5 +164,5 @@
         </div>
     @endif
 
-    <a href="{{ route('admin.quotes.index') }}" class="btn btn-secondary">Back to Quotes</a>
+    <a href="{{ route('dashboard.quotes.index') }}" class="btn btn-secondary">Back to Quotes</a>
 @endsection

@@ -11,16 +11,22 @@ class PermissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:view-permissions')->only(['index']);
-        $this->middleware('permission:create-permissions')->only(['store']);
-        $this->middleware('permission:edit-permissions')->only(['update']);
-        $this->middleware('permission:delete-permissions')->only(['destroy']);
+        $permissions = [
+            'index'   => 'view-permissions',
+            'store'   => 'create-permissions',
+            'update'  => 'edit-permissions',
+            'destroy' => 'delete-permissions',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
     }
 
     public function index()
     {
         $permissions = Permission::all();
-        return view('admin.pages.permissions', compact('permissions'));
+        return view('dashboard.pages.permissions', compact('permissions'));
     }
 
     public function store(Request $request)

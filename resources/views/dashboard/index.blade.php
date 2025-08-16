@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 @section('title', 'Home')
 @section('meta_description', 'Explore our SaaS solutions tailored to your business.')
 @section('meta_keywords', 'SaaS, services, business software')

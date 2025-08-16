@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base-auth')
+@extends('dashboard.includes.partial.base-auth')
 
 @section('content')
 <div class="bg-register">

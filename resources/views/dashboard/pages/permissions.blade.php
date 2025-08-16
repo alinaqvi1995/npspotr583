@@ -1,4 +1,4 @@
-@extends('admin.includes.partial.base')
+@extends('dashboard.includes.partial.base')
 
 @section('title', 'Permissions')
 
@@ -6,11 +6,13 @@
     <h6 class="mb-0 text-uppercase">Permissions</h6>
     <hr>
 
-    <div class="mb-3 text-end">
-        <button class="btn btn-grd-primary" data-bs-toggle="modal" data-bs-target="#permissionModal" id="addPermissionBtn">
-            <i class="material-icons-outlined">add</i> Add Permission
-        </button>
-    </div>
+    @can('create-permissions')
+        <div class="mb-3 text-end">
+            <button class="btn btn-grd-primary" data-bs-toggle="modal" data-bs-target="#permissionModal" id="addPermissionBtn">
+                <i class="material-icons-outlined">add</i> Add Permission
+            </button>
+        </div>
+    @endcan
 
     <div class="card">
         <div class="card-body">
@@ -40,18 +42,22 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-info editPermissionBtn" data-id="{{ $permission->id }}"
-                                        data-name="{{ $permission->name }}" data-slug="{{ $permission->slug }}">
-                                        <i class="material-icons-outlined">edit</i>
-                                    </button>
-                                    <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                            <i class="material-icons-outlined">delete</i>
+                                    @can('edit-permissions')
+                                        <button class="btn btn-sm btn-info editPermissionBtn" data-id="{{ $permission->id }}"
+                                            data-name="{{ $permission->name }}" data-slug="{{ $permission->slug }}">
+                                            <i class="material-icons-outlined">edit</i>
                                         </button>
-                                    </form>
+                                    @endcan
+                                    @can('delete-permissions')
+                                        <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                <i class="material-icons-outlined">delete</i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
