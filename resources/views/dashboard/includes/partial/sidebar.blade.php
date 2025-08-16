@@ -53,7 +53,7 @@
             @endcan
 
             <!-- Quotes -->
-            @can('view-quotes')
+            {{-- @can('view-quotes')
                 <li class="menu-label">Quotes</li>
                 <li>
                     <a href="{{ route('dashboard.quotes.index') }}">
@@ -64,7 +64,7 @@
                         </div>
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
 
             <!-- Quote Statuses Dropdown -->
             @can('view-quotes')
@@ -72,7 +72,7 @@
                     <a class="d-flex align-items-center" href="#quoteStatusMenu" data-bs-toggle="collapse"
                         aria-expanded="{{ $currentStatus ? 'true' : 'false' }}">
                         <div class="parent-icon"><i class="material-icons-outlined">timeline</i></div>
-                        <div class="menu-title flex-grow-1">Quote Statuses</div>
+                        <div class="menu-title flex-grow-1">All Quotes</div>
                         <div class="ms-auto">
                             <i class="material-icons-outlined">expand_more</i>
                         </div>
