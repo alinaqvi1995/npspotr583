@@ -30,7 +30,7 @@
                     <option value="0">Customer</option>
                     <option value="1">Vehicles</option>
                     <option value="2">Pickup / Delivery</option>
-                    <option value="3">Status</option>
+                    {{-- <option value="3">Status</option> --}}
                 </select>
                 <input class="form-control rounded-5 px-3" type="text" placeholder="Search..." id="quoteSearch">
             </div>
