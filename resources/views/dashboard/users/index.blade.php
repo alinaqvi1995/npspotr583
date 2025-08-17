@@ -11,16 +11,6 @@
                 <div>
                     <h5 class="mb-0">Users List</h5>
                 </div>
-                <div class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle" data-bs-toggle="dropdown">
-                        <span class="material-icons-outlined fs-5">more_vert</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="row mb-3">
@@ -29,10 +19,6 @@
                         <option value="">Search All Columns</option>
                         <option value="0">Name</option>
                         <option value="1">Email</option>
-                        {{-- <option value="2">Roles</option>
-                        <option value="3">Panel Types</option>
-                        <option value="4">Created At</option>
-                        <option value="5">Updated At</option> --}}
                     </select>
                 </div>
                 <div class="col-md-8 position-relative">
@@ -50,8 +36,8 @@
                             <th>Email</th>
                             <th>Roles</th>
                             <th>Panel Types</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
+                            <th>Status</th>
+                            <th>Timestamps</th> {{-- Single timestamps column --}}
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -70,28 +56,67 @@
                                         <span class="badge bg-secondary">{{ $panel->name }}</span>
                                     @endforeach
                                 </td>
-                                <td>{{ $user->created_at_formatted }}</td>
-                                <td>{{ $user->updated_at_formatted }}</td>
+
+                                <td>{!! $user->status_label !!}</td>
+
+                                <td>
+                                    <small>Created: {{ $user->created_at_formatted }}</small><br>
+                                    <small>Updated: {{ $user->updated_at_formatted }}</small>
+                                </td>
+
                                 <td>
                                     @if (!$user->hasRole('admin'))
-                                        @can('edit-users')
-                                            <a href="{{ route('dashboard.users.edit', $user->id) }}"
-                                                class="btn btn-sm btn-info">
-                                                <i class="material-icons-outlined">edit</i>
+                                        <div class="dropdown d-inline">
+                                            <a href="javascript:;" class="dropdown-toggle btn btn-sm btn-secondary"
+                                                data-bs-toggle="dropdown">
+                                                View Options
                                             </a>
-                                        @endcan
-                                        @can('delete-users')
-                                            <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="material-icons-outlined">delete</i>
-                                                </button>
-                                            </form>
-                                        @endcan
+                                            <ul class="dropdown-menu">
+                                                @can('edit-users')
+                                                    <li>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('dashboard.users.edit', $user->id) }}">
+                                                            <i class="material-icons-outlined me-1">edit</i> Edit
+                                                        </a>
+                                                    </li>
+                                                @endcan
+                                                @can('delete-users')
+                                                    <li>
+                                                        <form action="{{ route('dashboard.users.destroy', $user->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item"
+                                                                onclick="return confirm('Are you sure?')">
+                                                                <i class="material-icons-outlined me-1">delete</i> Delete
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                @endcan
+                                                <li>
+                                                    <form action="{{ route('users.toggleActive', $user->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i
+                                                                class="material-icons-outlined me-1">{{ $user->is_active ? 'lock' : 'lock_open' }}</i>
+                                                            {{ $user->is_active ? 'Freeze' : 'Activate' }}
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <form action="{{ route('users.forceLogout', $user->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i class="material-icons-outlined me-1">logout</i> Force Logout
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     @else
-                                        <span class="">Admin - no actions</span>
+                                        <span class="ms-2">Admin - no actions</span>
                                     @endif
                                 </td>
                             </tr>
@@ -115,16 +140,14 @@
                 var colIndex = $('#columnSearchSelect').val();
                 var searchTerm = this.value;
                 if (colIndex === "") {
-                    // global search
                     table.search(searchTerm).draw();
                 } else {
-                    // search only in selected column
                     table.column(colIndex).search(searchTerm).draw();
                 }
             });
 
             $('#columnSearchSelect').on('change', function() {
-                $('#columnSearchInput').trigger('keyup'); // apply search immediately
+                $('#columnSearchInput').trigger('keyup');
             });
         });
     </script>

@@ -38,7 +38,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/detail', [BlogController::class, 'show'])->name('blog.show');
 
 // 🔐 Auth & Profile
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'check_active'])->group(function () {
     Route::get('/dashboard', fn() => view('dashboard.index'))->middleware('verified')->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -47,15 +47,17 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
-    
+
     Route::get('/quotes', [AdminController::class, 'allQuotes'])->name('dashboard.quotes.index');
     Route::get('/quotes/{id}', [AdminController::class, 'quoteDetail'])->name('dashboard.quotes.details');
-    
+
     Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');
     Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('dashboard.users.update');
     Route::delete('/users/{id}', [UserManagementController::class, 'userDestroy'])->name('dashboard.users.destroy');
-    
+    Route::post('{user}/toggle-active', [UserManagementController::class, 'toggleActive'])->name('users.toggleActive');
+    Route::post('{user}/force-logout', [UserManagementController::class, 'forceLogout'])->name('users.forceLogout');
+
     Route::get('/activity_logs', [AdminController::class, 'activityLogs'])->name('view.activity_logs');
 
     Route::resource('roles', RoleController::class);

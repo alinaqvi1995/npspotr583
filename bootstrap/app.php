@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission'         => \App\Http\Middleware\PermissionMiddleware::class,
             'role'               => \App\Http\Middleware\RoleMiddleware::class,
             'role_or_permission' => \App\Http\Middleware\RoleOrPermissionMiddleware::class,
+            'check_active' => \App\Http\Middleware\CheckUserActive::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -14,6 +14,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_active',
+        'force_logout'
     ];
 
     protected $hidden = [
@@ -26,7 +28,31 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
+            'force_logout' => 'boolean',
         ];
+    }
+
+    public function isActive(): bool
+    {
+        return (bool) $this->is_active;
+    }
+
+    public function isForcedLogout(): bool
+    {
+        return (bool) $this->force_logout;
+    }
+
+    public function getStatusFormattedAttribute()
+    {
+        return $this->status == 1 ? 'Active' : 'Inactive';
+    }
+
+    public function getStatusLabelAttribute()
+    {
+        return $this->is_active
+            ? '<span class="badge bg-success">Active</span>'
+            : '<span class="badge bg-danger">Inactive</span>';
     }
 
     /** Relationships */

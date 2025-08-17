@@ -19,7 +19,7 @@ class UserManagementController extends Controller
         $permissions = [
             'allUsers'   => 'view-users',
             'userUpdate' => 'edit-users',
-            'userDestroy'=> 'delete-users',
+            'userDestroy' => 'delete-users',
         ];
 
         foreach ($permissions as $method => $permission) {
@@ -93,7 +93,7 @@ class UserManagementController extends Controller
                 'location'    => [
                     'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country'=> $request->header('X-Geo-Country'),
+                    'country' => $request->header('X-Geo-Country'),
                 ],
             ],
         ]);
@@ -122,7 +122,7 @@ class UserManagementController extends Controller
                 'location'    => [
                     'city'   => request()->header('X-Geo-City'),
                     'region' => request()->header('X-Geo-Region'),
-                    'country'=> request()->header('X-Geo-Country'),
+                    'country' => request()->header('X-Geo-Country'),
                 ],
             ],
         ]);
@@ -130,5 +130,25 @@ class UserManagementController extends Controller
         $user->delete();
 
         return redirect()->route('dashboard.users.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function toggleActive(User $user)
+    {
+        $user->is_active = !$user->is_active;
+        if ($user->is_active) {
+            $user->force_logout = false;
+        }
+
+        $user->save();
+
+        return back()->with('success', 'User status updated.');
+    }
+
+    public function forceLogout(User $user)
+    {
+        $user->force_logout = true;
+        $user->save();
+
+        return back()->with('success', 'User will be logged out on next request.');
     }
 }
