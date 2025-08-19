@@ -435,23 +435,30 @@ $(document).ready(function () {
         }
     });
 
-    $("#addVehicleBtn").click(function () {
-        var selected = $("#tabSelector").val();
-        if (!selected) return;
+$("#addVehicleBtn").click(function () {
+    var selected = $("#tabSelector").val();
+    if (!selected) return;
 
-        var vehicleHtml = `
-            <div class="vehicle-block extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative;">
-                <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
-                <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
-                ${vehicleFields[selected]}
-            </div>
-        `;
-        $("#additionalContent").append(vehicleHtml);
-    });
+    var vehicleHtml = `
+        <div class="vehicle-block extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative; display:none;">
+            <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
+            <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
+            ${vehicleFields[selected]}
+        </div>
+    `;
 
-    $(document).on("click", ".deleteVehicleBtn", function () {
-        $(this).closest(".extra-vehicle").remove();
+    var $newBlock = $(vehicleHtml);
+    $("#additionalContent").append($newBlock);
+    $newBlock.slideDown(400); // Smooth reveal
+});
+
+
+$(document).on("click", ".deleteVehicleBtn", function () {
+    $(this).closest(".extra-vehicle").slideUp(400, function () {
+        $(this).remove(); // remove after animation
     });
+});
+
 
     $("#calculatePriceForm").submit(function (e) {
         e.preventDefault();
