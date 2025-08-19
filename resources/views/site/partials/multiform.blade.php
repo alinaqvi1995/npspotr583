@@ -60,7 +60,7 @@
         <!-- Step 3 -->
         <div id="step3" class="basic_quote_info" style="display: none;">
             <div class="row mb-3">
-                <h4 class="text-center">Customer Information</h4>
+                <h4 class="text-white text-center fs-2">Customer Information</h4>
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
                         <label>Your Name:</label>
@@ -68,13 +68,13 @@
                     </div>
                 </div>
                 <div class="col-xl-6">
-                    <div class="single-input-field">
+                    <div class="input-form single-input-field">
                         <label>Phone:</label>
                         <input id="phone" type="tel" placeholder="Customer Phone" required>
                     </div>
                 </div>
                 <div class="col-xl-12">
-                    <div class="single-input-field">
+                    <div class="input-form single-input-field">
                         <label>Email Address:</label>
                         <input id="email" type="email" placeholder="Email address" required>
                     </div>
