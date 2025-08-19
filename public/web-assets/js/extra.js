@@ -68,19 +68,19 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
+                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Make:</label>
-                        <input type="text" placeholder="e.g. Toyota" required>
+                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Model:</label>
-                        <input type="text" placeholder="e.g. Corolla" required>
+                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@ $(document).ready(function () {
 
             <!-- Vehicle Images -->
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
@@ -110,19 +110,19 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
+                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Make:</label>
-                        <input type="text" placeholder="e.g. Toyota" required>
+                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Model:</label>
-                        <input type="text" placeholder="e.g. Corolla" required>
+                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@ $(document).ready(function () {
 
             <!-- Vehicle Images -->
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
 
@@ -173,19 +173,19 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
+                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Make:</label>
-                        <input type="text" placeholder="e.g. Toyota" required>
+                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Model:</label>
-                        <input type="text" placeholder="e.g. Corolla" required>
+                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
                     </div>
                 </div>
             </div>
@@ -206,7 +206,7 @@ $(document).ready(function () {
 
             <!-- Vehicle Images -->
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
@@ -215,19 +215,19 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
+                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Make:</label>
-                        <input type="text" placeholder="e.g. Toyota" required>
+                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Model:</label>
-                        <input type="text" placeholder="e.g. Corolla" required>
+                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
                     </div>
                 </div>
             </div>
@@ -248,7 +248,7 @@ $(document).ready(function () {
 
             <!-- Vehicle Images -->
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
@@ -310,7 +310,7 @@ $(document).ready(function () {
 
             <!-- Vehicle Images -->
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
@@ -319,19 +319,19 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
+                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Make:</label>
-                        <input type="text" placeholder="e.g. Toyota" required>
+                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Model:</label>
-                        <input type="text" placeholder="e.g. Corolla" required>
+                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
                     </div>
                 </div>
             </div>
@@ -352,7 +352,7 @@ $(document).ready(function () {
 
             <!-- Vehicle Images -->
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
@@ -411,9 +411,10 @@ $(document).ready(function () {
                     </select>
                 </div>
             </div>
+
             <!-- Vehicle Images -->
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
                 <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `

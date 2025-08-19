@@ -1,4 +1,38 @@
-<form id="calculatePriceForm">
+{{-- 
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{ route('frontend.submit.quote') }}" method="post"
+        class="rd-mailform validate-form"
+        id="calculatePriceFrom"
+        novalidate data-parsley-validate data-parsley-errors-messages-disabled
+        enctype="multipart/form-data">
+            @csrf
+            @php $today = date('Y-m-d'); @endphp
+
+            <input type="hidden" name="vehicle_opt" value="vehicle">
+            <input type="hidden" name="type" value="car">
+--}}
+<form class="rd-mailform validate-form" action="{{ route('frontend.submit.quote') }}" method="POST" enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled>
+            @csrf
+            @php $today = date('Y-m-d'); @endphp
+
+            <input type="hidden" name="vehicle_opt" value="vehicle">
+            <input type="hidden" name="type" value="car">
     <div class="container mt-2">
 
         <!-- Step 1 -->
@@ -9,7 +43,7 @@
                     <h6  class="text-white">Moving From</h6>
                     <label class="d-block mb-2 text-white">Where Are You Moving From?</label>
                     <div class="input-form single-input-field">
-                        <input type="text" id="pickup-location" placeholder="Enter City or ZipCode" required>
+                        <input type="text" id="pickup-location" name="pickup_location" placeholder="Enter City or ZipCode" required>
                         <ul class="suggestions suggestionsPickup"></ul>
                     </div>
                 </div>
@@ -17,7 +51,7 @@
                     <h6  class="text-white">Moving To</h6>
                     <label class="d-block mb-2 text-white">Where Are You Moving To?</label>
                     <div class="input-form single-input-field">
-                        <input type="text" id="delivery-location" placeholder="Enter City or ZipCode" required>
+                        <input type="text" id="delivery-location" name="delivery_location" placeholder="Enter City or ZipCode" required>
                         <ul class="suggestions suggestionsDelivery"></ul>
                     </div>
                 </div>
@@ -64,19 +98,19 @@
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
                         <label>Your Name:</label>
-                        <input id="name" type="text" placeholder="Customer Name" required>
+                        <input id="name" name="customer_name" type="text" placeholder="Customer Name" required>
                     </div>
                 </div>
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
                         <label>Phone:</label>
-                        <input id="phone" type="tel" placeholder="Customer Phone" required>
+                        <input id="phone" name="customer_phone" type="tel" placeholder="Customer Phone" required>
                     </div>
                 </div>
                 <div class="col-xl-12">
                     <div class="input-form single-input-field">
                         <label>Email Address:</label>
-                        <input id="email" type="email" placeholder="Email address" required>
+                        <input id="email" name="customer_email" type="email" placeholder="Email address" required>
                     </div>
                 </div>
             </div>
