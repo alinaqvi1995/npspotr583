@@ -67,6 +67,12 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
                         <label>Make:</label>
                         <input type="text" placeholder="e.g. Toyota" required>
                     </div>
@@ -75,12 +81,6 @@ $(document).ready(function () {
                     <div class="input-form single-input-field">
                         <label>Model:</label>
                         <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
                     </div>
                 </div>
             </div>
@@ -109,6 +109,12 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
                         <label>Make:</label>
                         <input type="text" placeholder="e.g. Toyota" required>
                     </div>
@@ -117,12 +123,6 @@ $(document).ready(function () {
                     <div class="input-form single-input-field">
                         <label>Model:</label>
                         <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
                     </div>
                 </div>
             </div>
@@ -172,6 +172,12 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
                         <label>Make:</label>
                         <input type="text" placeholder="e.g. Toyota" required>
                     </div>
@@ -180,12 +186,6 @@ $(document).ready(function () {
                     <div class="input-form single-input-field">
                         <label>Model:</label>
                         <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
                     </div>
                 </div>
             </div>
@@ -214,6 +214,12 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
                         <label>Make:</label>
                         <input type="text" placeholder="e.g. Toyota" required>
                     </div>
@@ -222,12 +228,6 @@ $(document).ready(function () {
                     <div class="input-form single-input-field">
                         <label>Model:</label>
                         <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
                     </div>
                 </div>
             </div>
@@ -256,6 +256,12 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
                         <label>Make:</label>
                         <input type="text" placeholder="e.g. Toyota" required>
                     </div>
@@ -264,12 +270,6 @@ $(document).ready(function () {
                     <div class="input-form single-input-field">
                         <label>Model:</label>
                         <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
                     </div>
                 </div>
             </div>
@@ -318,6 +318,12 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
                         <label>Make:</label>
                         <input type="text" placeholder="e.g. Toyota" required>
                     </div>
@@ -326,12 +332,6 @@ $(document).ready(function () {
                     <div class="input-form single-input-field">
                         <label>Model:</label>
                         <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
                     </div>
                 </div>
             </div>
@@ -360,6 +360,12 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
                         <label>Make:</label>
                         <input type="text" placeholder="e.g. Toyota" required>
                     </div>
@@ -368,12 +374,6 @@ $(document).ready(function () {
                     <div class="input-form single-input-field">
                         <label>Model:</label>
                         <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
                     </div>
                 </div>
             </div>
