@@ -11,7 +11,7 @@
         <div class="swiper thumb-slider2">
             <div class="swiper-wrapper">
                 <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-3.webp">
-                    <div class="container container-two">
+                    <div class="container container-two py-5 my-5">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
                                 <div class="slider-content p-z-idex">
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 py-5 my-5">
                                 <div class="slider-tabs slider-tabs-two d-none d-lg-block"> 
                                     <div
                                         class="tj-input-form"

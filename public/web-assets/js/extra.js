@@ -64,73 +64,357 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function () {
     var vehicleFields = {
         "Atv": `
-            <div class="input-form single-input-field">
-                <label>ATV Model:</label>
-                <input type="text" placeholder="Enter ATV Model" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Make:</label>
+                        <input type="text" placeholder="e.g. Toyota" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Model:</label>
+                        <input type="text" placeholder="e.g. Corolla" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
             </div>
-            <div class="input-form single-input-field">
-                <label>ATV Year:</label>
-                <input type="number" placeholder="Enter Year" required>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][trailer_type]">
+                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][condition]">
+                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Vehicle Images -->
+            <div class="input-form mt-4">
+                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
         "Boat-Transport": `
-            <div class="input-form single-input-field">
-                <label>Boat Length (ft):</label>
-                <input type="number" placeholder="Length in feet" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Make:</label>
+                        <input type="text" placeholder="e.g. Toyota" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Model:</label>
+                        <input type="text" placeholder="e.g. Corolla" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
             </div>
-            <div class="input-form single-input-field">
-                <label>Boat Weight (lbs):</label>
-                <input type="number" placeholder="Weight in lbs" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Length (ft):</label>
+                        <input type="number" placeholder="Length in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Width (ft):</label>
+                        <input type="number" placeholder="Width in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Weight (lbs):</label>
+                        <input type="number" placeholder="Weight in lbs" required>
+                    </div>
+                </div>
             </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][trailer_type]">
+                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][condition]">
+                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Vehicle Images -->
+            <div class="input-form mt-4">
+                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
+            </div>
+
         `,
         "Car": `
-            <div class="input-form single-input-field">
-                <label>Car Make:</label>
-                <input type="text" placeholder="e.g. Toyota" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Make:</label>
+                        <input type="text" placeholder="e.g. Toyota" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Model:</label>
+                        <input type="text" placeholder="e.g. Corolla" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
             </div>
-            <div class="input-form single-input-field">
-                <label>Car Model:</label>
-                <input type="text" placeholder="e.g. Corolla" required>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][trailer_type]">
+                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][condition]">
+                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                    </select>
+                </div>
             </div>
-            <div class="input-form single-input-field">
-                <label>Car Year:</label>
-                <input type="number" placeholder="e.g. 2020" required>
+
+            <!-- Vehicle Images -->
+            <div class="input-form mt-4">
+                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
         "Golf-Cart": `
-            <div class="input-form single-input-field">
-                <label>Golf Cart Model:</label>
-                <input type="text" placeholder="Enter Model" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Make:</label>
+                        <input type="text" placeholder="e.g. Toyota" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Model:</label>
+                        <input type="text" placeholder="e.g. Corolla" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][trailer_type]">
+                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][condition]">
+                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Vehicle Images -->
+            <div class="input-form mt-4">
+                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
         "Heavy-Equipment": `
-            <div class="input-form single-input-field">
-                <label>Equipment Type:</label>
-                <input type="text" placeholder="Type of Equipment" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Make:</label>
+                        <input type="text" placeholder="e.g. Toyota" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Model:</label>
+                        <input type="text" placeholder="e.g. Corolla" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
             </div>
-            <div class="input-form single-input-field">
-                <label>Weight (lbs):</label>
-                <input type="number" placeholder="Enter weight" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Length (ft):</label>
+                        <input type="number" placeholder="Length in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Width (ft):</label>
+                        <input type="number" placeholder="Width in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Weight (lbs):</label>
+                        <input type="number" placeholder="Weight in lbs" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][trailer_type]">
+                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][condition]">
+                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Vehicle Images -->
+            <div class="input-form mt-4">
+                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
         "Motorcycle": `
-            <div class="input-form single-input-field">
-                <label>Motorcycle Make:</label>
-                <input type="text" placeholder="e.g. Yamaha" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Make:</label>
+                        <input type="text" placeholder="e.g. Toyota" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Model:</label>
+                        <input type="text" placeholder="e.g. Corolla" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
             </div>
-            <div class="input-form single-input-field">
-                <label>Motorcycle Model:</label>
-                <input type="text" placeholder="Enter Model" required>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][trailer_type]">
+                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][condition]">
+                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Vehicle Images -->
+            <div class="input-form mt-4">
+                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `,
         "RV-Transport": `
-            <div class="input-form single-input-field">
-                <label>RV Type:</label>
-                <input type="text" placeholder="e.g. Class A" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Make:</label>
+                        <input type="text" placeholder="e.g. Toyota" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Model:</label>
+                        <input type="text" placeholder="e.g. Corolla" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Year:</label>
+                        <input type="number" placeholder="e.g. 2020" required>
+                    </div>
+                </div>
             </div>
-            <div class="input-form single-input-field">
-                <label>Length (ft):</label>
-                <input type="number" placeholder="Enter Length" required>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Length (ft):</label>
+                        <input type="number" placeholder="Length in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Width (ft):</label>
+                        <input type="number" placeholder="Width in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Weight (lbs):</label>
+                        <input type="number" placeholder="Weight in lbs" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][trailer_type]">
+                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
+                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="vehicles[0][condition]">
+                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
+                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Vehicle Images -->
+            <div class="input-form mt-4">
+                <input class="form-control image_input pt-0" name="images[0][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         `
     };
@@ -141,7 +425,7 @@ $(document).ready(function () {
         if (selected) {
             $("#firstVehicle").html(`
                 <div class="vehicle-block main-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-                    <h4>${selected.replace(/-/g, ' ')}</h4>
+                    <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
                     ${vehicleFields[selected]}
                 </div>
             `);
@@ -158,7 +442,7 @@ $(document).ready(function () {
         var vehicleHtml = `
             <div class="vehicle-block extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative;">
                 <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
-                <h4>${selected.replace(/-/g, ' ')}</h4>
+                <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
                 ${vehicleFields[selected]}
             </div>
         `;

@@ -45,13 +45,15 @@
                 </select>
 
                 <div id="firstVehicle"></div>
-                <button type="button" id="addVehicleBtn" style="display:none;">Add Vehicle</button>
+                <button type="button" id="addVehicleBtn"  class="text-white text-center text-decoration-underline" style="display:none;">Add Vehicle</button>
 
                 <div class="tab-content mt-3" id="additionalContent"></div>
             </div>
             <div class="row mt-2 justify-content-evenly">
-                <button type="button" id="step2_previous" class="tj-submit-btn">Previous</button>
-                <button type="button" id="step2_next" class="tj-submit-btn">Next</button>
+                <div class="col-12 d-flex flex-column flex-md-row justify-content-evenly">
+                    <button type="button" id="step2_previous" class="tj-submit-btn">Previous</button>
+                    <button type="button" id="step2_next" class="tj-submit-btn">Next</button>
+                </div>
             </div>
         </div>
 
@@ -79,8 +81,10 @@
                 </div>
             </div>
             <div class="row justify-content-evenly">
-                <button type="button" id="step3_previous" class="tj-submit-btn">Previous</button>
-                <button type="submit" class="tj-submit-btn">Calculate Price</button>
+                <div class="col-12 d-flex flex-column flex-md-row justify-content-evenly">
+                    <button type="button" id="step3_previous" class="tj-submit-btn">Previous</button>
+                    <button type="submit" class="tj-submit-btn">Calculate Price</button>
+                </div>
             </div>
         </div>
 
