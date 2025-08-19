@@ -6,16 +6,16 @@
             <div class="row">
                 <h4 class="title text-center">Quote Request!</h4>
                 <div class="col-xl-12 mb-4">
-                    <h6>Moving From</h6>
-                    <label class="d-block mb-2">Where Are You Moving From?</label>
+                    <h6  class="text-white">Moving From</h6>
+                    <label class="d-block mb-2 text-white">Where Are You Moving From?</label>
                     <div class="input-form single-input-field">
                         <input type="text" id="pickup-location" placeholder="Enter City or ZipCode" required>
                         <ul class="suggestions suggestionsPickup"></ul>
                     </div>
                 </div>
                 <div class="col-xl-12 mb-4">
-                    <h6>Moving To</h6>
-                    <label class="d-block mb-2">Where Are You Moving To?</label>
+                    <h6  class="text-white">Moving To</h6>
+                    <label class="d-block mb-2 text-white">Where Are You Moving To?</label>
                     <div class="input-form single-input-field">
                         <input type="text" id="delivery-location" placeholder="Enter City or ZipCode" required>
                         <ul class="suggestions suggestionsDelivery"></ul>
