@@ -7,8 +7,8 @@
     <div class="maxton-sidebar__wrapper">
         <div class="maxton-sidebar__header">
             <a href="/" class="maxton-sidebar__logo">
-                <img class="logo-lite" src="{% static 'img/logo-dark.svg'  %}" alt="logo" />
-                <img class="logo-dark" src="{% static 'img/logo-lite.svg'  %}" alt="logo" />
+                <img class="logo-lite" src="{{ asset('admin/img/logo-dark.svg') }}" alt="logo" />
+                <img class="logo-dark" src="{{ asset('admin/img/logo-lite.svg') }}" alt="logo" />
             </a>
         </div>
         <nav class="maxton-sidebar__menu-wrapper">

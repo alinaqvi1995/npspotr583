@@ -697,12 +697,12 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('static/plugins/peity/jquery.peity.min.js') }}"></script>
-    <script src="{{ asset('static/plugins/apexchart/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/peity/jquery.peity.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/apexchart/apexcharts.min.js') }}"></script>
     <script>
         $(".data-attributes span").peity("donut")
     </script>
-    <script src="{{ asset('static/js/dashboard1.js') }}"></script>
+    <script src="{{ asset('admin/js/dashboard1.js') }}"></script>
     <script>
         new PerfectScrollbar(".user-list")
     </script>

@@ -135,40 +135,40 @@
             </li> --}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="avascript:;"
-                    data-bs-toggle="dropdown"><img src="{% static 'images/county/02.png' %}" width="22"
+                    data-bs-toggle="dropdown"><img src="{{ asset('admin/images/county/02.png') }}" width="22"
                         alt="">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/01.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/01.png') }}" width="20" alt=""><span
                                 class="ms-2">English</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/02.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/02.png') }}" width="20" alt=""><span
                                 class="ms-2">Catalan</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/03.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/03.png') }}" width="20" alt=""><span
                                 class="ms-2">French</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/04.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/04.png') }}" width="20" alt=""><span
                                 class="ms-2">Belize</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/05.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/05.png') }}" width="20" alt=""><span
                                 class="ms-2">Colombia</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/06.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/06.png') }}" width="20" alt=""><span
                                 class="ms-2">Spanish</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/07.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/07.png') }}" width="20" alt=""><span
                                 class="ms-2">Georgian</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center py-2" href="javascript:;"><img
-                                src="{% static 'images/county/08.png' %}" width="20" alt=""><span
+                                src="{{ asset('admin/images/county/08.png') }}" width="20" alt=""><span
                                 class="ms-2">Hindi</span></a>
                     </li>
                 </ul>
@@ -251,7 +251,7 @@
                             <a class="dropdown-item border-bottom py-2" href="javascript:;">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="">
-                                        <img src="{% static 'images/apps/13.png' %}" class="rounded-circle"
+                                        <img src="{{ asset('admin/images/apps/13.png') }}" class="rounded-circle"
                                             width="45" height="45" alt="">
                                     </div>
                                     <div class="">
@@ -269,7 +269,7 @@
                             <a class="dropdown-item border-bottom py-2" href="javascript:;">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="">
-                                        <img src="{% static 'images/apps/14.png' %}" class="rounded-circle"
+                                        <img src="{{ asset('admin/images/apps/14.png') }}" class="rounded-circle"
                                             width="45" height="45" alt="">
                                     </div>
                                     <div class="">
