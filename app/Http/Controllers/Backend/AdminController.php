@@ -46,6 +46,11 @@ class AdminController extends Controller
         return view('dashboard.quote.details', compact('quote'));
     }
 
+    public function quoteCreate()
+    {
+        return view('dashboard.quote.create');
+    }
+
     public function activityLogs()
     {
         $logs = Activity::latest()->paginate(20);

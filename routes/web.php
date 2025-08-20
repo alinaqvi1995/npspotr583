@@ -50,6 +50,7 @@ Route::middleware(['auth', 'check_active'])->group(function () {
 
     Route::get('/quotes', [AdminController::class, 'allQuotes'])->name('dashboard.quotes.index');
     Route::get('/quotes/{id}', [AdminController::class, 'quoteDetail'])->name('dashboard.quotes.details');
+    Route::get('/create', [AdminController::class, 'quoteCreate'])->name('dashboard.quotes.create');
 
     Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');
