@@ -141,6 +141,12 @@ $(document).ready(function () {
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Width (ft):</label>
+                        <input type="number" placeholder="Width in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-form single-input-field">
                         <label>Weight (lbs):</label>
                         <input type="number" placeholder="Weight in lbs" required>
                     </div>
@@ -288,6 +294,12 @@ $(document).ready(function () {
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
+                        <label>Width (ft):</label>
+                        <input type="number" placeholder="Width in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-form single-input-field">
                         <label>Weight (lbs):</label>
                         <input type="number" placeholder="Weight in lbs" required>
                     </div>
@@ -391,6 +403,12 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <div class="input-form single-input-field">
+                        <label>Width (ft):</label>
+                        <input type="number" placeholder="Width in feet" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="input-form single-input-field">
                         <label>Weight (lbs):</label>
                         <input type="number" placeholder="Weight in lbs" required>

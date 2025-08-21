@@ -50,9 +50,9 @@
                 </select>
 
                 <div id="firstVehicle"></div>
-                <button type="button" id="addVehicleBtn"  class="text-white text-center text-decoration-underline" style="display:none;">Add Vehicle</button>
-
+                
                 <div class="tab-content mt-3" id="additionalContent"></div>
+                <button type="button" id="addVehicleBtn"  class="text-white text-center text-decoration-underline" style="display:none;">Add Vehicle</button>
             </div>
             <div class="row mt-2 justify-content-evenly">
                 <div class="col-12 d-flex flex-column flex-md-row justify-content-evenly">
