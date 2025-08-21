@@ -141,11 +141,11 @@ $(document).ready(function () {
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
-                        <label>Width (ft):</label>
+                        <label>Height (ft):</label>
                         <input type="number" placeholder="Width in feet" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="input-form single-input-field">
                         <label>Weight (lbs):</label>
                         <input type="number" placeholder="Weight in lbs" required>
@@ -294,11 +294,11 @@ $(document).ready(function () {
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
-                        <label>Width (ft):</label>
+                        <label>Height (ft):</label>
                         <input type="number" placeholder="Width in feet" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="input-form single-input-field">
                         <label>Weight (lbs):</label>
                         <input type="number" placeholder="Weight in lbs" required>
@@ -404,11 +404,11 @@ $(document).ready(function () {
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
-                        <label>Width (ft):</label>
+                        <label>Height (ft):</label>
                         <input type="number" placeholder="Width in feet" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="input-form single-input-field">
                         <label>Weight (lbs):</label>
                         <input type="number" placeholder="Weight in lbs" required>
