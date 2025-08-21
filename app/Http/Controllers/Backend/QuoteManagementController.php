@@ -58,7 +58,7 @@ class QuoteManagementController extends Controller
             //     return $items->pluck('model')->toArray();
             // })
             // ->toArray();
-            dd($models);
+            dd($models->toArray());
 
         return view('dashboard.quote.create', compact('makes', 'models'));
     }
