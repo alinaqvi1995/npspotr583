@@ -45,20 +45,15 @@ class QuoteManagementController extends Controller
 
     public function quoteCreate()
     {
-        $makes = VehicleMakeModel::select('make')
-            ->distinct()
-            ->orderBy('make')
-            ->pluck('make');
-
-        $models = VehicleMakeModel::select('make', 'model')
-            ->orderBy('make')
-            ->get()
-            ->groupBy('make')
-            ->map(function ($items) {
+        try {
+            $makes = VehicleMakeModel::select('make')->distinct()->orderBy('make')->pluck('make');
+            $models = VehicleMakeModel::select('make', 'model')->orderBy('make')->get()->groupBy('make')->map(function ($items) {
                 return $items->pluck('model')->toArray();
-            })
-            ->toArray();
+            })->toArray();
 
-        return view('dashboard.quote.create', compact('makes', 'models'));
+            return view('dashboard.quote.create', compact('makes', 'models'));
+        } catch (\Exception $e) {
+            dd($e->getMessage(), $e->getTraceAsString());
+        }
     }
 }
