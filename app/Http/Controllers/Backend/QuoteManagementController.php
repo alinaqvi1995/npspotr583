@@ -50,20 +50,15 @@ class QuoteManagementController extends Controller
             ->orderBy('make')
             ->pluck('make');
 
-        // dd($makes);
-
         $models = VehicleMakeModel::select('make', 'model')
             ->orderBy('make')
-            ->get()
-            ->groupBy('make')
-            ->mapWithKeys(function ($items, $make) {
-                // remove empty/null models
-                $models = $items->pluck('model')->filter()->values()->toArray();
-                return [$make => $models];
-            })
-            ->toArray();
-
-        dd($models);
+            ->get();
+            // ->groupBy('make')
+            // ->map(function ($items) {
+            //     return $items->pluck('model')->toArray();
+            // })
+            // ->toArray();
+            dd($models);
 
         return view('dashboard.quote.create', compact('makes', 'models'));
     }
