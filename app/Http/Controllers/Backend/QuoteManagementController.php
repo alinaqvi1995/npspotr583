@@ -51,7 +51,6 @@ class QuoteManagementController extends Controller
             ->pluck('make');
 
         $models = VehicleMakeModel::select('make', 'model')
-            ->orderBy('make')
             ->get();
             // ->groupBy('make')
             // ->map(function ($items) {
