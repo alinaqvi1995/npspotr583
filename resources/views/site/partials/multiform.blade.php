@@ -1,38 +1,9 @@
-{{-- 
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <form action="{{ route('frontend.submit.quote') }}" method="post"
-        class="rd-mailform validate-form"
-        id="calculatePriceFrom"
-        novalidate data-parsley-validate data-parsley-errors-messages-disabled
-        enctype="multipart/form-data">
-            @csrf
-            @php $today = date('Y-m-d'); @endphp
-
-            <input type="hidden" name="vehicle_opt" value="vehicle">
-            <input type="hidden" name="type" value="car">
---}}
 <form class="rd-mailform validate-form" action="{{ route('frontend.submit.quote') }}" method="POST" enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled>
-            @csrf
-            @php $today = date('Y-m-d'); @endphp
+    @csrf
+    @php $today = date('Y-m-d'); @endphp
 
-            <input type="hidden" name="vehicle_opt" value="vehicle">
-            <input type="hidden" name="type" value="car">
+    <input type="hidden" name="vehicle_opt" value="vehicle">
+    <input type="hidden" name="type" value="car">
     <div class="container mt-2">
 
         <!-- Step 1 -->
