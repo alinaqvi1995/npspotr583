@@ -7,7 +7,7 @@
 @section('content')
 
     <!--========== breadcrumb Start ==============-->
-    <section class="breadcrumb-wrapper" data-bg-image="web-assets/images/banner/breadcrumb.jpg">
+    <section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/cta-bg.webp') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -197,7 +197,7 @@
                         </div>
                         <div class="tj-project-content">
                             <span class="sub-title"> Reliable Handling</span>
-                            <h4><a href="service-details.html" class="title-link">Heavy Equipment Shipping</a></h4>
+                            <h4><a href="service-details.html" class="title-link w-100 px-4">Heavy Equipment Shipping</a></h4>
                         </div>
                     </div>
                 </div>

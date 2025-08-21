@@ -6926,7 +6926,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 
 .breadcrumb-wrapper .breadcrumb-content .breadcrumb-link::before {
     z-index: 1;
-    top: -1px;
+    top: -3px;
     left: -70px;
     width: 70px;
     height: 76px;
@@ -6934,7 +6934,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: var(--tj-primary-color);
+    background: #9b6f2a;
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     clip-path: polygon(100% 0, 50% 100%, 100% 100%);
     -webkit-clip-path: polygon(100% 0, 50% 100%, 100% 100%);
@@ -6943,7 +6943,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 
 .breadcrumb-wrapper .breadcrumb-content .breadcrumb-link::after {
     z-index: 1;
-    top: -1px;
+    top: -3px;
     right: -70px;
     width: 70px;
     height: 76px;
@@ -6951,7 +6951,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: var(--tj-primary-color);
+    background: #c4bf56;
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     -webkit-clip-path: polygon(0 0, 0% 100%, 50% 100%);
     clip-path: polygon(0 0, 0% 100%, 50% 100%);
