@@ -45,7 +45,6 @@ class QuoteManagementController extends Controller
 
     public function quoteCreate()
     {
-        dd('okk');
         $makes = VehicleMakeModel::select('make')
             ->distinct()
             ->orderBy('make')
