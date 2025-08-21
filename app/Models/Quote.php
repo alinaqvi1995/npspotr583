@@ -18,7 +18,43 @@ class Quote extends Model
         'customer_email',
         'customer_phone',
         'additional_info',
-        'status'
+        'status',
+
+        // --new fields-- from create page
+        'pickup_address1',
+        'pickup_address2',
+        'pickup_city',
+        'pickup_state',
+        'pickup_zip',
+        'pickup_buyer_ref',
+        'pickup_contact_name',
+        'pickup_contact_email',
+        'pickup_contact_phone',
+        'pickup_twic',
+        'pickup_save',
+
+        'delivery_address1',
+        'delivery_address2',
+        'delivery_city',
+        'delivery_state',
+        'delivery_zip',
+        'delivery_buyer_ref',
+        'delivery_contact_name',
+        'delivery_contact_email',
+        'delivery_contact_phone',
+        'delivery_twic',
+        'delivery_save',
+
+        'amount_to_pay',
+        'cop_cod',
+        'cop_cod_amount',
+        'balance',
+        'balance_amount',
+
+        'load_id',
+        'pre_dispatch_notes',
+        'transport_special_instructions',
+        'load_specific_terms',
     ];
 
     protected $attributes = [
@@ -85,7 +121,6 @@ class Quote extends Model
         return $this->updated_at ? $this->updated_at->format('Md, Y h:ia') : '-';
     }
 
-    // Get status badge HTML dynamically
     public function getStatusLabelAttribute(): string
     {
         $status = $this->status ?? 'New';
@@ -93,7 +128,6 @@ class Quote extends Model
         return "<span class='badge {$class}'>{$status}</span>";
     }
 
-    // Get icon for current status
     public function getStatusIconAttribute(): string
     {
         $status = $this->status ?? 'New';
@@ -108,5 +142,20 @@ class Quote extends Model
     public function subcategoryName()
     {
         return $this->subcategory ? $this->subcategory->name : 'N/A';
+    }
+
+    public function phones()
+    {
+        return $this->hasMany(QuotePhone::class);
+    }
+
+    public function pickupPhones()
+    {
+        return $this->phones()->where('type', 'pickup');
+    }
+
+    public function deliveryPhones()
+    {
+        return $this->phones()->where('type', 'delivery');
     }
 }

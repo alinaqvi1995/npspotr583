@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserManagementController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\QuoteManagementController;
 
 // 🔹 Static pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -49,9 +50,9 @@ Route::middleware(['auth', 'check_active'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
 
-    Route::get('/quotes', [AdminController::class, 'allQuotes'])->name('dashboard.quotes.index');
-    Route::get('/quotes/{id}', [AdminController::class, 'quoteDetail'])->name('dashboard.quotes.details');
-    Route::get('/create', [AdminController::class, 'quoteCreate'])->name('dashboard.quotes.create');
+    Route::get('/quotes', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
+    Route::get('/quotes/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
+    Route::get('/add_new_quote', [QuoteManagementController::class, 'quoteCreate'])->name('dashboard.quotes.create');
 
     Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');
