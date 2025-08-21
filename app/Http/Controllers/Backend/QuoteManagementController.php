@@ -51,13 +51,13 @@ class QuoteManagementController extends Controller
             ->pluck('make');
 
         $models = VehicleMakeModel::select('make', 'model')
-            ->get();
-            // ->groupBy('make')
-            // ->map(function ($items) {
-            //     return $items->pluck('model')->toArray();
-            // })
-            // ->toArray();
-            dd($models->toArray());
+            ->orderBy('make')
+            ->get()
+            ->groupBy('make')
+            ->map(function ($items) {
+                return $items->pluck('model')->toArray();
+            })
+            ->toArray();
 
         return view('dashboard.quote.create', compact('makes', 'models'));
     }
