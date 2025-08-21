@@ -77,9 +77,9 @@
                                 </div>
                                 <div class="copyright-menu">
                                     <ul class="list-gap">
-                                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                        <li><a href="faqs.html">FAQs</a></li>
-                                        <li><a href="support.html">Support</a></li>
+                                        <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
+                                        <li><a href="{{ route('privacy') }}">FAQs</a></li>
+                                        <li><a href="{{ route('privacy') }}">Support</a></li>
                                     </ul>
                                 </div>
                             </div>

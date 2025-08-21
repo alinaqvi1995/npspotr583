@@ -10,4 +10,8 @@ class HomeController extends Controller
     {
         return view('site.home');
     }
+    public function privacy()
+    {
+        return view('site.privacy');
+    }
 }

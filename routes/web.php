@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\PermissionController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about', 'site.about')->name('about');
 Route::view('/contact', 'site.contact')->name('contact');
+Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
 
 // 🔹 Services
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
