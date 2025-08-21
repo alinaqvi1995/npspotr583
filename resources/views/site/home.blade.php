@@ -491,6 +491,12 @@
     </section>
 <!--========== Project Section End ==============-->
 
+<!--=========== Testimonial Section Start =========-->
+    <section class="tj-testimonial-section tj-testimonial-page">
+        @include('site.partials.testimonial')
+    </section>
+<!--=========== Testimonial Section End =========-->
+
 <!--========== Choose Section Start ==============-->
     <section class="tj-choose-us-section-two">
         <div class="container">
