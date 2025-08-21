@@ -50,7 +50,7 @@ class QuoteManagementController extends Controller
             ->orderBy('make')
             ->pluck('make');
 
-        dd($makes);
+        // dd($makes);
 
         $models = VehicleMakeModel::select('make', 'model')
             ->orderBy('make')
@@ -60,6 +60,8 @@ class QuoteManagementController extends Controller
                 return $items->pluck('model')->toArray();
             })
             ->toArray();
+
+        dd($models);
 
         return view('dashboard.quote.create', compact('makes', 'models'));
     }
