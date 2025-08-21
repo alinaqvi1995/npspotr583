@@ -69,6 +69,14 @@
             <!-- Quote Statuses Dropdown -->
             @can('view-quotes')
                 <li>
+                    <a 
+                    href="{{ route('dashboard.quotes.create') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+                            <div class="menu-title">Create Quote
+                        </div>
+                    </a>
+                </li>
+                <li>
                     <a class="d-flex align-items-center" href="#quoteStatusMenu" data-bs-toggle="collapse"
                         aria-expanded="{{ $currentStatus ? 'true' : 'false' }}">
                         <div class="parent-icon"><i class="material-icons-outlined">timeline</i></div>

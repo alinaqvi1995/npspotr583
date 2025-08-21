@@ -44,9 +44,9 @@
 } 
 
 :root {
-    --tj-primary-color: #fd5523;
+    --tj-primary-color: linear-gradient(90deg,rgba(155, 110, 42, 1) 0%, rgba(199, 193, 87, 1) 100%);
     --tj-primary-color2: #ffd1c3;
-    --tj-primary-color3: #8f3c23;
+    --tj-primary-color3: #8f7b23;
     --tj-secondary-color: #062e39;
     --tj-body-color: #7c858c;
     --tj-white-color: #ffffff;
@@ -59,7 +59,7 @@
     --tj-gray-color5: #e1e1e1;
     --tj-gray-color6: #d9d9d9;
     --tj-gray-color7: #787878;
-    --tj-gray-color8: #ffc107;
+    --tj-gray-color8: #eeff07;
     --tj-gray-color10: #d3d3d3;
     --tj-gray-color11: #f4f4f4;
 
@@ -745,7 +745,7 @@ body [class*=" icon-"]::before {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #db5228b2;
+    background-color: #9c6f2b7a;
     z-index: 999;
     opacity: 0;
     visibility: hidden;
@@ -6926,7 +6926,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 
 .breadcrumb-wrapper .breadcrumb-content .breadcrumb-link::before {
     z-index: 1;
-    top: -1px;
+    top: -3px;
     left: -70px;
     width: 70px;
     height: 76px;
@@ -6934,7 +6934,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: var(--tj-primary-color);
+    background: #9b6f2a;
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     clip-path: polygon(100% 0, 50% 100%, 100% 100%);
     -webkit-clip-path: polygon(100% 0, 50% 100%, 100% 100%);
@@ -6943,7 +6943,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 
 .breadcrumb-wrapper .breadcrumb-content .breadcrumb-link::after {
     z-index: 1;
-    top: -1px;
+    top: -3px;
     right: -70px;
     width: 70px;
     height: 76px;
@@ -6951,7 +6951,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: var(--tj-primary-color);
+    background: #c4bf56;
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     -webkit-clip-path: polygon(0 0, 0% 100%, 50% 100%);
     clip-path: polygon(0 0, 0% 100%, 50% 100%);
@@ -7617,7 +7617,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     left: 8px;
     bottom: 6px;
     border-right: 27px solid transparent;
-    border-bottom: 27px solid #f9724a;
+    border-bottom: 27px solid #c7c157;
     content: "";
     z-index: 2;
 }
@@ -7674,7 +7674,12 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     font-weight: 500;
     transition: all 0.4s;
     position: relative;
-    background-color: var(--tj-primary-color);
+    background: #9b6e2a; /* fallback */
+    background: linear-gradient(
+        90deg,
+        rgba(155, 110, 42, 1) 0%,
+        rgba(199, 193, 87, 1) 100%
+    ); /* gradient */
     overflow: hidden;
     z-index: 1;
     line-height: 1;
@@ -7686,7 +7691,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     left: 8px;
     bottom: 8px;
     border-right: 24px solid transparent;
-    border-bottom: 24px solid #f9724a;
+    border-bottom: 24px solid #c7c157;
     content: "";
     z-index: 2;
 }
@@ -7760,7 +7765,12 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     font-size: 18px;
     font-weight: 500;
     transition: all 0.3s;
-    background-color: var(--tj-primary-color);
+    background: #9b6e2a; /* fallback */
+    background: linear-gradient(
+        90deg,
+        rgba(155, 110, 42, 1) 0%,
+        rgba(199, 193, 87, 1) 100%
+    ); /* gradient */
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -7773,7 +7783,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     left: 8px;
     bottom: 8px;
     border-right: 25px solid transparent;
-    border-bottom: 25px solid #f9724a;
+    border-bottom: 25px solid rgba(199, 193, 87, 1);
     content: "";
     z-index: 2;
 }
@@ -8692,7 +8702,12 @@ PAGE LOAD ANIMATION
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    background: var(--tj-primary-color2);
+    background: #9b6e2a; /* fallback */
+    background: linear-gradient(
+        90deg,
+        rgba(155, 110, 42, 1) 0%,
+        rgba(199, 193, 87, 1) 100%
+    ); /* gradient */
 }
 
 .preloader .tj-primary-btn {
@@ -8787,7 +8802,7 @@ PAGE LOAD ANIMATION
 }
 
 .preloader .animation-preloader .txt-loading .letters-loading {
-    color: #0b0f28;
+    color: #ffffff;
     position: relative;
 }
 
@@ -9023,3 +9038,26 @@ PAGE LOAD ANIMATION
         -webkit-transform: rotate(10deg);
     }
 }
+    .suggestions {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        max-height: 150px;
+        width: 90%;
+        overflow-y: auto;
+        position: absolute; /* Positioned relative to input */
+        z-index: 1000;
+    }
+    
+    .suggestions li {
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .suggestions li:hover {
+        background-color: #f0f0f0;
+    }

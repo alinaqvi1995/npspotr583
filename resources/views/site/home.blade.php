@@ -11,7 +11,7 @@
         <div class="swiper thumb-slider2">
             <div class="swiper-wrapper">
                 <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-3.webp">
-                    <div class="container container-two">
+                    <div class="container container-two py-5 my-5">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
                                 <div class="slider-content p-z-idex">
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-5 py-5 my-5">
                                 <div class="slider-tabs slider-tabs-two d-none d-lg-block"> 
                                     <div
                                         class="tj-input-form"
@@ -50,7 +50,7 @@
                                 <div class="slider-content p-z-idex">
                                     <div class="slider-client">
                                         <div class="client-wrapper mx-3">
-                                            <img src="web-assets/images/team/author-2.jpg" alt="Image" />
+                                            <img src="web-assets/images/team/fmcsa.jpeg" alt="Image" />
                                         </div>
                                         <div class="client-auother">
                                             <p>Trusted Nationwide Carrier</p>
@@ -83,7 +83,7 @@
                                 <div class="slider-content p-z-idex">
                                     <div class="slider-client">
                                         <div class="client-wrapper mx-3">
-                                            <img src="web-assets/images/team/author-2.jpg" alt="Image" />
+                                            <img src="web-assets/images/team/fmcsa.jpeg" alt="Image" />
                                         </div>
                                         <div class="client-auother">
                                             <p>100% Driver & Vehicle Safety Standards</p>
@@ -131,345 +131,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="slider-tabs slider-tabs-two">
-                        <ul class="nav nav-pills" id="pills-tab-one" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link active"
-                                    id="pills-home-tab-two"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#tabs-one"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="pills-home"
-                                    aria-selected="true"
-                                >
-                                    <i class="flaticon-shipped"></i> Road Fright
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="pills-profile-tab-two"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#tabs-two"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="pills-profile"
-                                    aria-selected="false"
-                                >
-                                    <i class="flaticon-global-navigation"></i> Air Fright
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="pills-contact-tab-two"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#tabs-three"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="pills-contact"
-                                    aria-selected="false"
-                                >
-                                    <i class="flaticon-cargo-ship-1"></i> Ocean Fright
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="pills-tabContent-two">
-                            <div
-                                class="tab-pane fade show active"
-                                id="tabs-one"
-                                role="tabpanel"
-                                aria-labelledby="pills-home-tab"
-                            >
-                                <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Name:</label>
-                                                <input
-                                                    type="text"
-                                                    id="nameFirst"
-                                                    name="name"
-                                                    placeholder="First Name"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Email:</label>
-                                                <input
-                                                    type="text"
-                                                    id="nameEmail"
-                                                    name="name"
-                                                    placeholder=" Email"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Email:</label>
-                                                <input
-                                                    type="text"
-                                                    id="namePhone"
-                                                    name="name"
-                                                    placeholder="Phone"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="tj-input-range">
-                                                <div class="d-flex flex-wrap justify-content-between">
-                                                    <label> Distance (miles):</label>
-                                                    <output class="output"></output>
-                                                </div>
-                                                <input
-                                                    class="tj-range-1"
-                                                    type="range"
-                                                    min="400"
-                                                    max="7000"
-                                                    step="10"
-                                                    value="800"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row select-bm">
-                                        <div class="col-md-6">
-                                            <div class="input-form tj-select">
-                                                <label> Freight Type:</label>
-                                                <select class="nice-select">
-                                                    <option value="2">Select</option>
-                                                    <option value="1" disabled>Optimized Cost</option>
-                                                    <option value="2">Delivery on Time</option>
-                                                    <option value="3">Cargo</option>
-                                                    <option value="4">Safety & Reliability</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-form tj-select">
-                                                <label> Load:</label>
-                                                <select class="nice-select">
-                                                    <option value="2">Select</option>
-                                                    <option value="1" disabled>Optimized Cost</option>
-                                                    <option value="2">Delivery on Time</option>
-                                                    <option value="3">Cargo</option>
-                                                    <option value="4">Safety & Reliability</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tj-theme-button">
-                                        <button class="tj-submit-btn" type="submit" value="submit">
-                                            Submit Now <i class="fa-light fa-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="tab-pane fade"
-                                id="tabs-two"
-                                role="tabpanel"
-                                aria-labelledby="pills-profile-tab"
-                            >
-                                <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Name:</label>
-                                                <input
-                                                    type="text"
-                                                    id="firstOne"
-                                                    name="name"
-                                                    placeholder="First Name"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Email:</label>
-                                                <input
-                                                    type="text"
-                                                    id="emailOne"
-                                                    name="name"
-                                                    placeholder=" Email"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Email:</label>
-                                                <input
-                                                    type="text"
-                                                    id="phoneOne"
-                                                    name="name"
-                                                    placeholder="Phone"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="tj-input-range">
-                                                <div class="d-flex flex-wrap justify-content-between">
-                                                    <label> Distance (miles):</label>
-                                                    <output class="output"></output>
-                                                </div>
-                                                <input
-                                                    class="tj-range-1"
-                                                    type="range"
-                                                    min="400"
-                                                    max="7000"
-                                                    step="10"
-                                                    value="800"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row select-bm">
-                                        <div class="col-md-6">
-                                            <div class="input-form tj-select">
-                                                <label> Freight Type:</label>
-                                                <select class="nice-select">
-                                                    <option value="2">Select</option>
-                                                    <option value="1" disabled>Optimized Cost</option>
-                                                    <option value="2">Delivery on Time</option>
-                                                    <option value="3">Cargo</option>
-                                                    <option value="4">Safety & Reliability</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-form tj-select">
-                                                <label> Load:</label>
-                                                <select class="nice-select">
-                                                    <option value="2">Select</option>
-                                                    <option value="1" disabled>Optimized Cost</option>
-                                                    <option value="2">Delivery on Time</option>
-                                                    <option value="3">Cargo</option>
-                                                    <option value="4">Safety & Reliability</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tj-theme-button">
-                                        <button class="tj-submit-btn" type="submit" value="submit">
-                                            Submit Now <i class="fa-light fa-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="tab-pane fade"
-                                id="tabs-three"
-                                role="tabpanel"
-                                aria-labelledby="pills-contact-tab"
-                            >
-                                <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Name:</label>
-                                                <input
-                                                    type="text"
-                                                    id="firstTwo"
-                                                    name="name"
-                                                    placeholder="First Name"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Email:</label>
-                                                <input
-                                                    type="text"
-                                                    id="emailTwo"
-                                                    name="name"
-                                                    placeholder=" Email"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-form">
-                                                <label class="d-block"> Your Email:</label>
-                                                <input
-                                                    type="text"
-                                                    id="PhoneTwo"
-                                                    name="name"
-                                                    placeholder="Phone"
-                                                    required=""
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="tj-input-range">
-                                                <div class="d-flex flex-wrap justify-content-between">
-                                                    <label> Distance (miles):</label>
-                                                    <output class="output"></output>
-                                                </div>
-                                                <input
-                                                    class="tj-range-1"
-                                                    type="range"
-                                                    min="400"
-                                                    max="7000"
-                                                    step="10"
-                                                    value="800"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row select-bm">
-                                        <div class="col-md-6">
-                                            <div class="input-form tj-select">
-                                                <label> Freight Type:</label>
-                                                <select class="nice-select">
-                                                    <option value="2">Select</option>
-                                                    <option value="1" disabled>Optimized Cost</option>
-                                                    <option value="2">Delivery on Time</option>
-                                                    <option value="3">Cargo</option>
-                                                    <option value="4">Safety & Reliability</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-form tj-select">
-                                                <label> Load:</label>
-                                                <select class="nice-select">
-                                                    <option value="2">Select</option>
-                                                    <option value="1" disabled>Optimized Cost</option>
-                                                    <option value="2">Delivery on Time</option>
-                                                    <option value="3">Cargo</option>
-                                                    <option value="4">Safety & Reliability</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tj-theme-button">
-                                        <button class="tj-submit-btn" type="submit" value="submit">
-                                            Submit Now <i class="fa-light fa-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
+                            @include('site.partials.multiform')
                         </div>
                     </div>
                 </div>
@@ -827,6 +490,12 @@
         </div>
     </section>
 <!--========== Project Section End ==============-->
+
+<!--=========== Testimonial Section Start =========-->
+    <section class="tj-testimonial-section tj-testimonial-page">
+        @include('site.partials.testimonial')
+    </section>
+<!--=========== Testimonial Section End =========-->
 
 <!--========== Choose Section Start ==============-->
     <section class="tj-choose-us-section-two">
