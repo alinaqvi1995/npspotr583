@@ -7617,7 +7617,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     left: 8px;
     bottom: 6px;
     border-right: 27px solid transparent;
-    border-bottom: 27px solid #f9724a;
+    border-bottom: 27px solid #c7c157;
     content: "";
     z-index: 2;
 }
@@ -7691,7 +7691,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     left: 8px;
     bottom: 8px;
     border-right: 24px solid transparent;
-    border-bottom: 24px solid #f9724a;
+    border-bottom: 24px solid #c7c157;
     content: "";
     z-index: 2;
 }
