@@ -56,8 +56,10 @@ class QuoteManagementController extends Controller
             ->orderBy('make')
             ->get()
             ->groupBy('make')
-            ->map(function ($items) {
-                return $items->pluck('model')->toArray();
+            ->mapWithKeys(function ($items, $make) {
+                // remove empty/null models
+                $models = $items->pluck('model')->filter()->values()->toArray();
+                return [$make => $models];
             })
             ->toArray();
 
