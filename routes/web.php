@@ -65,3 +65,15 @@ Route::middleware(['auth', 'check_active'])->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+
+// Route::get('/categories', [CategoryController::class, 'index'])
+//     ->middleware('permission:view-categories');
+
+
+//     Route::get('/dashboard', fn() => view('dashboard'))
+//     ->middleware('role:admin|editor');
+    
+
+//     Route::get('/categories', [CategoryController::class, 'index'])
+//     ->middleware('role_or_permission:admin|editor,view_categories|edit_categories');
