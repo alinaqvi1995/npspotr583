@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Quote;
 use App\Models\Activity;
 use App\Models\VehicleMakeModel;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {

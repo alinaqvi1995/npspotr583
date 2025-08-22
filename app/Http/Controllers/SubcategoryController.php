@@ -60,7 +60,7 @@ class SubcategoryController extends Controller
                 'location'   => [
                     'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country'=> $request->header('X-Geo-Country'),
+                    'country' => $request->header('X-Geo-Country'),
                 ],
             ],
         ]);
@@ -101,7 +101,7 @@ class SubcategoryController extends Controller
                 'location'   => [
                     'city'   => $request->header('X-Geo-City'),
                     'region' => $request->header('X-Geo-Region'),
-                    'country'=> $request->header('X-Geo-Country'),
+                    'country' => $request->header('X-Geo-Country'),
                 ],
             ],
         ]);
@@ -128,11 +128,20 @@ class SubcategoryController extends Controller
                 'location'   => [
                     'city'   => request()->header('X-Geo-City'),
                     'region' => request()->header('X-Geo-Region'),
-                    'country'=> request()->header('X-Geo-Country'),
+                    'country' => request()->header('X-Geo-Country'),
                 ],
             ],
         ]);
 
         return redirect()->route('subcategories.index')->with('success', 'Subcategory deleted successfully.');
+    }
+
+    public function getSubcategories($category_id)
+    {
+        $subcategories = Subcategory::where('category_id', $category_id)
+            ->where('status', 1)
+            ->get();
+
+        return response()->json($subcategories);
     }
 }

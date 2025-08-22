@@ -5,9 +5,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Frontend\ServiceController;
+use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController;
 use App\Http\Controllers\Frontend\QuoteController;
-use App\Http\Controllers\Frontend\BlogController;
+use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
+use App\Http\Controllers\Backend\BlogController as BackendBlogController;
+use App\Http\Controllers\Backend\ServiceController as BackendServiceController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserManagementController;
@@ -21,10 +23,10 @@ Route::view('/contact', 'site.contact')->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
 
 // 🔹 Services
-Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-Route::get('/services/car', [ServiceController::class, 'carservice'])->name('services.car-shipping');
-Route::get('/services/motorcycle', [ServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
-Route::get('/services/heavy', [ServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
+Route::get('/services', [FrontendServiceController::class, 'index'])->name('services.index');
+Route::get('/services/car', [FrontendServiceController::class, 'carservice'])->name('services.car-shipping');
+Route::get('/services/motorcycle', [FrontendServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
+Route::get('/services/heavy', [FrontendServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
 
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');
@@ -36,8 +38,8 @@ Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.m
 Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
 
 // 🔹 Blog
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/detail', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog', [FrontendBlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [FrontendBlogController::class, 'show'])->name('blog.show');
 
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active'])->group(function () {
@@ -46,9 +48,10 @@ Route::middleware(['auth', 'check_active'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
+    Route::get('/get_subcategories_by_category/{category_id}', [SubcategoryController::class, 'getSubcategories'])->name('subcategories.by.category');
 
     Route::get('/quotes', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     Route::get('/quotes/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
@@ -65,6 +68,10 @@ Route::middleware(['auth', 'check_active'])->group(function () {
 
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
+
+    Route::resource('blogs', BackendBlogController::class);
+
+    Route::resource('services', BackendServiceController::class);
 });
 
 require __DIR__ . '/auth.php';

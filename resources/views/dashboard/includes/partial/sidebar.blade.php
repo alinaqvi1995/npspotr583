@@ -52,6 +52,44 @@
                 </li>
             @endcan
 
+            @can('view-blogs')
+                <li class="menu-label">Blogs</li>
+                <li>
+                    <a href="{{ route('blogs.index') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">article</i></div>
+                        <div class="menu-title">
+                            All Blogs
+                            <span class="badge bg-primary float-end">{{ $blogsCount ?? 0 }}</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('blogs.create') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">post_add</i></div>
+                        <div class="menu-title">Create Blog</div>
+                    </a>
+                </li>
+            @endcan
+
+            @can('view-services')
+                <li class="menu-label">Services</li>
+                <li>
+                    <a href="{{ route('services.index') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">home_repair_service</i></div>
+                        <div class="menu-title">
+                            All Services
+                            <span class="badge bg-primary float-end">{{ $servicesCount ?? 0 }}</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('services.create') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">add_circle_outline</i></div>
+                        <div class="menu-title">Create Service</div>
+                    </a>
+                </li>
+            @endcan
+
             <!-- Quotes -->
             {{-- @can('view-quotes')
                 <li class="menu-label">Quotes</li>
@@ -69,10 +107,9 @@
             <!-- Quote Statuses Dropdown -->
             @can('view-quotes')
                 <li>
-                    <a 
-                    href="{{ route('dashboard.quotes.create') }}">
+                    <a href="{{ route('dashboard.quotes.create') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
-                            <div class="menu-title">Create Quote
+                        <div class="menu-title">Create Quote
                         </div>
                     </a>
                 </li>
@@ -111,7 +148,8 @@
                             <li>
                                 <a class="d-flex justify-content-between align-items-center {{ Str::slug($status) === $currentStatus ? 'active' : '' }}"
                                     href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}">
-                                    <span><i class="material-icons-outlined me-1">{{ $icon }}</i> {{ $status }}</span>
+                                    <span><i class="material-icons-outlined me-1">{{ $icon }}</i>
+                                        {{ $status }}</span>
                                     <span class="badge bg-secondary">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
                                 </a>
                             </li>
