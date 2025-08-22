@@ -130,9 +130,11 @@
                         <div class="details-tags-box">
                             <div class="tags-link">
                                 <span> Tags</span>
-                                <a href="#">Transport</a>
-                                <a href="#">Delivery</a>
-                                <a href="#">Logistics</a>
+                                @if (!empty($blog->tags))
+                                    @foreach (explode(',', $blog->tags) as $tag)
+                                        <a href="javascript:void(0)">{{ trim($tag) }}</a>
+                                    @endforeach
+                                @endif
                             </div>
                             <div class="share-link">
                                 <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -226,100 +228,41 @@
                         </div>
                         <div class="tj-sidebar-widget sidebar-post">
                             <h5 class="details_title">Popular Post</h5>
-                            <div class="tj-post-content">
-                                <div class="tj-auother-img">
-                                    <a href="blog-details.html">
-                                        <img src="{{ asset('web-assets/images/blog/blog-13.png') }}"
-                                            alt="Blog" /></a>
-                                </div>
-                                <div class="tj-details-text">
-                                    <div class="details-meta">
-                                        <ul class="list-gap">
-                                            <li><i class="flaticon-calendar"></i> Jun 13</li>
-                                            <li><i class="fa-light fa-comment"></i> (05)</li>
-                                        </ul>
+                            @foreach ($recentBlogs as $row)
+                                <div class="tj-post-content">
+                                    <div class="tj-auother-img">
+                                        <a href="blog-details.html">
+                                            <img src="{{ asset($row->image_one) }}" alt="Blog" /></a>
                                     </div>
-                                    <div class="tj-details-header">
-                                        <h6>
-                                            <a href="blog-details.html">This Place Really Place For</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tj-post-content">
-                                <div class="tj-auother-img">
-                                    <a href="blog-details.html">
-                                        <img src="{{ asset('web-assets/images/blog/blog-14.png') }}"
-                                            alt="Blog" /></a>
-                                </div>
-                                <div class="tj-details-text">
-                                    <div class="details-meta">
-                                        <ul class="list-gap">
-                                            <li><i class="flaticon-calendar"></i> Feb 24</li>
-                                            <li><i class="fa-light fa-comment"></i> (02)</li>
-                                        </ul>
-                                    </div>
-                                    <div class="tj-details-header">
-                                        <h6>
-                                            <a href="blog-details.html">Place For Awesome Really</a>
-                                        </h6>
+                                    <div class="tj-details-text">
+                                        <div class="details-meta">
+                                            <ul class="list-gap">
+                                                <li>
+                                                    <i class="flaticon-calendar"></i>
+                                                    {{ $blog->created_at ? $blog->created_at->format('M d, Y') : '-' }}
+                                                </li>
+                                                {{-- <li><i class="fa-light fa-comment"></i> (05)</li> --}}
+                                            </ul>
+                                        </div>
+                                        <div class="tj-details-header">
+                                            <h6>
+                                                <a href="blog-details.html">{{ $row->title }}</a>
+                                            </h6>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tj-post-content">
-                                <div class="tj-auother-img">
-                                    <a href="blog-details.html">
-                                        <img src="{{ asset('web-assets/images/blog/blog-15.png') }}"
-                                            alt="Blog" /></a>
-                                </div>
-                                <div class="tj-details-text">
-                                    <div class="details-meta">
-                                        <ul class="list-gap">
-                                            <li><i class="flaticon-calendar"></i> Dec 27</li>
-                                            <li><i class="fa-light fa-comment"></i> (06)</li>
-                                        </ul>
-                                    </div>
-                                    <div class="tj-details-header">
-                                        <h6>
-                                            <a href="blog-details.html">Awesome Moment This Place Really</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <div class="tj-sidebar-widget sidebar-catagory">
                             <h5 class="details_title">All Catagory</h5>
                             <ul class="list-gap">
-                                <li>
-                                    <a href="#">Introductions
-                                        <span> 15</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Engineering
-                                        <span> 14</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Transport
-                                        <span> 07</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Logistics
-                                        <span> 04</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Business
-                                        <span> 06</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Work Permits
-                                        <span> 08</span>
-                                    </a>
-                                </li>
+                                @foreach ($categories as $category)
+                                    <li>
+                                        <a href="#">{{ $category->name }}
+                                            <span> {{ count($category->blogs) }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="tj-sidebar-widget sidebar-tags">

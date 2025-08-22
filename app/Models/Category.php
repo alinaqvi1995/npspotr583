@@ -35,6 +35,11 @@ class Category extends Model
         return $this->hasMany(Quote::class);
     }
 
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
     protected static function booted()
     {
         static::creating(function ($category) {
