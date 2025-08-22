@@ -2,7 +2,7 @@
 @section('title', 'Services')
 @section('content')
 
-<!--========== breadcrumb Start ==============-->
+    <!--========== breadcrumb Start ==============-->
     <section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/cta-bg.webp') }}">
         <div class="container">
             <div class="row">
@@ -25,9 +25,9 @@
             </div>
         </div>
     </section>
-<!--========== breadcrumb End ==============-->
+    <!--========== breadcrumb End ==============-->
 
-<!--========== Service Section Start ==============-->
+    <!--========== Service Section Start ==============-->
     <section class="tj-service-section-four tj-service-page">
         <div class="container">
             <div class="row">
@@ -39,21 +39,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-8.jpg" alt="Image" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-air-freight"></i>
+                @foreach ($services as $row)
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                        <div class="service-item-three">
+                            <div class="service-image">
+                                <img src="{{ asset($row->image_one) }}" alt="Image" />
                             </div>
-                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Air Freight Service</a></h4>
-                            <p>Long established fact that reader will be distracted by the</p>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="flaticon-air-freight"></i>
+                                </div>
+                                <h4><a class="title" href="{{ route('services.show.detail', $row->slug) }}">
+                                        {{ $row->title }}</a></h4>
+                                <p>{!! $row->description_one !!}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
+                @endforeach
+                {{-- <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
                     <div class="service-item-three">
                         <div class="service-image">
                             <img src="web-assets/images/service/service-9.jpg" alt="Image" />
@@ -122,13 +125,13 @@
                             <p>Long established fact that reader will be distracted by the</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
-<!--========== Service Section End ==============-->
+    <!--========== Service Section End ==============-->
 
-<!--=========== Feature Section Start =========-->
+    <!--=========== Feature Section Start =========-->
     <section class="tj-choose-us-section">
         <div class="container">
             <div class="row">
@@ -171,13 +174,8 @@
                             <div class="col-md-12">
                                 <div class="input-form">
                                     <label class="d-block"> Your Name:</label>
-                                    <input
-                                        type="text"
-                                        id="yourName"
-                                        name="name"
-                                        placeholder="First Name"
-                                        required=""
-                                    />
+                                    <input type="text" id="yourName" name="name" placeholder="First Name"
+                                        required="" />
                                 </div>
                             </div>
                         </div>
@@ -185,19 +183,15 @@
                             <div class="col-md-6">
                                 <div class="input-form">
                                     <label class="d-block"> Your Email:</label>
-                                    <input
-                                        type="text"
-                                        id="yourEmail"
-                                        name="name"
-                                        placeholder=" Email"
-                                        required=""
-                                    />
+                                    <input type="text" id="yourEmail" name="name" placeholder=" Email"
+                                        required="" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-form">
                                     <label class="d-block"> Your Phone:</label>
-                                    <input type="text" id="yourPhone" name="name" placeholder="Phone" required="" />
+                                    <input type="text" id="yourPhone" name="name" placeholder="Phone"
+                                        required="" />
                                 </div>
                             </div>
                         </div>
@@ -208,14 +202,8 @@
                                         <label> Distance (miles):</label>
                                         <output class="output"></output>
                                     </div>
-                                    <input
-                                        class="tj-range-1"
-                                        type="range"
-                                        min="400"
-                                        max="7000"
-                                        step="10"
-                                        value="800"
-                                    />
+                                    <input class="tj-range-1" type="range" min="400" max="7000" step="10"
+                                        value="800" />
                                 </div>
                             </div>
                         </div>
@@ -255,9 +243,9 @@
             </div>
         </div>
     </section>
-<!--=========== Feature Section End =========-->
+    <!--=========== Feature Section End =========-->
 
-<!--=========== Team Section Start =========-->
+    <!--=========== Team Section Start =========-->
     <section class="tj-team-section-two">
         <div class="container">
             <div class="row">
@@ -351,6 +339,6 @@
             </div>
         </div>
     </section>
-<!--=========== Team Section End =========-->
+    <!--=========== Team Section End =========-->
 
 @endsection

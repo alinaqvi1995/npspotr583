@@ -24,6 +24,7 @@ Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy
 
 // 🔹 Services
 Route::get('/all-services', [FrontendServiceController::class, 'index'])->name('all_services.index');
+Route::get('/service/{slug}', [FrontendServiceController::class, 'show'])->name('services.show.detail');
 Route::get('/services/car', [FrontendServiceController::class, 'carservice'])->name('services.car-shipping');
 Route::get('/services/motorcycle', [FrontendServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
 Route::get('/services/heavy', [FrontendServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
