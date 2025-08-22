@@ -74,7 +74,7 @@
             @can('view-services')
                 <li class="menu-label">Services</li>
                 <li>
-                    <a href="{{ route('services.index') }}">
+                    <a href="{{ route('all_services.index') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">home_repair_service</i></div>
                         <div class="menu-title">
                             All Services

@@ -160,11 +160,11 @@
                                         <a href="{{ route('about') }}">About Us</a>
                                     </li>
                                     <li class="menu-item-has-children">
-                                        <a href="{{ route('services.index') }}">Services</a>
+                                        <a href="{{ route('all_services.index') }}">Services</a>
                                         <ul class="list-gap sub-menu-list">
-                                            <li><a href="{{ route('services.index') }}">Car Shipping</a></li>
-                                            <li><a href="{{ route('services.index') }}">Motorcycle Shipping</a></li>
-                                            <li><a href="{{ route('services.index') }}">Heavy Equipment Shipping</a></li>
+                                            <li><a href="{{ route('all_services.index') }}">Car Shipping</a></li>
+                                            <li><a href="{{ route('all_services.index') }}">Motorcycle Shipping</a></li>
+                                            <li><a href="{{ route('all_services.index') }}">Heavy Equipment Shipping</a></li>
                                         </ul>
                                     </li>
                                     <li class="menu-item-has-children">
