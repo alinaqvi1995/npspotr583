@@ -106,6 +106,7 @@
 
             <!-- Quote Statuses Dropdown -->
             @can('view-quotes')
+                <li class="menu-label">Quotes Management</li>
                 <li>
                     <a href="{{ route('dashboard.quotes.create') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
