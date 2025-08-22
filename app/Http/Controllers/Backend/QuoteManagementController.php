@@ -50,6 +50,8 @@ class QuoteManagementController extends Controller
             ->orderBy('make')
             ->pluck('make');
 
+        dd('yes inn');
+
         $models = VehicleMakeModel::select('make', 'model')
             ->orderBy('make')
             ->get()
