@@ -45,22 +45,19 @@ class QuoteManagementController extends Controller
 
     public function quoteCreate()
     {
-        $makes = VehicleMakeModel::select('make')
-            ->distinct()
-            ->orderBy('make')
-            ->pluck('make');
+        $makes = [];
+        $models = [];
 
-        $models = VehicleMakeModel::get();
-        dd('yes inn', $models);
-
-        $models = VehicleMakeModel::select('make', 'model')
+        VehicleMakeModel::select('make', 'model')
             ->orderBy('make')
-            ->get()
-            ->groupBy('make')
-            ->map(function ($items) {
-                return $items->pluck('model')->toArray();
-            })
-            ->toArray();
+            ->chunk(500, function ($rows) use (&$makes, &$models) {
+                foreach ($rows as $row) {
+                    if (!in_array($row->make, $makes)) {
+                        $makes[] = $row->make;
+                    }
+                    $models[$row->make][] = $row->model;
+                }
+            });
 
         return view('dashboard.quote.create', compact('makes', 'models'));
     }
