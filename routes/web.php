@@ -23,7 +23,7 @@ Route::view('/contact', 'site.contact')->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
 
 // 🔹 Services
-Route::get('/services', [FrontendServiceController::class, 'index'])->name('all_services.index');
+Route::get('/all-services', [FrontendServiceController::class, 'index'])->name('all_services.index');
 Route::get('/services/car', [FrontendServiceController::class, 'carservice'])->name('services.car-shipping');
 Route::get('/services/motorcycle', [FrontendServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
 Route::get('/services/heavy', [FrontendServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
