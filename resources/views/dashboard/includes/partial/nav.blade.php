@@ -26,89 +26,111 @@
                             </div>
                         </div>
                         <div class="card-body search-content">
-                            <p class="search-title">Recent Searches</p>
+                            <p class="search-title">Quick Links</p>
                             <div class="d-flex align-items-start flex-wrap gap-2 kewords-wrapper">
-                                <a href="javascript:;" class="kewords"><span>Angular Template</span><i
-                                        class="material-icons-outlined fs-6">search</i></a>
-                                <a href="javascript:;" class="kewords"><span>Dashboard</span><i
-                                        class="material-icons-outlined fs-6">search</i></a>
-                                <a href="javascript:;" class="kewords"><span>Admin Template</span><i
-                                        class="material-icons-outlined fs-6">search</i></a>
-                                <a href="javascript:;" class="kewords"><span>Bootstrap 5 Admin</span><i
-                                        class="material-icons-outlined fs-6">search</i></a>
-                                <a href="javascript:;" class="kewords"><span>Html eCommerce</span><i
-                                        class="material-icons-outlined fs-6">search</i></a>
-                                <a href="javascript:;" class="kewords"><span>Sass</span><i
-                                        class="material-icons-outlined fs-6">search</i></a>
-                                <a href="javascript:;" class="kewords"><span>laravel 9</span><i
-                                        class="material-icons-outlined fs-6">search</i></a>
+                                <a href="{{ route('dashboard') }}" class="kewords">
+                                    <span>Dashboard</span>
+                                    <i class="material-icons-outlined fs-6">dashboard</i>
+                                </a>
+
+                                @can('view-categories')
+                                    <a href="{{ route('categories.index') }}" class="kewords">
+                                        <span>Categories ({{ $categoriesCount ?? 0 }})</span>
+                                        <i class="material-icons-outlined fs-6">category</i>
+                                    </a>
+                                @endcan
+
+                                @can('view-subcategories')
+                                    <a href="{{ route('subcategories.index') }}" class="kewords">
+                                        <span>Subcategories ({{ $subcategoriesCount ?? 0 }})</span>
+                                        <i class="material-icons-outlined fs-6">subtitles</i>
+                                    </a>
+                                @endcan
+
+                                @can('view-blogs')
+                                    <a href="{{ route('blogs.index') }}" class="kewords">
+                                        <span>Blogs ({{ $blogsCount ?? 0 }})</span>
+                                        <i class="material-icons-outlined fs-6">article</i>
+                                    </a>
+                                    <a href="{{ route('blogs.create') }}" class="kewords">
+                                        <span>Create Blog</span>
+                                        <i class="material-icons-outlined fs-6">post_add</i>
+                                    </a>
+                                @endcan
+
+                                @can('view-services')
+                                    <a href="{{ route('services.index') }}" class="kewords">
+                                        <span>Services ({{ $servicesCount ?? 0 }})</span>
+                                        <i class="material-icons-outlined fs-6">home_repair_service</i>
+                                    </a>
+                                    <a href="{{ route('services.create') }}" class="kewords">
+                                        <span>Create Service</span>
+                                        <i class="material-icons-outlined fs-6">add_circle_outline</i>
+                                    </a>
+                                @endcan
+
+                                @can('view-quotes')
+                                    <a href="{{ route('dashboard.quotes.create') }}" class="kewords">
+                                        <span>Create Quote</span>
+                                        <i class="material-icons-outlined fs-6">inventory_2</i>
+                                    </a>
+                                    <a href="{{ route('dashboard.invoice.index') }}" class="kewords">
+                                        <span>Invoices</span>
+                                        <i class="material-icons-outlined fs-6">receipt_long</i>
+                                    </a>
+                                @endcan
+
+                                @can('view-users')
+                                    <a href="{{ route('dashboard.users.index') }}" class="kewords">
+                                        <span>Users ({{ $usersCount ?? 0 }})</span>
+                                        <i class="material-icons-outlined fs-6">people</i>
+                                    </a>
+                                @endcan
+
+                                @can('view-roles')
+                                    <a href="{{ route('roles.index') }}" class="kewords">
+                                        <span>Roles</span>
+                                        <i class="material-icons-outlined fs-6">admin_panel_settings</i>
+                                    </a>
+                                @endcan
                             </div>
-                            <hr>
-                            <p class="search-title">Tutorials</p>
-                            <div class="search-list d-flex flex-column gap-2">
-                                <div class="search-list-item d-flex align-items-center gap-3">
-                                    <div class="list-icon">
-                                        <i class="material-icons-outlined fs-5">play_circle</i>
-                                    </div>
-                                    <div class="">
-                                        <h5 class="mb-0 search-list-title ">Wordpress Tutorials</h5>
-                                    </div>
-                                </div>
-                                <div class="search-list-item d-flex align-items-center gap-3">
-                                    <div class="list-icon">
-                                        <i class="material-icons-outlined fs-5">shopping_basket</i>
-                                    </div>
-                                    <div class="">
-                                        <h5 class="mb-0 search-list-title">eCommerce Website Tutorials</h5>
-                                    </div>
-                                </div>
-
-                                <div class="search-list-item d-flex align-items-center gap-3">
-                                    <div class="list-icon">
-                                        <i class="material-icons-outlined fs-5">laptop</i>
-                                    </div>
-                                    <div class="">
-                                        <h5 class="mb-0 search-list-title">Responsive Design</h5>
-                                    </div>
-                                </div>
-                            </div>
 
                             <hr>
-                            <p class="search-title">Members</p>
-
+                            <p class="search-title">Quotes Status</p>
                             <div class="search-list d-flex flex-column gap-2">
-                                <div class="search-list-item d-flex align-items-center gap-3">
-                                    <div class="memmber-img">
-                                        <img src="https://placehold.co/110x110/png" width="32" height="32"
-                                            class="rounded-circle" alt="">
-                                    </div>
-                                    <div class="">
-                                        <h5 class="mb-0 search-list-title ">Andrew Stark</h5>
-                                    </div>
-                                </div>
+                                @php
+                                    $statuses = [
+                                        'New' => 'fiber_new',
+                                        'In Progress' => 'hourglass_top',
+                                        'Completed' => 'check_circle',
+                                        'Cancelled' => 'cancel',
+                                        'Asking Low' => 'trending_down',
+                                        'Interested' => 'thumb_up',
+                                        'Follow Up' => 'schedule',
+                                        'Not Interested' => 'thumb_down',
+                                        'No Response' => 'phone_missed',
+                                        'Booked' => 'event_available',
+                                        'Payment Missing' => 'payment',
+                                        'Listed' => 'list',
+                                        'Dispatch' => 'local_shipping',
+                                        'Pickup' => 'shopping_bag',
+                                        'Delivery' => 'done_all',
+                                        'Deleted' => 'delete',
+                                    ];
+                                @endphp
 
-                                <div class="search-list-item d-flex align-items-center gap-3">
-                                    <div class="memmber-img">
-                                        <img src="https://placehold.co/110x110/png" width="32" height="32"
-                                            class="rounded-circle" alt="">
-                                    </div>
-                                    <div class="">
-                                        <h5 class="mb-0 search-list-title ">Snetro Jhonia</h5>
-                                    </div>
-                                </div>
-
-                                <div class="search-list-item d-flex align-items-center gap-3">
-                                    <div class="memmber-img">
-                                        <img src="https://placehold.co/110x110/png" width="32" height="32"
-                                            class="rounded-circle" alt="">
-                                    </div>
-                                    <div class="">
-                                        <h5 class="mb-0 search-list-title">Michle Clark</h5>
-                                    </div>
-                                </div>
-
+                                @foreach ($statuses as $status => $icon)
+                                    <a href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}" 
+                                    class="search-list-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            <i class="material-icons-outlined me-1">{{ $icon }}</i> {{ $status }}
+                                        </span>
+                                        <span class="badge bg-secondary">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
+
                         <div class="card-footer text-center bg-transparent">
                             <a href="javascript:;" class="btn w-100">See All Search Results</a>
                         </div>

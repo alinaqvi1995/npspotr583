@@ -2,11 +2,11 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div class="logo-icon">
-            {{-- <img src="{{ asset('admin/images/logo-icon.png') }}" class="logo-img" alt="Logo"> --}}
+            <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" class="logo-img w-100" alt="Logo">
         </div>
-        <div class="logo-name flex-grow-1">
+        {{-- <div class="logo-name flex-grow-1">
             <h5 class="mb-0">Bridgeway</h5>
-        </div>
+        </div> --}}
         <div class="sidebar-close">
             <span class="material-icons-outlined">close</span>
         </div>
@@ -14,7 +14,7 @@
 
     <div class="sidebar-nav">
         @php
-            $currentStatus = request()->query('status'); // Detect selected quote status
+            $currentStatus = request()->query('status'); 
         @endphp
         <ul class="metismenu" id="menu">
 
@@ -89,20 +89,6 @@
                     </a>
                 </li>
             @endcan
-
-            <!-- Quotes -->
-            {{-- @can('view-quotes')
-                <li class="menu-label">Quotes</li>
-                <li>
-                    <a href="{{ route('dashboard.quotes.index') }}">
-                        <div class="parent-icon"><i class="material-icons-outlined">request_quote</i></div>
-                        <div class="menu-title">
-                            All Quotes
-                            <span class="badge bg-primary float-end">{{ $quotesCount ?? 0 }}</span>
-                        </div>
-                    </a>
-                </li>
-            @endcan --}}
 
             <!-- Quote Statuses Dropdown -->
             @can('view-quotes')

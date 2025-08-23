@@ -32,81 +32,57 @@
     <!--========== breadcrumb End ==============-->
 
     <!--=========== About Section Start =========-->
-    <section class="tj-about-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
-                    <div class="about-content-one">
-                        <div class="tj-section-heading">
-                            <span class="sub-title active-shape"> Transportation Company</span>
-                            <h2 class="title">We Provide Full Range Global Logistics</h2>
-                            <p class="desc">
-                                Quisque dignissim enim diam, eget pulvinar ex viverra id. Nulla a lobortis lectus,
-                                id volutpat magna. Morbi consequat porttitor fermentum. Nulla vestibulum tincidunt
-                                viverra. Vestibulum accumsan
-                            </p>
-                        </div>
-                        <div class="tj-icon-box">
-                            <div class="ab-text d-flex align-items-center">
-                                <div class="ab-icon">
-                                    <img src="web-assets/images/icon/global.svg" alt="Icon" />
+        <section class="tj-about-section-three">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
+                        <div class="about-content-three">
+                            <div class="tj-section-heading">
+                                <span class="sub-title active-shape">Explore the Benefits of Nationwide Transport</span>
+                                <h2 class="title">Delivering Fast, Reliable Transport Solutions</h2>
+                                <p class="desc">
+                                    We are the "ALL-ROUNDER" in vehicle transport—specializing in shipping everything from cars and heavy equipment to ATVs, construction vehicles, trucks, and even boats.
+                                </p>
+                            </div>
+                            <div class="content-box d-flex align-items-center">
+                                <div class="tj-icon-box">
+                                    <div class="ab-text d-flex align-items-center">
+                                        <div class="ab-icon">
+                                            <img src="web-assets/images/icon/global.svg" alt="Our Mission Icon" />
+                                        </div>
+                                        <div class="ab-title">
+                                            <h5 class="title">Our Mission</h5>
+                                        </div>
+                                    </div>
+                                    <p class="desc">To provide safe, reliable, and hassle-free transport solutions and delivering every shipment on time, with care, and backed by exceptional customer service.</p>
                                 </div>
-                                <div class="ab-title">
-                                    <h5 class="title">Worldwide Service</h5>
+                                <div class="tj-icon-box">
+                                    <div class="ab-text d-flex align-items-center">
+                                        <div class="ab-icon">
+                                            <img src="web-assets/images/icon/winner.svg" alt="Our Vision Icon" />
+                                        </div>
+                                        <div class="ab-title">
+                                            <h5 class="title">Our Vision</h5>
+                                        </div>
+                                    </div>
+                                    <p class="desc">To be the nation’s most trusted all-round transport provider setting the standard for nationwide shipping , driven by innovation, transparency, and customer care.</p>
                                 </div>
                             </div>
-                            <p class="desc">
-                                Lorem ipsum is simply velit anod<br />
-                                ipas aliquet enean quis.
-                            </p>
-                        </div>
-                        <div class="tj-icon-box">
-                            <div class="ab-text d-flex align-items-center">
-                                <div class="ab-icon">
-                                    <img src="web-assets/images/icon/winner.svg" alt="Icon" />
-                                </div>
-                                <div class="ab-title">
-                                    <h5 class="title">Certified & Awward Winner</h5>
-                                </div>
-                            </div>
-                            <p class="desc">
-                                Lorem ipsum is simply velit anod<br />
-                                ipas aliquet enean quis.
-                            </p>
-                        </div>
-                        <div class="ab-button-box d-flex align-items-center">
-                            <div class="tj-theme-btn">
+                            <div class="tj-theme-button">
                                 <a class="tj-primary-btn" href="contact.html">
-                                    Read More <i class="flaticon-right-1"></i>
+                                    Learn More <i class="flaticon-right-1"></i>
                                 </a>
-                            </div>
-                            <div class="right-text">
-                                <img src="web-assets/images/icon/auother.svg" alt="Image" />
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
-                    <div class="about-group-image d-flex flex-wrap align-items-start flex-column">
-                        <div class="tj-icon-box2 text-center">
-                            <div class="number-icon">
-                                <i class="flaticon-in-person"></i>
-                            </div>
-                            <div class="about-number">
-                                <div class="tj-count"><span class="odometer" data-count="1700">0</span></div>
-                                <p class="desc">Satisfied Client</p>
-                            </div>
+                    <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
+                        <div class="about_image text-end">
+                            <img src="web-assets/images/about/benefits.webp" alt="About Us Image" />
                         </div>
-                        <div class="image-box">
-                            <img class="p-z-idex" src="web-assets/images/about/ab-1.jpg" alt="Image" />
-                        </div>
-                        <img class="group-1 p-z-idex" src="web-assets/images/about/ab-2.jpg" alt="Image" />
-                        <img class="group-shape" src="web-assets/images/about/ab-shape.png" alt="Image" />
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     <!--=========== About Section End =========-->
 
     <!--=========== Cta Section Start =========-->
@@ -212,186 +188,122 @@
     </section>
     <!--=========== Testimonial Section End =========-->
 
-    <!--========== Faq Section Start ==============-->
-    <section class="tj-faq-section tj-faq-page">
+<!--========== FAQ Section Start ==============-->
+    <section class="tj-faq-section pt-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="tj-section-heading text-center">
-                        <span class="sub-title active-shape"> How It’s Work</span>
-                        <h2 class="title">Frequently Asked Questions</h2>
-                    </div>
+            <div class="col-lg-12">
+                <div class="tj-section-heading text-center">
+                <span class="sub-title active-shape">How It Works</span>
+                <h2 class="title">Frequently Asked Questions</h2>
                 </div>
             </div>
+            </div>
             <div class="row">
-                <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
-                    <div class="tj-faq-left-content">
-                        <div class="faq-image">
-                            <img src="web-assets/images/slider/slider-4.jpg" alt="Image" />
-                        </div>
-                        <div class="faq-content">
-                            <div class="faq-icon">
-                                <i class="fa-regular fa-check"></i>
-                            </div>
-                            <div class="faq-text">
-                                <h6 class="title">Reliable & Trustworthy</h6>
-                                <p>Trage agile frameworks to provide a robust synopsis for high level overviews.</p>
-                            </div>
-                        </div>
-                        <div class="faq-content">
-                            <div class="faq-icon">
-                                <i class="fa-regular fa-check"></i>
-                            </div>
-                            <div class="faq-text">
-                                <h6 class="title">High Quality Material</h6>
-                                <p>Trage agile frameworks to provide a robust synopsis for high level overviews.</p>
-                            </div>
-                        </div>
+            <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
+                <div class="tj-faq-left-content">
+                <div class="faq-image">
+                    <img src="web-assets/images/slider/slid-4.webp" alt="FAQ Visual" />
+                </div>
+                <div class="faq-content">
+                    <div class="faq-icon"><i class="fa-regular fa-check"></i></div>
+                    <div class="faq-text">
+                    <h6 class="title">Reliable & Transparent</h6>
+                    <p>We work only with licensed carriers—no brokers, no hidden fees—ensuring clarity and peace of mind.</p>
                     </div>
                 </div>
-                <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
-                    <div class="tj-faq-area">
-                        <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button
-                                        class="accordion-button"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne"
-                                        aria-expanded="true"
-                                        aria-controls="collapseOne"
-                                    >
-                                        Is My Technology Allowed on Tech?
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseOne"
-                                    class="accordion-collapse collapse show"
-                                    aria-labelledby="headingOne"
-                                    data-bs-parent="#accordionExample"
-                                >
-                                    <div class="accordion-body">
-                                        <strong
-                                            >There are many variations of passages of available but the Ut elit
-                                            tellus luctus nec ullamcorper at mattis</strong
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button
-                                        class="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo"
-                                        aria-expanded="false"
-                                        aria-controls="collapseTwo"
-                                    >
-                                        How Long Does air Freight Take?
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseTwo"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="headingTwo"
-                                    data-bs-parent="#accordionExample"
-                                >
-                                    <div class="accordion-body">
-                                        <strong
-                                            >There are many variations of passages of available but the Ut elit
-                                            tellus luctus nec ullamcorper at mattis</strong
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button
-                                        class="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree"
-                                        aria-expanded="false"
-                                        aria-controls="collapseThree"
-                                    >
-                                        What Payment Methods are Supported?
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseThree"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree"
-                                    data-bs-parent="#accordionExample"
-                                >
-                                    <div class="accordion-body">
-                                        <strong
-                                            >There are many variations of passages of available but the Ut elit
-                                            tellus luctus nec ullamcorper at mattis</strong
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFour">
-                                    <button
-                                        class="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseFour"
-                                        aria-expanded="false"
-                                        aria-controls="collapseFour"
-                                    >
-                                        Methods are Supported What Payment?
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseFour"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="headingFour"
-                                    data-bs-parent="#accordionExample"
-                                >
-                                    <div class="accordion-body">
-                                        <strong
-                                            >There are many variations of passages of available but the Ut elit
-                                            tellus luctus nec ullamcorper at mattis</strong
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFive">
-                                    <button
-                                        class="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseFive"
-                                        aria-expanded="false"
-                                        aria-controls="collapseFive"
-                                    >
-                                        Methods are Supported What Payment?
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseFive"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="headingFive"
-                                    data-bs-parent="#accordionExample"
-                                >
-                                    <div class="accordion-body">
-                                        <strong
-                                            >There are many variations of passages of available but the Ut elit
-                                            tellus luctus nec ullamcorper at mattis</strong
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="faq-content">
+                    <div class="faq-icon"><i class="fa-regular fa-check"></i></div>
+                    <div class="faq-text">
+                    <h6 class="title">Comprehensive Coverage</h6>
+                    <p>Every transport quote includes full insurance coverage, so your vehicle is protected throughout the journey.</p>
                     </div>
                 </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
+                <div class="tj-faq-area">
+                <div class="accordion" id="accordionExample">
+                    <!-- FAQ 1 -->
+                    <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        What types of services does Bridgeway Logistics LLC offer?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        Bridgeway offers reliable vehicle transport across the U.S., including sedans, SUVs, motorcycles, heavy equipment, boats, and more, all with competitive pricing and smooth communication.
+                        </div>
+                    </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                    <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        How can I contact Bridgeway Logistics LLC?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        You can easily reach them via phone at +1 (713) 470‑6157 or via email at <a href="mailto:quote@bridgewaylogisticsllc.com">quote@bridgewaylogisticsllc.com</a>.
+                        </div>
+                    </div>
+                    </div>
+                    <!-- FAQ 3 -->
+                    <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Are there any extra fees I should know about?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        While quotes typically include coverage and standard charges, final pricing may vary depending on distance and unique circumstances. Bridgeway prides itself on transparent communication throughout the process.
+                        </div>
+                    </div>
+                    </div>
+                    <!-- FAQ 4 -->
+                    <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        What payment options are available?
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        Bridgeway supports multiple payment methods including credit/debit cards, bank transfers, and major digital platforms for your convenience.
+                        </div>
+                    </div>
+                    </div>
+                    <!-- FAQ 5 -->
+                    <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        How often are raises provided for employees?
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        According to employee feedback, raises are typically offered on a quarterly basis for delivery staff.
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
     </section>
-    <!--========== Faq Section End ==============-->
+<!--========== FAQ Section End ==============-->
 @endsection

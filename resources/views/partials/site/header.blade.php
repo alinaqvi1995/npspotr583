@@ -156,31 +156,36 @@
                                     <li class="{{ request()->routeIs('home') ? 'active current-menu-item' : '' }}">
                                         <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('about') }}">About Us</a>
+
+                                    <li class="{{ request()->routeIs('about') ? 'active current-menu-item' : '' }}">
+                                        <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About Us</a>
                                     </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="{{ route('all_services.index') }}">Services</a>
-                                        <ul class="list-gap sub-menu-list">
-                                            <li><a href="{{ route('all_services.index') }}">Car Shipping</a></li>
-                                            <li><a href="{{ route('all_services.index') }}">Motorcycle Shipping</a></li>
-                                            <li><a href="{{ route('all_services.index') }}">Heavy Equipment Shipping</a></li>
-                                        </ul>
+
+                                    <li class="{{ request()->routeIs('all_services.index') ? 'active current-menu-item' : '' }}">
+                                        <a class="{{ request()->routeIs('all_services.index') ? 'active' : '' }}" href="{{ route('all_services.index') }}">Services</a>
                                     </li>
-                                    <li class="menu-item-has-children">
+
+                                    <li class="menu-item-has-children {{ request()->is('quote/*') ? 'active current-menu-item' : '' }}">
                                         <a href="#">Get a Quote</a>
                                         <ul class="list-gap sub-menu-list">
-                                            <li><a href="{{ route('quote.atv_utv') }}">ATV-UTV Quote</a></li>
-                                            <li><a href="{{ route('quote.car') }}">Car Quote</a></li>
-                                            <li><a href="{{ route('quote.motorcycle') }}">Motorcycle Quote</a></li>
+                                            <li class="{{ request()->routeIs('quote.atv_utv') ? 'active current-menu-item' : '' }}">
+                                                <a href="{{ route('quote.atv_utv') }}">ATV-UTV Quote</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('quote.car') ? 'active current-menu-item' : '' }}">
+                                                <a href="{{ route('quote.car') }}">Car Quote</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('quote.motorcycle') ? 'active current-menu-item' : '' }}">
+                                                <a href="{{ route('quote.motorcycle') }}">Motorcycle Quote</a>
+                                            </li>
                                         </ul>
                                     </li>
 
-                                    <li>
-                                        <a href="{{ route('blog.index') }}">Blog</a>
+                                    <li class="{{ request()->routeIs('blog.index') ? 'active current-menu-item' : '' }}">
+                                        <a class="{{ request()->routeIs('blog.index') ? 'active' : '' }}" href="{{ route('blog.index') }}">Blog</a>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('contact') }}">Contact</a>
+
+                                    <li class="{{ request()->routeIs('contact') ? 'active current-menu-item' : '' }}">
+                                        <a class="{{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
                                     </li>
                                 </ul>
                             </div>
