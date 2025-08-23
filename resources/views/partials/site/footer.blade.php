@@ -6,7 +6,7 @@
                         <div class="footer-contact-box">
                             <div class="footer-logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('web-assets/images/logo/logo2.png') }}" alt="Bridgeway Logistics Logo" />
+                                    <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Bridgeway Logistics Logo" />
                                 </a>
                             </div>
                             <p>

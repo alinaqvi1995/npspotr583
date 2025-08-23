@@ -157,6 +157,13 @@
                         @endforeach
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('dashboard.invoice.index') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+                        <div class="menu-title">Invoice
+                        </div>
+                    </a>
+                </li>
             @endcan
 
             <!-- Users & Roles -->

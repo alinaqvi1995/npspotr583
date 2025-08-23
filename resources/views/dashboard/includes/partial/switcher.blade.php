@@ -20,8 +20,15 @@
         <p>Theme variation</p>
 
         <div class="row g-3">
+          <div class="co~l-12 col-xl-6">
+            <input type="radio" class="btn-check" name="theme-options" id="SemiDarkTheme" checked>
+            <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="SemiDarkTheme">
+              <span class="material-icons-outlined">contrast</span>
+              <span>Semi Dark</span>
+            </label>
+          </div>
           <div class="col-12 col-xl-6">
-            <input type="radio" class="btn-check" name="theme-options" id="BlueTheme" checked>
+            <input type="radio" class="btn-check" name="theme-options" id="BlueTheme">
             <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="BlueTheme">
               <span class="material-icons-outlined">contactless</span>
               <span>Blue</span>
@@ -42,20 +49,14 @@
             </label>
           </div>
           <div class="col-12 col-xl-6">
-            <input type="radio" class="btn-check" name="theme-options" id="SemiDarkTheme">
-            <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="SemiDarkTheme">
-              <span class="material-icons-outlined">contrast</span>
-              <span>Semi Dark</span>
-            </label>
-          </div>
-          <div class="col-12 col-xl-6">
             <input type="radio" class="btn-check" name="theme-options" id="BoderedTheme">
             <label class="btn btn-outline-secondary d-flex flex-column gap-1 align-items-center justify-content-center p-4" for="BoderedTheme">
               <span class="material-icons-outlined">border_style</span>
               <span>Bordered</span>
             </label>
           </div>
-        </div><!--end row-->
+        </div>
+        <!--end row-->
 
       </div>
     </div>

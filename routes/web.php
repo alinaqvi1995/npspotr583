@@ -54,6 +54,7 @@ Route::middleware(['auth', 'check_active'])->group(function () {
     Route::resource('subcategories', SubcategoryController::class);
     Route::get('/get_subcategories_by_category/{category_id}', [SubcategoryController::class, 'getSubcategories'])->name('subcategories.by.category');
 
+    Route::get('/invoice', [QuoteManagementController::class, 'invoice'])->name('dashboard.invoice.index');
     Route::get('/quotes', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     Route::get('/quotes/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
     Route::get('/add_new_quote', [QuoteManagementController::class, 'quoteCreate'])->name('dashboard.quotes.create');

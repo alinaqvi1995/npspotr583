@@ -61,4 +61,8 @@ class QuoteManagementController extends Controller
 
         return view('dashboard.quote.create', compact('makes', 'models'));
     }
+    public function invoice()
+    {
+        return view('dashboard.invoice.index');
+    }
 }
