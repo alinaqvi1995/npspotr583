@@ -230,7 +230,7 @@
                                 </li> --}}
                             </ul>
                         </div>
-                        <div class="tj-sidebar-widget sidebar-documents">
+                        {{-- <div class="tj-sidebar-widget sidebar-documents">
                             <h5 class="details_title">Documents</h5>
                             <ul class="list-gap">
                                 <li>
@@ -244,7 +244,7 @@
                                         [450KB] <i class="fa-solid fa-cloud-arrow-down"></i></a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="tj-appointment-box"
                             data-bg-image="{{ asset('web-assets/images/service/service-15.jpg') }}">
                             <div class="tj-appointment-bg"

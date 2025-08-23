@@ -18,7 +18,13 @@ class ServiceController extends Controller
     public function show($slug)
     {
         $service = Service::where('slug', $slug)->firstOrFail();
-        $latestServices = Service::where('status', 1)->latest()->take(5)->get();
+        $latestServices = Service::where([
+            ['status', '=', 1],
+            ['id', '!=', $service->id],
+        ])
+            ->latest()
+            ->take(5)
+            ->get();
         return view('frontend.services.show', compact('service', 'latestServices'));
     }
 
