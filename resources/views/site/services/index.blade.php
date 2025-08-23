@@ -49,8 +49,11 @@
                                 <div class="service-icon">
                                     <i class="flaticon-air-freight"></i>
                                 </div>
-                                <h4><a class="title" href="{{ route('services.show.detail', $row->slug) }}">
-                                        {{ $row->title }}</a></h4>
+                                <h4>
+                                    <a class="title" href="{{ route('services.show.detail', $row->slug) }}">
+                                        {{ $row->title }}
+                                    </a>
+                                </h4>
                                 <p>{!! $row->description_one !!}</p>
                             </div>
                         </div>

@@ -73,9 +73,9 @@ class BlogController extends Controller
             'image_three'         => $images['image_three'],
             'image_four'          => $images['image_four'],
             'tags'                => $request->tags,
-            'author'              => $request->author, // Author from form
+            'author'              => $request->author,
             'author_note'         => $request->author_note,
-            'created_by'          => Auth::id(), // Logged-in user ID
+            'created_by'          => Auth::id(),
             'category_id'         => $request->category_id,
             'subcategory_id'      => $request->subcategory_id,
             'header_image_btn'    => $request->header_image_btn,

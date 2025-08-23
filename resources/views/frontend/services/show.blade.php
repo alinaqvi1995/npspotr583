@@ -2,7 +2,7 @@
 @section('title', 'Home')
 @section('content')
 
-<!--========== breadcrumb Start ==============-->
+    <!--========== breadcrumb Start ==============-->
     <section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/cta-bg.webp') }}">
         <div class="container">
             <div class="row">
@@ -25,9 +25,9 @@
             </div>
         </div>
     </section>
-<!--========== breadcrumb End ==============-->
+    <!--========== breadcrumb End ==============-->
 
-<!--========== blog details Start ==============-->
+    <!--========== blog details Start ==============-->
     <section class="tj-service-details">
         <div class="container">
             <div class="row">
@@ -36,8 +36,7 @@
                         <div class="tj-blog-item-three">
                             <div class="tj-blog-image">
                                 <a href="service-details.html">
-                                    <img src="{{ asset($service->image_one) }}" alt="Blog"
-                                /></a>
+                                    <img src="{{ asset($service->image_one) }}" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-header">
@@ -79,7 +78,7 @@
                         <div class="details-video-content">
                             <h4 class="title">{{ $service->heading_two }}</h4>
                             <p>
-                               {!! $service->description_three !!}
+                                {!! $service->description_three !!}
                             </p>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
@@ -100,131 +99,76 @@
                                     <div class="accordion" id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
-                                                <button
-                                                    class="accordion-button"
-                                                    type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseOne"
-                                                    aria-expanded="true"
-                                                    aria-controls="collapseOne"
-                                                >
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">
                                                     {{ $service->ques_one }}
                                                 </button>
                                             </h2>
-                                            <div
-                                                id="collapseOne"
-                                                class="accordion-collapse collapse show"
-                                                aria-labelledby="headingOne"
-                                                data-bs-parent="#accordionExample"
-                                            >
+                                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    <strong
-                                                        >{!! $service->ans_one !!}</strong
-                                                    >
+                                                    <strong>{!! $service->ans_one !!}</strong>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingTwo">
-                                                <button
-                                                    class="accordion-button collapsed"
-                                                    type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseTwo"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseTwo"
-                                                >
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                    aria-expanded="false" aria-controls="collapseTwo">
                                                     {{ $service->ques_two }}
                                                 </button>
                                             </h2>
-                                            <div
-                                                id="collapseTwo"
-                                                class="accordion-collapse collapse"
-                                                aria-labelledby="headingTwo"
-                                                data-bs-parent="#accordionExample"
-                                            >
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    <strong
-                                                        >{!! $service->ans_two !!}</strong
-                                                    >
+                                                    <strong>{!! $service->ans_two !!}</strong>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingThree">
-                                                <button
-                                                    class="accordion-button collapsed"
-                                                    type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseThree"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseThree"
-                                                >
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
                                                     {{ $service->ques_three }}
                                                 </button>
                                             </h2>
-                                            <div
-                                                id="collapseThree"
-                                                class="accordion-collapse collapse"
-                                                aria-labelledby="headingThree"
-                                                data-bs-parent="#accordionExample"
-                                            >
+                                            <div id="collapseThree" class="accordion-collapse collapse"
+                                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    <strong
-                                                        >{!! $service->ans_three !!}</strong
-                                                    >
+                                                    <strong>{!! $service->ans_three !!}</strong>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingFour">
-                                                <button
-                                                    class="accordion-button collapsed"
-                                                    type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseFour"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseFour"
-                                                >
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    aria-expanded="false" aria-controls="collapseFour">
                                                     {{ $service->ques_four }}
                                                 </button>
                                             </h2>
-                                            <div
-                                                id="collapseFour"
-                                                class="accordion-collapse collapse"
-                                                aria-labelledby="headingFour"
-                                                data-bs-parent="#accordionExample"
-                                            >
+                                            <div id="collapseFour" class="accordion-collapse collapse"
+                                                aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    <strong
-                                                        >{!! $service->ans_four !!}</strong
-                                                    >
+                                                    <strong>{!! $service->ans_four !!}</strong>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingFive">
-                                                <button
-                                                    class="accordion-button collapsed"
-                                                    type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseFive"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseFive"
-                                                >
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                                    aria-expanded="false" aria-controls="collapseFive">
                                                     {{ $service->ques_five }}
                                                 </button>
                                             </h2>
-                                            <div
-                                                id="collapseFive"
-                                                class="accordion-collapse collapse"
-                                                aria-labelledby="headingFive"
-                                                data-bs-parent="#accordionExample"
-                                            >
+                                            <div id="collapseFive" class="accordion-collapse collapse"
+                                                aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-                                                    <strong
-                                                        >{!! $service->ans_five !!}</strong
-                                                    >
+                                                    <strong>{!! $service->ans_five !!}</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,26 +182,23 @@
                     <div class="details-sidebar-inner">
                         <div class="tj-sidebar-widget sidebar-search">
                             <form action="#">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    name="search"
-                                    id="search"
-                                    placeholder="Search"
-                                />
+                                <input type="text" class="form-control" name="search" id="search"
+                                    placeholder="Search" />
                                 <i class="flaticon-loupe"></i>
                             </form>
                         </div>
                         <div class="tj-sidebar-widget sidebar-service">
                             <h5 class="details_title">Logistics Services</h5>
                             <ul class="list-gap">
-                                <li>
-                                    <a href="#"
-                                        >Land Transport
-                                        <i class="flaticon-right-chevron"></i>
-                                    </a>
-                                </li>
-                                <li>
+                                @foreach ($latestServices as $item)
+                                    <li>
+                                        <a href="{{ route('services.show.detail', $item->slug) }}">
+                                            {{ $item->title }}
+                                            <i class="flaticon-right-chevron"></i>
+                                        </a>
+                                    </li>
+                                @endforeach
+                                {{-- <li>
                                     <a href="#"
                                         >Ocean Transport
                                         <i class="flaticon-right-chevron"></i>
@@ -286,7 +227,7 @@
                                         >Air Freight Service
                                         <i class="flaticon-right-chevron"></i>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         <div class="tj-sidebar-widget sidebar-documents">
@@ -295,28 +236,23 @@
                                 <li>
                                     <a href="#">
                                         Our Company Details <br />
-                                        [450KB] <i class="fa-solid fa-cloud-arrow-down"></i
-                                    ></a>
+                                        [450KB] <i class="fa-solid fa-cloud-arrow-down"></i></a>
                                 </li>
                                 <li>
                                     <a href="#">
                                         Our Company Details <br />
-                                        [450KB] <i class="fa-solid fa-cloud-arrow-down"></i
-                                    ></a>
+                                        [450KB] <i class="fa-solid fa-cloud-arrow-down"></i></a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="tj-appointment-box" data-bg-image="{{ asset('web-assets/images/service/service-15.jpg') }}">
-                            <div
-                                class="tj-appointment-bg"
-                                data-bg-image="{{ asset('web-assets/images/banner/service_shape.png') }}"
-                            ></div>
+                        <div class="tj-appointment-box"
+                            data-bg-image="{{ asset('web-assets/images/service/service-15.jpg') }}">
+                            <div class="tj-appointment-bg"
+                                data-bg-image="{{ asset('web-assets/images/banner/service_shape.png') }}"></div>
                             <div class="tj-appointment-body">
                                 <div class="appointment-percent text-center">
-                                    <span class="text-uppercase"
-                                        >100% <br />
-                                        Quality</span
-                                    >
+                                    <span class="text-uppercase">100% <br />
+                                        Quality</span>
                                 </div>
                                 <div class="appointment-content text-center">
                                     <h4 class="title">Make An Appointment</h4>
@@ -335,6 +271,6 @@
             </div>
         </div>
     </section>
-<!--========== blog details End ==============-->
+    <!--========== blog details End ==============-->
 
 @endsection

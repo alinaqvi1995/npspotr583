@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Zipcode extends Model
 {
-    protected $fillable = ['zipcode', 'city', 'state', 'country'];
+    protected $table = 'zipcodes';
+
+    protected $fillable = [
+        'zipcode',
+        'city',
+        'state',
+        'statefull',
+        'county',
+        'country',
+        'latitude',
+        'longitude',
+    ];
+
+    public $timestamps = false;
 }
