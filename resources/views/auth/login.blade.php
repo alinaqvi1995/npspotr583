@@ -9,8 +9,11 @@
                 <div class="card rounded-4 mb-0 border-top border-4 border-primary border-gradient-1">
                     <div class="card-body p-5">
 
-                        {{-- Dynamic logo --}}
-                        {{-- <img src="{{ asset(config('app.logo', 'admin/images/logo1.png')) }}" class="mb-4" width="145" alt=""> --}}
+                        <div class="d-flex justify-content-center mb-4">
+                            <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" 
+                                class="logo-img" 
+                                alt="Logo">
+                        </div>
 
                         <h4 class="fw-bold">Get Started Now</h4>
                         <p class="mb-0">Enter your credentials to login your account</p>
@@ -78,11 +81,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 text-end">
+                                {{-- <div class="col-md-6 text-end">
                                     @if (Route::has('password.request'))
                                         <a href="{{ route('password.request') }}">Forgot Password ?</a>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12">
                                     <div class="d-grid">
@@ -90,7 +93,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="text-start">
                                         <p class="mb-0">
                                             Don't have an account yet? 
@@ -99,11 +102,11 @@
                                             @endif
                                         </p>
                                     </div>
-                                </div>
+                                </div> --}}
                             </form>
                         </div>
 
-                        <div class="separator section-padding">
+                        {{-- <div class="separator section-padding">
                             <div class="line"></div>
                             <p class="mb-0 fw-bold">OR SIGN IN WITH</p>
                             <div class="line"></div>
@@ -113,7 +116,7 @@
                             <a href="{{ url('/auth/google') }}" class="wh-42 d-flex align-items-center justify-content-center rounded-circle bg-grd-danger">
                                 <i class="bi bi-google fs-5 text-white"></i>
                             </a>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
