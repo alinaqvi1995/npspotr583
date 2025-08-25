@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('quote_phones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quote_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('quote_location_id')->constrained()->cascadeOnDelete();
             $table->string('phone');
             $table->string('type')->nullable();
             $table->timestamps();

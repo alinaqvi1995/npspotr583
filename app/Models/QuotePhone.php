@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuotePhone extends Model
 {
     protected $fillable = [
-        'quote_id',
+        'quote_location_id',
         'type',
         'phone',
     ];
