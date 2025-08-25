@@ -26,7 +26,7 @@
                         <div id="locationsContainer">
                             <!-- Initial Pickup Location -->
                             <div class="location-item mb-4 border p-3 rounded" data-index="1">
-                                <h6 class="mb-3">Location #1</h6>
+                                <h6 class="mb-3">Location</h6>
                                 <div class="row g-3">
                                     <div class="col-md-4">
                                         <label class="form-label">Type *</label>
@@ -341,7 +341,7 @@
             const allModels = @json($models);
             const currentYear = new Date().getFullYear();
 
-            // Generate years for dropdown
+            // ✅ Generate years for dropdown
             function generateYearOptions($select) {
                 $select.empty().append('<option value="">-- Year --</option>');
                 for (let y = currentYear; y >= currentYear - 30; y--) {
@@ -350,22 +350,27 @@
             }
             generateYearOptions($('.year-select'));
 
-            // Add Location
+            // ✅ Add Location
             // $('#addLocationBtn').click(function() {
             //     locationIndex++;
             //     const $clone = $('.location-item').first().clone();
+
             //     $clone.attr('data-index', locationIndex);
             //     $clone.find('input, select').each(function() {
             //         const name = $(this).attr('name').replace(/\d+/, locationIndex);
             //         $(this).attr('name', name).val('');
             //     });
+
+            //     // Remove extra phone inputs except main one
+            //     $clone.find('input[name$="_extra_phone[]"]').remove();
+
             //     $clone.find('.text-end').html(
             //         '<button type="button" class="btn btn-outline-danger deleteLocationBtn">Delete Location</button>'
             //     );
             //     $('#locationsContainer').append($clone);
             // });
 
-            // // Delete Location
+            // // ✅ Delete Location
             // $(document).on('click', '.deleteLocationBtn', function() {
             //     if ($('.location-item').length > 1) {
             //         $(this).closest('.location-item').remove();
@@ -374,32 +379,53 @@
             //     }
             // });
 
-            // Add Vehicle
+            // ✅ Add Vehicle
             $('#addVehicleBtn').click(function() {
                 vehicleIndex++;
                 const $clone = $('.vehicle-item').first().clone();
+
                 $clone.attr('data-index', vehicleIndex);
                 $clone.find('input, select').each(function() {
                     const name = $(this).attr('name').replace(/\d+/, vehicleIndex);
                     $(this).attr('name', name).val('');
                 });
+
+                $clone.find('h6').text('Vehicle #' + vehicleIndex);
                 generateYearOptions($clone.find('.year-select'));
+
                 $clone.find('.text-end').html(
                     '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
                 );
+
                 $('#vehiclesContainer').append($clone);
             });
 
-            // Delete Vehicle
+            // ✅ Delete Vehicle (with renumber)
             $(document).on('click', '.deleteVehicleBtn', function() {
                 if ($('.vehicle-item').length > 1) {
                     $(this).closest('.vehicle-item').remove();
+                    renumberVehicles();
                 } else {
                     alert('At least one vehicle is required.');
                 }
             });
 
-            // Make -> Model dependent dropdown
+            // ✅ Renumber vehicles after delete
+            function renumberVehicles() {
+                $('#vehiclesContainer .vehicle-item').each(function(index) {
+                    const newIndex = index + 1;
+                    $(this).attr('data-index', newIndex);
+                    $(this).find('h6').text('Vehicle #' + newIndex);
+
+                    $(this).find('input, select').each(function() {
+                        const name = $(this).attr('name').replace(/\d+/, newIndex);
+                        $(this).attr('name', name);
+                    });
+                });
+                vehicleIndex = $('#vehiclesContainer .vehicle-item').length;
+            }
+
+            // ✅ Make -> Model dependent dropdown
             $(document).on('change', '.make-select', function() {
                 const make = $(this).val();
                 const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
@@ -411,13 +437,14 @@
                 }
             });
 
-            // Add phone
+            // ✅ Add phone
             $(document).on('click', '.addPhoneBtn', function(e) {
                 e.preventDefault();
                 $(this).before('<input type="text" name="' + $(this).closest('.location-item').data(
-                        'index') +
+                    'index') +
                     '_extra_phone[]" class="form-control mt-1" placeholder="Additional phone">');
             });
         });
     </script>
+
 @endsection
