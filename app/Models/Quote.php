@@ -163,4 +163,13 @@ class Quote extends Model
     {
         return $this->hasMany(QuoteLocation::class);
     }
+    public function pickupLocation()
+    {
+        return $this->hasOne(QuoteLocation::class)->where('type', 'pickup');
+    }
+
+    public function deliveryLocation()
+    {
+        return $this->hasOne(QuoteLocation::class)->where('type', 'delivery');
+    }
 }

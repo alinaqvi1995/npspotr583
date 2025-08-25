@@ -34,99 +34,120 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">Locations</h5>
                         <div class="row">
-                            @foreach (['pickup', 'delivery'] as $index => $locType)
-                                @php $loc = $quote->locations[$locType] ?? []; @endphp
+                            @foreach (['pickup', 'delivery'] as $type)
+                                @php
+                                    $location = $quote->locations->where('type', $type)->first();
+                                    $index = $loop->index + 1;
+                                @endphp
+                                <input type="hidden" name="locations[{{ $index }}][id]" value="{{ $location->id ?? '' }}">
                                 <div class="col-md-6">
-                                    <div class="location-item mb-4 border p-3 rounded" data-index="{{ $index + 1 }}">
-                                        <h6 class="mb-3">{{ ucfirst($locType) }} Location</h6>
+                                    <div class="location-item mb-4 border p-3 rounded" data-index="{{ $index }}">
+                                        <h6 class="mb-3">{{ ucfirst($type) }} Location</h6>
                                         <div class="row g-3">
-                                            <input type="hidden" name="locations[{{ $index + 1 }}][type]"
-                                                value="{{ $locType }}">
+                                            <input type="hidden" name="locations[{{ $index }}][type]"
+                                                value="{{ $type }}">
+
                                             <div class="col-md-12">
                                                 <label class="form-label">Location Name</label>
-                                                <input type="text" name="locations[{{ $index + 1 }}][name]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.name', $loc['name'] ?? '') }}">
+                                                <input type="text" name="locations[{{ $index }}][name]"
+                                                    class="form-control" placeholder="Location Name"
+                                                    value="{{ $location->name ?? '' }}">
                                             </div>
+
                                             <div class="col-md-12">
                                                 <label class="form-label">Location Type</label>
-                                                <select name="locations[{{ $index + 1 }}][location_type]"
+                                                <select name="locations[{{ $index }}][location_type]"
                                                     class="form-select">
                                                     <option value="">Select</option>
-                                                    @foreach (['Warehouse', 'Business', 'Residential'] as $type)
-                                                        <option value="{{ $type }}"
-                                                            {{ old('locations.' . ($index + 1) . '.location_type', $loc['location_type'] ?? '') == $type ? 'selected' : '' }}>
-                                                            {{ $type }}</option>
+                                                    @foreach (['Warehouse', 'Business', 'Residential'] as $locType)
+                                                        <option value="{{ $locType }}" @selected(($location->location_type ?? '') === $locType)>
+                                                            {{ $locType }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <label class="form-label">Address 1</label>
-                                                <input type="text" name="locations[{{ $index + 1 }}][address1]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.address1', $loc['address1'] ?? '') }}">
+                                                <input type="text" name="locations[{{ $index }}][address1]"
+                                                    class="form-control" placeholder="Street address"
+                                                    value="{{ $location->address1 ?? '' }}">
                                             </div>
+
                                             <div class="col-md-12">
                                                 <label class="form-label">Address 2</label>
-                                                <input type="text" name="locations[{{ $index + 1 }}][address2]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.address2', $loc['address2'] ?? '') }}">
+                                                <input type="text" name="locations[{{ $index }}][address2]"
+                                                    class="form-control" placeholder="Apt, suite, etc."
+                                                    value="{{ $location->address2 ?? '' }}">
                                             </div>
+
                                             <div class="col-md-6">
                                                 <label class="form-label">City *</label>
-                                                <input type="text" name="locations[{{ $index + 1 }}][city]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.city', $loc['city'] ?? '') }}">
+                                                <input type="text" name="locations[{{ $index }}][city]"
+                                                    class="form-control" placeholder="City"
+                                                    value="{{ $location->city ?? '' }}">
                                             </div>
+
                                             <div class="col-md-3">
                                                 <label class="form-label">State *</label>
-                                                <input type="text" name="locations[{{ $index + 1 }}][state]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.state', $loc['state'] ?? '') }}">
+                                                <input type="text" name="locations[{{ $index }}][state]"
+                                                    class="form-control" placeholder="State"
+                                                    value="{{ $location->state ?? '' }}">
                                             </div>
+
                                             <div class="col-md-3">
                                                 <label class="form-label">ZIP *</label>
-                                                <input type="text" name="locations[{{ $index + 1 }}][zip]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.zip', $loc['zip'] ?? '') }}">
+                                                <input type="text" name="locations[{{ $index }}][zip]"
+                                                    class="form-control" placeholder="ZIP"
+                                                    value="{{ $location->zip ?? '' }}">
                                             </div>
+
                                             <div class="col-md-6">
                                                 <label class="form-label">Contact Name</label>
-                                                <input type="text" name="locations[{{ $index + 1 }}][contact_name]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.contact_name', $loc['contact_name'] ?? '') }}">
+                                                <input type="text" name="locations[{{ $index }}][contact_name]"
+                                                    class="form-control" value="{{ $location->contact_name ?? '' }}">
                                             </div>
+
                                             <div class="col-md-6">
                                                 <label class="form-label">Contact Email</label>
-                                                <input type="email" name="locations[{{ $index + 1 }}][contact_email]"
-                                                    class="form-control"
-                                                    value="{{ old('locations.' . ($index + 1) . '.contact_email', $loc['contact_email'] ?? '') }}">
+                                                <input type="email" name="locations[{{ $index }}][contact_email]"
+                                                    class="form-control" value="{{ $location->contact_email ?? '' }}">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label">Contact Phone</label>
-                                                @php
-                                                    $phones = old(
-                                                        'locations.' . ($index + 1) . '.contact_phone',
-                                                        $loc['contact_phone'] ?? [],
-                                                    );
-                                                @endphp
-                                                @foreach ($phones as $pIndex => $phone)
-                                                    <input type="text"
-                                                        name="locations[{{ $index + 1 }}][contact_phone][]"
-                                                        class="form-control mt-1" value="{{ $phone }}">
-                                                @endforeach
-                                                <small><a href="#" class="text-primary addPhoneBtn">+ Add
-                                                        phone</a></small>
+
+                                            <div class="col-md-12">
+                                                <label class="form-label">Contact Phones</label>
+                                                <div class="phone-list">
+                                                    @if ($location)
+                                                        @foreach ($location->phones as $pIndex => $phone)
+                                                            <div class="input-group mb-2">
+                                                                <input type="text"
+                                                                    name="locations[{{ $index }}][contact_phone][]"
+                                                                    class="form-control" placeholder="Phone"
+                                                                    value="{{ $phone->phone }}">
+                                                                <button type="button"
+                                                                    class="btn btn-danger removePhoneBtn">-</button>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                    <div class="input-group mb-2">
+                                                        <input type="text"
+                                                            name="locations[{{ $index }}][contact_phone][]"
+                                                            class="form-control" placeholder="Phone">
+                                                        <button type="button"
+                                                            class="btn btn-success addPhoneBtn">+</button>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                             <div class="col-md-12 mt-2">
-                                                <input type="hidden" name="locations[{{ $index + 1 }}][twic]"
+                                                <input type="hidden" name="locations[{{ $index }}][twic]"
                                                     value="0">
                                                 <input class="form-check-input" type="checkbox"
-                                                    name="locations[{{ $index + 1 }}][twic]"
-                                                    id="twic{{ $index + 1 }}" value="1"
-                                                    {{ old('locations.' . ($index + 1) . '.twic', $loc['twic'] ?? 0) ? 'checked' : '' }}>
-                                                <label for="twic{{ $index + 1 }}">TWIC Card Required?</label>
+                                                    name="locations[{{ $index }}][twic]"
+                                                    id="twic{{ $index }}" value="1"
+                                                    @checked($location->twic ?? false)>
+                                                <label for="twic{{ $index }}">TWIC Card Required?</label>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +182,8 @@
                                         <div class="col-md-3">
                                             <label class="form-label">Year *</label>
                                             <select name="vehicles[{{ $vIndex + 1 }}][year]"
-                                                class="form-select year-select"></select>
+                                                class="form-select year-select" data-selected="{{ $vehicle->year }}">
+                                            </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Make *</label>
@@ -382,14 +404,18 @@
             const currentYear = new Date().getFullYear();
 
             // ✅ Generate years for dropdown with optional selected value
-            function generateYearOptions($select, selected = null) {
+            function generateYearOptions($select) {
+                const selected = $select.data('selected');
                 $select.empty().append('<option value="">-- Year --</option>');
+                const currentYear = new Date().getFullYear();
                 for (let y = currentYear; y >= currentYear - 30; y--) {
-                    $select.append(`<option value="${y}" ${(selected==y)?'selected':''}>${y}</option>`);
+                    $select.append(`<option value="${y}" ${selected == y ? 'selected' : ''}>${y}</option>`);
                 }
             }
+
+            // Initialize all year selects
             $('.year-select').each(function() {
-                generateYearOptions($(this), $(this).val());
+                generateYearOptions($(this));
             });
 
             // ✅ Add Vehicle
@@ -476,13 +502,25 @@
                 });
             }
 
-            // ✅ Add phone input dynamically
+            // Add phone dynamically
             $(document).on('click', '.addPhoneBtn', function(e) {
                 e.preventDefault();
                 const index = $(this).closest('.location-item').data('index');
-                $(this).before('<input type="text" name="locations[' + index +
-                    '][contact_phone][]" class="form-control mt-1" placeholder="Additional phone">');
+                const phoneHtml = `
+                    <div class="input-group mb-2">
+                        <input type="text" name="locations[${index}][contact_phone][]" class="form-control" placeholder="Phone">
+                        <button type="button" class="btn btn-danger removePhoneBtn">-</button>
+                    </div>
+                `;
+                $(this).closest('.phone-list').append(phoneHtml);
             });
+
+            // Remove phone dynamically
+            $(document).on('click', '.removePhoneBtn', function(e) {
+                e.preventDefault();
+                $(this).closest('.input-group').remove();
+            });
+
 
             // ✅ Fetch models based on make
             $(document).on('change', '.make-select', function() {

@@ -67,7 +67,7 @@ Route::middleware(['auth', 'check_active'])->group(function () {
     Route::get('/quotes/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
     Route::get('/add_new_quote', [QuoteManagementController::class, 'quoteCreate'])->name('dashboard.quotes.create');
     Route::get('/edit_quote/{id}', [QuoteManagementController::class, 'quoteEdit'])->name('dashboard.quotes.edit');
-    Route::post('/update_quote', [QuoteManagementController::class, 'quoteUpdate'])->name('dashboard.quotes.update');
+    Route::put('/update_quote', [QuoteManagementController::class, 'quoteUpdate'])->name('dashboard.quotes.update');
 
     Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');

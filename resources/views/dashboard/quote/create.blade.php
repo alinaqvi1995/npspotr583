@@ -25,13 +25,11 @@
         <form action="{{ route('frontend.submit.quote') }}" id="quoteForm" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <!-- Pickup and Delivery Locations -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Locations</h5>
                         <div class="row">
-                            <!-- Pickup Location -->
                             <div class="col-md-6">
                                 <div class="location-item mb-4 border p-3 rounded" data-index="1">
                                     <h6 class="mb-3">Pickup Location</h6>
@@ -104,7 +102,6 @@
                                 </div>
                             </div>
 
-                            <!-- Delivery Location -->
                             <div class="col-md-6">
                                 <div class="location-item mb-4 border p-3 rounded" data-index="2">
                                     <h6 class="mb-3">Delivery Location</h6>
