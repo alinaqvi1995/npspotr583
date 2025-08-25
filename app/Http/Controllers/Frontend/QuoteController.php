@@ -322,7 +322,7 @@ class QuoteController extends Controller
             //     'message' => 'Quote submitted successfully',
             //     'quote_id' => $quote->id
             // ], 201);
-            return redirect()->route('quotes.index')->with('success', 'Quote submitted successfully');
+            return redirect()->route('dashboard.quotes.index')->with('success', 'Quote submitted successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             // return response()->json([
