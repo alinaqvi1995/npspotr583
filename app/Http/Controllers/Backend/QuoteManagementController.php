@@ -43,24 +43,47 @@ class QuoteManagementController extends Controller
         return view('dashboard.quote.details', compact('quote'));
     }
 
+    // public function quoteCreate()
+    // {
+    //     $makes = [];
+    //     $models = [];
+
+    //     VehicleMakeModel::select('make', 'model')
+    //         ->orderBy('make')
+    //         ->chunk(500, function ($rows) use (&$makes, &$models) {
+    //             foreach ($rows as $row) {
+    //                 if (!in_array($row->make, $makes)) {
+    //                     $makes[] = $row->make;
+    //                 }
+    //                 $models[$row->make][] = $row->model;
+    //             }
+    //         });
+
+    //     return view('dashboard.quote.create', compact('makes', 'models'));
+    // }
+
     public function quoteCreate()
     {
-        $makes = [];
-        $models = [];
-
-        VehicleMakeModel::select('make', 'model')
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
             ->orderBy('make')
-            ->chunk(500, function ($rows) use (&$makes, &$models) {
-                foreach ($rows as $row) {
-                    if (!in_array($row->make, $makes)) {
-                        $makes[] = $row->make;
-                    }
-                    $models[$row->make][] = $row->model;
-                }
-            });
+            ->pluck('make');
 
-        return view('dashboard.quote.create', compact('makes', 'models'));
+        return view('dashboard.quote.create', compact('makes'));
     }
+
+    public function quoteEdit($id)
+    {
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+
+        $quote = Quote::with(['locations', 'vehicles.images'])->findOrFail($id);
+
+        return view('dashboard.quote.edit', compact('makes', 'quote'));
+    }
+
     public function invoice()
     {
         return view('dashboard.invoice.index');

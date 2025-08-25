@@ -55,7 +55,7 @@
                                     <small>{{ $quote->customer_phone }}</small>
                                 </td>
                                 <td>
-                                    <strong>Total: {{ $quote->vehicles->count() }}</strong>
+                                    {{-- <strong>Total: {{ $quote->vehicles->count() }}</strong> --}}
                                     @foreach ($quote->vehicles as $vehicle)
                                         <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
                                         </p>
@@ -83,7 +83,7 @@
                                 <td>{!! $quote->status_label !!}</td>
                                 <td>
                                     @can('view-quoteDetail')
-                                        <a href="{{ route('dashboard.quotes.details', $quote->id) }}"
+                                        <a href="{{ route('dashboard.quotes.edit', $quote->id) }}"
                                             class="btn btn-sm btn-info">
                                             <i class="material-icons-outlined">edit</i>
                                         </a>

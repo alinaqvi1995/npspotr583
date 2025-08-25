@@ -46,6 +46,10 @@ Route::get('/blog/{slug}', [FrontendBlogController::class, 'show'])->name('blog.
 // zipcode
 Route::get('/zipcodes/search', [ZipcodeController::class, 'search'])->name('zipcodes.search');
 
+// models by make
+Route::get('/vehicles/models', [QuoteController::class, 'getModels'])->name('vehicles.models');
+
+
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active'])->group(function () {
     Route::get('/dashboard', fn() => view('dashboard.index'))->middleware('verified')->name('dashboard');
@@ -62,6 +66,8 @@ Route::middleware(['auth', 'check_active'])->group(function () {
     Route::get('/quotes', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     Route::get('/quotes/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
     Route::get('/add_new_quote', [QuoteManagementController::class, 'quoteCreate'])->name('dashboard.quotes.create');
+    Route::get('/edit_quote/{id}', [QuoteManagementController::class, 'quoteEdit'])->name('dashboard.quotes.edit');
+    Route::post('/update_quote', [QuoteManagementController::class, 'quoteUpdate'])->name('dashboard.quotes.update');
 
     Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');

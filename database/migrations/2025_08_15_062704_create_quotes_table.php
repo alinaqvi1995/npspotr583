@@ -17,8 +17,6 @@ return new class extends Migration
 
             // Vehicle & Locations
             $table->string('vehicle_type')->nullable();
-            $table->string('pickup_location')->nullable();
-            $table->string('delivery_location')->nullable();
 
             // Dates
             $table->date('pickup_date')->nullable();

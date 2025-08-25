@@ -413,7 +413,6 @@
     <script>
         $(document).ready(function() {
             let vehicleIndex = 1;
-            const allModels = @json($models);
             const currentYear = new Date().getFullYear();
 
             // ✅ Generate years for dropdown
@@ -509,24 +508,37 @@
                 });
             }
 
-            // ✅ Make -> Model dependent dropdown
-            $(document).on('change', '.make-select', function() {
-                const make = $(this).val();
-                const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
-                $modelSelect.empty().append('<option value="">-- Select Model --</option>');
-                if (make && allModels[make]) {
-                    allModels[make].forEach(model => {
-                        $modelSelect.append('<option value="' + model + '">' + model + '</option>');
-                    });
-                }
-            });
-
             // ✅ Add phone input dynamically
             $(document).on('click', '.addPhoneBtn', function(e) {
                 e.preventDefault();
                 const index = $(this).closest('.location-item').data('index');
                 $(this).before('<input type="text" name="locations[' + index +
                     '][contact_phone][]" class="form-control mt-1" placeholder="Additional phone">');
+            });
+
+            $(document).on('change', '.make-select', function() {
+                const make = $(this).val();
+                const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
+
+                $modelSelect.html('<option value="">-- Select Model --</option>');
+
+                if (make) {
+                    $.ajax({
+                        url: "{{ route('vehicles.models') }}",
+                        data: {
+                            make: make
+                        },
+                        success: function(models) {
+                            models.forEach(model => {
+                                $modelSelect.append('<option value="' + model + '">' +
+                                    model + '</option>');
+                            });
+                        },
+                        error: function() {
+                            alert('Failed to fetch models.');
+                        }
+                    });
+                }
             });
         });
     </script>
