@@ -100,8 +100,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="addLocationBtn" class="btn btn-outline-primary mt-3">+ Add
-                            Location</button>
+                        {{-- <button type="button" id="addLocationBtn" class="btn btn-outline-primary mt-3">+ Add
+                            Location</button> --}}
                     </div>
                 </div>
             </div>
@@ -351,28 +351,28 @@
             generateYearOptions($('.year-select'));
 
             // Add Location
-            $('#addLocationBtn').click(function() {
-                locationIndex++;
-                const $clone = $('.location-item').first().clone();
-                $clone.attr('data-index', locationIndex);
-                $clone.find('input, select').each(function() {
-                    const name = $(this).attr('name').replace(/\d+/, locationIndex);
-                    $(this).attr('name', name).val('');
-                });
-                $clone.find('.text-end').html(
-                    '<button type="button" class="btn btn-outline-danger deleteLocationBtn">Delete Location</button>'
-                );
-                $('#locationsContainer').append($clone);
-            });
+            // $('#addLocationBtn').click(function() {
+            //     locationIndex++;
+            //     const $clone = $('.location-item').first().clone();
+            //     $clone.attr('data-index', locationIndex);
+            //     $clone.find('input, select').each(function() {
+            //         const name = $(this).attr('name').replace(/\d+/, locationIndex);
+            //         $(this).attr('name', name).val('');
+            //     });
+            //     $clone.find('.text-end').html(
+            //         '<button type="button" class="btn btn-outline-danger deleteLocationBtn">Delete Location</button>'
+            //     );
+            //     $('#locationsContainer').append($clone);
+            // });
 
-            // Delete Location
-            $(document).on('click', '.deleteLocationBtn', function() {
-                if ($('.location-item').length > 1) {
-                    $(this).closest('.location-item').remove();
-                } else {
-                    alert('At least one location is required.');
-                }
-            });
+            // // Delete Location
+            // $(document).on('click', '.deleteLocationBtn', function() {
+            //     if ($('.location-item').length > 1) {
+            //         $(this).closest('.location-item').remove();
+            //     } else {
+            //         alert('At least one location is required.');
+            //     }
+            // });
 
             // Add Vehicle
             $('#addVehicleBtn').click(function() {
