@@ -7,7 +7,7 @@
     <hr>
 
     <div class="mb-3 text-end">
-        <button class="btn btn-grd-primary" id="refreshLogsBtn">
+        <button class="btn btn-grd btn-grd-primary" id="refreshLogsBtn">
             <i class="material-icons-outlined">refresh</i> Refresh
         </button>
     </div>

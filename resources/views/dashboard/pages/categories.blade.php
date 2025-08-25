@@ -8,7 +8,7 @@
 
     @can('create-categories')
         <div class="mb-3 text-end">
-            <button class="btn btn-grd-primary" id="addCategoryBtn">
+            <button class="btn btn-grd btn-grd-primary" id="addCategoryBtn">
                 <i class="material-icons-outlined">add</i> Add Category
             </button>
         </div>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-grd-primary">Save</button>
+                        <button type="submit" class="btn btn-grd btn-grd-primary">Save</button>
                     </div>
                 </div>
             </form>

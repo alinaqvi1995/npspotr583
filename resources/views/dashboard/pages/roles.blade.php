@@ -8,7 +8,7 @@
 
     @can('create-roles')
         <div class="mb-3 text-end">
-            <button class="btn btn-grd-primary" data-bs-toggle="modal" data-bs-target="#roleModal" id="addRoleBtn">
+            <button class="btn btn-grd btn-grd-primary" data-bs-toggle="modal" data-bs-target="#roleModal" id="addRoleBtn">
                 <i class="material-icons-outlined">add</i> Add Role
             </button>
         </div>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-grd-primary">Save</button>
+                        <button type="submit" class="btn btn-grd btn-grd-primary">Save</button>
                     </div>
                 </div>
             </form>

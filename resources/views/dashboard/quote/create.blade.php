@@ -395,7 +395,7 @@
 
             <!-- Submit -->
             <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-grd-primary px-4">Submit Quote</button>
+                <button type="submit" class="btn btn-grd btn-grd-primary px-4">Submit Quote</button>
             </div>
         </form>
     </div>
