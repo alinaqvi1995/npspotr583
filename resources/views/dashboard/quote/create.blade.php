@@ -18,90 +18,151 @@
         <form action="{{ route('frontend.submit.quote') }}" id="quoteForm" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <!-- Dynamic Locations -->
+            <!-- Pickup and Delivery Locations -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Locations</h5>
-                        <div id="locationsContainer">
-                            <!-- Initial Pickup Location -->
-                            <div class="location-item mb-4 border p-3 rounded" data-index="1">
-                                <h6 class="mb-3">Location</h6>
-                                <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label">Type *</label>
-                                        <select name="locations[1][type]" class="form-select" required>
-                                            <option value="">Select type</option>
-                                            <option value="pickup">Pickup</option>
-                                            <option value="delivery">Delivery</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Location Name</label>
-                                        <input type="text" name="locations[1][name]" class="form-control"
-                                            placeholder="Location Name">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Location Type</label>
-                                        <select name="locations[1][location_type]" class="form-select">
-                                            <option value="">Select</option>
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Business">Business</option>
-                                            <option value="Residential">Residential</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Address 1</label>
-                                        <input type="text" name="locations[1][address1]" class="form-control"
-                                            placeholder="Street address">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Address 2</label>
-                                        <input type="text" name="locations[1][address2]" class="form-control"
-                                            placeholder="Apt, suite, etc.">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">City *</label>
-                                        <input type="text" name="locations[1][city]" class="form-control"
-                                            placeholder="City">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">State *</label>
-                                        <input type="text" name="locations[1][state]" class="form-control"
-                                            placeholder="State">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">ZIP *</label>
-                                        <input type="text" name="locations[1][zip]" class="form-control"
-                                            placeholder="ZIP">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Contact Name</label>
-                                        <input type="text" name="locations[1][contact_name]" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Contact Email</label>
-                                        <input type="email" name="locations[1][contact_email]" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Contact Phone</label>
-                                        <input type="text" name="locations[1][contact_phone][]" class="form-control"
-                                            placeholder="Phone">
-                                        <small><a href="#" class="text-primary addPhoneBtn">+ Add phone</a></small>
-                                    </div>
-                                    <div class="col-md-12 mt-2">
-                                        <input class="form-check-input" type="checkbox" name="locations[1][twic]"
-                                            id="twic1">
-                                        <label for="twic1">TWIC Card Required?</label>
+                        <div class="row">
+                            <!-- Pickup Location -->
+                            <div class="col-md-6">
+                                <div class="location-item mb-4 border p-3 rounded" data-index="1">
+                                    <h6 class="mb-3">Pickup Location</h6>
+                                    <div class="row g-3">
+                                        <input type="hidden" name="locations[1][type]" value="pickup">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Location Name</label>
+                                            <input type="text" name="locations[1][name]" class="form-control"
+                                                placeholder="Location Name">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Location Type</label>
+                                            <select name="locations[1][location_type]" class="form-select">
+                                                <option value="">Select</option>
+                                                <option value="Warehouse">Warehouse</option>
+                                                <option value="Business">Business</option>
+                                                <option value="Residential">Residential</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Address 1</label>
+                                            <input type="text" name="locations[1][address1]" class="form-control"
+                                                placeholder="Street address">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Address 2</label>
+                                            <input type="text" name="locations[1][address2]" class="form-control"
+                                                placeholder="Apt, suite, etc.">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">City *</label>
+                                            <input type="text" name="locations[1][city]" class="form-control"
+                                                placeholder="City">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">State *</label>
+                                            <input type="text" name="locations[1][state]" class="form-control"
+                                                placeholder="State">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">ZIP *</label>
+                                            <input type="text" name="locations[1][zip]" class="form-control"
+                                                placeholder="ZIP">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Contact Name</label>
+                                            <input type="text" name="locations[1][contact_name]" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Contact Email</label>
+                                            <input type="email" name="locations[1][contact_email]" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Contact Phone</label>
+                                            <input type="text" name="locations[1][contact_phone][]" class="form-control"
+                                                placeholder="Phone">
+                                            <small><a href="#" class="text-primary addPhoneBtn">+ Add
+                                                    phone</a></small>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <input class="form-check-input" type="checkbox" name="locations[1][twic]"
+                                                id="twic1">
+                                            <label for="twic1">TWIC Card Required?</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="text-end mt-3">
-                                    <!-- Delete button for extra locations -->
+                            </div>
+
+                            <!-- Delivery Location -->
+                            <div class="col-md-6">
+                                <div class="location-item mb-4 border p-3 rounded" data-index="2">
+                                    <h6 class="mb-3">Delivery Location</h6>
+                                    <div class="row g-3">
+                                        <input type="hidden" name="locations[2][type]" value="delivery">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Location Name</label>
+                                            <input type="text" name="locations[2][name]" class="form-control"
+                                                placeholder="Location Name">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Location Type</label>
+                                            <select name="locations[2][location_type]" class="form-select">
+                                                <option value="">Select</option>
+                                                <option value="Warehouse">Warehouse</option>
+                                                <option value="Business">Business</option>
+                                                <option value="Residential">Residential</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Address 1</label>
+                                            <input type="text" name="locations[2][address1]" class="form-control"
+                                                placeholder="Street address">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Address 2</label>
+                                            <input type="text" name="locations[2][address2]" class="form-control"
+                                                placeholder="Apt, suite, etc.">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">City *</label>
+                                            <input type="text" name="locations[2][city]" class="form-control"
+                                                placeholder="City">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">State *</label>
+                                            <input type="text" name="locations[2][state]" class="form-control"
+                                                placeholder="State">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">ZIP *</label>
+                                            <input type="text" name="locations[2][zip]" class="form-control"
+                                                placeholder="ZIP">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Contact Name</label>
+                                            <input type="text" name="locations[2][contact_name]" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Contact Email</label>
+                                            <input type="email" name="locations[2][contact_email]"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Contact Phone</label>
+                                            <input type="text" name="locations[2][contact_phone][]"
+                                                class="form-control" placeholder="Phone">
+                                            <small><a href="#" class="text-primary addPhoneBtn">+ Add
+                                                    phone</a></small>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <input class="form-check-input" type="checkbox" name="locations[2][twic]"
+                                                id="twic2">
+                                            <label for="twic2">TWIC Card Required?</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        {{-- <button type="button" id="addLocationBtn" class="btn btn-outline-primary mt-3">+ Add
-                            Location</button> --}}
                     </div>
                 </div>
             </div>
@@ -350,35 +411,6 @@
             }
             generateYearOptions($('.year-select'));
 
-            // ✅ Add Location
-            // $('#addLocationBtn').click(function() {
-            //     locationIndex++;
-            //     const $clone = $('.location-item').first().clone();
-
-            //     $clone.attr('data-index', locationIndex);
-            //     $clone.find('input, select').each(function() {
-            //         const name = $(this).attr('name').replace(/\d+/, locationIndex);
-            //         $(this).attr('name', name).val('');
-            //     });
-
-            //     // Remove extra phone inputs except main one
-            //     $clone.find('input[name$="_extra_phone[]"]').remove();
-
-            //     $clone.find('.text-end').html(
-            //         '<button type="button" class="btn btn-outline-danger deleteLocationBtn">Delete Location</button>'
-            //     );
-            //     $('#locationsContainer').append($clone);
-            // });
-
-            // // ✅ Delete Location
-            // $(document).on('click', '.deleteLocationBtn', function() {
-            //     if ($('.location-item').length > 1) {
-            //         $(this).closest('.location-item').remove();
-            //     } else {
-            //         alert('At least one location is required.');
-            //     }
-            // });
-
             // ✅ Add Vehicle
             $('#addVehicleBtn').click(function() {
                 vehicleIndex++;
@@ -441,7 +473,7 @@
             $(document).on('click', '.addPhoneBtn', function(e) {
                 e.preventDefault();
                 $(this).before('<input type="text" name="' + $(this).closest('.location-item').data(
-                    'index') +
+                        'index') +
                     '_extra_phone[]" class="form-control mt-1" placeholder="Additional phone">');
             });
         });
