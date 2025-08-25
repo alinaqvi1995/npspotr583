@@ -215,12 +215,12 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Images</label>
-                                        <input type="file" name="images[1][]" class="form-control" multiple>
+                                        <input type="file" name="images[1][]" class="form-control image-input"
+                                            multiple>
+                                        <div class="image-preview mt-2 d-flex flex-wrap gap-2"></div>
                                     </div>
                                 </div>
-                                <div class="text-end mt-3">
-                                    <!-- Delete button for extra vehicles -->
-                                </div>
+                                <div class="text-end mt-3"></div>
                             </div>
                         </div>
                         <button type="button" id="addVehicleBtn" class="btn btn-outline-primary mt-3">+ Add
@@ -397,7 +397,6 @@
 @section('extra_js')
     <script>
         $(document).ready(function() {
-            let locationIndex = 1;
             let vehicleIndex = 1;
             const allModels = @json($models);
             const currentYear = new Date().getFullYear();
@@ -422,17 +421,18 @@
                     $(this).attr('name', name).val('');
                 });
 
+                $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
                 $clone.find('h6').text('Vehicle #' + vehicleIndex);
-                generateYearOptions($clone.find('.year-select'));
-
+                $clone.find('.image-preview').html('');
                 $clone.find('.text-end').html(
                     '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
                 );
 
                 $('#vehiclesContainer').append($clone);
+                generateYearOptions($clone.find('.year-select'));
             });
 
-            // ✅ Delete Vehicle (with renumber)
+            // ✅ Delete Vehicle
             $(document).on('click', '.deleteVehicleBtn', function() {
                 if ($('.vehicle-item').length > 1) {
                     $(this).closest('.vehicle-item').remove();
@@ -442,19 +442,56 @@
                 }
             });
 
-            // ✅ Renumber vehicles after delete
+            // ✅ Image Preview with Remove Option
+            $(document).on('change', '.image-input', function() {
+                const previewContainer = $(this).siblings('.image-preview');
+                previewContainer.html('');
+                const files = this.files;
+
+                if (files) {
+                    Array.from(files).forEach((file, index) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = `
+                        <div class="position-relative d-inline-block" style="width:80px;height:80px;">
+                            <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
+                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
+                        </div>
+                    `;
+                            previewContainer.append(img);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+            });
+
+            // ✅ Remove image from preview (and input)
+            $(document).on('click', '.remove-image', function() {
+                const index = $(this).data('index');
+                const $input = $(this).closest('.image-preview').siblings('.image-input');
+                const dt = new DataTransfer();
+
+                const files = $input[0].files;
+                for (let i = 0; i < files.length; i++) {
+                    if (i !== index) {
+                        dt.items.add(files[i]);
+                    }
+                }
+                $input[0].files = dt.files;
+                $(this).parent().remove();
+            });
+
+            // ✅ Renumber Vehicles
             function renumberVehicles() {
-                $('#vehiclesContainer .vehicle-item').each(function(index) {
+                $('.vehicle-item').each(function(index) {
                     const newIndex = index + 1;
                     $(this).attr('data-index', newIndex);
                     $(this).find('h6').text('Vehicle #' + newIndex);
-
                     $(this).find('input, select').each(function() {
                         const name = $(this).attr('name').replace(/\d+/, newIndex);
                         $(this).attr('name', name);
                     });
                 });
-                vehicleIndex = $('#vehiclesContainer .vehicle-item').length;
             }
 
             // ✅ Make -> Model dependent dropdown
@@ -469,14 +506,13 @@
                 }
             });
 
-            // ✅ Add phone
+            // ✅ Add phone input dynamically
             $(document).on('click', '.addPhoneBtn', function(e) {
                 e.preventDefault();
-                $(this).before('<input type="text" name="' + $(this).closest('.location-item').data(
-                        'index') +
-                    '_extra_phone[]" class="form-control mt-1" placeholder="Additional phone">');
+                const index = $(this).closest('.location-item').data('index');
+                $(this).before('<input type="text" name="locations[' + index +
+                    '][contact_phone][]" class="form-control mt-1" placeholder="Additional phone">');
             });
         });
     </script>
-
 @endsection
