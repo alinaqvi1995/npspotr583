@@ -92,8 +92,12 @@
                                                     phone</a></small>
                                         </div>
                                         <div class="col-md-12 mt-2">
-                                            <input class="form-check-input" type="checkbox" name="locations[1][twic]"
+                                            {{-- <input class="form-check-input" type="checkbox" name="locations[1][twic]"
                                                 id="twic1">
+                                            <label for="twic1">TWIC Card Required?</label> --}}
+                                            <input type="hidden" name="locations[1][twic]" value="0">
+                                            <input class="form-check-input" type="checkbox" name="locations[1][twic]"
+                                                id="twic1" value="1">
                                             <label for="twic1">TWIC Card Required?</label>
                                         </div>
                                     </div>
@@ -162,8 +166,12 @@
                                                     phone</a></small>
                                         </div>
                                         <div class="col-md-12 mt-2">
-                                            <input class="form-check-input" type="checkbox" name="locations[2][twic]"
+                                            {{-- <input class="form-check-input" type="checkbox" name="locations[2][twic]"
                                                 id="twic2">
+                                            <label for="twic2">TWIC Card Required?</label> --}}
+                                            <input type="hidden" name="locations[2][twic]" value="0">
+                                            <input class="form-check-input" type="checkbox" name="locations[2][twic]"
+                                                id="twic2" value="1">
                                             <label for="twic2">TWIC Card Required?</label>
                                         </div>
                                     </div>

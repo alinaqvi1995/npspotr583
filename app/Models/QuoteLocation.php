@@ -28,6 +28,10 @@ class QuoteLocation extends Model
         'save_to_address_book',
     ];
 
+    protected $casts = [
+        'twic' => 'boolean',
+    ];
+
     /**
      * Relationships
      */
@@ -39,6 +43,6 @@ class QuoteLocation extends Model
 
     public function phones()
     {
-        return $this->hasMany(QuotePhone ::class);
+        return $this->hasMany(QuotePhone::class);
     }
 }
