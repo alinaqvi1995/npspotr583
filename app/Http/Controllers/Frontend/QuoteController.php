@@ -317,18 +317,20 @@ class QuoteController extends Controller
 
             DB::commit();
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Quote submitted successfully',
-                'quote_id' => $quote->id
-            ], 201);
+            // return response()->json([
+            //     'status' => 'success',
+            //     'message' => 'Quote submitted successfully',
+            //     'quote_id' => $quote->id
+            // ], 201);
+            return redirect()->route('quotes.index')->with('success', 'Quote submitted successfully');
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to submit quote',
-                'error' => $e->getMessage()
-            ], 500);
+            // return response()->json([
+            //     'status' => 'error',
+            //     'message' => 'Failed to submit quote',
+            //     'error' => $e->getMessage()
+            // ], 500);
+            return redirect()->back()->withErrors(['error' => 'Failed to submit quote: ' . $e->getMessage()])->withInput();
         }
     }
 }

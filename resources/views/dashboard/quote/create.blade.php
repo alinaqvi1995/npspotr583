@@ -14,6 +14,13 @@
         </div>
     </div>
 
+    @if ($errors->any())
+        <ul class="text-danger">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
     <div class="row">
         <form action="{{ route('frontend.submit.quote') }}" id="quoteForm" method="POST" enctype="multipart/form-data">
             @csrf
