@@ -31,7 +31,10 @@ return new class extends Migration
             $table->string('trailer_type')->nullable();
             $table->string('load_method')->nullable();
             $table->string('unload_method')->nullable();
-            $table->enum('type', ['car','heavy'])->default('car');
+            $table->string('type')->nullable();
+            $table->string('lot_number')->nullable();
+            $table->string('license_plate')->nullable();
+            $table->string('license_state')->nullable();
             $table->timestamps();
 
             $table->foreign('quote_id')->references('id')->on('quotes')->onDelete('cascade');

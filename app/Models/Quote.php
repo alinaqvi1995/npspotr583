@@ -158,4 +158,9 @@ class Quote extends Model
     {
         return $this->phones()->where('type', 'delivery');
     }
+
+    public function locations()
+    {
+        return $this->hasMany(QuoteLocation::class);
+    }
 }

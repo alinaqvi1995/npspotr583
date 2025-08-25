@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserManagementController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\QuoteManagementController;
+use App\Http\Controllers\ZipcodeController;
 
 // 🔹 Static pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -41,6 +42,9 @@ Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('fro
 // 🔹 Blog
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [FrontendBlogController::class, 'show'])->name('blog.show');
+
+// zipcode
+Route::get('/zipcodes/search', [ZipcodeController::class, 'search'])->name('zipcodes.search');
 
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active'])->group(function () {

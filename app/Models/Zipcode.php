@@ -20,4 +20,9 @@ class Zipcode extends Model
     ];
 
     public $timestamps = false;
+
+    public function getLocationAttribute()
+    {
+        return "{$this->city},{$this->state},{$this->zipcode}";
+    }
 }
