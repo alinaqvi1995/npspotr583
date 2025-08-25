@@ -15,7 +15,7 @@
     </div>
 
     <div class="row">
-        <form action="{{ route('quote.store') }}" id="quoteForm" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('frontend.submit.quote') }}" id="quoteForm" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Dynamic Locations -->
