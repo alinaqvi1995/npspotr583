@@ -44,6 +44,29 @@
 </head>
 
 <body>
+    <style>
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+        }
+
+        .suggestions-box div {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .suggestions-box div:hover {
+            background: #f0f0f0;
+        }
+    </style>
 
     {{-- Header --}}
     @include('partials.site.header')
@@ -84,6 +107,103 @@
     <script src="{{ asset('web-assets/js/extra.js') }}"></script>
 
     @yield('scripts')
+
+
+    <!-- Include Select2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.make-select, .model-select').select2({
+                width: '100%',
+                placeholder: '-- Select --'
+            });
+
+            $(document).on('change', '.make-select', function() {
+                const make = $(this).val();
+                const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
+
+                $modelSelect.html('<option value="">-- Select Model --</option>');
+
+                if (make) {
+                    $.ajax({
+                        url: "{{ route('vehicles.models') }}",
+                        data: {
+                            make: make
+                        },
+                        success: function(models) {
+                            models.forEach(model => {
+                                $modelSelect.append('<option value="' + model + '">' +
+                                    model + '</option>');
+                            });
+                            $modelSelect.trigger('change'); // refresh Select2
+                        },
+                        error: function() {
+                            alert('Failed to fetch models.');
+                        }
+                    });
+                }
+            });
+
+            function bindSearch(inputId, suggestionBoxId) {
+                let selected = false;
+
+                $(inputId).on('keyup', function() {
+                    let query = $(this).val();
+                    selected = false;
+
+                    if (query.length < 2) {
+                        $(suggestionBoxId).hide();
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{ route('zipcode.searchByLocation') }}",
+                        data: {
+                            q: query
+                        },
+                        success: function(data) {
+                            let html = '';
+                            if (data.length > 0) {
+                                data.forEach(item => {
+                                    html +=
+                                        `<div class="suggestion-item">${item.label}</div>`;
+                                });
+                            } else {
+                                html = '<div>No results found</div>';
+                            }
+                            $(suggestionBoxId).html(html).show();
+                        }
+                    });
+                });
+
+                $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
+                    $(inputId).val($(this).text());
+                    $(suggestionBoxId).hide();
+                    selected = true;
+                });
+
+                // Hide dropdown if clicked outside
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId)
+                        .length) {
+                        $(suggestionBoxId).hide();
+                    }
+                });
+
+                // Restrict form submission if value not selected from suggestions
+                $('form').on('submit', function(e) {
+                    if (!selected) {
+                        e.preventDefault();
+                        alert('Please select a location from the suggestions.');
+                    }
+                });
+            }
+
+            bindSearch('#pickup-location', '#pickup-suggestions');
+            bindSearch('#delivery-location', '#delivery-suggestions');
+        });
+    </script>
 
 </body>
 

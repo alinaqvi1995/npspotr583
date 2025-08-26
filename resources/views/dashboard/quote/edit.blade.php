@@ -249,7 +249,7 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">Dates</h5>
                         <div class="row g-3">
-                            <!-- Date Available to Ship -->
+                            <!--    p -->
                             <div class="col-md-4">
                                 <label class="form-label">Date Available to Ship <span
                                         class="text-danger">*</span></label>

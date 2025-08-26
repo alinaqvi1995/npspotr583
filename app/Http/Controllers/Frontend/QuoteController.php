@@ -29,7 +29,12 @@ class QuoteController extends Controller
     }
     public function motorcycle()
     {
-        return view('site.quote.motorcycle');
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+
+        return view('site.quote.motorcycle', compact('makes'));
     }
     public function golf_cart()
     {
@@ -101,6 +106,7 @@ class QuoteController extends Controller
 
     public function submitQuote(Request $request)
     {
+        dd($request->all());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
@@ -210,10 +216,10 @@ class QuoteController extends Controller
                 'subcategory_id' => $validated['subcategory_id'] ?? null,
                 'vehicle_type' => $validated['vehicle_type'] ?? null,
 
-                'pickup_date' => $validated['dates']['pickup_date'] ?? null,
-                'delivery_date' => $validated['dates']['delivery_date'] ?? null,
-                'available_date' => $validated['dates']['available_date'] ?? null,
-                'expiration_date' => $validated['dates']['expiration_date'] ?? null,
+                'pickup_date' => $request->filled('pickup_date') ? date('Y-m-d', strtotime($request->pickup_date)) : null,
+                'delivery_date' => $request->filled('delivery_date') ? date('Y-m-d', strtotime($request->delivery_date)) : null,
+                'available_date' => $request->filled('available_date') ? date('Y-m-d', strtotime($request->available_date)) : null,
+                'expiration_date' => $request->filled('expiration_date') ? date('Y-m-d', strtotime($request->expiration_date)) : null,
 
                 'customer_name' => $customerName,
                 'customer_email' => $customerEmail,
