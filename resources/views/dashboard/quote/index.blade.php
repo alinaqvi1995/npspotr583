@@ -72,12 +72,12 @@
                                 </td>
                                 <td>
                                     <strong>Pickup:</strong><br>
-                                    <a href="https://www.google.com/maps/search/{{ urlencode($quote->pickup_location) }}"
-                                        target="_blank">{{ $quote->pickup_location }}</a><br>
+                                    <a href="https://www.google.com/maps/search/{{ urlencode($quote->pickupLocation->full_location) }}"
+                                        target="_blank">{{ $quote->pickupLocation->full_location }}</a><br>
                                     <span>{{ $quote->pickup_date_formatted }}</span><br>
                                     <strong>Delivery:</strong><br>
-                                    <a href="https://www.google.com/maps/search/{{ urlencode($quote->delivery_location) }}"
-                                        target="_blank">{{ $quote->delivery_location }}</a><br>
+                                    <a href="https://www.google.com/maps/search/{{ urlencode($quote->deliveryLocation->full_location) }}"
+                                        target="_blank">{{ $quote->pickupLocation->full_location }}</a><br>
                                     <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
                                 <td>{!! $quote->status_label !!}</td>

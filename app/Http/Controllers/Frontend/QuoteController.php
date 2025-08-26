@@ -101,15 +101,14 @@ class QuoteController extends Controller
 
     public function submitQuote(Request $request)
     {
-        // dd($request->all());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'vehicle_type' => 'nullable|string|max:255',
 
             // Locations
-            'locations' => 'required|array|min:1',
-            'locations.*.type' => 'required|in:pickup,delivery',
+            'locations' => 'nullable|array',
+            'locations.*.type' => 'required_with:locations|in:pickup,delivery',
             'locations.*.name' => 'nullable|string|max:255',
             'locations.*.location_type' => 'nullable|string|max:255',
             'locations.*.address1' => 'nullable|string|max:255',
@@ -160,13 +159,52 @@ class QuoteController extends Controller
 
             // Vehicle Images
             'images' => 'nullable|array',
-            'images.*.*' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // images.vehicleIndex.imageIndex
+            'images.*.*' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         DB::beginTransaction();
 
         try {
-            // ✅ Save main quote
+            // ✅ Build locations array
+            $locations = [];
+
+            if (!empty($validated['locations'])) {
+                $locations = $validated['locations'];
+            } else {
+                // ✅ Fallback from single-line fields
+                if ($request->filled('pickup_location')) {
+                    $pickupParts = explode(',', $request->input('pickup_location'));
+                    $locations[] = [
+                        'type' => 'pickup',
+                        'city' => trim($pickupParts[0] ?? ''),
+                        'state' => trim($pickupParts[1] ?? ''),
+                        'zip' => trim($pickupParts[2] ?? ''),
+                        'contact_name' => $request->input('customer_name'),
+                        'contact_email' => $request->input('customer_email'),
+                        'contact_phone' => [$request->input('customer_phone')],
+                    ];
+                }
+
+                if ($request->filled('delivery_location')) {
+                    $deliveryParts = explode(',', $request->input('delivery_location'));
+                    $locations[] = [
+                        'type' => 'delivery',
+                        'city' => trim($deliveryParts[0] ?? ''),
+                        'state' => trim($deliveryParts[1] ?? ''),
+                        'zip' => trim($deliveryParts[2] ?? ''),
+                        'contact_phone' => [],
+                    ];
+                }
+            }
+
+            $pickupContact = collect($locations)->firstWhere('type', 'pickup');
+            $customerName = $pickupContact['contact_name'] ?? null;
+            $customerEmail = $pickupContact['contact_email'] ?? null;
+            $customerPhone = !empty($pickupContact['contact_phone'])
+                ? implode(',', $pickupContact['contact_phone'])
+                : null;
+
+            // ✅ Create quote
             $quote = Quote::create([
                 'category_id' => $validated['category_id'] ?? null,
                 'subcategory_id' => $validated['subcategory_id'] ?? null,
@@ -177,9 +215,9 @@ class QuoteController extends Controller
                 'available_date' => $validated['dates']['available_date'] ?? null,
                 'expiration_date' => $validated['dates']['expiration_date'] ?? null,
 
-                'customer_name' => $validated['locations'][1]['contact_name'] ?? null,
-                'customer_email' => $validated['locations'][1]['contact_email'] ?? null,
-                'customer_phone' => !empty($validated['locations'][1]['contact_phone']) ? implode(',', $validated['locations'][1]['contact_phone']) : null,
+                'customer_name' => $customerName,
+                'customer_email' => $customerEmail,
+                'customer_phone' => $customerPhone,
 
                 'additional_info' => json_encode($validated['additional'] ?? []),
                 'load_id' => $validated['additional']['load_id'] ?? null,
@@ -194,8 +232,8 @@ class QuoteController extends Controller
                 'balance_amount' => $validated['pricing']['balance_amount'] ?? null,
             ]);
 
-            // ✅ Save Locations
-            foreach ($validated['locations'] as $locationData) {
+            // ✅ Save locations
+            foreach ($locations as $locationData) {
                 $location = $quote->locations()->create([
                     'type' => $locationData['type'],
                     'name' => $locationData['name'] ?? null,
@@ -224,7 +262,7 @@ class QuoteController extends Controller
                 }
             }
 
-            // ✅ Save Vehicles & Images
+            // ✅ Save vehicles and images
             foreach ($validated['vehicles'] as $index => $vehicleData) {
                 $vehicle = $quote->vehicles()->create([
                     'type' => $vehicleData['type'] ?? null,
@@ -254,7 +292,8 @@ class QuoteController extends Controller
 
             DB::commit();
 
-            return redirect()->route('dashboard.quotes.index')->with('success', 'Quote submitted successfully');
+            // return redirect()->route('dashboard.quotes.index')->with('success', 'Quote submitted successfully');
+            return redirect()->back()->with('success', 'Quote submitted successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Failed to submit quote: ' . $e->getMessage()])->withInput();

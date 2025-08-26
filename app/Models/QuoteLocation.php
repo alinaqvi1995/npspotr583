@@ -13,7 +13,7 @@ class QuoteLocation extends Model
 
     protected $fillable = [
         'quote_id',
-        'type', // pickup or delivery
+        'type',
         'name',
         'location_type',
         'address1',
@@ -31,6 +31,39 @@ class QuoteLocation extends Model
     protected $casts = [
         'twic' => 'boolean',
     ];
+    
+    public function getFullLocationAttribute()
+    {
+        return "{$this->city}, {$this->state}, {$this->zip}";
+    }
+
+    public function setPickupLocationAttribute($value)
+    {
+        $this->parseAndAssignLocation($value, 'pickup');
+    }
+
+    public function setDeliveryLocationAttribute($value)
+    {
+        $this->parseAndAssignLocation($value, 'delivery');
+    }
+
+    private function parseAndAssignLocation($value, $type)
+    {
+        if (!$value) {
+            return;
+        }
+
+        $parts = array_map('trim', explode(',', $value));
+
+        $city = $parts[0] ?? null;
+        $state = $parts[1] ?? null;
+        $zip = $parts[2] ?? null;
+
+        $this->attributes['city'] = $city;
+        $this->attributes['state'] = $state;
+        $this->attributes['zip'] = $zip;
+        $this->attributes['type'] = $type;
+    }
 
     /**
      * Relationships
