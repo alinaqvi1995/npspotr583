@@ -20,7 +20,12 @@ class QuoteController extends Controller
     }
     public function car()
     {
-        return view('site.quote.car');
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+
+        return view('site.quote.car', compact('makes'));
     }
     public function motorcycle()
     {
@@ -96,6 +101,7 @@ class QuoteController extends Controller
 
     public function submitQuote(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
