@@ -247,7 +247,29 @@
     nationwide coverage, and transparent pricing. Trust us for swift and secure vehicle transportation.')
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+        }
 
+        .suggestions-box div {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .suggestions-box div:hover {
+            background: #f0f0f0;
+        }
+    </style>
     <section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/cta-bg.webp') }}">
         <div class="container">
             <div class="row">
@@ -343,17 +365,21 @@
                                                 <h6 class="title">Shipment Data</h6>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="tabs-input">
+                                                        <div class="tabs-input position-relative">
                                                             <input type="text" id="pickup-location"
                                                                 name="pickup_location" placeholder="Pickup Location*"
-                                                                required value="{{ old('pickup_location') }}">
+                                                                autocomplete="off" required
+                                                                value="{{ old('pickup_location') }}">
+                                                            <div id="pickup-suggestions" class="suggestions-box"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="tabs-input">
+                                                        <div class="tabs-input position-relative">
                                                             <input type="text" id="delivery-location"
                                                                 name="delivery_location" placeholder="Delivery Location*"
-                                                                required value="{{ old('delivery_location') }}">
+                                                                autocomplete="off" required
+                                                                value="{{ old('delivery_location') }}">
+                                                            <div id="delivery-suggestions" class="suggestions-box"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -405,14 +431,6 @@
                                                                 name="vehicles[0][model]" required>
                                                                 <option value="">-- Select Model --</option>
                                                                 @if (old('vehicles.0.make'))
-                                                                    @php
-                                                                        $models = \App\Models\VehicleMakeModel::where(
-                                                                            'make',
-                                                                            old('vehicles.0.make'),
-                                                                        )
-                                                                            ->where('status', 1)
-                                                                            ->pluck('model');
-                                                                    @endphp
                                                                     @foreach ($models as $model)
                                                                         <option value="{{ $model }}"
                                                                             {{ old('vehicles.0.model') == $model ? 'selected' : '' }}>
@@ -567,7 +585,64 @@
                     });
                 }
             });
+
+            function bindSearch(inputId, suggestionBoxId) {
+                let selected = false;
+
+                $(inputId).on('keyup', function() {
+                    let query = $(this).val();
+                    selected = false;
+
+                    if (query.length < 2) {
+                        $(suggestionBoxId).hide();
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{ route('zipcode.searchByLocation') }}",
+                        data: {
+                            q: query
+                        },
+                        success: function(data) {
+                            let html = '';
+                            if (data.length > 0) {
+                                data.forEach(item => {
+                                    html +=
+                                        `<div class="suggestion-item">${item.label}</div>`;
+                                });
+                            } else {
+                                html = '<div>No results found</div>';
+                            }
+                            $(suggestionBoxId).html(html).show();
+                        }
+                    });
+                });
+
+                $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
+                    $(inputId).val($(this).text());
+                    $(suggestionBoxId).hide();
+                    selected = true;
+                });
+
+                // Hide dropdown if clicked outside
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId)
+                        .length) {
+                        $(suggestionBoxId).hide();
+                    }
+                });
+
+                // Restrict form submission if value not selected from suggestions
+                $('form').on('submit', function(e) {
+                    if (!selected) {
+                        e.preventDefault();
+                        alert('Please select a location from the suggestions.');
+                    }
+                });
+            }
+
+            bindSearch('#pickup-location', '#pickup-suggestions');
+            bindSearch('#delivery-location', '#delivery-suggestions');
         });
     </script>
-
 @endsection

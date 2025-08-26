@@ -49,6 +49,11 @@ Route::get('/zipcodes/search', [ZipcodeController::class, 'search'])->name('zipc
 // models by make
 Route::get('/vehicles/models', [QuoteController::class, 'getModels'])->name('vehicles.models');
 
+// locations search
+Route::get('/search-location', [App\Http\Controllers\ZipcodeController::class, 'searchByLocation'])
+    ->name('zipcode.searchByLocation');
+
+
 
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active'])->group(function () {
