@@ -95,6 +95,7 @@ class QuoteManagementController extends Controller
 
     public function quoteUpdate(Request $request, Quote $quote)
     {
+        dd($request->all());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',

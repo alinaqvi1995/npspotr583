@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="check-list">
-                                    {{-- <h5 class="title">{{ $service->image_one }}</h5> --}}
+                                    <h5 class="title">{{ $service->heading_two }}</h5>
                                     <ul class="list-gap">
                                         <li>
                                             <i class="fa-light fa-check"></i> {!! $service->description_two_one !!}
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                         <div class="details-video-content">
-                            <h4 class="title">{{ $service->heading_two }}</h4>
+                            <h4 class="title">{{ $service->heading_three }}</h4>
                             <p>
                                 {!! $service->description_three !!}
                             </p>

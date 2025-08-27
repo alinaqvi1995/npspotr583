@@ -187,7 +187,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Make *</label>
-                                            <select name="vehicles[{{ $vIndex + 1 }}][make]"
+                                            {{-- <select name="vehicles[{{ $vIndex + 1 }}][make]"
                                                 class="form-select make-select" required>
                                                 <option value="">-- Select Make --</option>
                                                 @foreach ($makes as $make)
@@ -196,14 +196,18 @@
                                                         {{ $make }}
                                                     </option>
                                                 @endforeach
-                                            </select>
+                                            </select> --}}
+                                            <input type="text" class="form-control" name="vehicles[{{ $vIndex + 1 }}][make]"
+                                                placeholder="e.g. Toyota" required value="{{ $vehicle->make }}">
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Model *</label>
-                                            <select name="vehicles[{{ $vIndex + 1 }}][model]"
+                                            {{-- <select name="vehicles[{{ $vIndex + 1 }}][model]"
                                                 class="form-select model-select" required>
                                                 <option value="{{ $vehicle->model }}">{{ $vehicle->model }}</option>
-                                            </select>
+                                            </select> --}}
+                                            <input type="text" class="form-control" name="vehicles[{{ $vIndex + 1 }}][model]"
+                                                placeholder="e.g. Model" required value="{{ $vehicle->make }}">
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Color</label>
