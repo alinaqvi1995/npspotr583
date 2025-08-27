@@ -12,12 +12,6 @@
 //     "San Francisco,CA,94101"
 // ];
 
-function showStep(stepId) {
-    document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
-        .forEach(div => div.style.display = "none");
-    document.getElementById(stepId).style.display = "block";
-}
-
 // function fetchSuggestionsStatic(inputField, suggestionsList) {
 //     const query = inputField.value.toLowerCase();
 //     suggestionsList.innerHTML = "";
@@ -35,6 +29,12 @@ function showStep(stepId) {
 //             });
 //     }
 // }
+
+function showStep(stepId) {
+    document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
+        .forEach(div => div.style.display = "none");
+    document.getElementById(stepId).style.display = "block";
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
