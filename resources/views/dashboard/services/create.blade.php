@@ -34,7 +34,6 @@
                     </div>
                 </div>
             </div>
-            
 
             <!-- Content Sections -->
             <div class="col-12">
