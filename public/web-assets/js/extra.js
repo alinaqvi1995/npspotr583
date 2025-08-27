@@ -179,14 +179,14 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
+                        // <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
+                        <select name="vehicles[1][year]" class="form-select year-select"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Make:</label>
-                        // <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
-                        <select name="vehicles[1][year]" class="form-select year-select"></select>
+                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
                     </div>
                 </div>
                 <div class="col-md-4">
