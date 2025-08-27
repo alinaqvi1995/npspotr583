@@ -36,27 +36,27 @@
 //     }
 // }
 
-// document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-//     document.getElementById('pickup-location')?.addEventListener('input', function () {
-//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
-//     });
-//     document.getElementById('delivery-location')?.addEventListener('input', function () {
-//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
-//     });
-
-
-//     document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
-//     document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
-//     document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
-//     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
+    document.getElementById('pickup-location')?.addEventListener('input', function () {
+        fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
+    });
+    document.getElementById('delivery-location')?.addEventListener('input', function () {
+        fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
+    });
 
 
-//     document.getElementById('calculatePriceForm')?.addEventListener('submit', e => {
-//         e.preventDefault();
-//         alert('Quote request submitted successfully!');
-//     });
-// });
+    document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
+    document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
+    document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
+    document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
+
+
+    document.getElementById('calculatePriceForm')?.addEventListener('submit', e => {
+        e.preventDefault();
+        alert('Quote request submitted successfully!');
+    });
+});
 
 // =========================
 // Vehicle Dynamic Fields
