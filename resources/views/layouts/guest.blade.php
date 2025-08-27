@@ -232,25 +232,6 @@
 
             bindSearch('#pickup-location', '#pickup-suggestions');
             bindSearch('#delivery-location', '#delivery-suggestions');
-
-
-            // year options
-            const currentYear = new Date().getFullYear();
-
-            // ✅ Generate years for dropdown with optional selected value
-            function generateYearOptions($select) {
-                const selected = $select.data('selected');
-                $select.empty().append('<option value="">-- Year --</option>');
-                const currentYear = new Date().getFullYear();
-                for (let y = currentYear; y >= currentYear - 30; y--) {
-                    $select.append(`<option value="${y}" ${selected == y ? 'selected' : ''}>${y}</option>`);
-                }
-            }
-
-            // Initialize all year selects
-            $('.year-select').each(function() {
-                generateYearOptions($(this));
-            });
         });
     </script>
 

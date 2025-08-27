@@ -179,7 +179,7 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <select name="vehicles[1][year]" class="year-select" required></select>
+                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
                     </div>
                 </div>
                 <div class="col-md-4">
