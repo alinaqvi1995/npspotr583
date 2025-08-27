@@ -104,30 +104,36 @@
                                                 <h6 class="title">Shipment Data</h6>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="tabs-input">
-                                                            <input type="text" id="pickup-location" name="pickup_location"
-                                                                placeholder="Pickup Location*" required
+                                                        <div class="tabs-input position-relative">
+                                                            <input type="text" id="pickup-location"
+                                                                name="pickup_location" placeholder="Pickup Location*"
+                                                                autocomplete="off" required
                                                                 value="{{ old('pickup_location') }}">
+                                                            <div id="pickup-suggestions" class="suggestions-box"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="tabs-input">
-                                                            <input type="text" id="delivery-location" name="delivery_location"
-                                                                placeholder="Delivery Location*" required
+                                                        <div class="tabs-input position-relative">
+                                                            <input type="text" id="delivery-location"
+                                                                name="delivery_location" placeholder="Delivery Location*"
+                                                                autocomplete="off" required
                                                                 value="{{ old('delivery_location') }}">
+                                                            <div id="delivery-suggestions" class="suggestions-box"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
                                                     <div class="col-md-6">
                                                         <div class="tabs-input">
-                                                            <input type="date" name="pickup_date" required min="{{ $today }}"
+                                                            <input type="date" name="pickup_date" required
+                                                                min="{{ $today }}"
                                                                 value="{{ old('pickup_date') }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="tabs-input">
-                                                            <input type="date" name="delivery_date" required min="{{ $today }}"
+                                                            <input type="date" name="delivery_date" required
+                                                                min="{{ $today }}"
                                                                 value="{{ old('delivery_date') }}">
                                                         </div>
                                                     </div>

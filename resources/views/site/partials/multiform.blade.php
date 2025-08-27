@@ -1,4 +1,5 @@
-<form class="rd-mailform validate-form" action="{{ route('frontend.submit.quote') }}" method="POST" enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled>
+<form class="rd-mailform validate-form" action="{{ route('frontend.submit.quote') }}" method="POST"
+    enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled>
     @csrf
     @php $today = date('Y-m-d'); @endphp
 
@@ -11,19 +12,21 @@
             <div class="row">
                 <h4 class="title text-center">Quote Request!</h4>
                 <div class="col-xl-12 mb-4">
-                    <h6  class="text-white">Moving From</h6>
+                    <h6 class="text-white">Moving From</h6>
                     <label class="d-block mb-2 text-white">Where Are You Moving From?</label>
                     <div class="input-form single-input-field">
-                        <input type="text" id="pickup-location" name="pickup_location" placeholder="Enter City or ZipCode" required>
-                        <ul class="suggestions suggestionsPickup"></ul>
+                        <input type="text" id="pickup-location" name="pickup_location"
+                            placeholder="Enter City or ZipCode" required>
+                        <div id="pickup-suggestions" class="suggestions-box"></div>
                     </div>
                 </div>
                 <div class="col-xl-12 mb-4">
-                    <h6  class="text-white">Moving To</h6>
+                    <h6 class="text-white">Moving To</h6>
                     <label class="d-block mb-2 text-white">Where Are You Moving To?</label>
                     <div class="input-form single-input-field">
-                        <input type="text" id="delivery-location" name="delivery_location" placeholder="Enter City or ZipCode" required>
-                        <ul class="suggestions suggestionsDelivery"></ul>
+                        <input type="text" id="delivery-location" name="delivery_location"
+                            placeholder="Enter City or ZipCode" required>
+                        <div id="delivery-suggestions" class="suggestions-box"></div>
                     </div>
                 </div>
             </div>
@@ -50,9 +53,10 @@
                 </select>
 
                 <div id="firstVehicle"></div>
-                
+
                 <div class="tab-content mt-3" id="additionalContent"></div>
-                <button type="button" id="addVehicleBtn"  class="text-white text-center text-decoration-underline" style="display:none;">Add Vehicle</button>
+                <button type="button" id="addVehicleBtn" class="text-white text-center text-decoration-underline"
+                    style="display:none;">Add Vehicle</button>
             </div>
             <div class="row mt-2 justify-content-evenly">
                 <div class="col-12 d-flex flex-column flex-md-row justify-content-evenly">
@@ -75,7 +79,8 @@
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
                         <label>Phone:</label>
-                        <input id="phone" name="customer_phone" type="tel" placeholder="Customer Phone" required>
+                        <input id="phone" name="customer_phone" type="tel" placeholder="Customer Phone"
+                            required>
                     </div>
                 </div>
                 <div class="col-xl-12">

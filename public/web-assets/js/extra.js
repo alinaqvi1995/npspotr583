@@ -1,62 +1,62 @@
 // =========================
 // Zip Code Auto Suggest + Steps
 // =========================
-const zipCodeList = [
-    "New York,NY,10001",
-    "Los Angeles,CA,90001",
-    "Chicago,IL,60601",
-    "Dallas,TX,75201",
-    "Houston,TX,77001",
-    "Miami,FL,33101",
-    "Phoenix,AZ,85001",
-    "San Francisco,CA,94101"
-];
+// const zipCodeList = [
+//     "New York,NY,10001",
+//     "Los Angeles,CA,90001",
+//     "Chicago,IL,60601",
+//     "Dallas,TX,75201",
+//     "Houston,TX,77001",
+//     "Miami,FL,33101",
+//     "Phoenix,AZ,85001",
+//     "San Francisco,CA,94101"
+// ];
 
-function showStep(stepId) {
-    document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
-        .forEach(div => div.style.display = "none");
-    document.getElementById(stepId).style.display = "block";
-}
+// function showStep(stepId) {
+//     document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
+//         .forEach(div => div.style.display = "none");
+//     document.getElementById(stepId).style.display = "block";
+// }
 
-function fetchSuggestionsStatic(inputField, suggestionsList) {
-    const query = inputField.value.toLowerCase();
-    suggestionsList.innerHTML = "";
-    if (query.length >= 2) {
-        zipCodeList
-            .filter(item => item.toLowerCase().includes(query))
-            .forEach(suggestion => {
-                const li = document.createElement('li');
-                li.textContent = suggestion;
-                li.onclick = () => {
-                    inputField.value = suggestion;
-                    suggestionsList.innerHTML = "";
-                };
-                suggestionsList.appendChild(li);
-            });
-    }
-}
+// function fetchSuggestionsStatic(inputField, suggestionsList) {
+//     const query = inputField.value.toLowerCase();
+//     suggestionsList.innerHTML = "";
+//     if (query.length >= 2) {
+//         zipCodeList
+//             .filter(item => item.toLowerCase().includes(query))
+//             .forEach(suggestion => {
+//                 const li = document.createElement('li');
+//                 li.textContent = suggestion;
+//                 li.onclick = () => {
+//                     inputField.value = suggestion;
+//                     suggestionsList.innerHTML = "";
+//                 };
+//                 suggestionsList.appendChild(li);
+//             });
+//     }
+// }
 
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
 
-    document.getElementById('pickup-location')?.addEventListener('input', function () {
-        fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
-    });
-    document.getElementById('delivery-location')?.addEventListener('input', function () {
-        fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
-    });
-
-
-    document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
-    document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
-    document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
-    document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
+//     document.getElementById('pickup-location')?.addEventListener('input', function () {
+//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
+//     });
+//     document.getElementById('delivery-location')?.addEventListener('input', function () {
+//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
+//     });
 
 
-    document.getElementById('calculatePriceForm')?.addEventListener('submit', e => {
-        e.preventDefault();
-        alert('Quote request submitted successfully!');
-    });
-});
+//     document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
+//     document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
+//     document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
+//     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
+
+
+//     document.getElementById('calculatePriceForm')?.addEventListener('submit', e => {
+//         e.preventDefault();
+//         alert('Quote request submitted successfully!');
+//     });
+// });
 
 // =========================
 // Vehicle Dynamic Fields
@@ -454,11 +454,11 @@ $(document).ready(function () {
         }
     });
 
-$("#addVehicleBtn").click(function () {
-    var selected = $("#tabSelector").val();
-    if (!selected) return;
+    $("#addVehicleBtn").click(function () {
+        var selected = $("#tabSelector").val();
+        if (!selected) return;
 
-    var vehicleHtml = `
+        var vehicleHtml = `
         <div class="vehicle-block extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative; display:none;">
             <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
             <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
@@ -466,17 +466,17 @@ $("#addVehicleBtn").click(function () {
         </div>
     `;
 
-    var $newBlock = $(vehicleHtml);
-    $("#additionalContent").append($newBlock);
-    $newBlock.slideDown(400); // Smooth reveal
-});
-
-
-$(document).on("click", ".deleteVehicleBtn", function () {
-    $(this).closest(".extra-vehicle").slideUp(400, function () {
-        $(this).remove(); // remove after animation
+        var $newBlock = $(vehicleHtml);
+        $("#additionalContent").append($newBlock);
+        $newBlock.slideDown(400); // Smooth reveal
     });
-});
+
+
+    $(document).on("click", ".deleteVehicleBtn", function () {
+        $(this).closest(".extra-vehicle").slideUp(400, function () {
+            $(this).remove(); // remove after animation
+        });
+    });
 
 
     $("#calculatePriceForm").submit(function (e) {
