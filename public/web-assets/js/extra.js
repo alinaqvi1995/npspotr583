@@ -68,7 +68,7 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
+                        <select name="vehicles[01][year]" class="form-select year-select"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -110,7 +110,7 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
+                        <select name="vehicles[0][year]" class="form-select year-select"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -177,22 +177,23 @@ $(document).ready(function () {
         "Car": `
             <div class="row mt-2">
                 <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
-                    </div>
+                    <label class="text-white">Year</label>
+                    <select name="vehicles[0][year]" class="form-select year-select"></select>
                 </div>
                 <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Make:</label>
-                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
-                    </div>
+                    <label class="text-white">Make</label>
+                    <select name="vehicles[0][make]" class="form-select make-select" required>
+                        <option value="">-- Select Make --</option>
+                        @foreach ($makes as $make)
+                            <option value="{{ $make }}">{{ $make }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Model:</label>
-                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
-                    </div>
+                    <label class="text-white">Model</label>
+                    <select name="vehicles[0][model]" class="form-select model-select" required>
+                        <option value="">-- Select Model --</option>
+                    </select>
                 </div>
             </div>
             <div class="row mt-2">
@@ -221,7 +222,7 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
+                        <select name="vehicles[0][year]" class="form-select year-select"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -263,7 +264,7 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
+                        <select name="vehicles[0][year]" class="form-select year-select"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -331,7 +332,7 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" name="vehicles[0][year]" placeholder="e.g. 2020" required>
+                        <select name="vehicles[0][year]" class="form-select year-select"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -373,7 +374,7 @@ $(document).ready(function () {
                 <div class="col-md-4">
                     <div class="input-form single-input-field">
                         <label>Year:</label>
-                        <input type="number" placeholder="e.g. 2020" required>
+                        <select name="vehicles[0][year]" class="form-select year-select"></select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -448,6 +449,9 @@ $(document).ready(function () {
                     ${vehicleFields[selected]}
                 </div>
             `);
+
+            generateYearOptions($("#firstVehicle .year-select"));
+
             $("#addVehicleBtn").show();
         } else {
             $("#addVehicleBtn").hide();
@@ -469,6 +473,8 @@ $(document).ready(function () {
         var $newBlock = $(vehicleHtml);
         $("#additionalContent").append($newBlock);
         $newBlock.slideDown(400); // Smooth reveal
+
+        generateYearOptions($newBlock.find(".year-select"));
     });
 
 
