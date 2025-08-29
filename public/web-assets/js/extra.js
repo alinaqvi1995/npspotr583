@@ -20,10 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
 
 
-    document.getElementById('calculatePriceForm')?.addEventListener('submit', e => {
-        e.preventDefault();
-        alert('Quote request submitted successfully!');
-    });
 });
 $(document).ready(function () {
     var vehicleFields = {
@@ -485,8 +481,5 @@ $(document).ready(function () {
     });
 
 
-    $("#calculatePriceForm").submit(function (e) {
-        e.preventDefault();
-        alert("Quote request submitted successfully!");
-    });
+
 });
