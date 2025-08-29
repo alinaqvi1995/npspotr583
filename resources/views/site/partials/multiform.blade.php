@@ -103,6 +103,18 @@
 <script>
 $(document).ready(function () {
 
+    // Populate Make dropdowns on page load
+    $(".make-select").each(function () {
+        let $makeSelect = $(this);
+        $makeSelect.empty().append('<option value="">-- Select Make --</option>');
+
+        $.getJSON("/get-makes", function (makes) {
+            makes.forEach(make => {
+                $makeSelect.append(`<option value="${make}">${make}</option>`);
+            });
+        });
+    });
+
     // When Make changes, populate Model dropdown
     $(document).on("change", ".make-select", function () {
         let make = $(this).val();
@@ -113,24 +125,14 @@ $(document).ready(function () {
         $modelSelect.empty().append('<option value="">-- Select Model --</option>');
 
         if (make) {
-            $.getJSON(`/get-models`, { make: make }, function (models) {
+            $.getJSON("/get-models", { make: make }, function (models) {
                 models.forEach(model => {
                     $modelSelect.append(`<option value="${model}">${model}</option>`);
                 });
+            }).fail(function() {
+                console.error("Failed to fetch models for make:", make);
             });
         }
-    });
-
-    // Optional: Populate Make dropdown on page load if needed
-    $(".make-select").each(function () {
-        let $makeSelect = $(this);
-        $makeSelect.empty().append('<option value="">-- Select Make --</option>');
-
-        $.getJSON(`/get-makes`, function (makes) {
-            makes.forEach(make => {
-                $makeSelect.append(`<option value="${make}">${make}</option>`);
-            });
-        });
     });
 
 });
