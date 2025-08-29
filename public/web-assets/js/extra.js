@@ -1,35 +1,3 @@
-// =========================
-// Zip Code Auto Suggest + Steps
-// =========================
-// const zipCodeList = [
-//     "New York,NY,10001",
-//     "Los Angeles,CA,90001",
-//     "Chicago,IL,60601",
-//     "Dallas,TX,75201",
-//     "Houston,TX,77001",
-//     "Miami,FL,33101",
-//     "Phoenix,AZ,85001",
-//     "San Francisco,CA,94101"
-// ];
-
-// function fetchSuggestionsStatic(inputField, suggestionsList) {
-//     const query = inputField.value.toLowerCase();
-//     suggestionsList.innerHTML = "";
-//     if (query.length >= 2) {
-//         zipCodeList
-//             .filter(item => item.toLowerCase().includes(query))
-//             .forEach(suggestion => {
-//                 const li = document.createElement('li');
-//                 li.textContent = suggestion;
-//                 li.onclick = () => {
-//                     inputField.value = suggestion;
-//                     suggestionsList.innerHTML = "";
-//                 };
-//                 suggestionsList.appendChild(li);
-//             });
-//     }
-// }
-
 function showStep(stepId) {
     document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
         .forEach(div => div.style.display = "none");
@@ -57,10 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Quote request submitted successfully!');
     });
 });
-
-// =========================
-// Vehicle Dynamic Fields
-// =========================
 $(document).ready(function () {
     var vehicleFields = {
         "Atv": `
@@ -178,15 +142,14 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-4">
                     <label class="text-white">Year</label>
-                    <select name="vehicles[0][year]" class="form-select year-select"></select>
+                    <select name="vehicles[0][year]" class="form-select year-select" required>
+                        <option value="">-- Select Year --</option>
+                    </select>
                 </div>
                 <div class="col-md-4">
                     <label class="text-white">Make</label>
                     <select name="vehicles[0][make]" class="form-select make-select" required>
                         <option value="">-- Select Make --</option>
-                        @foreach ($makes as $make)
-                            <option value="{{ $make }}">{{ $make }}</option>
-                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -199,14 +162,14 @@ $(document).ready(function () {
             <div class="row mt-2">
                 <div class="col-md-6">
                     <select class="form-control" name="vehicles[0][trailer_type]">
-                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
-                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
+                        <option value="Open Trailer">Open Trailer</option>
+                        <option value="Enclosed Trailer">Enclosed Trailer</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <select class="form-control" name="vehicles[0][condition]">
-                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
-                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
+                        <option value="Running">Running</option>
+                        <option value="Non-Running">Non-Running</option>
                     </select>
                 </div>
             </div>
@@ -475,6 +438,43 @@ $(document).ready(function () {
         $newBlock.slideDown(400); // Smooth reveal
 
         generateYearOptions($newBlock.find(".year-select"));
+    });
+
+    // When Year changes → load Makes
+    $(document).on("change", ".year-select", function () {
+        let $parent = $(this).closest(".vehicle-block");
+        let year = $(this).val();
+        let $makeSelect = $parent.find(".make-select");
+        let $modelSelect = $parent.find(".model-select");
+
+        $makeSelect.empty().append('<option value="">-- Select Make --</option>');
+        $modelSelect.empty().append('<option value="">-- Select Model --</option>');
+
+        if (year) {
+            $.getJSON(`/get-makes/${year}`, function (data) {
+                data.forEach(make => {
+                    $makeSelect.append(`<option value="${make}">${make}</option>`);
+                });
+            });
+        }
+    });
+
+    // When Make changes → load Models
+    $(document).on("change", ".make-select", function () {
+        let $parent = $(this).closest(".vehicle-block");
+        let year = $parent.find(".year-select").val();
+        let make = $(this).val();
+        let $modelSelect = $parent.find(".model-select");
+
+        $modelSelect.empty().append('<option value="">-- Select Model --</option>');
+
+        if (year && make) {
+            $.getJSON(`/get-models/${year}/${make}`, function (data) {
+                data.forEach(model => {
+                    $modelSelect.append(`<option value="${model}">${model}</option>`);
+                });
+            });
+        }
     });
 
 

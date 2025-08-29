@@ -122,9 +122,7 @@
             $(document).on('change', '.make-select', function() {
                 const make = $(this).val();
                 const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
-
                 $modelSelect.html('<option value="">-- Select Model --</option>');
-
                 if (make) {
                     $.ajax({
                         url: "{{ route('vehicles.models') }}",
@@ -136,8 +134,6 @@
                                 $modelSelect.append('<option value="' + model + '">' +
                                     model + '</option>');
                             });
-
-                            // Refresh Nice Select after updating options
                             $modelSelect.niceSelect('update');
                         },
                         error: function() {
@@ -145,50 +141,18 @@
                         }
                     });
                 } else {
-                    // If no make selected, still refresh
                     $modelSelect.niceSelect('update');
                 }
             });
-
-            // $(document).on('change', '.make-select', function() {
-            //     const make = $(this).val();
-            //     const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
-
-            //     $modelSelect.html('<option value="">-- Select Model --</option>');
-
-            //     if (make) {
-            //         $.ajax({
-            //             url: "{{ route('vehicles.models') }}",
-            //             data: {
-            //                 make: make
-            //             },
-            //             success: function(models) {
-            //                 models.forEach(model => {
-            //                     $modelSelect.append('<option value="' + model + '">' +
-            //                         model + '</option>');
-            //                 });
-            //                 $modelSelect.trigger('change');
-            //             },
-            //             error: function() {
-            //                 alert('Failed to fetch models.');
-            //             }
-            //         });
-            //     }
-            // });
-
-            // Location Auto-suggestions
             function bindSearch(inputId, suggestionBoxId) {
                 let selected = false;
-
                 $(inputId).on('keyup', function() {
                     let query = $(this).val();
                     selected = false;
-
                     if (query.length < 2) {
                         $(suggestionBoxId).hide();
                         return;
                     }
-
                     $.ajax({
                         url: "{{ route('zipcode.searchByLocation') }}",
                         data: {
@@ -208,20 +172,17 @@
                         }
                     });
                 });
-
                 $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
                     $(inputId).val($(this).text());
                     $(suggestionBoxId).hide();
                     selected = true;
                 });
-
                 $(document).on('click', function(e) {
                     if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId)
                         .length) {
                         $(suggestionBoxId).hide();
                     }
                 });
-
                 $('form').on('submit', function(e) {
                     if (!selected) {
                         e.preventDefault();
@@ -229,15 +190,10 @@
                     }
                 });
             }
-
             bindSearch('#pickup-location', '#pickup-suggestions');
             bindSearch('#delivery-location', '#delivery-suggestions');
         });
-
-        // ✅ Generate years for dropdown
-        
         const currentYear = new Date().getFullYear();
-
         function generateYearOptions($select) {
             $select.empty().append('<option value="">-- Year --</option>');
             for (let y = currentYear; y >= currentYear - 30; y--) {
@@ -247,98 +203,6 @@
         generateYearOptions($('.year-select'));
     </script>
 
-    {{-- <script>
-        $(document).ready(function() {
-            $('.make-select, .model-select').select2({
-                width: '100%',
-                placeholder: '-- Select --'
-            });
-
-            $(document).on('change', '.make-select', function() {
-                const make = $(this).val();
-                const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
-
-                $modelSelect.html('<option value="">-- Select Model --</option>');
-
-                if (make) {
-                    $.ajax({
-                        url: "{{ route('vehicles.models') }}",
-                        data: {
-                            make: make
-                        },
-                        success: function(models) {
-                            models.forEach(model => {
-                                $modelSelect.append('<option value="' + model + '">' +
-                                    model + '</option>');
-                            });
-                            $modelSelect.trigger('change'); // refresh Select2
-                        },
-                        error: function() {
-                            alert('Failed to fetch models.');
-                        }
-                    });
-                }
-            });
-
-            function bindSearch(inputId, suggestionBoxId) {
-                let selected = false;
-
-                $(inputId).on('keyup', function() {
-                    let query = $(this).val();
-                    selected = false;
-
-                    if (query.length < 2) {
-                        $(suggestionBoxId).hide();
-                        return;
-                    }
-
-                    $.ajax({
-                        url: "{{ route('zipcode.searchByLocation') }}",
-                        data: {
-                            q: query
-                        },
-                        success: function(data) {
-                            let html = '';
-                            if (data.length > 0) {
-                                data.forEach(item => {
-                                    html +=
-                                        `<div class="suggestion-item">${item.label}</div>`;
-                                });
-                            } else {
-                                html = '<div>No results found</div>';
-                            }
-                            $(suggestionBoxId).html(html).show();
-                        }
-                    });
-                });
-
-                $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
-                    $(inputId).val($(this).text());
-                    $(suggestionBoxId).hide();
-                    selected = true;
-                });
-
-                // Hide dropdown if clicked outside
-                $(document).on('click', function(e) {
-                    if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId)
-                        .length) {
-                        $(suggestionBoxId).hide();
-                    }
-                });
-
-                // Restrict form submission if value not selected from suggestions
-                $('form').on('submit', function(e) {
-                    if (!selected) {
-                        e.preventDefault();
-                        alert('Please select a location from the suggestions.');
-                    }
-                });
-            }
-
-            bindSearch('#pickup-location', '#pickup-suggestions');
-            bindSearch('#delivery-location', '#delivery-suggestions');
-        });
-    </script> --}}
 
 </body>
 

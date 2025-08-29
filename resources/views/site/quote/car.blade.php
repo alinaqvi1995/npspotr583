@@ -1,7 +1,7 @@
 @extends('layouts.guest')
-@section('title', 'Get Car Shipping Quote | ShipA1')
+@section('title', 'Get Car Shipping Quote | ')
 @section('meta_description',
-    'Experience seamless car shipping with Shipa Car Transport. Get an instant quote,
+    'Experience seamless car shipping with ----- Car Transport. Get an instant quote,
     nationwide coverage, and transparent pricing. Trust us for swift and secure vehicle transportation.')
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

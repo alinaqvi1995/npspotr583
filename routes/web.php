@@ -33,6 +33,12 @@ Route::get('/services/heavy', [FrontendServiceController::class, 'heavyservice']
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');
 Route::get('/car', [QuoteController::class, 'car'])->name('quote.car');
+
+Route::get('/get-makes', [HomeController::class, 'getMakes'])->name('get.makes');
+
+
+Route::get('/get-models', [HomeController::class, 'getModels'])->name('get.models');
+Route::get('/vehicles/models', [HomeController::class, 'getModels'])->name('vehicles.models');
 Route::get('/atv-utv', [QuoteController::class, 'atv_utv'])->name('quote.atv_utv');
 Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.motorcycle');
 
