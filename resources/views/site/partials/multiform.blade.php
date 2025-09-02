@@ -13,7 +13,7 @@
         </ul>
     </div>
 @endif
-<form class="rd-mailform validate-form"  id="calculatePriceFrom" action="{{ route('frontend.submit.quote') }}" method="POST"
+<form class="rd-mailform validate-form" id="calculatePriceFrom" action="{{ route('frontend.submit.quote') }}" method="POST"
     enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled>
     @csrf
     @php $today = date('Y-m-d'); @endphp
@@ -88,20 +88,23 @@
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
                         <label>Your Name:</label>
-                        <input id="name" name="customer_name" value="{{ old('customer_name') }}" type="text" placeholder="Customer Name" required>
+                        <input id="name" name="customer_name" value="{{ old('customer_name') }}" type="text"
+                            placeholder="Customer Name" required>
                     </div>
                 </div>
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
                         <label>Phone:</label>
-                        <input id="phone" name="customer_phone" value="{{ old('customer_phone') }}" type="tel" placeholder="Customer Phone"
-                            required><input type="hidden" name="country_code" id="country_code" />
+                        <input id="phone" name="customer_phone" value="{{ old('customer_phone') }}" type="tel"
+                            placeholder="Customer Phone" required><input type="hidden" name="country_code"
+                            id="country_code" />
                     </div>
                 </div>
                 <div class="col-xl-12">
                     <div class="input-form single-input-field">
                         <label>Email Address:</label>
-                        <input id="email" name="customer_email" type="email" placeholder="Email address" value="{{ old('customer_email') }}" required>
+                        <input id="email" name="customer_email" type="email" placeholder="Email address"
+                            value="{{ old('customer_email') }}" required>
                     </div>
                 </div>
             </div>
@@ -116,39 +119,42 @@
     </div>
 </form>
 <script>
-$(document).ready(function () {
+    $(document).ready(function() {
 
-    // Populate Make dropdowns on page load
-    $(".make-select").each(function () {
-        let $makeSelect = $(this);
-        $makeSelect.empty().append('<option value="">-- Select Make --</option>');
+        // Populate Make dropdowns on page load
+        $(".make-select").each(function() {
+            let $makeSelect = $(this);
+            $makeSelect.empty().append('<option value="">-- Select Make --</option>');
 
-        $.getJSON("/get-makes", function (makes) {
-            makes.forEach(make => {
-                $makeSelect.append(`<option value="${make}">${make}</option>`);
+            $.getJSON("/get-makes", function(makes) {
+                makes.forEach(make => {
+                    $makeSelect.append(`<option value="${make}">${make}</option>`);
+                });
             });
         });
-    });
 
-    // When Make changes, populate Model dropdown
-    $(document).on("change", ".make-select", function () {
-        let make = $(this).val();
-        let $parent = $(this).closest(".vehicle-block");
-        let $modelSelect = $parent.find(".model-select");
+        // When Make changes, populate Model dropdown
+        $(document).on("change", ".make-select", function() {
+            let make = $(this).val();
+            let $parent = $(this).closest(".vehicle-block");
+            let $modelSelect = $parent.find(".model-select");
 
-        // Reset Model select
-        $modelSelect.empty().append('<option value="">-- Select Model --</option>');
+            // Reset Model select
+            $modelSelect.empty().append('<option value="">-- Select Model --</option>');
 
-        if (make) {
-            $.getJSON("/get-models", { make: make }, function (models) {
-                models.forEach(model => {
-                    $modelSelect.append(`<option value="${model}">${model}</option>`);
+            if (make) {
+                $.getJSON("/get-models", {
+                    make: make
+                }, function(models) {
+                    models.forEach(model => {
+                        $modelSelect.append(
+                            `<option value="${model}">${model}</option>`);
+                    });
+                }).fail(function() {
+                    console.error("Failed to fetch models for make:", make);
                 });
-            }).fail(function() {
-                console.error("Failed to fetch models for make:", make);
-            });
-        }
-    });
+            }
+        });
 
-});
+    });
 </script>

@@ -5,7 +5,6 @@ function showStep(stepId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
     document.getElementById('pickup-location')?.addEventListener('input', function () {
         fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
     });
@@ -13,404 +12,115 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
     });
 
-
     document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
     document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
     document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
-
-
 });
+
 $(document).ready(function () {
-    var vehicleFields = {
-        "Atv": `
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <select name="vehicles[01][year]" class="form-select year-select"></select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Make:</label>
-                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Model:</label>
-                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][trailer_type]">
-                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
-                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][condition]">
-                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
-                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
-                    </select>
-                </div>
-            </div>
+    let vehicleIndex = 0;
 
-            <!-- Vehicle Images -->
-            <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
-                <div class="image-preview-container" id="imagePreviewContainer"></div>
+    function getVehicleFields(type, index) {
+        const yearField = `
+            <div class="col-md-4">
+                <label class="text-white">Year</label>
+                <select name="vehicles[${index}][year]" class="form-select year-select" required>
+                    <option value="">-- Select Year --</option>
+                </select>
             </div>
-        `,
-        "Boat-Transport": `
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <select name="vehicles[0][year]" class="form-select year-select"></select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Make:</label>
-                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Model:</label>
-                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Length (ft):</label>
-                        <input type="number" placeholder="Length in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Width (ft):</label>
-                        <input type="number" placeholder="Width in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Height (ft):</label>
-                        <input type="number" placeholder="Width in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="input-form single-input-field">
-                        <label>Weight (lbs):</label>
-                        <input type="number" placeholder="Weight in lbs" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][trailer_type]">
-                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
-                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][condition]">
-                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
-                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
-                    </select>
-                </div>
-            </div>
+        `;
 
-            <!-- Vehicle Images -->
-            <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
-                <div class="image-preview-container" id="imagePreviewContainer"></div>
+        const makeModelSelect = `
+            <div class="col-md-4">
+                <label class="text-white">Make</label>
+                <select name="vehicles[${index}][make]" class="form-select make-select" required>
+                    <option value="">-- Select Make --</option>
+                    ${$('#make-options').html()}
+                </select>
             </div>
+            <div class="col-md-4">
+                <label class="text-white">Model</label>
+                <select name="vehicles[${index}][model]" class="form-select model-select" required>
+                    <option value="">-- Select Model --</option>
+                </select>
+            </div>
+        `;
 
-        `,
-        "Car": `
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <label class="text-white">Year</label>
-                    <select name="vehicles[0][year]" class="form-select year-select" required>
-                        <option value="">-- Select Year --</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label class="text-white">Make</label>
-                    <select name="vehicles[0][make]" class="form-select make-select" required>
-                        <option value="">-- Select Make --</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label class="text-white">Model</label>
-                    <select name="vehicles[0][model]" class="form-select model-select" required>
-                        <option value="">-- Select Model --</option>
-                    </select>
-                </div>
+        // For All Others → Text inputs for Make & Model
+        const makeModelText = `
+            <div class="col-md-4">
+                <label class="text-white">Make</label>
+                <input type="text" name="vehicles[${index}][make]" class="form-control" placeholder="Enter Make" required>
             </div>
+            <div class="col-md-4">
+                <label class="text-white">Model</label>
+                <input type="text" name="vehicles[${index}][model]" class="form-control" placeholder="Enter Model" required>
+            </div>
+        `;
+
+        const sizeFields = `
+            <div class="row mt-2">
+                <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][length]" placeholder="Length (ft)" required></div>
+                <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][width]" placeholder="Width (ft)" required></div>
+                <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][height]" placeholder="Height (ft)" required></div>
+                <div class="col-md-12 mt-2"><input type="number" class="form-control" name="vehicles[${index}][weight]" placeholder="Weight (lbs)" required></div>
+            </div>
+        `;
+
+        const trailerAndCondition = `
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][trailer_type]">
+                    <select class="form-control" name="vehicles[${index}][trailer_type]">
                         <option value="Open Trailer">Open Trailer</option>
                         <option value="Enclosed Trailer">Enclosed Trailer</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][condition]">
+                    <select class="form-control" name="vehicles[${index}][condition]">
                         <option value="Running">Running</option>
                         <option value="Non-Running">Non-Running</option>
                     </select>
                 </div>
             </div>
+        `;
 
-            <!-- Vehicle Images -->
+        const imageUpload = `
             <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
-                <div class="image-preview-container" id="imagePreviewContainer"></div>
+                <input class="form-control image_input pt-0" name="images[${index}][]" type="file" accept="image/*" multiple onchange="previewImages(event, ${index})">
+                <div class="image-preview-container" id="imagePreviewContainer${index}"></div>
             </div>
-        `,
-        "Golf-Cart": `
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <select name="vehicles[0][year]" class="form-select year-select"></select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Make:</label>
-                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Model:</label>
-                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][trailer_type]">
-                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
-                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][condition]">
-                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
-                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
-                    </select>
-                </div>
-            </div>
+        `;
 
-            <!-- Vehicle Images -->
-            <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
-                <div class="image-preview-container" id="imagePreviewContainer"></div>
-            </div>
-        `,
-        "Heavy-Equipment": `
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <select name="vehicles[0][year]" class="form-select year-select"></select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Make:</label>
-                        <input type="text" placeholder="e.g. Toyota" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Model:</label>
-                        <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Length (ft):</label>
-                        <input type="number" placeholder="Length in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Width (ft):</label>
-                        <input type="number" placeholder="Width in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Height (ft):</label>
-                        <input type="number" placeholder="Width in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="input-form single-input-field">
-                        <label>Weight (lbs):</label>
-                        <input type="number" placeholder="Weight in lbs" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][trailer_type]">
-                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
-                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][condition]">
-                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
-                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
-                    </select>
-                </div>
-            </div>
 
-            <!-- Vehicle Images -->
-            <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
-                <div class="image-preview-container" id="imagePreviewContainer"></div>
-            </div>
-        `,
-        "Motorcycle": `
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <select name="vehicles[0][year]" class="form-select year-select"></select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Make:</label>
-                        <input type="text" name="vehicles[0][make]" placeholder="e.g. Toyota" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Model:</label>
-                        <input type="text" name="vehicles[0][model]" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][trailer_type]">
-                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
-                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][condition]">
-                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
-                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
-                    </select>
-                </div>
-            </div>
+        let fields = `<div class="row mt-2">${yearField}`;
+        if (type === "Car") {
+            fields += makeModelSelect;
+        } else {
+            fields += makeModelText;
+        }
+        fields += `</div>`; // Close row
 
-            <!-- Vehicle Images -->
-            <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
-                <div class="image-preview-container" id="imagePreviewContainer"></div>
-            </div>
-        `,
-        "RV-Transport": `
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Year:</label>
-                        <select name="vehicles[0][year]" class="form-select year-select"></select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Make:</label>
-                        <input type="text" placeholder="e.g. Toyota" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Model:</label>
-                        <input type="text" placeholder="e.g. Corolla" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Length (ft):</label>
-                        <input type="number" placeholder="Length in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Width (ft):</label>
-                        <input type="number" placeholder="Width in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="input-form single-input-field">
-                        <label>Height (ft):</label>
-                        <input type="number" placeholder="Width in feet" required>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="input-form single-input-field">
-                        <label>Weight (lbs):</label>
-                        <input type="number" placeholder="Weight in lbs" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][trailer_type]">
-                        <option value="Open Trailer" {{ old('vehicles.0.trailer_type') == 'Open Trailer' ? 'selected' : '' }}>Open Trailer</option>
-                        <option value="Enclosed Trailer" {{ old('vehicles.0.trailer_type') == 'Enclosed Trailer' ? 'selected' : '' }}>Enclosed Trailer</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[0][condition]">
-                        <option value="Running" {{ old('vehicles.0.condition') == 'Running' ? 'selected' : '' }}>Running</option>
-                        <option value="Non-Running" {{ old('vehicles.0.condition') == 'Non-Running' ? 'selected' : '' }}>Non-Running</option>
-                    </select>
-                </div>
-            </div>
+        if (type === "Boat-Transport" || type === "Heavy-Equipment" || type === "RV-Transport") {
+            fields += sizeFields;
+        }
 
-            <!-- Vehicle Images -->
-            <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="vehicles[0][images][]" type="file" accept="image/*" multiple onchange="previewImages(event)">
-                <div class="image-preview-container" id="imagePreviewContainer"></div>
-            </div>
-        `
-    };
+        return fields + trailerAndCondition + imageUpload;
+    }
 
     $("#tabSelector").change(function () {
-        var selected = $(this).val();
+        const selected = $(this).val();
         $("#firstVehicle").empty();
         if (selected) {
+            vehicleIndex = 0;
             $("#firstVehicle").html(`
                 <div class="vehicle-block main-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                    <input type="hidden" name="vehicles[${vehicleIndex}][type]" value="${selected}">
                     <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
-                    ${vehicleFields[selected]}
+                    ${getVehicleFields(selected, vehicleIndex)}
                 </div>
             `);
-
             generateYearOptions($("#firstVehicle .year-select"));
-
             $("#addVehicleBtn").show();
         } else {
             $("#addVehicleBtn").hide();
@@ -418,33 +128,33 @@ $(document).ready(function () {
     });
 
     $("#addVehicleBtn").click(function () {
-        var selected = $("#tabSelector").val();
+        const selected = $("#tabSelector").val();
         if (!selected) return;
 
-        var vehicleHtml = `
-        <div class="vehicle-block extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative; display:none;">
-            <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
-            <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
-            ${vehicleFields[selected]}
-        </div>
-    `;
+        vehicleIndex++;
+        const vehicleHtml = `
+            <div class="vehicle-block extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative; display:none;">
+                <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
+                <input type="hidden" name="vehicles[${vehicleIndex}][type]" value="${selected}">
+                <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
+                ${getVehicleFields(selected, vehicleIndex)}
+            </div>
+        `;
 
-        var $newBlock = $(vehicleHtml);
+        const $newBlock = $(vehicleHtml);
         $("#additionalContent").append($newBlock);
-        $newBlock.slideDown(400); // Smooth reveal
-
+        $newBlock.slideDown(400);
         generateYearOptions($newBlock.find(".year-select"));
     });
 
-    // When Year changes → load Makes
     $(document).on("change", ".year-select", function () {
-        let $parent = $(this).closest(".vehicle-block");
-        let year = $(this).val();
-        let $makeSelect = $parent.find(".make-select");
-        let $modelSelect = $parent.find(".model-select");
+        const $parent = $(this).closest(".vehicle-block");
+        const year = $(this).val();
+        const $makeSelect = $parent.find(".make-select");
+        const $modelSelect = $parent.find(".model-select");
 
-        $makeSelect.empty().append('<option value="">-- Select Make --</option>');
-        $modelSelect.empty().append('<option value="">-- Select Model --</option>');
+        // $makeSelect.empty().append('<option value="">-- Select Make --</option>');
+        // $modelSelect.empty().append('<option value="">-- Select Model --</option>');
 
         if (year) {
             $.getJSON(`/get-makes/${year}`, function (data) {
@@ -455,31 +165,54 @@ $(document).ready(function () {
         }
     });
 
-    // When Make changes → load Models
-    $(document).on("change", ".make-select", function () {
-        let $parent = $(this).closest(".vehicle-block");
-        let year = $parent.find(".year-select").val();
-        let make = $(this).val();
-        let $modelSelect = $parent.find(".model-select");
+    $(document).on('change', '.make-select', function () {
+        const make = $(this).val();
+        const modelSelect = $(this).closest('.row').find('.model-select');
 
-        $modelSelect.empty().append('<option value="">-- Select Model --</option>');
+        modelSelect.html('<option value="">-- Select Model --</option>');
 
-        if (year && make) {
-            $.getJSON(`/get-models/${year}/${make}`, function (data) {
+        $.ajax({
+            url: '/get-models?make=' + make,
+            type: 'GET',
+            success: function (data) {
+                modelSelect.html('<option value="">-- Select Model --</option>');
                 data.forEach(model => {
-                    $modelSelect.append(`<option value="${model}">${model}</option>`);
+                    modelSelect.append(`<option value="${model}">${model}</option>`);
                 });
-            });
-        }
+            }
+        });
     });
 
 
     $(document).on("click", ".deleteVehicleBtn", function () {
         $(this).closest(".extra-vehicle").slideUp(400, function () {
-            $(this).remove(); // remove after animation
+            $(this).remove();
         });
     });
-
-
-
 });
+
+function previewImages(event, index) {
+    const container = document.getElementById(`imagePreviewContainer${index}`);
+    container.innerHTML = '';
+
+    Array.from(event.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const imgHTML = `
+                <div class="position-relative d-inline-block" style="width:80px;height:80px; margin:5px;">
+                    <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                `;
+                // <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
+            container.insertAdjacentHTML('beforeend', imgHTML);
+        }
+        reader.readAsDataURL(file);
+    });
+}
+
+function generateYearOptions($select) {
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear; year >= 1950; year--) {
+        $select.append(`<option value="${year}">${year}</option>`);
+    }
+}

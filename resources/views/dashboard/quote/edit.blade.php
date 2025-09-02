@@ -207,7 +207,7 @@
                                                 <option value="{{ $vehicle->model }}">{{ $vehicle->model }}</option>
                                             </select> --}}
                                             <input type="text" class="form-control" name="vehicles[{{ $vIndex + 1 }}][model]"
-                                                placeholder="e.g. Model" required value="{{ $vehicle->make }}">
+                                                placeholder="e.g. Model" required value="{{ $vehicle->model }}">
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Color</label>
