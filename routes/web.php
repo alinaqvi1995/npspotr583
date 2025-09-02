@@ -38,7 +38,7 @@ Route::get('/get-makes', [HomeController::class, 'getMakes'])->name('get.makes')
 
 
 Route::get('/get-models', [HomeController::class, 'getModels'])->name('get.models');
-Route::get('/vehicles/models', [HomeController::class, 'getModels'])->name('vehicles.models');
+// Route::get('/vehicles/models', [HomeController::class, 'getModels'])->name('vehicles.models');
 Route::get('/atv-utv', [QuoteController::class, 'atv_utv'])->name('quote.atv_utv');
 Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.motorcycle');
 
