@@ -118,5 +118,4 @@
 
     </div>
 </form>
-<script>
-</script>
+<script></script>

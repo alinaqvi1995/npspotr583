@@ -144,6 +144,7 @@
                     $modelSelect.niceSelect('update');
                 }
             });
+            
             function bindSearch(inputId, suggestionBoxId) {
                 let selected = false;
                 $(inputId).on('keyup', function() {

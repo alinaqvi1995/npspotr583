@@ -92,14 +92,13 @@ $(document).ready(function () {
             </div>
         `;
 
-
         let fields = `<div class="row mt-2">${yearField}`;
         if (type === "Car") {
             fields += makeModelSelect;
         } else {
             fields += makeModelText;
         }
-        fields += `</div>`; // Close row
+        fields += `</div>`;
 
         if (type === "Boat-Transport" || type === "Heavy-Equipment" || type === "RV-Transport") {
             fields += sizeFields;
@@ -114,7 +113,7 @@ $(document).ready(function () {
         if (selected) {
             vehicleIndex = 0;
             $("#firstVehicle").html(`
-                <div class="vehicle-block main-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <div class="vehicle-block vehicle-item main-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
                     <input type="hidden" name="vehicles[${vehicleIndex}][type]" value="${selected}">
                     <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
                     ${getVehicleFields(selected, vehicleIndex)}
@@ -133,7 +132,7 @@ $(document).ready(function () {
 
         vehicleIndex++;
         const vehicleHtml = `
-            <div class="vehicle-block extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative; display:none;">
+            <div class="vehicle-block vehicle-item extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative; display:none;">
                 <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
                 <input type="hidden" name="vehicles[${vehicleIndex}][type]" value="${selected}">
                 <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
@@ -164,25 +163,6 @@ $(document).ready(function () {
             });
         }
     });
-
-    $(document).on('change', '.make-select', function () {
-        const make = $(this).val();
-        const modelSelect = $(this).closest('.row').find('.model-select');
-
-        modelSelect.html('<option value="">-- Select Model --</option>');
-
-        $.ajax({
-            url: '/get-models?make=' + make,
-            type: 'GET',
-            success: function (data) {
-                modelSelect.html('<option value="">-- Select Model --</option>');
-                data.forEach(model => {
-                    modelSelect.append(`<option value="${model}">${model}</option>`);
-                });
-            }
-        });
-    });
-
 
     $(document).on("click", ".deleteVehicleBtn", function () {
         $(this).closest(".extra-vehicle").slideUp(400, function () {
