@@ -106,7 +106,7 @@ class QuoteController extends Controller
 
     public function submitQuote(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
@@ -280,6 +280,19 @@ class QuoteController extends Controller
                     'lot_number' => $vehicleData['lot_number'] ?? null,
                     'license_plate' => $vehicleData['license_plate'] ?? null,
                     'license_state' => $vehicleData['license_state'] ?? null,
+                    'condition' => $vehicleData['condition'] ?? null,
+                    'trailer_type' => $vehicleData['trailer_type'] ?? null,
+                    'length_ft' => $vehicleData['length_ft'] ?? null,
+                    'length_in' => $vehicleData['length_in'] ?? null,
+                    'width_ft' => $vehicleData['width_ft'] ?? null,
+                    'width_in' => $vehicleData['width_in'] ?? null,
+                    'height_ft' => $vehicleData['height_ft'] ?? null,
+                    'height_in' => $vehicleData['height_in'] ?? null,
+                    'weight' => $vehicleData['weight'] ?? null,
+                    'modified' => $vehicleData['modified'] ?? null,
+                    'modified_info' => $vehicleData['modified_info'] ?? null,
+                    'available_at_auction' => $vehicleData['available_at_auction'] ?? null,
+                    'available_link' => $vehicleData['available_link'] ?? null,
                 ]);
 
                 if ($request->hasFile("images.$index")) {

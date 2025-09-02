@@ -27,9 +27,9 @@
             <div class="d-flex mb-3">
                 <select id="columnFilter" class="form-select w-auto me-2">
                     <option value="">All Columns</option>
-                    <option value="0">Customer</option>
-                    <option value="1">Vehicles</option>
-                    <option value="2">Pickup / Delivery</option>
+                    <option value="1">Customer</option>
+                    <option value="2">Vehicles</option>
+                    <option value="3">Pickup / Delivery</option>
                     {{-- <option value="3">Status</option> --}}
                 </select>
                 <input class="form-control rounded-5 px-3" type="text" placeholder="Search..." id="quoteSearch">
@@ -39,6 +39,7 @@
                 <table class="table table-bordered table-striped align-middle" id="quoteTable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Customer</th>
                             <th>Vehicles</th>
                             <th>Pickup / Delivery</th>
@@ -49,6 +50,7 @@
                     <tbody>
                         @forelse($quotes as $quote)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>
                                     {{ $quote->customer_name }}<br>
                                     <small>{{ $quote->customer_email }}</small><br>
