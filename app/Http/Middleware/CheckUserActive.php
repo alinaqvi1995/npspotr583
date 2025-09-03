@@ -12,6 +12,7 @@ class CheckUserActive
     {
         if ($user = Auth::user()) {
 
+            /** @var \App\Models\User $user */
             if ($user->hasRole('admin')) {
                 return $next($request);
             }
