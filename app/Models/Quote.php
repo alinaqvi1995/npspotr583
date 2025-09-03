@@ -86,6 +86,38 @@ class Quote extends Model
         'Deleted' => ['icon' => 'delete', 'class' => 'bg-danger'],
     ];
 
+    public function allowedStatuses(string $currentStatus): array
+    {
+        $transitions = [
+            'New' => ['Listed', 'Payment Missing', 'In Progress', 'Cancelled'],
+            'Listed' => ['Booked', 'Payment Missing', 'Cancelled'],
+            'Payment Missing' => ['Booked', 'Cancelled'],
+            'Booked' => ['Dispatch', 'Pickup', 'Delivery', 'Completed', 'Cancelled'],
+            'Dispatch' => ['Pickup', 'Delivery', 'Completed', 'Cancelled'],
+            'Pickup' => ['Delivery', 'Completed', 'Cancelled'],
+            'Delivery' => ['Completed', 'Cancelled'],
+            'In Progress' => ['Completed', 'Cancelled'],
+            'Asking Low' => ['Interested', 'Follow Up', 'Not Interested', 'No Response'],
+            'Interested' => ['Follow Up', 'Not Interested', 'Booked'],
+            'Follow Up' => ['Interested', 'Not Interested', 'No Response'],
+            'Not Interested' => [],
+            'No Response' => ['Follow Up', 'Interested'],
+            'Completed' => [],
+            'Cancelled' => [],
+            'Deleted' => [],
+        ];
+
+        $allowed = $transitions[$currentStatus] ?? [];
+
+        // Always include current status so user sees it
+        if (!in_array($currentStatus, $allowed)) {
+            array_unshift($allowed, $currentStatus);
+        }
+
+        // Return with details (icons and class) from self::$statuses
+        return array_intersect_key(self::$statuses, array_flip($allowed));
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

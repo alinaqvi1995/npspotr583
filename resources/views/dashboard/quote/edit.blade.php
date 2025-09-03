@@ -454,7 +454,7 @@
                             <div class="col-12">
                                 <label class="form-label">Status</label>
                                 <select name="status" class="form-select">
-                                    @foreach (\App\Models\Quote::$statuses as $status => $details)
+                                    @foreach ($quote->allowedStatuses($quote->status) as $status => $details)
                                         <option value="{{ $status }}"
                                             {{ old('status', $quote->status) == $status ? 'selected' : '' }}>
                                             {{ $status }}
