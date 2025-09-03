@@ -239,9 +239,15 @@
                                         @if (in_array($vehicle->type, ['Heavy-Equipment', 'RV-Transport']))
                                             <div class="col-md-3">
                                                 <label class="form-label">Trailer Type</label>
-                                                <input type="text" class="form-control"
-                                                    name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
-                                                    value="{{ $vehicle->trailer_type }}">
+                                                <select name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
+                                                    class="form-select">
+                                                    <option value="Open Trailer"
+                                                        {{ $vehicle->trailer_type == 'Open Trailer' ? 'selected' : '' }}>Open Trailer
+                                                    </option>
+                                                    <option value="Enclosed Trailer"
+                                                        {{ $vehicle->trailer_type == 'Enclosed Trailer' ? 'selected' : '' }}>
+                                                        Enclosed Trailer</option>
+                                                </select>
                                             </div>
                                         @endif
 
