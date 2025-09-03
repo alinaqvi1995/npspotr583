@@ -120,10 +120,11 @@
                                 @endphp
 
                                 @foreach ($statuses as $status => $icon)
-                                    <a href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}" 
-                                    class="search-list-item d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}"
+                                        class="search-list-item d-flex justify-content-between align-items-center">
                                         <span>
-                                            <i class="material-icons-outlined me-1">{{ $icon }}</i> {{ $status }}
+                                            <i class="material-icons-outlined me-1">{{ $icon }}</i>
+                                            {{ $status }}
                                         </span>
                                         <span class="badge bg-secondary">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
                                     </a>
@@ -351,7 +352,8 @@
                 <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
                     <hr class="dropdown-divider">
                     @can('edit-profile')
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('profile.edit') }}"><i
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2"
+                            href="{{ route('profile.edit') }}"><i
                                 class="material-icons-outlined">person_outline</i>Profile</a>
                     @endcan
                     <hr class="dropdown-divider">
