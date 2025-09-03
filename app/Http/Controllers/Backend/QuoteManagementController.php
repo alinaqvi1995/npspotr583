@@ -373,7 +373,7 @@ class QuoteManagementController extends Controller
 
             DB::commit();
 
-            return redirect()->route('dashboard.quotes.index')->with('success', 'Quote updated successfully');
+            return redirect()->route('dashboard.quotes.index', ['status' => $quote->status])->with('success', 'Quote updated successfully');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Failed to update quote: ' . $e->getMessage()])->withInput();
