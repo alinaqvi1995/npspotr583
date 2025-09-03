@@ -179,8 +179,13 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Year</label>
-                                            <input type="text" class="form-control"
-                                                name="vehicles[{{ $vIndex + 1 }}][year]" value="{{ $vehicle->year }}">
+                                            {{-- <input type="text" class="form-control"
+                                                name="vehicles[{{ $vIndex + 1 }}][year]" value="{{ $vehicle->year }}"> --}}
+                                            <select class="form-select year-select"
+                                                name="vehicles[{{ $vIndex + 1 }}][year]"
+                                                data-selected="{{ $vehicle->year }}">
+                                                <option value="">-- Year --</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Make *</label>
@@ -242,7 +247,8 @@
                                                 <select name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
                                                     class="form-select">
                                                     <option value="Open Trailer"
-                                                        {{ $vehicle->trailer_type == 'Open Trailer' ? 'selected' : '' }}>Open Trailer
+                                                        {{ $vehicle->trailer_type == 'Open Trailer' ? 'selected' : '' }}>
+                                                        Open Trailer
                                                     </option>
                                                     <option value="Enclosed Trailer"
                                                         {{ $vehicle->trailer_type == 'Enclosed Trailer' ? 'selected' : '' }}>
@@ -285,7 +291,7 @@
                                         <!-- Images -->
                                         <div class="col-md-12">
                                             <label class="form-label">Images</label>
-                                            <input type="file" name="images[{{ $vIndex + 1 }}][]"
+                                            <input type="file" name="vehicles[{{ $vIndex + 1 }}][images][]"
                                                 class="form-control image-input" multiple>
                                             <div class="image-preview mt-2 d-flex flex-wrap gap-2">
                                                 @foreach ($vehicle->images as $img)
@@ -293,6 +299,10 @@
                                                         style="width:80px;height:80px;">
                                                         <img src="{{ asset($img->image_path) }}" class="img-thumbnail"
                                                             style="width:100%;height:100%;object-fit:cover;">
+                                                        <input type="checkbox"
+                                                            name="vehicles[{{ $vIndex + 1 }}][delete_images][]"
+                                                            value="{{ $img->id }}"
+                                                            class="position-absolute top-0 end-0">
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -439,6 +449,18 @@
                                 <textarea class="form-control" rows="3" maxlength="500" name="contract[terms]"
                                     placeholder="Add any additional terms">{{ old('contract.terms', $quote->load_specific_terms) }}</textarea>
                                 <small class="text-muted">500 characters remaining</small>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select">
+                                    @foreach (\App\Models\Quote::$statuses as $status => $details)
+                                        <option value="{{ $status }}"
+                                            {{ old('status', $quote->status) == $status ? 'selected' : '' }}>
+                                            {{ $status }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="col-12">

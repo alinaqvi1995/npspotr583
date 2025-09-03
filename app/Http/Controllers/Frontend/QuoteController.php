@@ -310,9 +310,9 @@ class QuoteController extends Controller
                     'height_ft' => $vehicleData['height_ft'] ?? $vehicleData['height'] ?? null,
                     'height_in' => $vehicleData['height_in'] ?? null,
                     'weight' => $vehicleData['weight'] ?? null,
-                    'modified' => isset($vehicle['modified']) ? (int)$vehicle['modified'] : 0,
+                    'modified' => isset($vehicleData['modified']) ? (int)$vehicleData['modified'] : 0,
                     'modified_info' => $vehicleData['modified_info'] ?? null,
-                    'available_at_auction' => isset($vehicle['available_at_auction']) ? (int)$vehicle['available_at_auction'] : 0,
+                    'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int)$vehicleData['available_at_auction'] : 0,
                     'available_link' => $vehicleData['available_link'] ?? null,
                 ]);
 

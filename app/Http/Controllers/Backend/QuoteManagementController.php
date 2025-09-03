@@ -95,11 +95,11 @@ class QuoteManagementController extends Controller
 
     public function quoteUpdate(Request $request, Quote $quote)
     {
-        dd($request->all());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'vehicle_type' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:255',
 
             // Locations
             'locations' => 'required|array|min:1',
@@ -132,6 +132,26 @@ class QuoteManagementController extends Controller
             'vehicles.*.lot_number' => 'nullable|string|max:50',
             'vehicles.*.license_plate' => 'nullable|string|max:50',
             'vehicles.*.license_state' => 'nullable|string|max:50',
+            'vehicles.*.length_ft' => 'nullable|integer',
+            'vehicles.*.length' => 'nullable|integer',
+            'vehicles.*.length_in' => 'nullable|integer',
+            'vehicles.*.width_ft' => 'nullable|integer',
+            'vehicles.*.width' => 'nullable|integer',
+            'vehicles.*.width_in' => 'nullable|integer',
+            'vehicles.*.height_ft' => 'nullable|integer',
+            'vehicles.*.height' => 'nullable|integer',
+            'vehicles.*.height_in' => 'nullable|integer',
+            'vehicles.*.weight' => 'nullable|numeric',
+            'vehicles.*.condition' => 'nullable|in:Running,Non-Running',
+            'vehicles.*.modified' => 'nullable|boolean',
+            'vehicles.*.modified_info' => 'nullable|string',
+            'vehicles.*.available_at_auction' => 'nullable|boolean',
+            'vehicles.*.available_link' => 'nullable|url',
+            'vehicles.*.trailer_type' => 'nullable|string|max:255',
+            'vehicles.*.load_method' => 'nullable|string|max:255',
+            'vehicles.*.unload_method' => 'nullable|string|max:255',
+            'vehicles.*.delete_images' => 'nullable|array',
+            'vehicles.*.delete_images.*' => 'nullable|exists:vehicle_images,id',
 
             // Dates
             'dates.pickup_date' => 'nullable|date',
@@ -153,10 +173,6 @@ class QuoteManagementController extends Controller
             'additional.pre_dispatch_notes' => 'nullable|string',
             'additional.special_instructions' => 'nullable|string',
             'additional.load_terms' => 'nullable|string',
-
-            // Vehicle Images
-            'images' => 'nullable|array',
-            'images.*.*' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         DB::beginTransaction();
@@ -167,6 +183,7 @@ class QuoteManagementController extends Controller
                 'category_id' => $validated['category_id'] ?? null,
                 'subcategory_id' => $validated['subcategory_id'] ?? null,
                 'vehicle_type' => $validated['vehicle_type'] ?? null,
+                'status' => $validated['status'] ?? null,
                 'pickup_date' => $validated['dates']['pickup_date'] ?? null,
                 'delivery_date' => $validated['dates']['delivery_date'] ?? null,
                 'available_date' => $validated['dates']['available_date'] ?? null,
@@ -194,7 +211,7 @@ class QuoteManagementController extends Controller
                 $location = $quote->locations()->updateOrCreate(
                     ['id' => $locationData['id'] ?? 0],
                     [
-                        'quote_id' => $quote->id, // important to avoid NULL
+                        'quote_id' => $quote->id,
                         'type' => $locationData['type'],
                         'name' => $locationData['name'] ?? null,
                         'location_type' => $locationData['location_type'] ?? null,
@@ -213,7 +230,7 @@ class QuoteManagementController extends Controller
 
                 $submittedLocationIds[] = $location->id;
 
-                // --- Update phones ---
+                // Update phones
                 $location->phones()->delete();
                 if (!empty($locationData['contact_phone'])) {
                     foreach ($locationData['contact_phone'] as $phone) {
@@ -227,7 +244,7 @@ class QuoteManagementController extends Controller
                 }
             }
 
-            // Optional: Delete removed locations
+            // Delete removed locations
             $locationsToDelete = array_diff($existingLocationIds, $submittedLocationIds);
             if ($locationsToDelete) {
                 QuoteLocation::whereIn('id', $locationsToDelete)->delete();
@@ -238,9 +255,40 @@ class QuoteManagementController extends Controller
             $submittedVehicleIds = [];
 
             foreach ($validated['vehicles'] as $index => $vehicleData) {
-                $vehicle = $quote->vehicles()->updateOrCreate(
-                    ['id' => $vehicleData['id'] ?? 0],
-                    [
+                if (!empty($vehicleData['id'])) {
+                    // Update existing
+                    $vehicle = Vehicle::find($vehicleData['id']);
+                    if ($vehicle) {
+                        $vehicle->update([
+                            'type' => $vehicleData['type'] ?? null,
+                            'year' => $vehicleData['year'] ?? null,
+                            'make' => $vehicleData['make'] ?? null,
+                            'model' => $vehicleData['model'] ?? null,
+                            'color' => $vehicleData['color'] ?? null,
+                            'vin' => $vehicleData['vin'] ?? null,
+                            'lot_number' => $vehicleData['lot_number'] ?? null,
+                            'license_plate' => $vehicleData['license_plate'] ?? null,
+                            'license_state' => $vehicleData['license_state'] ?? null,
+                            'length_ft' => $vehicleData['length_ft'] ?? $vehicleData['length'] ?? null,
+                            'length_in' => $vehicleData['length_in'] ?? null,
+                            'width_ft' => $vehicleData['width_ft'] ?? $vehicleData['width'] ?? null,
+                            'width_in' => $vehicleData['width_in'] ?? null,
+                            'height_ft' => $vehicleData['height_ft'] ?? $vehicleData['height'] ?? null,
+                            'height_in' => $vehicleData['height_in'] ?? null,
+                            'weight' => $vehicleData['weight'] ?? null,
+                            'condition' => $vehicleData['condition'] ?? null,
+                            'modified' => isset($vehicleData['modified']) ? (int)$vehicleData['modified'] : 0,
+                            'modified_info' => $vehicleData['modified_info'] ?? null,
+                            'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int)$vehicleData['available_at_auction'] : 0,
+                            'available_link' => $vehicleData['available_link'] ?? null,
+                            'trailer_type' => $vehicleData['trailer_type'] ?? null,
+                            'load_method' => $vehicleData['load_method'] ?? null,
+                            'unload_method' => $vehicleData['unload_method'] ?? null,
+                        ]);
+                    }
+                } else {
+                    // Create new
+                    $vehicle = $quote->vehicles()->create([
                         'type' => $vehicleData['type'] ?? null,
                         'year' => $vehicleData['year'] ?? null,
                         'make' => $vehicleData['make'] ?? null,
@@ -250,28 +298,76 @@ class QuoteManagementController extends Controller
                         'lot_number' => $vehicleData['lot_number'] ?? null,
                         'license_plate' => $vehicleData['license_plate'] ?? null,
                         'license_state' => $vehicleData['license_state'] ?? null,
-                    ]
-                );
-                $submittedVehicleIds[] = $vehicle->id;
+                        'length_ft' => $vehicleData['length_ft'] ?? $vehicleData['length'] ?? null,
+                        'length_in' => $vehicleData['length_in'] ?? null,
+                        'width_ft' => $vehicleData['width_ft'] ?? $vehicleData['width'] ?? null,
+                        'width_in' => $vehicleData['width_in'] ?? null,
+                        'height_ft' => $vehicleData['height_ft'] ?? $vehicleData['height'] ?? null,
+                        'height_in' => $vehicleData['height_in'] ?? null,
+                        'weight' => $vehicleData['weight'] ?? null,
+                        'condition' => $vehicleData['condition'] ?? null,
+                        'modified' => isset($vehicleData['modified']) ? (int)$vehicleData['modified'] : 0,
+                        'modified_info' => $vehicleData['modified_info'] ?? null,
+                        'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int)$vehicleData['available_at_auction'] : 0,
+                        'available_link' => $vehicleData['available_link'] ?? null,
+                        'trailer_type' => $vehicleData['trailer_type'] ?? null,
+                        'load_method' => $vehicleData['load_method'] ?? null,
+                        'unload_method' => $vehicleData['unload_method'] ?? null,
+                    ]);
+                }
 
-                // --- Handle images ---
-                if ($request->hasFile("images.$index")) {
-                    foreach ($request->file("images.$index") as $image) {
-                        $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                        $image->move(public_path('quote/vehicle_images'), $filename);
+                if ($request->hasFile("vehicles.images.$index")) {
+                    foreach ($request->file("vehicles.images.$index") as $imageFile) {
+                        $destinationPath = public_path('quote/vehicle_images');
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 0777, true);
+                        }
 
-                        VehicleImage::create([
+                        $fileName = uniqid() . '_' . time() . '.' . $imageFile->getClientOriginalExtension();
+                        $imageFile->move($destinationPath, $fileName);
+
+                        $vehicle->images()->create([
                             'quote_id' => $quote->id,
-                            'vehicle_id' => $vehicle->id,
-                            'image_path' => 'quote/vehicle_images/' . $filename,
+                            'image_path' => 'quote/vehicle_images/' . $fileName,
                         ]);
                     }
                 }
+
+                if (!empty($vehicleData['delete_images'])) {
+                    // dd('ys inn');
+                    foreach ($vehicleData['delete_images'] as $imageId) {
+                        $image = $vehicle->images()->where('id', $imageId)->first();
+                        if ($image) {
+                            $filePath = public_path($image->image_path);
+                            if (file_exists($filePath)) {
+                                unlink($filePath);
+                            }
+                            $image->delete();
+                        }
+                    }
+                }
+                // dd('no');
+
+                $submittedVehicleIds[] = $vehicle->id;
             }
 
             // Delete removed vehicles
             $vehiclesToDelete = array_diff($existingVehicleIds, $submittedVehicleIds);
             if ($vehiclesToDelete) {
+                foreach ($vehiclesToDelete as $vehicleId) {
+                    $vehicleToDelete = Vehicle::find($vehicleId);
+                    if ($vehicleToDelete) {
+                        foreach ($vehicleToDelete->images as $img) {
+                            $filePath = public_path($img->image_path);
+                            if (file_exists($filePath)) {
+                                unlink($filePath);
+                            }
+                        }
+                        $vehicleToDelete->images()->delete();
+                        $vehicleToDelete->delete();
+                    }
+                }
+
                 Vehicle::whereIn('id', $vehiclesToDelete)->delete();
             }
 
