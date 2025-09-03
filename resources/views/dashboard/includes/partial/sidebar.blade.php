@@ -173,6 +173,15 @@
                 </li>
             @endcan
 
+            {{-- @can('view-roles') --}}
+            <li>
+                <a href="{{ route('trusted-ips.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">security</i></div>
+                    <div class="menu-title">Trusted IPs</div>
+                </a>
+            </li>
+            {{-- @endcan --}}
+
         </ul>
     </div>
 </aside>

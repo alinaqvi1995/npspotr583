@@ -15,7 +15,9 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserManagementController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\QuoteManagementController;
+use App\Http\Controllers\Backend\UserTrustedIpController;
 use App\Http\Controllers\ZipcodeController;
+use App\Http\Controllers\Auth\OtpController;
 
 // 🔹 Static pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -59,11 +61,16 @@ Route::get('/vehicles/models', [QuoteController::class, 'getModels'])->name('veh
 Route::get('/search-location', [App\Http\Controllers\ZipcodeController::class, 'searchByLocation'])
     ->name('zipcode.searchByLocation');
 
+Route::get('/verify-otp', [OtpController::class, 'showVerifyForm'])->name('verify.otp');
+Route::post('/verify-otp', [OtpController::class, 'verifyOtp'])->name('verify.otp.post');
+Route::get('/resend-otp', [OtpController::class, 'resendOtp'])->name('resend.otp');
 
 
 // 🔐 Auth & Profile
-Route::middleware(['auth', 'check_active'])->group(function () {
+Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::get('/dashboard', fn() => view('dashboard.index'))->middleware('verified')->name('dashboard');
+
+    Route::resource('trusted-ips', UserTrustedIpController::class)->except(['show']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');

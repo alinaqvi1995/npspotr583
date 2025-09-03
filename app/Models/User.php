@@ -15,7 +15,10 @@ class User extends Authenticatable
         'email',
         'password',
         'is_active',
-        'force_logout'
+        'force_logout',
+        'otp_code',
+        'otp_expires_at',
+        'otp_verified',
     ];
 
     protected $hidden = [
@@ -65,6 +68,11 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function is_Admin()
+    {
+        return $this->roles()->where('name', 'Admin')->exists();
     }
 
     public function directPermissions()
@@ -135,6 +143,11 @@ class User extends Authenticatable
     public function hasAnyRole(array $slugs): bool
     {
         return $this->roles()->whereIn('slug', $slugs)->exists();
+    }
+
+    public function trustedIps()
+    {
+        return $this->hasMany(UserTrustedIp::class);
     }
 
     /** Timestamps formatting */
