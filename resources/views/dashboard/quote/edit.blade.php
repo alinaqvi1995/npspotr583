@@ -39,7 +39,8 @@
                                     $location = $quote->locations->where('type', $type)->first();
                                     $index = $loop->index + 1;
                                 @endphp
-                                <input type="hidden" name="locations[{{ $index }}][id]" value="{{ $location->id ?? '' }}">
+                                <input type="hidden" name="locations[{{ $index }}][id]"
+                                    value="{{ $location->id ?? '' }}">
                                 <div class="col-md-6">
                                     <div class="location-item mb-4 border p-3 rounded" data-index="{{ $index }}">
                                         <h6 class="mb-3">{{ ucfirst($type) }} Location</h6>
@@ -167,59 +168,116 @@
                                 <div class="vehicle-item mb-4 border p-3 rounded" data-index="{{ $vIndex + 1 }}">
                                     <h6 class="mb-3">Vehicle #{{ $vIndex + 1 }}</h6>
                                     <div class="row g-3">
+                                        <input type="hidden" name="vehicles[{{ $vIndex + 1 }}][id]"
+                                            value="{{ $vehicle->id }}">
+
+                                        <!-- Basic Info -->
                                         <div class="col-md-3">
                                             <label class="form-label">Type *</label>
-                                            <select name="vehicles[{{ $vIndex + 1 }}][type]" class="form-select"
-                                                required>
-                                                @foreach (['Car', 'SUV', 'Truck', 'Motorcycle'] as $type)
-                                                    <option value="{{ $type }}"
-                                                        {{ $vehicle->type == $type ? 'selected' : '' }}>
-                                                        {{ $type }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" class="form-control"
+                                                name="vehicles[{{ $vIndex + 1 }}][type]" value="{{ $vehicle->type }}">
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label">Year *</label>
-                                            <select name="vehicles[{{ $vIndex + 1 }}][year]"
-                                                class="form-select year-select" data-selected="{{ $vehicle->year }}">
-                                            </select>
+                                            <label class="form-label">Year</label>
+                                            <input type="text" class="form-control"
+                                                name="vehicles[{{ $vIndex + 1 }}][year]" value="{{ $vehicle->year }}">
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Make *</label>
-                                            {{-- <select name="vehicles[{{ $vIndex + 1 }}][make]"
-                                                class="form-select make-select" required>
-                                                <option value="">-- Select Make --</option>
-                                                @foreach ($makes as $make)
-                                                    <option value="{{ $make }}"
-                                                        {{ $vehicle->make == $make ? 'selected' : '' }}>
-                                                        {{ $make }}
-                                                    </option>
-                                                @endforeach
-                                            </select> --}}
-                                            <input type="text" class="form-control" name="vehicles[{{ $vIndex + 1 }}][make]"
-                                                placeholder="e.g. Toyota" required value="{{ $vehicle->make }}">
+                                            <input type="text" class="form-control"
+                                                name="vehicles[{{ $vIndex + 1 }}][make]" value="{{ $vehicle->make }}">
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Model *</label>
-                                            {{-- <select name="vehicles[{{ $vIndex + 1 }}][model]"
-                                                class="form-select model-select" required>
-                                                <option value="{{ $vehicle->model }}">{{ $vehicle->model }}</option>
-                                            </select> --}}
-                                            <input type="text" class="form-control" name="vehicles[{{ $vIndex + 1 }}][model]"
-                                                placeholder="e.g. Model" required value="{{ $vehicle->model }}">
+                                            <input type="text" class="form-control"
+                                                name="vehicles[{{ $vIndex + 1 }}][model]"
+                                                value="{{ $vehicle->model }}">
                                         </div>
+
+                                        <!-- CONDITIONAL: Show size fields for boats, heavy equipment, RV -->
+                                        @if (in_array($vehicle->type, ['Boat-Transport', 'Heavy-Equipment', 'RV-Transport']))
+                                            <div class="col-md-2">
+                                                <label class="form-label">Length (ft)</label>
+                                                <input type="number" class="form-control"
+                                                    name="vehicles[{{ $vIndex + 1 }}][length_ft]"
+                                                    value="{{ $vehicle->length_ft }}">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-label">Width (ft)</label>
+                                                <input type="number" class="form-control"
+                                                    name="vehicles[{{ $vIndex + 1 }}][width_ft]"
+                                                    value="{{ $vehicle->width_ft }}">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-label">Height (ft)</label>
+                                                <input type="number" class="form-control"
+                                                    name="vehicles[{{ $vIndex + 1 }}][height_ft]"
+                                                    value="{{ $vehicle->height_ft }}">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-label">Weight (lbs)</label>
+                                                <input type="number" class="form-control"
+                                                    name="vehicles[{{ $vIndex + 1 }}][weight]"
+                                                    value="{{ $vehicle->weight }}">
+                                            </div>
+                                        @endif
+
+                                        <!-- Condition & Trailer -->
                                         <div class="col-md-3">
-                                            <label class="form-label">Color</label>
-                                            <input type="text" name="vehicles[{{ $vIndex + 1 }}][color]"
-                                                class="form-control" value="{{ $vehicle->color }}">
+                                            <label class="form-label">Condition</label>
+                                            <select name="vehicles[{{ $vIndex + 1 }}][condition]" class="form-select">
+                                                <option value="Running"
+                                                    {{ $vehicle->condition == 'Running' ? 'selected' : '' }}>Running
+                                                </option>
+                                                <option value="Non-Running"
+                                                    {{ $vehicle->condition == 'Non-Running' ? 'selected' : '' }}>
+                                                    Non-Running</option>
+                                            </select>
                                         </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label">VIN</label>
-                                            <input type="text" name="vehicles[{{ $vIndex + 1 }}][vin]"
-                                                class="form-control" value="{{ $vehicle->vin }}">
+
+                                        <!-- Trailer Type only for heavy equipment and RV -->
+                                        @if (in_array($vehicle->type, ['Heavy-Equipment', 'RV-Transport']))
+                                            <div class="col-md-3">
+                                                <label class="form-label">Trailer Type</label>
+                                                <input type="text" class="form-control"
+                                                    name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
+                                                    value="{{ $vehicle->trailer_type }}">
+                                            </div>
+                                        @endif
+
+                                        <!-- Booleans -->
+                                        <div class="col-md-2">
+                                            <label class="form-label">Modified</label><br>
+                                            <input type="hidden" name="vehicles[{{ $vIndex + 1 }}][modified]"
+                                                value="0">
+                                            <input type="checkbox" name="vehicles[{{ $vIndex + 1 }}][modified]"
+                                                value="1" {{ $vehicle->modified ? 'checked' : '' }}>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Modified Info</label>
+                                            <input type="text" class="form-control"
+                                                name="vehicles[{{ $vIndex + 1 }}][modified_info]"
+                                                value="{{ $vehicle->modified_info }}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label class="form-label">Auction</label><br>
+                                            <input type="hidden"
+                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]"
+                                                value="0">
+                                            <input type="checkbox"
+                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]" value="1"
+                                                {{ $vehicle->available_at_auction ? 'checked' : '' }}>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Auction Link</label>
+                                            <input type="text" class="form-control"
+                                                name="vehicles[{{ $vIndex + 1 }}][available_link]"
+                                                value="{{ $vehicle->available_link }}">
+                                        </div>
+
+                                        <!-- Images -->
+                                        <div class="col-md-12">
                                             <label class="form-label">Images</label>
                                             <input type="file" name="images[{{ $vIndex + 1 }}][]"
                                                 class="form-control image-input" multiple>
@@ -234,6 +292,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="text-end mt-3">
                                         <button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete
                                             Vehicle</button>

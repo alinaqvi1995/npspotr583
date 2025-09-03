@@ -106,7 +106,7 @@ class QuoteController extends Controller
 
     public function submitQuote(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
@@ -141,6 +141,24 @@ class QuoteController extends Controller
             'vehicles.*.lot_number' => 'nullable|string|max:50',
             'vehicles.*.license_plate' => 'nullable|string|max:50',
             'vehicles.*.license_state' => 'nullable|string|max:50',
+            'vehicles.*.length_ft' => 'nullable|integer',
+            'vehicles.*.length' => 'nullable|integer',
+            'vehicles.*.length_in' => 'nullable|integer',
+            'vehicles.*.width_ft' => 'nullable|integer',
+            'vehicles.*.width' => 'nullable|integer',
+            'vehicles.*.width_in' => 'nullable|integer',
+            'vehicles.*.height_ft' => 'nullable|integer',
+            'vehicles.*.height' => 'nullable|integer',
+            'vehicles.*.height_in' => 'nullable|integer',
+            'vehicles.*.weight' => 'nullable|numeric',
+            'vehicles.*.condition' => 'nullable|in:Running,Non-Running',
+            'vehicles.*.modified' => 'nullable|boolean',
+            'vehicles.*.modified_info' => 'nullable|string',
+            'vehicles.*.available_at_auction' => 'nullable|boolean',
+            'vehicles.*.available_link' => 'nullable|url',
+            'vehicles.*.trailer_type' => 'nullable|string|max:255',
+            'vehicles.*.load_method' => 'nullable|string|max:255',
+            'vehicles.*.unload_method' => 'nullable|string|max:255',
 
             // Dates
             'dates.pickup_date' => 'nullable|date',
@@ -210,6 +228,9 @@ class QuoteController extends Controller
                 ? implode(',', $pickupContact['contact_phone'])
                 : null;
 
+            // foreach ($validated['vehicles'] as $index => $vehicleData) {
+            //     dd($vehicleData);
+            // }
             // ✅ Create quote
             $quote = Quote::create([
                 'category_id' => $validated['category_id'] ?? null,
@@ -282,16 +303,16 @@ class QuoteController extends Controller
                     'license_state' => $vehicleData['license_state'] ?? null,
                     'condition' => $vehicleData['condition'] ?? null,
                     'trailer_type' => $vehicleData['trailer_type'] ?? null,
-                    'length_ft' => $vehicleData['length_ft'] ?? null,
+                    'length_ft' => $vehicleData['length_ft'] ?? $vehicleData['length'] ?? null,
                     'length_in' => $vehicleData['length_in'] ?? null,
-                    'width_ft' => $vehicleData['width_ft'] ?? null,
+                    'width_ft'  => $vehicleData['width_ft'] ?? $vehicleData['width'] ?? null,
                     'width_in' => $vehicleData['width_in'] ?? null,
-                    'height_ft' => $vehicleData['height_ft'] ?? null,
+                    'height_ft' => $vehicleData['height_ft'] ?? $vehicleData['height'] ?? null,
                     'height_in' => $vehicleData['height_in'] ?? null,
                     'weight' => $vehicleData['weight'] ?? null,
-                    'modified' => $vehicleData['modified'] ?? null,
+                    'modified' => isset($vehicle['modified']) ? (int)$vehicle['modified'] : 0,
                     'modified_info' => $vehicleData['modified_info'] ?? null,
-                    'available_at_auction' => $vehicleData['available_at_auction'] ?? null,
+                    'available_at_auction' => isset($vehicle['available_at_auction']) ? (int)$vehicle['available_at_auction'] : 0,
                     'available_link' => $vehicleData['available_link'] ?? null,
                 ]);
 
