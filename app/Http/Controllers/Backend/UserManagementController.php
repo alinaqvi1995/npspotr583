@@ -283,6 +283,7 @@ class UserManagementController extends Controller
             $detail->margin = is_numeric($request->margin) ? $request->margin : 0.00;
             $detail->discount = is_numeric($request->discount) ? $request->discount : 0.00;
             $detail->referral_bonus = is_numeric($request->referral_bonus) ? $request->referral_bonus : 0.00;
+            $detail->leave_balance = is_numeric($request->leave_balance) ? $request->leave_balance : 0.00;
 
             $detail->save();
 
