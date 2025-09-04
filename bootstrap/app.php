@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \App\Http\Middleware\RoleOrPermissionMiddleware::class,
             'check_active' => \App\Http\Middleware\CheckUserActive::class,
             'otp.verified' => \App\Http\Middleware\EnsureOtpIsVerified::class,
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

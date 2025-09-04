@@ -66,6 +66,28 @@ class User extends Authenticatable
         return $this->belongsToMany(PanelType::class, 'panel_type_user');
     }
 
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+
+    public function referredUsers()
+    {
+        return $this->hasMany(UserDetail::class, 'referred_by');
+    }
+
+    public function referredBy()
+    {
+        return $this->hasOneThrough(
+            User::class,
+            UserDetail::class,
+            'user_id',
+            'id',     
+            'id',     
+            'referred_by'
+        );
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user');
