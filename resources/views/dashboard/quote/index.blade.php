@@ -84,7 +84,7 @@
                                 </td>
                                 <td>{!! $quote->status_label !!}</td>
                                 <td>
-                                    @can('view-quoteDetail')
+                                    @can('edit-quotes')
                                         <a href="{{ route('dashboard.quotes.edit', $quote->id) }}"
                                             class="btn btn-sm btn-info">
                                             <i class="material-icons-outlined">edit</i>

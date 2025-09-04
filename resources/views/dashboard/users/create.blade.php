@@ -3,6 +3,13 @@
 @section('title', 'Create User')
 
 @section('content')
+    <style>
+        /* scrollable dropdown */
+        .select2-dropdown.bigdrop {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
     <div class="card">
         <div class="card-header bg-light">
             <h6>Create New User</h6>
@@ -66,7 +73,7 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Roles *</label>
-                        <select name="roles[]" class="select2 form-control" multiple data-placeholder="Select roles">
+                        <select name="roles[]" class="select2-checkbox form-control" multiple data-placeholder="Select roles">
                             @foreach ($roles->where('slug', '!=', 'admin') as $role)
                                 <option value="{{ $role->id }}"
                                     {{ in_array($role->id, old('roles', [])) ? 'selected' : '' }}>
@@ -97,7 +104,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Direct User Permissions</label>
-                        <select name="permissions[]" class="select2 form-control" multiple
+                        <select name="permissions[]" class="select2-checkbox form-control" multiple
                             data-placeholder="Select permissions">
                             @foreach ($permissions as $permission)
                                 <option value="{{ $permission->id }}"
@@ -361,6 +368,16 @@
                 placeholder: function() {
                     $(this).data('placeholder');
                 }
+            });
+
+            $('.select2-checkbox').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: "Select options",
+                allowClear: true,
+                closeOnSelect: false, // keep dropdown open for multiple selection
+                maximumSelectionLength: 50, // optional limit
+                dropdownCssClass: "bigdrop", // add custom height via CSS
             });
         });
     </script>

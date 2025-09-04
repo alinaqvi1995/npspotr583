@@ -333,8 +333,12 @@
             </li>
             <li class="nav-item dropdown">
                 <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                    <img src="https://placehold.co/110x110/png" class="rounded-circle p-1 border" width="45"
-                        height="45" alt="">
+                    {{-- <img src="https://placehold.co/110x110/png" class="rounded-circle p-1 border" width="45"
+                        height="45" alt=""> --}}
+                    <img src="{{ auth()->user()->detail && auth()->user()->detail->profile_image
+                        ? asset(auth()->user()->detail->profile_image)
+                        : 'https://placehold.co/110x110/png' }}"
+                        class="rounded-circle p-1 border" width="45" height="45" alt="User Avatar">
                 </a>
                 <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
                     <hr class="dropdown-divider">

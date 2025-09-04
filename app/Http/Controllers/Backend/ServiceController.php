@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
+    public function __construct()
+    {
+        $permissions = [
+            'index'   => 'view-services',
+            'store'   => 'create-services',
+            'update'  => 'edit-services',
+            'destroy' => 'delete-services',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
+    }
+
     public function index()
     {
         $services = Service::latest()->get();

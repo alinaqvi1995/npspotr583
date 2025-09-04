@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
+    public function __construct()
+    {
+        $permissions = [
+            'index' => 'view-blogs',
+            'store' => 'create-blogs',
+            'update' => 'edit-blogs',
+            'destroy' => 'delete-blogs',
+        ];
+
+        foreach ($permissions as $method => $permission) {
+            $this->middleware("permission:{$permission}")->only($method);
+        }
+    }
+
     public function index()
     {
         $blogs = Blog::latest()->get();

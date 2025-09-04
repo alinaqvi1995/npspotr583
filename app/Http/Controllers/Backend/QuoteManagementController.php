@@ -21,6 +21,8 @@ class QuoteManagementController extends Controller
         $permissions = [
             'allQuotes'   => 'view-quotes',
             'quoteDetail'   => 'view-quoteDetail',
+            'quoteCreate'   => 'create-quotes',
+            'quoteUpdate'   => 'edit-quotes',
         ];
 
         foreach ($permissions as $method => $permission) {
@@ -30,18 +32,58 @@ class QuoteManagementController extends Controller
 
     public function allQuotes(Request $request)
     {
-        $query = Quote::with('vehicles.images')
-            ->orderBy('created_at', 'desc');
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+        $query = Quote::with('vehicles.images')->orderBy('created_at', 'desc');
 
-        if ($request->has('status') && !empty($request->status)) {
-            $status = Str::title(str_replace('-', ' ', $request->status));
-            $query->where('status', $status);
+        if ($user->isAdmin()) {
+            if ($request->has('status') && !empty($request->status)) {
+                $requestedStatus = Str::title(str_replace('-', ' ', $request->status));
+                $query->where('status', $requestedStatus);
+            }
+        } else {
+            $allowedPermissions = $user->allPermissions()
+                ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
+                ->pluck('slug')
+                ->toArray();
+
+            $allowedStatuses = collect($allowedPermissions)
+                ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
+                ->toArray();
+
+            if (!empty($allowedStatuses)) {
+                $query->whereIn('status', $allowedStatuses);
+            }
+
+            if ($request->has('status') && !empty($request->status)) {
+                $requestedStatus = Str::title(str_replace('-', ' ', $request->status));
+                if (in_array($requestedStatus, $allowedStatuses)) {
+                    $query->where('status', $requestedStatus);
+                } else {
+                    $query->whereRaw('0=1');
+                }
+            }
         }
 
         $quotes = $query->paginate(10);
 
         return view('dashboard.quote.index', compact('quotes'));
     }
+
+    // public function allQuotes(Request $request)
+    // {
+    //     $query = Quote::with('vehicles.images')
+    //         ->orderBy('created_at', 'desc');
+
+    //     if ($request->has('status') && !empty($request->status)) {
+    //         $status = Str::title(str_replace('-', ' ', $request->status));
+    //         $query->where('status', $status);
+    //     }
+
+    //     $quotes = $query->paginate(10);
+
+    //     return view('dashboard.quote.index', compact('quotes'));
+    // }
 
     public function quoteDetail($id)
     {

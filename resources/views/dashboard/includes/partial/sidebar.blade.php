@@ -19,12 +19,14 @@
         <ul class="metismenu" id="menu">
 
             <!-- Dashboard -->
-            <li>
-                <a href="{{ route('dashboard') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">dashboard</i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
+            @can('view-dashboard')
+                <li>
+                    <a href="{{ route('dashboard') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">dashboard</i></div>
+                        <div class="menu-title">Dashboard</div>
+                    </a>
+                </li>
+            @endcan
 
             <!-- Categories -->
             @can('view-categories')
@@ -91,58 +93,78 @@
             @endcan
 
             <!-- Quote Statuses Dropdown -->
+            @php
+                $user = auth()->user();
+                $currentStatus = request()->query('status');
+
+                $statusPermissionMap = collect(array_keys(\App\Models\Quote::$statuses))
+                    ->mapWithKeys(fn($status) => [Str::slug($status) => 'view-quotes-' . Str::slug($status)])
+                    ->toArray();
+
+                $allowedStatuses = $user->isAdmin()
+                    ? array_keys(\App\Models\Quote::$statuses)
+                    : $user
+                        ->allPermissions()
+                        ->pluck('slug')
+                        ->map(fn($slug) => Str::after($slug, 'view-quotes-'))
+                        ->map(fn($s) => Str::title(str_replace('-', ' ', $s)))
+                        ->toArray();
+            @endphp
+
             @can('view-quotes')
                 <li class="menu-label">Quotes Management</li>
+
                 <li>
                     <a href="{{ route('dashboard.quotes.create') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
-                        <div class="menu-title">Create Quote
-                        </div>
+                        <div class="menu-title">Create Quote</div>
                     </a>
                 </li>
+
                 <li>
                     <a class="d-flex align-items-center" href="#quoteStatusMenu" data-bs-toggle="collapse"
                         aria-expanded="{{ $currentStatus ? 'true' : 'false' }}">
                         <div class="parent-icon"><i class="material-icons-outlined">timeline</i></div>
                         <div class="menu-title flex-grow-1">All Quotes</div>
-                        <div class="ms-auto">
-                            <i class="material-icons-outlined">expand_more</i>
-                        </div>
+                        <div class="ms-auto"><i class="material-icons-outlined">expand_more</i></div>
                     </a>
-                    <ul class="collapse list-unstyled ps-3 {{ $currentStatus ? 'show' : '' }}" id="quoteStatusMenu">
-                        @php
-                            $statuses = \App\Models\Quote::$statuses;
-                        @endphp
 
-                        @foreach ($statuses as $status => $details)
-                            <li>
-                                <a class="d-flex justify-content-between align-items-center {{ Str::slug($status) === $currentStatus ? 'active' : '' }}"
-                                    href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}">
-                                    <span>
-                                        <i
-                                            class="material-icons-outlined me-1 {{ str_replace('bg-', 'text-', $details['class']) }}">
-                                            {{ $details['icon'] }}
-                                        </i>
-                                        {{ $status }}
-                                    </span>
-                                    <span
-                                        class="badge {{ $details['class'] }}">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
-                                </a>
-                            </li>
+                    <ul class="collapse list-unstyled ps-3 {{ $currentStatus ? 'show' : '' }}" id="quoteStatusMenu">
+                        @foreach (\App\Models\Quote::$statuses as $status => $details)
+                            @php
+                                $slug = Str::slug($status);
+                            @endphp
+
+                            @if ($user->isAdmin() || in_array($status, $allowedStatuses))
+                                <li>
+                                    <a class="d-flex justify-content-between align-items-center {{ $slug === $currentStatus ? 'active' : '' }}"
+                                        href="{{ route('dashboard.quotes.index', ['status' => $slug]) }}">
+                                        <span>
+                                            <i
+                                                class="material-icons-outlined me-1 {{ str_replace('bg-', 'text-', $details['class']) }}">
+                                                {{ $details['icon'] }}
+                                            </i>
+                                            {{ $status }}
+                                        </span>
+                                        <span
+                                            class="badge {{ $details['class'] }}">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </li>
-                <li>
-                    <a href="{{ route('dashboard.invoice.index') }}">
-                        <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
-                        <div class="menu-title">Invoice
-                        </div>
-                    </a>
-                </li>
             @endcan
 
+            <li>
+                <a href="{{ route('dashboard.invoice.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+                    <div class="menu-title">Invoice</div>
+                </a>
+            </li>
+
             <!-- Users & Roles -->
-            @can('view-users')
+            @if (auth()->user()->isAdmin())
                 <li class="menu-label">Users & Roles</li>
                 <li>
                     <a href="{{ route('dashboard.users.index') }}">
@@ -153,35 +175,28 @@
                         </div>
                     </a>
                 </li>
-            @endcan
 
-            {{-- @can('view-activityLogs')
                 <li>
                     <a href="{{ route('view.activity_logs') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">people</i></div>
                         <div class="menu-title">Activity Logs</div>
                     </a>
                 </li>
-            @endcan --}}
 
-            @can('view-roles')
                 <li>
                     <a href="{{ route('roles.index') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">admin_panel_settings</i></div>
                         <div class="menu-title">Roles</div>
                     </a>
                 </li>
-            @endcan
 
-            {{-- @can('view-roles') --}}
-            <li>
-                <a href="{{ route('trusted-ips.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">security</i></div>
-                    <div class="menu-title">Trusted IPs</div>
-                </a>
-            </li>
-            {{-- @endcan --}}
-
+                <li>
+                    <a href="{{ route('trusted-ips.index') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">security</i></div>
+                        <div class="menu-title">Trusted IPs</div>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </aside>

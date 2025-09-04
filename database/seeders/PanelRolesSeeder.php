@@ -28,17 +28,46 @@ class PanelRolesSeeder extends Seeder
         // $roleOrderTaker = Role::create(['name' => 'Order Taker', 'slug' => 'order_taker']);
 
         // Create Permissions
-        $permissions = [
-            // Quotes
-            ['name' => 'View All Quotes', 'slug' => 'view-quotes'],
-            ['name' => 'View Quote Detail', 'slug' => 'view-quoteDetail'],
-            ['name' => 'View Activity Logs', 'slug' => 'view-activityLogs'],
 
-            // Permissions
-            ['name' => 'View Permissions', 'slug' => 'view-permissions'],
-            ['name' => 'Create Permissions', 'slug' => 'create-permissions'],
-            ['name' => 'Edit Permissions', 'slug' => 'edit-permissions'],
-            ['name' => 'Delete Permissions', 'slug' => 'delete-permissions'],
+
+
+        // Trusted IPs
+        // ['name' => 'View Trusted IPs', 'slug' => 'view-trusted-ips'],
+        // ['name' => 'Create Trusted IPs', 'slug' => 'create-trusted-ips'],
+        // ['name' => 'Edit Trusted IPs', 'slug' => 'edit-trusted-ips'],
+        // ['name' => 'Delete Trusted IPs', 'slug' => 'delete-trusted-ips'],
+
+        // Users (admin)
+        // ['name' => 'View Users', 'slug' => 'view-users'],
+        // ['name' => 'Create Users', 'slug' => 'create-users'],
+        // ['name' => 'Edit Users', 'slug' => 'edit-users'],
+        // ['name' => 'Delete Users', 'slug' => 'delete-users'],
+        // ['name' => 'Toggle User Active', 'slug' => 'toggle-user-active'],
+        // ['name' => 'Force Logout User', 'slug' => 'force-logout-user'],
+
+        // Roles
+        // ['name' => 'View Roles', 'slug' => 'view-roles'],
+        // ['name' => 'Create Roles', 'slug' => 'create-roles'],
+        // ['name' => 'Edit Roles', 'slug' => 'edit-roles'],
+        // ['name' => 'Delete Roles', 'slug' => 'delete-roles'],
+
+        // Permissions
+        // ['name' => 'View Permissions', 'slug' => 'view-permissions'],
+        // ['name' => 'Create Permissions', 'slug' => 'create-permissions'],
+        // ['name' => 'Edit Permissions', 'slug' => 'edit-permissions'],
+        // ['name' => 'Delete Permissions', 'slug' => 'delete-permissions'],
+
+        // Activity Logs
+        // ['name' => 'View Activity Logs', 'slug' => 'view-activity-logs'],
+
+        $permissions = [
+            // Dashboard
+            ['name' => 'View Dashboard', 'slug' => 'view-dashboard'],
+
+            // Profile
+            ['name' => 'View Profile', 'slug' => 'view-profile'],
+            ['name' => 'Edit Profile', 'slug' => 'edit-profile'],
+            ['name' => 'Delete Profile', 'slug' => 'delete-profile'],
 
             // Categories
             ['name' => 'View Categories', 'slug' => 'view-categories'],
@@ -52,20 +81,44 @@ class PanelRolesSeeder extends Seeder
             ['name' => 'Edit Subcategories', 'slug' => 'edit-subcategories'],
             ['name' => 'Delete Subcategories', 'slug' => 'delete-subcategories'],
 
-            // Roles
-            ['name' => 'View Roles', 'slug' => 'view-roles'],
-            ['name' => 'Create Roles', 'slug' => 'create-roles'],
-            ['name' => 'Edit Roles', 'slug' => 'edit-roles'],
-            ['name' => 'Delete Roles', 'slug' => 'delete-roles'],
+            // Quotes (dashboard)
+            ['name' => 'View Quotes', 'slug' => 'view-quotes'],
+            ['name' => 'Create Quotes', 'slug' => 'create-quotes'],
+            ['name' => 'Edit Quotes', 'slug' => 'edit-quotes'],
+            ['name' => 'Delete Quotes', 'slug' => 'delete-quotes'],
 
-            // Users
-            ['name' => 'View Users', 'slug' => 'view-users'],
-            ['name' => 'Edit Users', 'slug' => 'edit-users'],
-            ['name' => 'Delete Users', 'slug' => 'delete-users'],
+            // Quote statuses
+            ['name' => 'View Quotes: New', 'slug' => 'view-quotes-new'],
+            ['name' => 'View Quotes: In Progress', 'slug' => 'view-quotes-in-progress'],
+            ['name' => 'View Quotes: Completed', 'slug' => 'view-quotes-completed'],
+            ['name' => 'View Quotes: Cancelled', 'slug' => 'view-quotes-cancelled'],
+            ['name' => 'View Quotes: Asking Low', 'slug' => 'view-quotes-asking-low'],
+            ['name' => 'View Quotes: Interested', 'slug' => 'view-quotes-interested'],
+            ['name' => 'View Quotes: Follow Up', 'slug' => 'view-quotes-follow-up'],
+            ['name' => 'View Quotes: Not Interested', 'slug' => 'view-quotes-not-interested'],
+            ['name' => 'View Quotes: No Response', 'slug' => 'view-quotes-no-response'],
+            ['name' => 'View Quotes: Booked', 'slug' => 'view-quotes-booked'],
+            ['name' => 'View Quotes: Payment Missing', 'slug' => 'view-quotes-payment-missing'],
+            ['name' => 'View Quotes: Listed', 'slug' => 'view-quotes-listed'],
+            ['name' => 'View Quotes: Dispatch', 'slug' => 'view-quotes-dispatch'],
+            ['name' => 'View Quotes: Pickup', 'slug' => 'view-quotes-pickup'],
+            ['name' => 'View Quotes: Delivery', 'slug' => 'view-quotes-delivery'],
+            ['name' => 'View Quotes: Deleted', 'slug' => 'view-quotes-deleted'],
 
-            // Profile
-            ['name' => 'Edit Profile', 'slug' => 'edit-profile'],
-            ['name' => 'Delete Profile', 'slug' => 'delete-profile'],
+            // Blogs
+            ['name' => 'View Blogs', 'slug' => 'view-blogs'],
+            ['name' => 'Create Blogs', 'slug' => 'create-blogs'],
+            ['name' => 'Edit Blogs', 'slug' => 'edit-blogs'],
+            ['name' => 'Delete Blogs', 'slug' => 'delete-blogs'],
+
+            // Services
+            ['name' => 'View Services', 'slug' => 'view-services'],
+            ['name' => 'Create Services', 'slug' => 'create-services'],
+            ['name' => 'Edit Services', 'slug' => 'edit-services'],
+            ['name' => 'Delete Services', 'slug' => 'delete-services'],
+
+            // Invoices (dashboard)
+            ['name' => 'View Invoices', 'slug' => 'view-invoices'],
         ];
 
         foreach ($permissions as $perm) {
@@ -74,6 +127,53 @@ class PanelRolesSeeder extends Seeder
                 ['name' => $perm['name']]
             );
         }
+
+        // $permissions = [
+        //     // Quotes
+        //     ['name' => 'View All Quotes', 'slug' => 'view-quotes'],
+        //     ['name' => 'View Quote Detail', 'slug' => 'view-quoteDetail'],
+        //     ['name' => 'View Activity Logs', 'slug' => 'view-activityLogs'],
+
+        //     // Permissions
+        //     ['name' => 'View Permissions', 'slug' => 'view-permissions'],
+        //     ['name' => 'Create Permissions', 'slug' => 'create-permissions'],
+        //     ['name' => 'Edit Permissions', 'slug' => 'edit-permissions'],
+        //     ['name' => 'Delete Permissions', 'slug' => 'delete-permissions'],
+
+        //     // Categories
+        //     ['name' => 'View Categories', 'slug' => 'view-categories'],
+        //     ['name' => 'Create Categories', 'slug' => 'create-categories'],
+        //     ['name' => 'Edit Categories', 'slug' => 'edit-categories'],
+        //     ['name' => 'Delete Categories', 'slug' => 'delete-categories'],
+
+        //     // Subcategories
+        //     ['name' => 'View Subcategories', 'slug' => 'view-subcategories'],
+        //     ['name' => 'Create Subcategories', 'slug' => 'create-subcategories'],
+        //     ['name' => 'Edit Subcategories', 'slug' => 'edit-subcategories'],
+        //     ['name' => 'Delete Subcategories', 'slug' => 'delete-subcategories'],
+
+        //     // Roles
+        //     ['name' => 'View Roles', 'slug' => 'view-roles'],
+        //     ['name' => 'Create Roles', 'slug' => 'create-roles'],
+        //     ['name' => 'Edit Roles', 'slug' => 'edit-roles'],
+        //     ['name' => 'Delete Roles', 'slug' => 'delete-roles'],
+
+        //     // Users
+        //     ['name' => 'View Users', 'slug' => 'view-users'],
+        //     ['name' => 'Edit Users', 'slug' => 'edit-users'],
+        //     ['name' => 'Delete Users', 'slug' => 'delete-users'],
+
+        //     // Profile
+        //     ['name' => 'Edit Profile', 'slug' => 'edit-profile'],
+        //     ['name' => 'Delete Profile', 'slug' => 'delete-profile'],
+        // ];
+
+        // foreach ($permissions as $perm) {
+        //     Permission::updateOrCreate(
+        //         ['slug' => $perm['slug']],
+        //         ['name' => $perm['name']]
+        //     );
+        // }
         // $permission        = Permission::create(['name' => 'Manage Quotes', 'slug' => 'manage-quotes']);
         // $permViewQuotes          = Permission::create(['name' => 'View Quotes', 'slug' => 'view-quotes']);
         // $permViewSubcategories   = Permission::create(['name' => 'View Subcategories', 'slug' => 'view-subcategories']);

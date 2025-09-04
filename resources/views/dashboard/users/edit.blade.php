@@ -3,6 +3,13 @@
 @section('title', 'Edit User')
 
 @section('content')
+    <style>
+        /* scrollable dropdown */
+        .select2-dropdown.bigdrop {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
     <div class="card">
         <div class="card-header bg-light">
             <h6>Edit User</h6>
@@ -68,6 +75,21 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Roles *</label>
+                        <select name="roles[]" class="form-control select2-checkbox" multiple="multiple">
+                            @foreach ($roles->where('slug', '!=', 'admin') as $role)
+                                <option value="{{ $role->id }}"
+                                    {{ in_array($role->id, old('roles', $user->roles->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                    {{ $role->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('roles')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    {{-- <div class="col-md-4 mb-3">
+                        <label class="form-label">Roles *</label>
                         <select name="roles[]" class="select2 form-control" multiple data-placeholder="Select roles">
                             @foreach ($roles->where('slug', '!=', 'admin') as $role)
                                 <option value="{{ $role->id }}"
@@ -78,7 +100,7 @@
                         @error('roles')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Panel Types</label>
@@ -97,6 +119,21 @@
 
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Direct User Permissions</label>
+                        <select name="permissions[]" class="form-control select2-checkbox" multiple="multiple">
+                            @foreach ($permissions as $permission)
+                                <option value="{{ $permission->id }}"
+                                    {{ in_array($permission->id, old('permissions', $user->directPermissions->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                    {{ $permission->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('permissions')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    {{-- <div class="col-md-4 mb-3">
+                        <label class="form-label">Direct User Permissions</label>
                         <select name="permissions[]" class="select2 form-control" multiple
                             data-placeholder="Select permissions">
                             @foreach ($permissions as $permission)
@@ -105,7 +142,7 @@
                                     {{ $permission->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
 
                 {{-- ================= USER_DETAILS (contact) ================= --}}
@@ -123,7 +160,8 @@
                             name="address_1" class="form-control" value="{{ old('address_1', $detail->address_1 ?? '') }}">
                     </div>
                     <div class="col-md-6 mb-3"><label class="form-label">Address 2</label><input type="text"
-                            name="address_2" class="form-control" value="{{ old('address_2', $detail->address_2 ?? '') }}">
+                            name="address_2" class="form-control"
+                            value="{{ old('address_2', $detail->address_2 ?? '') }}">
                     </div>
                 </div>
                 <div class="row">
@@ -171,7 +209,7 @@
                     </div>
                     <div class="col-md-3 mb-3"><label class="form-label">Date of Birth</label><input type="date"
                             name="date_of_birth" class="form-control"
-                            value="{{ old('date_of_birth', optional($detail->date_of_birth)->format('Y-m-d')) }}"></div>
+                            value="{{ old('date_of_birth', optional($detail)->date_of_birth?->format('Y-m-d')) }}"></div>
                     <div class="col-md-3 mb-3"><label class="form-label">Marital Status</label><input type="text"
                             name="marital_status" class="form-control"
                             value="{{ old('marital_status', $detail->marital_status ?? '') }}"></div>
@@ -225,13 +263,13 @@
                             value="{{ old('designation', $detail->designation ?? '') }}"></div>
                     <div class="col-md-3 mb-3"><label class="form-label">Joining Date</label><input type="date"
                             name="date_of_joining" class="form-control"
-                            value="{{ old('date_of_joining', optional($detail->date_of_joining)->format('Y-m-d')) }}">
+                            value="{{ old('date_of_joining', optional($detail)->date_of_joining?->format('Y-m-d')) }}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 mb-3"><label class="form-label">Resignation Date</label><input type="date"
                             name="date_of_resignation" class="form-control"
-                            value="{{ old('date_of_resignation', optional($detail->date_of_resignation)->format('Y-m-d')) }}">
+                            value="{{ old('date_of_resignation', optional($detail)->date_of_resignation?->format('Y-m-d')) }}">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Employment Status</label>
@@ -409,6 +447,16 @@
                 theme: 'bootstrap-5',
                 width: '100%',
                 allowClear: true,
+            });
+
+            $('.select2-checkbox').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: "Select options",
+                allowClear: true,
+                closeOnSelect: false, // keep dropdown open for multiple selection
+                maximumSelectionLength: 50, // optional limit
+                dropdownCssClass: "bigdrop", // add custom height via CSS
             });
         });
     </script>

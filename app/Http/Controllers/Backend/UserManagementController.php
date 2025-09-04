@@ -224,7 +224,6 @@ class UserManagementController extends Controller
             'referral_code' => 'nullable|string|unique:user_details,referral_code,' . ($user->detail->id ?? 'NULL'),
         ]);
 
-        /** ✅ Update User */
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -232,18 +231,141 @@ class UserManagementController extends Controller
             'is_active' => $request->has('is_active') ? 1 : 0,
         ]);
 
-        /** ✅ Update or Create UserDetail */
         $detail = $user->detail ?: new UserDetail(['user_id' => $user->id]);
-        $detail->fill($request->except(['name', 'email', 'password', 'roles', 'panel_types', 'permissions']));
+
+        $uploadPath = public_path('userDocs');
+        if (!file_exists($uploadPath)) mkdir($uploadPath, 0777, true);
+
+        $uploadedFiles = []; // create a variable to track uploads
+
+        if ($file = $request->file('profile_image')) {
+            if ($detail->profile_image && file_exists(public_path($detail->profile_image))) {
+                unlink(public_path($detail->profile_image));
+            }
+            $detail->profile_image = $this->moveFile($file, $uploadPath, $uploadedFiles);
+        }
+
+        if ($file = $request->file('resume_path')) {
+            if ($detail->resume_path && file_exists(public_path($detail->resume_path))) {
+                unlink(public_path($detail->resume_path));
+            }
+            $detail->resume_path = $this->moveFile($file, $uploadPath, $uploadedFiles);
+        }
+
+        if ($file = $request->file('cnic_front_path')) {
+            if ($detail->cnic_front_path && file_exists(public_path($detail->cnic_front_path))) {
+                unlink(public_path($detail->cnic_front_path));
+            }
+            $detail->cnic_front_path = $this->moveFile($file, $uploadPath, $uploadedFiles);
+        }
+
+        if ($file = $request->file('cnic_back_path')) {
+            if ($detail->cnic_back_path && file_exists(public_path($detail->cnic_back_path))) {
+                unlink(public_path($detail->cnic_back_path));
+            }
+            $detail->cnic_back_path = $this->moveFile($file, $uploadPath, $uploadedFiles);
+        }
+
+        $detail->fill($request->except([
+            'name',
+            'email',
+            'password',
+            'roles',
+            'panel_types',
+            'permissions',
+            'profile_image',
+            'resume_path',
+            'cnic_front_path',
+            'cnic_back_path'
+        ]));
         $detail->save();
 
-        /** ✅ Sync Roles, Panels, Permissions */
         $user->roles()->sync($request->roles);
         $user->panelTypes()->sync($request->panel_types ?? []);
         $user->directPermissions()->sync($request->permissions ?? []);
 
         return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
     }
+
+    // public function userUpdate(Request $request, $id)
+    // {
+    //     $user = User::findOrFail($id);
+
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|email|unique:users,email,' . $user->id,
+    //         'password' => 'nullable|string|min:6',
+    //         'roles' => 'required|array',
+    //         'panel_types' => 'nullable|array',
+    //         'permissions' => 'nullable|array',
+    //         'referral_code' => 'nullable|string|unique:user_details,referral_code,' . ($user->detail->id ?? 'NULL'),
+    //     ]);
+
+    //     /** ✅ Update User */
+    //     $user->update([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+    //         'is_active' => $request->has('is_active') ? 1 : 0,
+    //     ]);
+
+    //     /** ✅ Update or Create UserDetail */
+    //     $detail = $user->detail ?: new UserDetail(['user_id' => $user->id]);
+    //     $detail->fill($request->except(['name', 'email', 'password', 'roles', 'panel_types', 'permissions']));
+    //     $detail = $user->detail ?: new UserDetail(['user_id' => $user->id]);
+
+    //     $uploadPath = public_path('userDocs');
+    //     if (!file_exists($uploadPath)) mkdir($uploadPath, 0777, true);
+
+    //     if ($file = $request->file('profile_image')) {
+    //         if ($detail->profile_image && file_exists(public_path($detail->profile_image))) {
+    //             unlink(public_path($detail->profile_image));
+    //         }
+    //         $detail->profile_image = $this->moveFile($file, $uploadPath, $uploadedFiles = []);
+    //     }
+
+    //     if ($file = $request->file('resume_path')) {
+    //         if ($detail->resume_path && file_exists(public_path($detail->resume_path))) {
+    //             unlink(public_path($detail->resume_path));
+    //         }
+    //         $detail->resume_path = $this->moveFile($file, $uploadPath, $uploadedFiles = []);
+    //     }
+
+    //     if ($file = $request->file('cnic_front_path')) {
+    //         if ($detail->cnic_front_path && file_exists(public_path($detail->cnic_front_path))) {
+    //             unlink(public_path($detail->cnic_front_path));
+    //         }
+    //         $detail->cnic_front_path = $this->moveFile($file, $uploadPath, $uploadedFiles = []);
+    //     }
+
+    //     if ($file = $request->file('cnic_back_path')) {
+    //         if ($detail->cnic_back_path && file_exists(public_path($detail->cnic_back_path))) {
+    //             unlink(public_path($detail->cnic_back_path));
+    //         }
+    //         $detail->cnic_back_path = $this->moveFile($file, $uploadPath, $uploadedFiles = []);
+    //     }
+
+    //     $detail->fill($request->except([
+    //         'name',
+    //         'email',
+    //         'password',
+    //         'roles',
+    //         'panel_types',
+    //         'permissions',
+    //         'profile_image',
+    //         'resume_path',
+    //         'cnic_front_path',
+    //         'cnic_back_path'
+    //     ]));
+    //     $detail->save();
+
+    //     /** ✅ Sync Roles, Panels, Permissions */
+    //     $user->roles()->sync($request->roles);
+    //     $user->panelTypes()->sync($request->panel_types ?? []);
+    //     $user->directPermissions()->sync($request->permissions ?? []);
+
+    //     return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
+    // }
 
     public function userDestroy($id)
     {
