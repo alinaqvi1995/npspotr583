@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\LogsActivity;
 
 class Service extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'heading_one',
         'description_one',

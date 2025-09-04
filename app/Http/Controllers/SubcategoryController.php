@@ -46,25 +46,6 @@ class SubcategoryController extends Controller
             'status'
         ]));
 
-        Activity::create([
-            'log_name'     => 'subcategory',
-            'description'  => 'Subcategory created',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => Subcategory::class,
-            'subject_id'   => $subcategory->id,
-            'properties'   => [
-                'new_values' => $subcategory->getAttributes(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location'   => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
-
         return redirect()->route('subcategories.index')->with('success', 'Subcategory created successfully.');
     }
 
@@ -86,26 +67,6 @@ class SubcategoryController extends Controller
             'status'
         ]));
 
-        Activity::create([
-            'log_name'     => 'subcategory',
-            'description'  => 'Subcategory updated',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => Subcategory::class,
-            'subject_id'   => $subcategory->id,
-            'properties'   => [
-                'old_values' => $original,
-                'new_values' => $subcategory->getAttributes(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location'   => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
-
         return redirect()->route('subcategories.index')->with('success', 'Subcategory updated successfully.');
     }
 
@@ -113,25 +74,6 @@ class SubcategoryController extends Controller
     {
         $attributes = $subcategory->getAttributes();
         $subcategory->delete();
-
-        Activity::create([
-            'log_name'     => 'subcategory',
-            'description'  => 'Subcategory deleted',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => Subcategory::class,
-            'subject_id'   => $subcategory->id,
-            'properties'   => [
-                'old_values' => $attributes,
-                'ip_address' => request()->ip(),
-                'user_agent' => request()->userAgent(),
-                'location'   => [
-                    'city'   => request()->header('X-Geo-City'),
-                    'region' => request()->header('X-Geo-Region'),
-                    'country' => request()->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
 
         return redirect()->route('subcategories.index')->with('success', 'Subcategory deleted successfully.');
     }

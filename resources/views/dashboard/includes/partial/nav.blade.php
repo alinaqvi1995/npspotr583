@@ -99,34 +99,21 @@
                             <p class="search-title">Quotes Status</p>
                             <div class="search-list d-flex flex-column gap-2">
                                 @php
-                                    $statuses = [
-                                        'New' => 'fiber_new',
-                                        'In Progress' => 'hourglass_top',
-                                        'Completed' => 'check_circle',
-                                        'Cancelled' => 'cancel',
-                                        'Asking Low' => 'trending_down',
-                                        'Interested' => 'thumb_up',
-                                        'Follow Up' => 'schedule',
-                                        'Not Interested' => 'thumb_down',
-                                        'No Response' => 'phone_missed',
-                                        'Booked' => 'event_available',
-                                        'Payment Missing' => 'payment',
-                                        'Listed' => 'list',
-                                        'Dispatch' => 'local_shipping',
-                                        'Pickup' => 'shopping_bag',
-                                        'Delivery' => 'done_all',
-                                        'Deleted' => 'delete',
-                                    ];
+                                    $statuses = \App\Models\Quote::$statuses;
                                 @endphp
 
                                 @foreach ($statuses as $status => $icon)
                                     <a href="{{ route('dashboard.quotes.index', ['status' => Str::slug($status)]) }}"
                                         class="search-list-item d-flex justify-content-between align-items-center">
                                         <span>
-                                            <i class="material-icons-outlined me-1">{{ $icon }}</i>
+                                            <i
+                                                class="material-icons-outlined me-1 {{ str_replace('bg-', 'text-', $icon['class']) }}">
+                                                {{ $icon['icon'] }}
+                                            </i>
                                             {{ $status }}
                                         </span>
-                                        <span class="badge bg-secondary">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
+                                        <span
+                                            class="badge {{ $icon['class'] }}">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
                                     </a>
                                 @endforeach
                             </div>

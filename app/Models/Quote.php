@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use App\Models\QuoteLocation;
+use App\Models\Vehicle;
+use App\Traits\LogsActivity;
 
 class Quote extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'category_id',
         'subcategory_id',
@@ -118,6 +123,50 @@ class Quote extends Model
         return array_intersect_key(self::$statuses, array_flip($allowed));
     }
 
+    protected static function booted()
+    {
+        // Log Quote creation
+        static::created(function ($quote) {
+            $quote->histories()->create([
+                'status' => $quote->status,
+                'old_status' => null,
+                'changed_by' => Auth::id(),
+                'change_type' => 'create',
+                'data' => $quote->toJson(),
+            ]);
+        });
+
+        static::updated(function ($quote) {
+            $changes = $quote->getChanges();
+            unset($changes['updated_at']);
+            if (count($changes) === 0) return;
+
+            $quote->histories()->create([
+                'status' => $quote->status,
+                'old_status' => $quote->getOriginal('status'),
+                'changed_by' => Auth::id(),
+                'change_type' => 'update',
+                'data' => json_encode($changes),
+            ]);
+        });
+    }
+
+    public function createHistory(string $changeType)
+    {
+        $this->histories()->create([
+            'status' => $this->status,
+            'old_status' => $this->getOriginal('status'),
+            'changed_by' => Auth::id(),
+            'change_type' => $changeType,
+            'data' => $this->toJson(),
+        ]);
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(QuoteHistory::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -205,3 +254,45 @@ class Quote extends Model
         return $this->hasOne(QuoteLocation::class)->where('type', 'delivery');
     }
 }
+
+// 2️⃣ Full History Report
+
+// If you want all status changes, use the quote_histories table:
+
+// $histories = \DB::table('quote_histories')
+//     ->join('quotes', 'quotes.id', '=', 'quote_histories.quote_id')
+//     ->select(
+//         'quotes.id as quote_id',
+//         'quotes.customer_name',
+//         'quote_histories.status',
+//         'quote_histories.old_status',
+//         'quote_histories.changed_by',
+//         'quote_histories.change_type',
+//         'quote_histories.created_at'
+//     )
+//     ->orderBy('quote_histories.created_at', 'asc')
+//     ->get();
+
+
+// 3️⃣ Latest Status Only Using Histories
+
+// If you want the last status per quote from histories, you can use a subquery:
+
+// $latestHistories = \DB::table('quote_histories as h1')
+//     ->select('h1.*')
+//     ->whereRaw('h1.id = (
+//         select max(h2.id) from quote_histories h2
+//         where h2.quote_id = h1.quote_id
+//     )')
+//     ->get();
+
+
+//     4️⃣ Grouping by Status (Report Example)
+
+// You can also count how many times quotes were in each status:
+
+// $statusCounts = \DB::table('quote_histories')
+//     ->select('status', \DB::raw('count(*) as total'))
+//     ->groupBy('status')
+//     ->orderBy('total', 'desc')
+//     ->get();

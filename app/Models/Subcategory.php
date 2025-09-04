@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\LogsActivity;
 
 class Subcategory extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'category_id',
         'name',

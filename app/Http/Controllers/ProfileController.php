@@ -50,26 +50,6 @@ class ProfileController extends Controller
 
         $user->save();
 
-        Activity::create([
-            'log_name'     => 'profile',
-            'description'  => 'Profile updated',
-            'causer_type'  => $user::class,
-            'causer_id'    => $user->id,
-            'subject_type' => $user::class,
-            'subject_id'   => $user->id,
-            'properties'   => [
-                'old_values' => $original,
-                'new_values' => $user->getAttributes(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location'   => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country'=> $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
-
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
@@ -84,25 +64,6 @@ class ProfileController extends Controller
 
         $user = $request->user();
         $attributes = $user->getAttributes();
-
-        Activity::create([
-            'log_name'     => 'profile',
-            'description'  => 'Profile deleted',
-            'causer_type'  => $user::class,
-            'causer_id'    => $user->id,
-            'subject_type' => $user::class,
-            'subject_id'   => $user->id,
-            'properties'   => [
-                'old_values' => $attributes,
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location'   => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country'=> $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
 
         Auth::logout();
         $user->delete();

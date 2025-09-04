@@ -11,6 +11,8 @@ use App\Models\VehicleImage;
 use App\Models\QuoteLocation;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class QuoteManagementController extends Controller
 {

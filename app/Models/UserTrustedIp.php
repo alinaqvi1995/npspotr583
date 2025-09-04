@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\LogsActivity;
 
 class UserTrustedIp extends Model
 {
+    use LogsActivity;
     protected $fillable = ['user_id', 'ip_address'];
 
     public function user()

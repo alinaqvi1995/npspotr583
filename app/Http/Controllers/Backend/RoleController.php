@@ -45,26 +45,6 @@ class RoleController extends Controller
             $role->permissions()->sync($request->permissions);
         }
 
-        Activity::create([
-            'log_name'     => 'role',
-            'description'  => 'Role created',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => Role::class,
-            'subject_id'   => $role->id,
-            'properties'   => [
-                'new_values'  => $role->getAttributes(),
-                'permissions' => $request->permissions ?? [],
-                'ip_address'  => $request->ip(),
-                'user_agent'  => $request->userAgent(),
-                'location'    => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
-
         return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
 
@@ -81,27 +61,6 @@ class RoleController extends Controller
         $role->update($request->only(['name', 'slug']));
         $role->permissions()->sync($request->permissions ?? []);
 
-        Activity::create([
-            'log_name'     => 'role',
-            'description'  => 'Role updated',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => Role::class,
-            'subject_id'   => $role->id,
-            'properties'   => [
-                'old_values'  => $original,
-                'new_values'  => $role->getAttributes(),
-                'permissions' => $request->permissions ?? [],
-                'ip_address'  => $request->ip(),
-                'user_agent'  => $request->userAgent(),
-                'location'    => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country' => $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
-
         return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
@@ -113,26 +72,6 @@ class RoleController extends Controller
         $role->permissions()->detach();
         $role->users()->detach();
         $role->delete();
-
-        Activity::create([
-            'log_name'     => 'role',
-            'description'  => 'Role deleted',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => Role::class,
-            'subject_id'   => $role->id,
-            'properties'   => [
-                'old_values'  => $attributes,
-                'permissions' => $permissions,
-                'ip_address'  => request()->ip(),
-                'user_agent'  => request()->userAgent(),
-                'location'    => [
-                    'city'   => request()->header('X-Geo-City'),
-                    'region' => request()->header('X-Geo-Region'),
-                    'country' => request()->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
 
         return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }

@@ -39,25 +39,6 @@ class CategoryController extends Controller
 
         $category = Category::create($request->only(['name', 'description', 'status']));
 
-        Activity::create([
-            'log_name'     => 'category',
-            'description'  => 'Category created',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => $category::class,
-            'subject_id'   => $category->id,
-            'properties'   => [
-                'new_values' => $category->getAttributes(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location'   => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country'=> $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
-
         return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
@@ -73,26 +54,6 @@ class CategoryController extends Controller
 
         $category->update($request->only(['name', 'description', 'status']));
 
-        Activity::create([
-            'log_name'     => 'category',
-            'description'  => 'Category updated',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => $category::class,
-            'subject_id'   => $category->id,
-            'properties'   => [
-                'old_values' => $original,
-                'new_values' => $category->getAttributes(),
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'location'   => [
-                    'city'   => $request->header('X-Geo-City'),
-                    'region' => $request->header('X-Geo-Region'),
-                    'country'=> $request->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
-
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
@@ -101,25 +62,6 @@ class CategoryController extends Controller
         $attributes = $category->getAttributes();
         $category->subcategories()->delete();
         $category->delete();
-
-        Activity::create([
-            'log_name'     => 'category',
-            'description'  => 'Category deleted',
-            'causer_type'  => Auth::user()::class,
-            'causer_id'    => Auth::id(),
-            'subject_type' => $category::class,
-            'subject_id'   => $category->id,
-            'properties'   => [
-                'old_values' => $attributes,
-                'ip_address' => request()->ip(),
-                'user_agent' => request()->userAgent(),
-                'location'   => [
-                    'city'   => request()->header('X-Geo-City'),
-                    'region' => request()->header('X-Geo-Region'),
-                    'country'=> request()->header('X-Geo-Country'),
-                ],
-            ],
-        ]);
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
