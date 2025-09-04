@@ -227,9 +227,7 @@ class UserManagementController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         try {
@@ -241,15 +239,22 @@ class UserManagementController extends Controller
                 'is_active' => $request->has('is_active') ? 1 : 0,
             ]);
 
-            // Get or create UserDetail
-            $detail = $user->detail ?: new UserDetail(['user_id' => $user->id]);
+            // Get existing detail or create new with defaults
+            $detail = $user->detail ?: new UserDetail([
+                'user_id' => $user->id,
+                'commission' => 0.00,
+                'margin' => 0.00,
+                'discount' => 0.00,
+                'referral_bonus' => 0.00,
+            ]);
 
+            // Ensure upload path exists
             $uploadPath = public_path('userDocs');
             if (!file_exists($uploadPath)) mkdir($uploadPath, 0777, true);
 
-            $uploadedFiles = []; // track uploads
+            $uploadedFiles = [];
 
-            // File uploads
+            // Handle file uploads
             foreach (['profile_image', 'resume_path', 'cnic_front_path', 'cnic_back_path'] as $fileField) {
                 if ($file = $request->file($fileField)) {
                     if ($detail->$fileField && file_exists(public_path($detail->$fileField))) {
@@ -259,7 +264,7 @@ class UserManagementController extends Controller
                 }
             }
 
-            // Fill remaining fields except excluded
+            // Fill other fields except excluded
             $detail->fill($request->except([
                 'name',
                 'email',
@@ -273,11 +278,11 @@ class UserManagementController extends Controller
                 'cnic_back_path'
             ]));
 
-            // Ensure NOT NULL columns have defaults
-            $detail->commission = $request->input('commission', 0.00);
-            $detail->margin = $request->input('margin', 0.00);
-            $detail->discount = $request->input('discount', 0.00);
-            $detail->referral_bonus = $request->input('referral_bonus', 0.00);
+            // Ensure NOT NULL columns are set
+            $detail->commission = $request->input('commission', $detail->commission ?? 0.00);
+            $detail->margin = $request->input('margin', $detail->margin ?? 0.00);
+            $detail->discount = $request->input('discount', $detail->discount ?? 0.00);
+            $detail->referral_bonus = $request->input('referral_bonus', $detail->referral_bonus ?? 0.00);
 
             $detail->save();
 
@@ -286,7 +291,8 @@ class UserManagementController extends Controller
             $user->panelTypes()->sync($request->panel_types ?? []);
             $user->directPermissions()->sync($request->permissions ?? []);
 
-            return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
+            return redirect()->route('dashboard.users.index')
+                ->with('success', 'User updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withErrors(['error' => 'An error occurred: ' . $e->getMessage()])
