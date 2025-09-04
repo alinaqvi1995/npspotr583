@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class UserManagementController extends Controller
 {
@@ -214,7 +215,8 @@ class UserManagementController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $request->validate([
+        // Validate input
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6',
@@ -224,67 +226,72 @@ class UserManagementController extends Controller
             'referral_code' => 'nullable|string|unique:user_details,referral_code,' . ($user->detail->id ?? 'NULL'),
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
-            'is_active' => $request->has('is_active') ? 1 : 0,
-        ]);
-
-        $detail = $user->detail ?: new UserDetail(['user_id' => $user->id]);
-
-        $uploadPath = public_path('userDocs');
-        if (!file_exists($uploadPath)) mkdir($uploadPath, 0777, true);
-
-        $uploadedFiles = []; // create a variable to track uploads
-
-        if ($file = $request->file('profile_image')) {
-            if ($detail->profile_image && file_exists(public_path($detail->profile_image))) {
-                unlink(public_path($detail->profile_image));
-            }
-            $detail->profile_image = $this->moveFile($file, $uploadPath, $uploadedFiles);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        if ($file = $request->file('resume_path')) {
-            if ($detail->resume_path && file_exists(public_path($detail->resume_path))) {
-                unlink(public_path($detail->resume_path));
+        try {
+            // Update core user info
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+                'is_active' => $request->has('is_active') ? 1 : 0,
+            ]);
+
+            // Get or create UserDetail
+            $detail = $user->detail ?: new UserDetail(['user_id' => $user->id]);
+
+            $uploadPath = public_path('userDocs');
+            if (!file_exists($uploadPath)) mkdir($uploadPath, 0777, true);
+
+            $uploadedFiles = []; // track uploads
+
+            // File uploads
+            foreach (['profile_image', 'resume_path', 'cnic_front_path', 'cnic_back_path'] as $fileField) {
+                if ($file = $request->file($fileField)) {
+                    if ($detail->$fileField && file_exists(public_path($detail->$fileField))) {
+                        unlink(public_path($detail->$fileField));
+                    }
+                    $detail->$fileField = $this->moveFile($file, $uploadPath, $uploadedFiles);
+                }
             }
-            $detail->resume_path = $this->moveFile($file, $uploadPath, $uploadedFiles);
+
+            // Fill remaining fields except excluded
+            $detail->fill($request->except([
+                'name',
+                'email',
+                'password',
+                'roles',
+                'panel_types',
+                'permissions',
+                'profile_image',
+                'resume_path',
+                'cnic_front_path',
+                'cnic_back_path'
+            ]));
+
+            // Ensure NOT NULL columns have defaults
+            $detail->commission = $request->input('commission', 0.00);
+            $detail->margin = $request->input('margin', 0.00);
+            $detail->discount = $request->input('discount', 0.00);
+            $detail->referral_bonus = $request->input('referral_bonus', 0.00);
+
+            $detail->save();
+
+            // Sync roles, panels, permissions
+            $user->roles()->sync($request->roles);
+            $user->panelTypes()->sync($request->panel_types ?? []);
+            $user->directPermissions()->sync($request->permissions ?? []);
+
+            return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withErrors(['error' => 'An error occurred: ' . $e->getMessage()])
+                ->withInput();
         }
-
-        if ($file = $request->file('cnic_front_path')) {
-            if ($detail->cnic_front_path && file_exists(public_path($detail->cnic_front_path))) {
-                unlink(public_path($detail->cnic_front_path));
-            }
-            $detail->cnic_front_path = $this->moveFile($file, $uploadPath, $uploadedFiles);
-        }
-
-        if ($file = $request->file('cnic_back_path')) {
-            if ($detail->cnic_back_path && file_exists(public_path($detail->cnic_back_path))) {
-                unlink(public_path($detail->cnic_back_path));
-            }
-            $detail->cnic_back_path = $this->moveFile($file, $uploadPath, $uploadedFiles);
-        }
-
-        $detail->fill($request->except([
-            'name',
-            'email',
-            'password',
-            'roles',
-            'panel_types',
-            'permissions',
-            'profile_image',
-            'resume_path',
-            'cnic_front_path',
-            'cnic_back_path'
-        ]));
-        $detail->save();
-
-        $user->roles()->sync($request->roles);
-        $user->panelTypes()->sync($request->panel_types ?? []);
-        $user->directPermissions()->sync($request->permissions ?? []);
-
-        return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
     }
 
     // public function userUpdate(Request $request, $id)
