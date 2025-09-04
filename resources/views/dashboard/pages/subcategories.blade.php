@@ -20,6 +20,7 @@
                 <table class="table align-middle datatable" id="subcategoryTable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Name</th>
                             <th>Category</th>
                             <th>Status</th>
@@ -31,6 +32,7 @@
                     <tbody>
                         @foreach ($subcategories as $subcategory)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $subcategory->name }}</td>
                                 <td>{{ $subcategory->category_name ?? '-' }}</td>
                                 <td>{!! $subcategory->status_label !!}</td>

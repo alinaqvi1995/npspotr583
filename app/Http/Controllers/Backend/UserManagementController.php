@@ -35,6 +35,40 @@ class UserManagementController extends Controller
         return view('dashboard.users.index', compact('users'));
     }
 
+    public function userCreate()
+    {
+        $roles = Role::all();
+        $panelTypes = PanelType::all();
+        $permissions = Permission::all();
+
+        return view('dashboard.users.create', compact('roles', 'panelTypes', 'permissions'));
+    }
+
+    public function userStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'roles' => 'required|array',
+            'panel_types' => 'nullable|array',
+            'permissions' => 'nullable|array',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        // Sync pivots
+        $user->roles()->sync($request->roles);
+        $user->panelTypes()->sync($request->panel_types ?? []);
+        $user->directPermissions()->sync($request->permissions ?? []);
+
+        return redirect()->route('dashboard.users.index')->with('success', 'User created successfully.');
+    }
+
     public function userEdit($id)
     {
         $user = User::findOrFail($id);

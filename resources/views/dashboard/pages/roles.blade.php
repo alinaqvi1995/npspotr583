@@ -20,6 +20,7 @@
                 <table class="table align-middle datatable" id="roleTable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Name</th>
                             <th>Slug</th>
                             <th>Permissions</th>
@@ -30,6 +31,7 @@
                         @foreach ($roles as $role)
                             @continue($role->slug == 'admin')
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $role->name }}</td>
                                 <td>{{ $role->slug }}</td>
                                 <td>

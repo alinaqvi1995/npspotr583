@@ -12,7 +12,7 @@
                 <div>
                     <h5 class="mb-0">Recent Blogs</h5>
                 </div>
-                <a href="{{ route('blogs.create') }}" class="btn btn-primary">
+                <a href="{{ route('blogs.create') }}" class="btn btn-grd btn-grd-primary">
                     <i class="material-icons-outlined">add</i> Add New Blog
                 </a>
             </div>
@@ -21,6 +21,7 @@
                 <table class="table table-bordered table-striped align-middle" id="blogsTable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Title</th>
                             <th>Author</th>
                             <th>Tags</th>
@@ -31,6 +32,7 @@
                     <tbody>
                         @forelse($blogs as $blog)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $blog->heading_one }}</td>
                                 <td>{{ $blog->author }}</td>
                                 <td>{{ $blog->tags }}</td>

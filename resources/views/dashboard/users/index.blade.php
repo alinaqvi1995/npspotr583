@@ -11,6 +11,9 @@
                 <div>
                     <h5 class="mb-0">Users List</h5>
                 </div>
+                <a href="{{ route('dashboard.users.create') }}" class="btn btn-grd btn-grd-primary">
+                    <i class="material-icons-outlined">add</i> Add New User
+                </a>
             </div>
 
             <div class="row mb-3">
@@ -32,6 +35,7 @@
                 <table class="table align-middle datatable" id="usersTable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Roles</th>
@@ -44,6 +48,7 @@
                     <tbody>
                         @forelse($users as $user)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>

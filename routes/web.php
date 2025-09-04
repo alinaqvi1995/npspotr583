@@ -88,6 +88,8 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::put('/quotes/{quote}', [QuoteManagementController::class, 'quoteUpdate'])->name('dashboard.quotes.update');
 
     Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
+    Route::get('/users/create', [UserManagementController::class, 'userCreate'])->name('dashboard.users.create');
+    Route::post('/users', [UserManagementController::class, 'userStore'])->name('dashboard.users.store');
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');
     Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('dashboard.users.update');
     Route::delete('/users/{id}', [UserManagementController::class, 'userDestroy'])->name('dashboard.users.destroy');

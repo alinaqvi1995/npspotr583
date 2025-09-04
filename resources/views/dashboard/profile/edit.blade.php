@@ -88,7 +88,7 @@
                                     class="form-control">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                            <button type="submit" class="btn btn-grd btn-grd-primary">Update Profile</button>
                         </form>
                     </div>
                 </div>

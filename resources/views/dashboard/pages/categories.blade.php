@@ -20,6 +20,7 @@
                 <table class="table align-middle datatable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Created By</th>
@@ -30,6 +31,7 @@
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>{!! $category->status_label !!}</td>
                                 <td>{{ $category->creator_name ?? '-' }}</td>

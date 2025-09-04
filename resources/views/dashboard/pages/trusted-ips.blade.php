@@ -18,6 +18,7 @@
                 <table class="table align-middle datatable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>User</th>
                             <th>IP Address</th>
                             <th>Created At</th>
@@ -27,6 +28,7 @@
                     <tbody>
                         @foreach ($ips as $ip)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $ip->user->name ?? 'N/A' }}</td>
                                 <td>{{ $ip->ip_address }}</td>
                                 <td>{{ $ip->created_at_formatted }}</td>

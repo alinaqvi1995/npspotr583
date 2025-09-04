@@ -641,6 +641,7 @@
                         <table class="table align-middle">
                             <thead>
                                 <tr>
+                                    <th>Sr#.</th>
                                     <th>Quote #</th>
                                     <th>Customer</th>
                                     <th>Vehicles</th>
@@ -651,6 +652,7 @@
                             <tbody>
                                 @foreach (\App\Models\Quote::latest()->take(5)->get() as $quote)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>
                                             <a href="{{ route('dashboard.quotes.details', $quote->id) }}"
                                                 class="text-decoration-none">

@@ -20,6 +20,7 @@
                 <table class="table align-middle datatable" id="permissionTable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Name</th>
                             <th>Slug</th>
                             <th>Roles</th>
@@ -29,6 +30,7 @@
                     <tbody>
                         @foreach ($permissions as $permission)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $permission->name }}</td>
                                 <td>{{ $permission->slug }}</td>
                                 <td>

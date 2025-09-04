@@ -12,7 +12,7 @@
                 <div>
                     <h5 class="mb-0">Recent Services</h5>
                 </div>
-                <a href="{{ route('services.create') }}" class="btn btn-primary">
+                <a href="{{ route('services.create') }}" class="btn btn-grd btn-grd-primary">
                     <i class="material-icons-outlined">add</i> Add New Service
                 </a>
             </div>
@@ -21,6 +21,7 @@
                 <table class="table table-bordered table-striped align-middle" id="servicesTable">
                     <thead>
                         <tr>
+                            <th>Sr#.</th>
                             <th>Title</th>
                             <th>Heading One</th>
                             <th>Status</th>
@@ -32,6 +33,7 @@
                     <tbody>
                         @forelse($services as $service)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $service->title }}</td>
                                 <td>{{ $service->heading_one }}</td>
                                 <td>{!! $service->statusLabel !!}</td>
