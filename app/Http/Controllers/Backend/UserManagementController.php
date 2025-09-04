@@ -279,10 +279,10 @@ class UserManagementController extends Controller
             ]));
 
             // Ensure NOT NULL columns are set
-            $detail->commission = $request->input('commission', $detail->commission ?? 0.00);
-            $detail->margin = $request->input('margin', $detail->margin ?? 0.00);
-            $detail->discount = $request->input('discount', $detail->discount ?? 0.00);
-            $detail->referral_bonus = $request->input('referral_bonus', $detail->referral_bonus ?? 0.00);
+            $detail->commission = is_numeric($request->commission) ? $request->commission : 0.00;
+            $detail->margin = is_numeric($request->margin) ? $request->margin : 0.00;
+            $detail->discount = is_numeric($request->discount) ? $request->discount : 0.00;
+            $detail->referral_bonus = is_numeric($request->referral_bonus) ? $request->referral_bonus : 0.00;
 
             $detail->save();
 
