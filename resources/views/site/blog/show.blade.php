@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="details-quote-content">
+                        {{-- <div class="details-quote-content">
                             <h4 class="title">{{ $blog->heading_three }}</h4>
                             <p>
                                 {!! $blog->description_three !!}
@@ -126,7 +126,7 @@
                                 </p>
                                 <h5 class="title">{{ $blog->author }}</h5>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="details-tags-box">
                             <div class="tags-link">
                                 <span> Tags</span>
@@ -143,7 +143,7 @@
                                 <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
                             </div>
                         </div>
-                        <div class="details-comment-content">
+                        {{-- <div class="details-comment-content">
                             <h4 class="details_title">Comments (2)</h4>
                             <div class="comment-auother-box">
                                 <div class="auother-image">
@@ -214,7 +214,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -265,7 +265,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="tj-sidebar-widget sidebar-tags">
+                        {{-- <div class="tj-sidebar-widget sidebar-tags">
                             <h5 class="details_title">Popular Tags</h5>
                             <div class="tagcloud">
                                 <a href="#"> Business</a>
@@ -278,7 +278,7 @@
                                 <a href="#">America</a>
                                 <a href="#">Maintenance</a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

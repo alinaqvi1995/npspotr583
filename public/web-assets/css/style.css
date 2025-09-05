@@ -1067,8 +1067,8 @@ body [class*=" icon-"]::before {
 }
 
 .tj-main-menu > ul > li.current-menu-item .active {
-    /* color: var(--tj-primary-color); */
-    color: #ff9900;
+    color: var(--tj-primary-color);
+    /* color: #ff9900; */
 }
 
 .tj-main-menu > ul > li.current-menu-item .active::before {
@@ -6934,7 +6934,8 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: #9b6f2a;
+    /* background: #9b6f2a; */
+    background: var(--tj-primary-color);
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     clip-path: polygon(100% 0, 50% 100%, 100% 100%);
     -webkit-clip-path: polygon(100% 0, 50% 100%, 100% 100%);
@@ -6951,7 +6952,8 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: #c4bf56;
+    background: var(--tj-primary-color);
+    /* background: #c4bf56; */
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     -webkit-clip-path: polygon(0 0, 0% 100%, 50% 100%);
     clip-path: polygon(0 0, 0% 100%, 50% 100%);
