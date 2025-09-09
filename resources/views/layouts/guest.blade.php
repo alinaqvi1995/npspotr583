@@ -204,6 +204,22 @@
         generateYearOptions($('.year-select'));
     </script>
 
+<script>
+$(document).ready(function () {
+    // Apply mask
+    $("#phone").inputmask({"mask": "(999) 999-9999"});
+
+    // Validation on form submit
+    $("form").on("submit", function (e) {
+        let rawPhone = $("#phone").inputmask("unmaskedvalue"); // get digits only
+        if (rawPhone.length !== 10) {
+            alert("Please enter a valid 10-digit US phone number.");
+            e.preventDefault(); // stop form submission
+        }
+    });
+});
+</script>
+
 
 </body>
 

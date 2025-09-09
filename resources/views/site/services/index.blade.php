@@ -54,7 +54,7 @@
                                         {{ $row->title }}
                                     </a>
                                 </h4>
-                                <p>{!! $row->description_one !!}</p>
+                                <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
                             </div>
                         </div>
                     </div>

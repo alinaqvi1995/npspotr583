@@ -95,9 +95,12 @@
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
                         <label>Phone:</label>
-                        <input id="phone" name="customer_phone" value="{{ old('customer_phone') }}" type="tel"
+                            <input id="phone" name="customer_phone" value="{{ old('customer_phone') }}" type="tel"
+                                placeholder="(123) 456-7890" required>
+                            <input type="hidden" name="country_code" id="country_code" />
+                        {{-- <input id="phone" name="customer_phone" value="{{ old('customer_phone') }}" type="tel"
                             placeholder="Customer Phone" required><input type="hidden" name="country_code"
-                            id="country_code" />
+                            id="country_code" /> --}}
                     </div>
                 </div>
                 <div class="col-xl-12">
@@ -118,4 +121,4 @@
 
     </div>
 </form>
-<script></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
