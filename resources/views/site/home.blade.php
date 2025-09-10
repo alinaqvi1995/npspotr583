@@ -156,57 +156,26 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Car Transport Service -->
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-8.jpg" alt="Car Transport Service" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-delivery-van"></i>
+                @foreach ($services as $row)
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                        <div class="service-item-three">
+                            <div class="service-image">
+                                <img src="{{ asset($row->image_one) }}" alt="Image" />
                             </div>
-                            <h4><a class="title" href="{{ route('services.car-shipping') }}">Car Transport Service</a>
-                            </h4>
-                            <p>Safe and reliable car transportation tailored to your schedule and destination.</p>
+                            <div class="service-content">
+                                <div class="service-icon">
+                                    <i class="flaticon-air-freight"></i>
+                                </div>
+                                <h4>
+                                    <a class="title" href="{{ route('services.show.detail', $row->slug) }}">
+                                        {{ $row->title }}
+                                    </a>
+                                </h4>
+                                <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Heavy Equipment Transport -->
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-9.jpg" alt="Heavy Equipment Services" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-cargo-ship-1"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services.heavy-equipment-shipping') }}">Heavy Equipment
-                                    Services</a></h4>
-                            <p>Expert transport solutions for construction, farming, and commercial heavy equipment.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Motorcycle Transport Service -->
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-10.jpg" alt="Motorcycle Transport Service" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-air-freight"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}">Motorcycle Transport
-                                    Service</a></h4>
-                            <p>Safe and reliable motorcycle transportation tailored to your schedule and destination safely.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -593,131 +562,60 @@
         <div class="container">
             <div class="row">
                 <div class="tj-section-heading text-center">
-                    <span class="sub-title active-shape"> Latest News</span>
-                    <h2 class="title">Industry Insights & Company Updates</h2>
+                    <span class="sub-title active-shape"> Latest Blogs</span>
+                    <h2 class="title">Insights & Industry Updates</h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                    <div class="tj-blog-item-three">
-                        <div class="tj-blog-image">
-                            <a href=""><img src="web-assets/images/blog/blog-5.jpg" alt="Blog" /></a>
-                        </div>
-                        <div class="meta-date">
-                            <ul class="list-gap">
-                                <li>10</li>
-                                <li>Jul</li>
-                            </ul>
-                        </div>
-                        <div class="blog-content-area">
-                            <div class="blog-meta">
-                                <div class="meta-list">
-                                    <ul class="list-gap">
-                                        <li><i class="fa-light fa-user"></i><a href="#"> Admin</a></li>
-                                        <li><i class="fa-light fa-comment"></i> <span> Comment (8)</span></li>
-                                    </ul>
-                                </div>
+                @foreach ($blogs as $blog)
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                        <div class="tj-blog-item">
+                            <div class="tj-blog-image">
+                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                    <img src="{{ asset($blog->image_one) }}" alt="Blog" class="blog-img" />
+                                </a>
                             </div>
-                            <div class="blog-text-box">
-                                <div class="blog-header">
-                                    <h4>
-                                        <a class="title-link" href="">
-                                            Top 5 Tips for Efficient Vehicle Transport</a>
-                                    </h4>
+                            <div class="blog-content-area">
+                                <div class="blog-meta">
+                                    <div class="meta-date">
+                                        <ul class="list-gap">
+                                            <li>{{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</li>
+                                            <li>{{ $blog->created_at ? $blog->created_at->format('M') : '-' }}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="meta-list">
+                                        <ul class="list-gap">
+                                            <li>
+                                                <i class="fa-light fa-user"></i>
+                                                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->author }}</a>
+                                            </li>
+                                            <li><i class="fa-light fa-comment"></i> <span> Comment (5)</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="blog-button">
-                                    <ul class="list-gap">
-                                        <li>
-                                            <a href="">
-                                                Read More <i class="fa-regular fa-arrow-right"></i>
+                                <div class="blog-text-box">
+                                    <div class="blog-header">
+                                        <h4>
+                                            <a class="title-link" href="{{ route('blog.show', $blog->slug) }}">
+                                                {{ $blog->title }}
                                             </a>
-                                        </li>
-                                    </ul>
+                                        </h4>
+                                        <p>{!! Str::limit(strip_tags($blog->description_one), 100, '...') !!}</p>
+                                    </div>
+                                    <div class="blog-button">
+                                        <ul class="list-gap">
+                                            <li>
+                                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                                    Read More <i class="fa-regular fa-arrow-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
-                    <div class="tj-blog-item-three">
-                        <div class="tj-blog-image">
-                            <a href=""><img src="web-assets/images/blog/blog-6.jpg" alt="Blog" /></a>
-                        </div>
-                        <div class="meta-date">
-                            <ul class="list-gap">
-                                <li>05</li>
-                                <li>Aug</li>
-                            </ul>
-                        </div>
-                        <div class="blog-content-area">
-                            <div class="blog-meta">
-                                <div class="meta-list">
-                                    <ul class="list-gap">
-                                        <li><i class="fa-light fa-user"></i><a href="#"> Admin</a></li>
-                                        <li><i class="fa-light fa-comment"></i> <span> Comment (12)</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-text-box">
-                                <div class="blog-header">
-                                    <h4>
-                                        <a class="title-link" href="">
-                                            Understanding Enclosed vs Open Auto Transport</a>
-                                    </h4>
-                                </div>
-                                <div class="blog-button">
-                                    <ul class="list-gap">
-                                        <li>
-                                            <a href="">
-                                                Read More <i class="fa-regular fa-arrow-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
-                    <div class="tj-blog-item-three">
-                        <div class="tj-blog-image">
-                            <a href=""><img src="web-assets/images/blog/blog-7.jpg" alt="Blog" /></a>
-                        </div>
-                        <div class="meta-date">
-                            <ul class="list-gap">
-                                <li>20</li>
-                                <li>Sep</li>
-                            </ul>
-                        </div>
-                        <div class="blog-content-area">
-                            <div class="blog-meta">
-                                <div class="meta-list">
-                                    <ul class="list-gap">
-                                        <li><i class="fa-light fa-user"></i><a href="#"> Admin</a></li>
-                                        <li><i class="fa-light fa-comment"></i> <span> Comment (7)</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-text-box">
-                                <div class="blog-header">
-                                    <h4>
-                                        <a class="title-link" href="">
-                                            How to Prepare Your Vehicle for Transport</a>
-                                    </h4>
-                                </div>
-                                <div class="blog-button">
-                                    <ul class="list-gap">
-                                        <li>
-                                            <a href="">
-                                                Read More <i class="fa-regular fa-arrow-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

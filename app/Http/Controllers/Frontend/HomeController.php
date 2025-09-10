@@ -5,17 +5,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\VehicleMakeModel;
+use App\Models\Blog;
+use App\Models\Service;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $services = Service::where('status', 1)->latest()->take(3)->get();
+        $blogs = Blog::latest()->take(3)->get();
         $makes = VehicleMakeModel::select('make')
             ->distinct()
             ->orderBy('make')
             ->pluck('make');
 
-        return view('site.home', compact('makes'));
+        return view('site.home', compact('services','makes','blogs'));
     }
     public function getModels(Request $request)
     {
@@ -31,15 +35,15 @@ class HomeController extends Controller
 
         return response()->json($models);
     }
- public function getMakes($year = null)
-{
-    $makes = VehicleMakeModel::select('make')
-        ->distinct()
-        ->orderBy('make')
-        ->pluck('make');
+    public function getMakes($year = null)
+    {
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
 
-    return response()->json($makes);
-}
+        return response()->json($makes);
+    }
 
 
     public function privacy()

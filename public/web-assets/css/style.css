@@ -3778,7 +3778,9 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 .choose-us-step-item:hover p::before {
     background-color: var(--tj-primary-color);
 }
-
+.trq-1 {
+    max-width: 590px !important;
+}
 .tj-input-form {
     background: var(--tj-primary-color);
     border-radius: 3px;
