@@ -21,7 +21,7 @@ use App\Http\Controllers\Auth\OtpController;
 
 // 🔹 Static pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::view('/about', 'site.about')->name('about');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::view('/contact', 'site.contact')->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
 

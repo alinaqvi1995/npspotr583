@@ -21,6 +21,17 @@ class HomeController extends Controller
 
         return view('site.home', compact('services','makes','blogs'));
     }
+    public function about()
+    {
+        $services = Service::where('status', 1)->latest()->take(3)->get();
+        $blogs = Blog::latest()->take(3)->get();
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+
+        return view('site.about', compact('services','makes','blogs'));
+    }
     public function getModels(Request $request)
     {
         $make = $request->query('make');
