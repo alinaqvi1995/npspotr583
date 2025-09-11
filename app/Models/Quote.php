@@ -232,12 +232,12 @@ class Quote extends Model
 
     public function pickupPhones()
     {
-        return $this->phones()->where('type', 'pickup');
+        return $this->pickupLocation ? $this->pickupLocation->phones() : $this->hasMany(QuotePhone::class)->whereRaw('0=1');
     }
 
     public function deliveryPhones()
     {
-        return $this->phones()->where('type', 'delivery');
+        return $this->deliveryLocation ? $this->deliveryLocation->phones() : $this->hasMany(QuotePhone::class)->whereRaw('0=1');
     }
 
     public function locations()

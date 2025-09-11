@@ -225,6 +225,67 @@
                                         <label class="form-label">VIN</label>
                                         <input type="text" name="vehicles[1][vin]" class="form-control">
                                     </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Length (ft)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][length_ft]">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Width (ft)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][width_ft]">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Height (ft)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][height_ft]">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Weight (lbs)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][weight]">
+                                    </div>
+
+                                    <!-- Condition & Trailer -->
+                                    <div class="col-md-3">
+                                        <label class="form-label">Condition</label>
+                                        <select name="vehicles[1][condition]" class="form-select">
+                                            <option value="Running" selected>Running
+                                            </option>
+                                            <option value="Non-Running">
+                                                Non-Running</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Trailer Type only for heavy equipment and RV -->
+                                    <div class="col-md-3">
+                                        <label class="form-label">Trailer Type</label>
+                                        <select name="vehicles[1][trailer_type]" class="form-select">
+                                            <option value="Open Trailer" selected>
+                                                Open Trailer
+                                            </option>
+                                            <option value="Enclosed Trailer">
+                                                Enclosed Trailer</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Booleans -->
+                                    <div class="col-md-2">
+                                        <label class="form-label">Modified</label><br>
+                                        <input type="hidden" name="vehicles[1][modified]" value="0">
+                                        <input type="checkbox" name="vehicles[1][modified]" value="1">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="form-label">Modified Info</label>
+                                        <input type="text" class="form-control" name="vehicles[1][modified_info]">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="form-label">Auction</label><br>
+                                        <input type="hidden" name="vehicles[1][available_at_auction]" value="0">
+                                        <input type="checkbox" name="vehicles[1][available_at_auction]" value="1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Auction Link</label>
+                                        <input type="text" class="form-control" name="vehicles[1][available_link]">
+                                    </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Images</label>
                                         <input type="file" name="images[1][]" class="form-control image-input"
@@ -252,8 +313,8 @@
                             <div class="col-md-4">
                                 <label class="form-label">Date Available to Ship <span
                                         class="text-danger">*</span></label>
-                                <input type="date" class="form-control" name="dates[available_date]"
-                                    value="{{ old('dates.available_date', $quote->dates['available_date'] ?? '') }}">
+                                <input type="date" class="form-control" name="dates[pickup_date]"
+                                    value="{{ old('dates.pickup_date', $quote->dates['pickup_date'] ?? '') }}">
                                 <small class="text-muted">Select up to 30 days from your creation date</small>
                             </div>
 
@@ -268,8 +329,8 @@
                             <!-- Desired Delivery Date -->
                             <div class="col-md-4">
                                 <label class="form-label">Desired Delivery Date</label>
-                                <input type="date" class="form-control" name="dates[desired_delivery_date]"
-                                    value="{{ old('dates.desired_delivery_date', $quote->dates['desired_delivery_date'] ?? '') }}">
+                                <input type="date" class="form-control" name="dates[delivery_date]"
+                                    value="{{ old('dates.delivery_date', $quote->dates['delivery_date'] ?? '') }}">
                                 <small class="text-muted">Optional field</small>
                             </div>
 
@@ -287,35 +348,35 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Amount to Pay Carrier <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="pricing[amount_to_pay]"
+                                <input type="number" step="0.01" class="form-control" name="pricing[amount_to_pay]"
                                     value="{{ old('pricing.amount_to_pay', $quote->pricing['amount_to_pay'] ?? '') }}"
                                     placeholder="Enter amount to pay carrier">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">COP/COD</label>
-                                <input type="text" class="form-control" name="pricing[cop_cod]"
+                                <input type="number" step="0.01" class="form-control" name="pricing[cop_cod]"
                                     value="{{ old('pricing.cop_cod', $quote->pricing['cop_cod'] ?? '') }}"
                                     placeholder="COP/COD">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">COP/COD Amount <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="pricing[cop_cod_amount]"
+                                <input type="number" step="0.01" class="form-control" name="pricing[cop_cod_amount]"
                                     value="{{ old('pricing.cop_cod_amount', $quote->pricing['cop_cod_amount'] ?? '') }}"
                                     placeholder="0.00">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Balance</label>
-                                <input type="text" class="form-control" name="pricing[balance]"
+                                <input type="number" step="0.01" class="form-control" name="pricing[balance]"
                                     value="{{ old('pricing.balance', $quote->pricing['balance'] ?? '') }}"
                                     placeholder="Balance Amount">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Balance Amount</label>
-                                <input type="text" class="form-control" name="pricing[balance_amount]"
+                                <input type="number" step="0.01" class="form-control" name="pricing[balance_amount]"
                                     value="{{ old('pricing.balance_amount', $quote->pricing['balance_amount'] ?? '') }}"
                                     placeholder="0.00">
                             </div>
@@ -409,7 +470,7 @@
 @section('extra_js')
     <script>
         $(document).ready(function() {
-            let vehicleIndex = 1;
+            let vehicleIndex = $('.vehicle-item').length;
             const currentYear = new Date().getFullYear();
 
             // ✅ Generate years for dropdown
@@ -421,26 +482,38 @@
             }
             generateYearOptions($('.year-select'));
 
-            // ✅ Add Vehicle
+            // Add Vehicle
             $('#addVehicleBtn').click(function() {
-                vehicleIndex++;
                 const $clone = $('.vehicle-item').first().clone();
 
-                $clone.attr('data-index', vehicleIndex);
-                $clone.find('input, select').each(function() {
-                    const name = $(this).attr('name').replace(/\d+/, vehicleIndex);
-                    $(this).attr('name', name).val('');
+                // Reset inputs
+                $clone.find('input[type="text"], input[type="number"], input[type="hidden"]').val('');
+                $clone.find('input[type="checkbox"]').prop('checked', false);
+
+                // Reset selects
+                $clone.find('select').each(function() {
+                    const defaultSelected = $(this).find('option[selected]').val() || '';
+                    $(this).val(defaultSelected);
                 });
 
                 $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
-                $clone.find('h6').text('Vehicle #' + vehicleIndex);
+                $clone.find('h6').text('Vehicle #'); // temporarily blank, will fix in renumber
                 $clone.find('.image-preview').html('');
                 $clone.find('.text-end').html(
                     '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
                 );
 
                 $('#vehiclesContainer').append($clone);
-                generateYearOptions($clone.find('.year-select'));
+
+                // ✅ Renumber all vehicles after adding
+                renumberVehicles();
+
+                // ✅ Generate years for the new vehicle
+                const currentYear = new Date().getFullYear();
+                $clone.find('.year-select').empty().append('<option value="">-- Year --</option>');
+                for (let y = currentYear; y >= currentYear - 30; y--) {
+                    $clone.find('.year-select').append('<option value="' + y + '">' + y + '</option>');
+                }
             });
 
             // ✅ Delete Vehicle
@@ -498,10 +571,22 @@
                     const newIndex = index + 1;
                     $(this).attr('data-index', newIndex);
                     $(this).find('h6').text('Vehicle #' + newIndex);
+
                     $(this).find('input, select').each(function() {
-                        const name = $(this).attr('name').replace(/\d+/, newIndex);
-                        $(this).attr('name', name);
+                        const oldName = $(this).attr('name');
+                        if (!oldName) return;
+
+                        // Replace only the first number inside 'vehicles[...]'
+                        const newName = oldName.replace(/vehicles\[\d+\]/, `vehicles[${newIndex}]`);
+                        $(this).attr('name', newName);
                     });
+
+                    // ✅ Update image input name
+                    $(this).find('.image-input').attr('name', `images[${newIndex}][]`);
+
+                    // Reset file input and image preview
+                    $(this).find('.image-input').val('');
+                    $(this).find('.image-preview').html('');
                 });
             }
 

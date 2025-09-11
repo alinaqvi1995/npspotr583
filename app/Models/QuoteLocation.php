@@ -32,7 +32,7 @@ class QuoteLocation extends Model
     protected $casts = [
         'twic' => 'boolean',
     ];
-    
+
     public function getFullLocationAttribute()
     {
         return "{$this->city}, {$this->state}, {$this->zip}";
@@ -77,6 +77,6 @@ class QuoteLocation extends Model
 
     public function phones()
     {
-        return $this->hasMany(QuotePhone::class);
+        return $this->hasMany(QuotePhone::class, 'quote_location_id');
     }
 }

@@ -130,8 +130,7 @@
             });
 
             // modal
-            ifroutename !=
-                $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
             $('.select2').select2({
                 theme: 'bootstrap-5',

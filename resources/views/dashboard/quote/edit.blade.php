@@ -332,8 +332,8 @@
                             <div class="col-md-4">
                                 <label class="form-label">Date Available to Ship <span
                                         class="text-danger">*</span></label>
-                                <input type="date" class="form-control" name="dates[available_date]"
-                                    value="{{ old('dates.available_date', optional($quote->pickup_date)->format('Y-m-d')) }}">
+                                <input type="date" class="form-control" name="dates[pickup_date]"
+                                    value="{{ old('dates.pickup_date', optional($quote->pickup_date)->format('Y-m-d')) }}">
                                 <small class="text-muted">Select up to 30 days from your creation date</small>
                             </div>
 
@@ -348,8 +348,8 @@
                             <!-- Desired Delivery Date -->
                             <div class="col-md-4">
                                 <label class="form-label">Desired Delivery Date</label>
-                                <input type="date" class="form-control" name="dates[desired_delivery_date]"
-                                    value="{{ old('dates.desired_delivery_date', optional($quote->delivery_date)->format('Y-m-d')) }}">
+                                <input type="date" class="form-control" name="dates[delivery_date]"
+                                    value="{{ old('dates.delivery_date', optional($quote->delivery_date)->format('Y-m-d')) }}">
                                 <small class="text-muted">Optional field</small>
                             </div>
                         </div>
