@@ -116,28 +116,30 @@
 
     @yield('extra_js')
 
-    <script>
-        // Initialize DataTable
-        let table = $('.datatable').DataTable({
-            "paging": true,
-            "pageLength": 10,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
-        });
+    @if (Route::currentRouteName() !== 'reports.quotes.histories')
+        <script>
+            // Initialize DataTable
+            let table = $('.datatable').DataTable({
+                "paging": true,
+                "pageLength": 10,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
 
-        // modal
-        $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            // modal
+            ifroutename !=
+                $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
-        $('.select2').select2({
-            theme: 'bootstrap-5',
-            width: '100%',
-            allowClear: true,
-        });
-    </script>
-
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                allowClear: true,
+            });
+        </script>
+    @endif
 
     <script src="{{ asset('admin/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('admin/js/main.js') }}"></script>
