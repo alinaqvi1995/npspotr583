@@ -17,9 +17,8 @@
                         <span class="material-icons-outlined fs-5">more_vert</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
+                        <li><a class="dropdown-item" href="javascript:;">Export</a></li>
+                        <li><a class="dropdown-item" href="javascript:;">Download</a></li>
                     </ul>
                 </div>
             </div>
@@ -30,7 +29,6 @@
                     <option value="1">Customer</option>
                     <option value="2">Vehicles</option>
                     <option value="3">Pickup / Delivery</option>
-                    {{-- <option value="3">Status</option> --}}
                 </select>
                 <input class="form-control rounded-5 px-3" type="text" placeholder="Search..." id="quoteSearch">
             </div>
@@ -57,7 +55,6 @@
                                     <small>{{ $quote->customer_phone }}</small>
                                 </td>
                                 <td>
-                                    {{-- <strong>Total: {{ $quote->vehicles->count() }}</strong> --}}
                                     @foreach ($quote->vehicles as $vehicle)
                                         <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
                                         </p>
@@ -84,11 +81,28 @@
                                 </td>
                                 <td>{!! $quote->status_label !!}</td>
                                 <td>
-                                    @can('edit-quotes')
-                                        <a href="{{ route('dashboard.quotes.edit', $quote->id) }}" class="btn btn-sm btn-info">
-                                            <i class="material-icons-outlined">edit</i>
-                                        </a>
-                                    @endcan
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light border dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown">
+                                            Actions
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            @can('edit-quotes')
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('dashboard.quotes.edit', $quote->id) }}">
+                                                        <i class="material-icons-outlined fs-6 me-1">edit</i> Edit Quote
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            <li>
+                                                <a class="dropdown-item send-order-form" href="javascript:;"
+                                                    data-id="{{ $quote->id }}">
+                                                    <i class="material-icons-outlined fs-6 me-1">send</i> Send Order Form
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
@@ -99,13 +113,57 @@
 
         </div>
     </div>
+
+    <!-- Send Order Form Modal -->
+    <div class="modal fade" id="sendOrderFormModal" tabindex="-1" aria-labelledby="sendOrderFormLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg border-0 rounded-3">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title d-flex align-items-center" id="sendOrderFormLabel">
+                        <i class="material-icons-outlined me-2">send</i> Send Order Form
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form method="POST" action="{{ route('dashboard.quotes.sendOrderForm') }}">
+                    @csrf
+                    <input type="hidden" name="quote_id" id="orderFormQuoteId">
+
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Recipient Email</label>
+                            <input type="email" name="email" class="form-control rounded-3"
+                                placeholder="Enter recipient email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Quote Price</label>
+                            <input type="text" name="number" class="form-control rounded-3"
+                                placeholder="Enter recipient name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Description</label>
+                            <textarea name="description" class="form-control rounded-3" rows="4" placeholder="Write your message..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-sm btn-secondary rounded-3 px-4"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary rounded-3 px-4">
+                            <i class="material-icons-outlined me-1 fs-6">send</i> Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('extra_js')
     <script>
         $(document).ready(function() {
 
-            // Initialize DataTable
+            // DataTable
             var table = $('#quoteTable').DataTable({
                 pageLength: 10,
                 autoWidth: false,
@@ -113,13 +171,12 @@
                     [0, 'asc']
                 ],
                 columnDefs: [{
-                        orderable: false,
-                        targets: [1, 4]
-                    } // Vehicles & Actions not sortable
-                ]
+                    orderable: false,
+                    targets: [1, 4, 5]
+                }]
             });
 
-            // Column-specific filter
+            // Column filter
             $('#quoteSearch').on('keyup', function() {
                 var colIndex = $('#columnFilter').val();
                 if (colIndex === '') {
@@ -129,6 +186,12 @@
                 }
             });
 
+            // Open modal with quote ID
+            $(document).on('click', '.send-order-form', function() {
+                let quoteId = $(this).data('id');
+                $('#orderFormQuoteId').val(quoteId);
+                $('#sendOrderFormModal').modal('show'); // ✅ fixed ID
+            });
         });
     </script>
 @endsection

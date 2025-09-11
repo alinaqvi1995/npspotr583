@@ -66,6 +66,11 @@ Route::get('/verify-otp', [OtpController::class, 'showVerifyForm'])->name('verif
 Route::post('/verify-otp', [OtpController::class, 'verifyOtp'])->name('verify.otp.post');
 Route::get('/resend-otp', [OtpController::class, 'resendOtp'])->name('resend.otp');
 
+// order form for customer
+Route::get('/quotes/{quote}/order-form', [QuoteManagementController::class, 'orderForm'])
+    ->name('dashboard.quotes.orderForm');
+Route::post('/quote/{quote}/submit-order-form', [QuoteManagementController::class, 'submitOrderForm'])
+    ->name('site.quote.submitOrderForm');
 
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
@@ -113,6 +118,10 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     // quote report
     Route::get('/reports/quotes-histories', [ReportController::class, 'quotesHistoriesReport'])
         ->name('reports.quotes.histories');
+
+    // send order
+    Route::post('/dashboard/quotes/send-order-form', [QuoteManagementController::class, 'sendOrderForm'])
+        ->name('dashboard.quotes.sendOrderForm');
 });
 
 require __DIR__ . '/auth.php';
