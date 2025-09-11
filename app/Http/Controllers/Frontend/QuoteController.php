@@ -333,7 +333,8 @@ class QuoteController extends Controller
             DB::commit();
 
             // return redirect()->route('dashboard.quotes.index')->with('success', 'Quote submitted successfully');
-            return redirect()->back()->with('success', 'Quote submitted successfully');
+            // return redirect()->back()->with('success', 'Quote submitted successfully');
+            return redirect()->route('frontend.thankyou')->with('success', 'Quote submitted successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Failed to submit quote: ' . $e->getMessage()])->withInput();

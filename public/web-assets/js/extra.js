@@ -1,22 +1,87 @@
-function showStep(stepId) {
+// function showStep(stepId) {
+//     document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
+//         .forEach(div => div.style.display = "none");
+//     document.getElementById(stepId).style.display = "block";
+// }
+// document.addEventListener('DOMContentLoaded', () => {
+//     document.getElementById('pickup-location')?.addEventListener('input', function () {
+//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
+//     });
+//     document.getElementById('delivery-location')?.addEventListener('input', function () {
+//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
+//     });
+
+//     document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
+//     document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
+//     document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
+//     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
+// });
+
+function validateStep(stepId) {
+    let isValid = true;
+    const stepDiv = document.getElementById(stepId);
+
+    // Reset any previous error messages
+    if (stepId === "step2") {
+        const errorMsg = stepDiv.querySelector(".vehicle-error");
+        if (errorMsg) errorMsg.style.display = "none";
+    }
+
+    // Special case: Step 2 must have at least one vehicle
+    if (stepId === "step2") {
+        const vehicleBlocks = stepDiv.querySelectorAll(".vehicle-block");
+        if (vehicleBlocks.length === 0) {
+            isValid = false;
+            const errorMsg = stepDiv.querySelector(".vehicle-error");
+            if (errorMsg) errorMsg.style.display = "block";
+        }
+    }
+
+    // General input validation
+    stepDiv.querySelectorAll("input[required], select[required], textarea[required]").forEach(el => {
+        if (!el.value.trim()) {
+            isValid = false;
+            el.classList.add("is-invalid");
+        } else {
+            el.classList.remove("is-invalid");
+        }
+    });
+
+    return isValid;
+}
+
+function showStep(stepId, currentStepId = null) {
+    if (currentStepId && !validateStep(currentStepId)) {
+        // Stop silently (errors already shown inline)
+        return;
+    }
+
+    // Hide all steps
     document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
         .forEach(div => div.style.display = "none");
+
+    // Show requested step
     document.getElementById(stepId).style.display = "block";
+
+    // Scroll user to top of form
+    document.getElementById("calculatePriceFrom").scrollIntoView({ behavior: "smooth" });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('pickup-location')?.addEventListener('input', function () {
-        fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
-    });
-    document.getElementById('delivery-location')?.addEventListener('input', function () {
-        fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
-    });
-
-    document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
+    // Step navigation
+    document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2', 'step1'));
     document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
-    document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
+    document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3', 'step2'));
     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
+
+    // Final validation on form submit (Step 3)
+    document.getElementById("calculatePriceFrom").addEventListener("submit", function (e) {
+        if (!validateStep("step3")) {
+            e.preventDefault();
+        }
+    });
 });
+
 
 $(document).ready(function () {
     let vehicleIndex = 0;
@@ -113,7 +178,7 @@ $(document).ready(function () {
         if (selected) {
             vehicleIndex = 0;
             $("#firstVehicle").html(`
-                <div class="vehicle-block vehicle-item main-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <div class="vehicle-block vehicle-item main-vehicle" style=" margin-bottom:10px;">
                     <input type="hidden" name="vehicles[${vehicleIndex}][type]" value="${selected}">
                     <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
                     ${getVehicleFields(selected, vehicleIndex)}
@@ -132,7 +197,7 @@ $(document).ready(function () {
 
         vehicleIndex++;
         const vehicleHtml = `
-            <div class="vehicle-block vehicle-item extra-vehicle" style="border:1px solid #ccc; padding:10px; margin-bottom:10px; position:relative; display:none;">
+            <div class="vehicle-block vehicle-item extra-vehicle" style=" margin-bottom:10px; position:relative; display:none;">
                 <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
                 <input type="hidden" name="vehicles[${vehicleIndex}][type]" value="${selected}">
                 <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
@@ -196,3 +261,17 @@ function generateYearOptions($select) {
         $select.append(`<option value="${year}">${year}</option>`);
     }
 }
+
+$(document).ready(function () {
+    // Apply mask
+    $("#phone").inputmask({"mask": "(999) 999-9999"});
+
+    // Validation on form submit
+    $("form").on("submit", function (e) {
+        let rawPhone = $("#phone").inputmask("unmaskedvalue"); // get digits only
+        if (rawPhone.length !== 10) {
+            // alert("Please enter a valid 10-digit US phone number.");
+            e.preventDefault(); // stop form submission
+        }
+    });
+});
