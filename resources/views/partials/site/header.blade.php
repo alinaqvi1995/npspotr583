@@ -114,9 +114,6 @@
                                     <img src="web-assets/images/logo/logo_001.png" alt="Bridgeway Logistics LLC" />
                                 </a>
                             </div>
-                            <div class="search_close">
-                                <a class="search_close_btn" href="#"><i class="fa-regular fa-xmark"></i></a>
-                            </div>
                         </div>
                         <div class="search_form">
                             <form action="search-results.html" method="GET">

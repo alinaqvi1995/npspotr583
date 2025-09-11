@@ -47,6 +47,8 @@ Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.m
 
 // submit quote
 Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
+Route::get('/thank-you', function () {return view('frontend.thankyou');})->name('frontend.thankyou');
+
 
 // 🔹 Blog
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('blog.index');

@@ -180,13 +180,6 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="details-sidebar-inner">
-                        <div class="tj-sidebar-widget sidebar-search">
-                            <form action="#">
-                                <input type="text" class="form-control" name="search" id="search"
-                                    placeholder="Search" />
-                                <i class="flaticon-loupe"></i>
-                            </form>
-                        </div>
                         <div class="tj-sidebar-widget sidebar-service">
                             <h5 class="details_title">Logistics Services</h5>
                             <ul class="list-gap">
@@ -198,53 +191,8 @@
                                         </a>
                                     </li>
                                 @endforeach
-                                {{-- <li>
-                                    <a href="#"
-                                        >Ocean Transport
-                                        <i class="flaticon-right-chevron"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        >Road Transport
-                                        <i class="flaticon-right-chevron"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        >Train Transportation
-                                        <i class="flaticon-right-chevron"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        >Vegetative Roofing
-                                        <i class="flaticon-right-chevron"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        >Air Freight Service
-                                        <i class="flaticon-right-chevron"></i>
-                                    </a>
-                                </li> --}}
                             </ul>
                         </div>
-                        {{-- <div class="tj-sidebar-widget sidebar-documents">
-                            <h5 class="details_title">Documents</h5>
-                            <ul class="list-gap">
-                                <li>
-                                    <a href="#">
-                                        Our Company Details <br />
-                                        [450KB] <i class="fa-solid fa-cloud-arrow-down"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Our Company Details <br />
-                                        [450KB] <i class="fa-solid fa-cloud-arrow-down"></i></a>
-                                </li>
-                            </ul>
-                        </div> --}}
                         <div class="tj-appointment-box"
                             data-bg-image="{{ asset('web-assets/images/service/service-15.jpg') }}">
                             <div class="tj-appointment-bg"
@@ -256,7 +204,7 @@
                                 </div>
                                 <div class="appointment-content text-center">
                                     <h4 class="title">Make An Appointment</h4>
-                                    <a class="tel-link" href="tel:+51-(0)-888-455-369"> +51-(0)-888-455-369</a>
+                                    <a class="tel-link" href="tel:+1 (713) 470-6157"> +1 (713) 470-6157</a>
                                     <p>Perfectly simple & easy to distinguish free hour when power.</p>
                                     <div class="tj-theme-button">
                                         <button class="tj-transparent-btn submit-btn2" type="submit" value="submit">

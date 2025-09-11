@@ -89,6 +89,9 @@
     <script src="{{ asset('web-assets/js/modernizr-2.8.3.min.js') }}"></script>
     <!-- jQuery.min JS -->
     <script src="{{ asset('web-assets/js/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
+
     <!-- Bootstrap.min JS -->
     <script src="{{ asset('web-assets/js/bootstrap.min.js') }}"></script>
     <!-- Meanmenu JS -->
@@ -145,52 +148,71 @@
                 }
             });
             
-            function bindSearch(inputId, suggestionBoxId) {
-                let selected = false;
-                $(inputId).on('keyup', function() {
-                    let query = $(this).val();
-                    selected = false;
-                    if (query.length < 2) {
-                        $(suggestionBoxId).hide();
-                        return;
-                    }
-                    $.ajax({
-                        url: "{{ route('zipcode.searchByLocation') }}",
-                        data: {
-                            q: query
-                        },
-                        success: function(data) {
-                            let html = '';
-                            if (data.length > 0) {
-                                data.forEach(item => {
-                                    html +=
-                                        `<div class="suggestion-item">${item.label}</div>`;
-                                });
-                            } else {
-                                html = '<div>No results found</div>';
-                            }
-                            $(suggestionBoxId).html(html).show();
-                        }
+function bindSearch(inputId, suggestionBoxId) {
+    let selected = false;
+
+    $(inputId).on('keyup', function () {
+        let query = $(this).val();
+        selected = false;
+
+        // Remove old error when typing
+        $(inputId).removeClass('is-invalid');
+        $(inputId).siblings('.invalid-feedback').remove();
+
+        if (query.length < 2) {
+            $(suggestionBoxId).slideUp(200);
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('zipcode.searchByLocation') }}",
+            data: { q: query },
+            success: function (data) {
+                let html = '';
+                if (data.length > 0) {
+                    data.forEach(item => {
+                        html += `<div class="suggestion-item">${item.label}</div>`;
                     });
-                });
-                $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
-                    $(inputId).val($(this).text());
-                    $(suggestionBoxId).hide();
-                    selected = true;
-                });
-                $(document).on('click', function(e) {
-                    if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId)
-                        .length) {
-                        $(suggestionBoxId).hide();
-                    }
-                });
-                $('form').on('submit', function(e) {
-                    if (!selected) {
-                        e.preventDefault();
-                        alert('Please select a location from the suggestions.');
-                    }
-                });
+                } else {
+                    html = '<div class="p-2 text-muted">No results found</div>';
+                }
+
+                $(suggestionBoxId).html(html).stop(true, true).slideDown(200);
             }
+        });
+    });
+
+    // On selecting suggestion
+    $(document).on('click', suggestionBoxId + ' .suggestion-item', function () {
+        $(inputId).val($(this).text());
+        $(suggestionBoxId).slideUp(200);
+        selected = true;
+    });
+
+    // Close dropdown if clicked outside
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId).length) {
+            $(suggestionBoxId).slideUp(200);
+        }
+    });
+
+    // Validate on form submit
+    $('form').on('submit', function (e) {
+        if (!selected) {
+            e.preventDefault();
+
+            // Add error styling
+            if (!$(inputId).hasClass('is-invalid')) {
+                $(inputId).addClass('is-invalid')
+                    .after('<div class="invalid-feedback">Please select a location from the suggestions.</div>');
+            }
+
+            // Highlight dropdown
+            $(suggestionBoxId).stop(true, true).slideDown(200);
+        }
+    });
+}
+
             bindSearch('#pickup-location', '#pickup-suggestions');
             bindSearch('#delivery-location', '#delivery-suggestions');
         });
@@ -204,21 +226,7 @@
         generateYearOptions($('.year-select'));
     </script>
 
-<script>
-$(document).ready(function () {
-    // Apply mask
-    $("#phone").inputmask({"mask": "(999) 999-9999"});
 
-    // Validation on form submit
-    $("form").on("submit", function (e) {
-        let rawPhone = $("#phone").inputmask("unmaskedvalue"); // get digits only
-        if (rawPhone.length !== 10) {
-            alert("Please enter a valid 10-digit US phone number.");
-            e.preventDefault(); // stop form submission
-        }
-    });
-});
-</script>
 
 
 </body>
