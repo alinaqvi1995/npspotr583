@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\VehicleMakeModel;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
     public function index()
-    {
+    {        
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
         $services = Service::where('status', 1)->get();
-        return view('site.services.index', compact('services'));
+        return view('site.services.index', compact('services','makes'));
     }
 
     public function show($slug)

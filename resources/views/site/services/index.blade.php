@@ -54,81 +54,11 @@
                                         {{ $row->title }}
                                     </a>
                                 </h4>
-                                <p>{!! $row->description_one !!}</p>
+                                <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 3, '...') }}</p>
                             </div>
                         </div>
                     </div>
                 @endforeach
-                {{-- <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-9.jpg" alt="Image" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-cargo-ship-1"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Ocean Freight</a></h4>
-                            <p>Long established fact that reader will be distracted by the</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="500">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-10.jpg" alt="Image" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-delivery-van"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Road Transport</a></h4>
-                            <p>Long established fact that reader will be distracted by the</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="600">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-16.jpg" alt="Image" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-air-freight"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Third Party Logistics</a></h4>
-                            <p>Long established fact that reader will be distracted by the</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="700">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-17.jpg" alt="Image" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-cargo-ship-1"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Distribution Center</a></h4>
-                            <p>Long established fact that reader will be distracted by the</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="800">
-                    <div class="service-item-three">
-                        <div class="service-image">
-                            <img src="web-assets/images/service/service-18.jpg" alt="Image" />
-                        </div>
-                        <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-delivery-van"></i>
-                            </div>
-                            <h4><a class="title" href="{{ route('services.motorcycle-shipping') }}"> Train Transportation</a></h4>
-                            <p>Long established fact that reader will be distracted by the</p>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </section>
@@ -138,7 +68,7 @@
     <section class="tj-choose-us-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
+                <div class="col-lg-5" data-sal="slide-left" data-sal-duration="800">
                     <div class="choose-us-content-1">
                         <div class="tj-section-heading">
                             <span class="sub-title active-shape2"> Why Choose Us</span>
@@ -170,77 +100,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
-                    <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-                        <h4 class="title">Request a Quote</h4>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-form">
-                                    <label class="d-block"> Your Name:</label>
-                                    <input type="text" id="yourName" name="name" placeholder="First Name"
-                                        required="" />
-                                </div>
-                            </div>
+                <div class="col-lg-7" data-sal="slide-right" data-sal-duration="800">
+                    <div class="tj-input-form trq-1" data-bg-image="web-assets/images/banner/form-shape.png">
+                        <div id="make-options" class="d-none">
+                            @foreach ($makes as $make)
+                                <option value="{{ $make }}">{{ $make }}</option>
+                            @endforeach
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-form">
-                                    <label class="d-block"> Your Email:</label>
-                                    <input type="text" id="yourEmail" name="name" placeholder=" Email"
-                                        required="" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-form">
-                                    <label class="d-block"> Your Phone:</label>
-                                    <input type="text" id="yourPhone" name="name" placeholder="Phone"
-                                        required="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="tj-input-range">
-                                    <div class="d-flex flex-wrap justify-content-between">
-                                        <label> Distance (miles):</label>
-                                        <output class="output"></output>
-                                    </div>
-                                    <input class="tj-range-1" type="range" min="400" max="7000" step="10"
-                                        value="800" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row select-bm">
-                            <div class="col-md-6">
-                                <div class="input-form tj-select">
-                                    <label> Freight Type:</label>
-                                    <select class="nice-select">
-                                        <option value="2">Select</option>
-                                        <option value="1" disabled>Optimized Cost</option>
-                                        <option value="2">Delivery on Time</option>
-                                        <option value="3">Cargo</option>
-                                        <option value="4">Safety & Reliability</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-form tj-select">
-                                    <label> Load:</label>
-                                    <select class="nice-select">
-                                        <option value="2">Select</option>
-                                        <option value="1" disabled>Optimized Cost</option>
-                                        <option value="2">Delivery on Time</option>
-                                        <option value="3">Cargo</option>
-                                        <option value="4">Safety & Reliability</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tj-theme-button">
-                            <button class="tj-submit-btn" type="submit" value="submit">
-                                Submit Now <i class="fa-light fa-arrow-right"></i>
-                            </button>
-                        </div>
+                        @include('site.partials.multiform')
                     </div>
                 </div>
             </div>

@@ -44,9 +44,9 @@
 } 
 
 :root {
-    --tj-primary-color: linear-gradient(90deg,rgba(155, 110, 42, 1) 0%, rgba(199, 193, 87, 1) 100%);
+    --tj-primary-color: #fd5523;
     --tj-primary-color2: #ffd1c3;
-    --tj-primary-color3: #8f7b23;
+    --tj-primary-color3: #8f3c23;
     --tj-secondary-color: #062e39;
     --tj-body-color: #7c858c;
     --tj-white-color: #ffffff;
@@ -59,10 +59,9 @@
     --tj-gray-color5: #e1e1e1;
     --tj-gray-color6: #d9d9d9;
     --tj-gray-color7: #787878;
-    --tj-gray-color8: #eeff07;
+    --tj-gray-color8: #ffc107;
     --tj-gray-color10: #d3d3d3;
     --tj-gray-color11: #f4f4f4;
-
 }
 
 html,
@@ -1068,8 +1067,8 @@ body [class*=" icon-"]::before {
 }
 
 .tj-main-menu > ul > li.current-menu-item .active {
-    /* color: var(--tj-primary-color); */
-    color: #ff9900;
+    color: var(--tj-primary-color);
+    /* color: #ff9900; */
 }
 
 .tj-main-menu > ul > li.current-menu-item .active::before {
@@ -3779,7 +3778,9 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 .choose-us-step-item:hover p::before {
     background-color: var(--tj-primary-color);
 }
-
+.trq-1 {
+    max-width: 590px !important;
+}
 .tj-input-form {
     background: var(--tj-primary-color);
     border-radius: 3px;
@@ -6935,7 +6936,8 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: #9b6f2a;
+    /* background: #9b6f2a; */
+    background: var(--tj-primary-color);
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     clip-path: polygon(100% 0, 50% 100%, 100% 100%);
     -webkit-clip-path: polygon(100% 0, 50% 100%, 100% 100%);
@@ -6952,7 +6954,8 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     clear: both;
     display: block;
     content: "";
-    background: #c4bf56;
+    background: var(--tj-primary-color);
+    /* background: #c4bf56; */
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.1);
     -webkit-clip-path: polygon(0 0, 0% 100%, 50% 100%);
     clip-path: polygon(0 0, 0% 100%, 50% 100%);
@@ -7675,12 +7678,15 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     font-weight: 500;
     transition: all 0.4s;
     position: relative;
-    background: #9b6e2a; /* fallback */
-    background: linear-gradient(
+    background-color: var(--tj-primary-color);
+    /* background: #9b6e2a;  */
+    /* fallback */
+    /* background: linear-gradient(
         90deg,
         rgba(155, 110, 42, 1) 0%,
         rgba(199, 193, 87, 1) 100%
-    ); /* gradient */
+    );  */
+    /* gradient */
     overflow: hidden;
     z-index: 1;
     line-height: 1;
@@ -7692,7 +7698,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     left: 8px;
     bottom: 8px;
     border-right: 24px solid transparent;
-    border-bottom: 24px solid #c7c157;
+    border-bottom: 24px solid #f9724a;
     content: "";
     z-index: 2;
 }
@@ -7766,12 +7772,15 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     font-size: 18px;
     font-weight: 500;
     transition: all 0.3s;
-    background: #9b6e2a; /* fallback */
-    background: linear-gradient(
+    background-color: var(--tj-primary-color);
+    /* background: #9b6e2a;  */
+    /* fallback */
+    /* background: linear-gradient(
         90deg,
         rgba(155, 110, 42, 1) 0%,
         rgba(199, 193, 87, 1) 100%
-    ); /* gradient */
+    );  */
+    /* gradient */
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -7784,7 +7793,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     left: 8px;
     bottom: 8px;
     border-right: 25px solid transparent;
-    border-bottom: 25px solid rgba(199, 193, 87, 1);
+    border-bottom: 24px solid #f9724a;
     content: "";
     z-index: 2;
 }
@@ -8703,12 +8712,15 @@ PAGE LOAD ANIMATION
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    background: #9b6e2a; /* fallback */
-    background: linear-gradient(
+    background: var(--tj-primary-color2);
+    /* background: #9b6e2a; */
+     /* fallback */
+    /* background: linear-gradient(
         90deg,
         rgba(155, 110, 42, 1) 0%,
         rgba(199, 193, 87, 1) 100%
-    ); /* gradient */
+    );  */
+    /* gradient */
 }
 
 .preloader .tj-primary-btn {

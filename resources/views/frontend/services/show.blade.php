@@ -57,20 +57,20 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="check-list">
-                                    <h5 class="title">{{ $service->heading_two }}</h5>
+                                    <h5 class="title fs-4">{{ $service->heading_two }}</h5>
                                     <ul class="list-gap">
-                                        <li>
+                                        <li class="fw-0">
                                             <i class="fa-light fa-check"></i> {!! $service->description_two_one !!}
                                         </li>
-                                        <li><i class="fa-light fa-check"></i> {!! $service->description_two_two !!}</li>
-                                        <li>
+                                        <li class="fw-0"><i class="fa-light fa-check"></i> {!! $service->description_two_two !!}</li>
+                                        <li class="fw-0">
                                             <i class="fa-light fa-check"></i> {!! $service->description_two_three !!}
                                         </li>
-                                        <li>
+                                        <li class="fw-0">
                                             <i class="fa-light fa-check"></i> {!! $service->description_two_four !!}
                                         </li>
-                                        <li><i class="fa-light fa-check"></i> {!! $service->description_two_five !!}</li>
-                                        <li><i class="fa-light fa-check"></i> {!! $service->description_two_six !!}</li>
+                                        <li class="fw-0"><i class="fa-light fa-check"></i> {!! $service->description_two_five !!}</li>
+                                        <li class="fw-0"><i class="fa-light fa-check"></i> {!! $service->description_two_six !!}</li>
                                     </ul>
                                 </div>
                             </div>
