@@ -79,14 +79,13 @@
                                     <span>{{ $quote->pickup_date_formatted }}</span><br>
                                     <strong>Delivery:</strong><br>
                                     <a href="https://www.google.com/maps/search/{{ urlencode($quote->deliveryLocation->full_location) }}"
-                                        target="_blank">{{ $quote->pickupLocation->full_location }}</a><br>
+                                        target="_blank">{{ $quote->deliveryLocation->full_location }}</a><br>
                                     <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
                                 <td>{!! $quote->status_label !!}</td>
                                 <td>
                                     @can('edit-quotes')
-                                        <a href="{{ route('dashboard.quotes.edit', $quote->id) }}"
-                                            class="btn btn-sm btn-info">
+                                        <a href="{{ route('dashboard.quotes.edit', $quote->id) }}" class="btn btn-sm btn-info">
                                             <i class="material-icons-outlined">edit</i>
                                         </a>
                                     @endcan

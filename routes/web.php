@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\QuoteManagementController;
 use App\Http\Controllers\Backend\UserTrustedIpController;
 use App\Http\Controllers\ZipcodeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Auth\OtpController;
 
 // 🔹 Static pages
@@ -94,20 +95,24 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         Route::delete('/users/{id}', [UserManagementController::class, 'userDestroy'])->name('dashboard.users.destroy');
         Route::post('{user}/toggle-active', [UserManagementController::class, 'toggleActive'])->name('users.toggleActive');
         Route::post('{user}/force-logout', [UserManagementController::class, 'forceLogout'])->name('users.forceLogout');
-        
+
         Route::get('/activity_logs', [AdminController::class, 'activityLogs'])->name('view.activity_logs');
-        
+
         Route::resource('roles', RoleController::class);
-        
+
         Route::resource('permissions', PermissionController::class);
     });
-    
+
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');
     Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('dashboard.users.update');
 
     Route::resource('blogs', BackendBlogController::class);
 
     Route::resource('services', BackendServiceController::class);
+
+    // quote report
+    Route::get('/reports/quotes-histories', [ReportController::class, 'quotesHistoriesReport'])
+        ->name('reports.quotes.histories');
 });
 
 require __DIR__ . '/auth.php';
