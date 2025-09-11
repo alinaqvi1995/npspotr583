@@ -192,7 +192,7 @@
 
                             <label class="form-label">City, State, Zip</label>
                             <input type="text" class="form-control mb-2"
-                                value="{{ $quote->pickup_city }}, {{ $quote->pickup_state }}, {{ $quote->pickup_zip }}"
+                                value="{{ $quote->pickupLocation->full_location }}"
                                 readonly>
 
                             <label class="form-label">Contact</label>
@@ -224,7 +224,7 @@
 
                             <label class="form-label">City, State, Zip</label>
                             <input type="text" class="form-control mb-2"
-                                value="{{ $quote->delivery_city }}, {{ $quote->delivery_state }}, {{ $quote->delivery_zip }}"
+                                value="{{ $quote->deliveryLocation->full_location }}"
                                 readonly>
 
                             <label class="form-label">Contact</label>
