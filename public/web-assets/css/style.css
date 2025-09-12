@@ -590,6 +590,8 @@ textarea:focus {
     width: 100%;
     z-index: 9;
     padding-top: 0;
+    background-color: #0e2e3aab;
+    border-bottom: #ef5212 1px solid;
 }
 
 .header-section-three .tj-main-menu li a {

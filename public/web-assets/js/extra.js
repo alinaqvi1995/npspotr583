@@ -30,7 +30,7 @@ function showStep(stepId, currentStepId = null) {
     document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
         .forEach(div => div.style.display = "none");
     document.getElementById(stepId).style.display = "block";
-    document.getElementById("calculatePriceFrom").scrollIntoView({ behavior: "smooth" });
+    document.getElementById("calculatePriceFrom");
 }
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2', 'step1'));

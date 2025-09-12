@@ -162,7 +162,7 @@
                                         <a class="{{ request()->routeIs('all_services.index') ? 'active' : '' }}" href="{{ route('all_services.index') }}">Services</a>
                                     </li>
 
-                                    <li class="menu-item-has-children {{ request()->is('quote/*') ? 'active current-menu-item' : '' }}">
+                                    <li class=" {{ request()->is('quote/*') ? 'active current-menu-item' : '' }}">
                                         <a href="#">Get a Quote</a>
                                         <ul class="list-gap sub-menu-list">
                                             <li class="{{ request()->routeIs('quote.atv_utv') ? 'active current-menu-item' : '' }}">
