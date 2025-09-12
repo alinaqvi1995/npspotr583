@@ -12,7 +12,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $services = Service::where('status', 1)->latest()->take(4)->get();
+        $services = Service::where('status', 1)
+            ->whereRaw('id % 2 = 1') 
+            ->latest()
+            ->get();
         $blogs = Blog::latest()->take(3)->get();
         $makes = VehicleMakeModel::select('make')
             ->distinct()
