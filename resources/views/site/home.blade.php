@@ -161,7 +161,7 @@
                 <div class="row">
                     <div class="tj-section-heading text-center">
                         <span class="sub-title active-shape"> What We Do</span>
-                        <h2 class="title">Logistic & Transport</h2>
+                        <h2 class="title">Vehicle & Freight Transportation Services</h2>
                     </div>
                 </div>
                 <div class="row">
