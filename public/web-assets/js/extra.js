@@ -1,33 +1,10 @@
-// function showStep(stepId) {
-//     document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
-//         .forEach(div => div.style.display = "none");
-//     document.getElementById(stepId).style.display = "block";
-// }
-// document.addEventListener('DOMContentLoaded', () => {
-//     document.getElementById('pickup-location')?.addEventListener('input', function () {
-//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsPickup'));
-//     });
-//     document.getElementById('delivery-location')?.addEventListener('input', function () {
-//         fetchSuggestionsStatic(this, document.querySelector('.suggestionsDelivery'));
-//     });
-
-//     document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2'));
-//     document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
-//     document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3'));
-//     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
-// });
-
 function validateStep(stepId) {
     let isValid = true;
     const stepDiv = document.getElementById(stepId);
-
-    // Reset any previous error messages
     if (stepId === "step2") {
         const errorMsg = stepDiv.querySelector(".vehicle-error");
         if (errorMsg) errorMsg.style.display = "none";
     }
-
-    // Special case: Step 2 must have at least one vehicle
     if (stepId === "step2") {
         const vehicleBlocks = stepDiv.querySelectorAll(".vehicle-block");
         if (vehicleBlocks.length === 0) {
@@ -36,8 +13,6 @@ function validateStep(stepId) {
             if (errorMsg) errorMsg.style.display = "block";
         }
     }
-
-    // General input validation
     stepDiv.querySelectorAll("input[required], select[required], textarea[required]").forEach(el => {
         if (!el.value.trim()) {
             isValid = false;
@@ -46,46 +21,30 @@ function validateStep(stepId) {
             el.classList.remove("is-invalid");
         }
     });
-
     return isValid;
 }
-
 function showStep(stepId, currentStepId = null) {
     if (currentStepId && !validateStep(currentStepId)) {
-        // Stop silently (errors already shown inline)
         return;
     }
-
-    // Hide all steps
     document.querySelectorAll('.route_quote_info, .vehicle_quote_info, .basic_quote_info')
         .forEach(div => div.style.display = "none");
-
-    // Show requested step
     document.getElementById(stepId).style.display = "block";
-
-    // Scroll user to top of form
     document.getElementById("calculatePriceFrom").scrollIntoView({ behavior: "smooth" });
 }
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Step navigation
     document.getElementById('step1_next')?.addEventListener('click', () => showStep('step2', 'step1'));
     document.getElementById('step2_previous')?.addEventListener('click', () => showStep('step1'));
     document.getElementById('step2_next')?.addEventListener('click', () => showStep('step3', 'step2'));
     document.getElementById('step3_previous')?.addEventListener('click', () => showStep('step2'));
-
-    // Final validation on form submit (Step 3)
     document.getElementById("calculatePriceFrom").addEventListener("submit", function (e) {
         if (!validateStep("step3")) {
             e.preventDefault();
         }
     });
 });
-
-
 $(document).ready(function () {
     let vehicleIndex = 0;
-
     function getVehicleFields(type, index) {
         const yearField = `
             <div class="col-md-4">
@@ -95,7 +54,6 @@ $(document).ready(function () {
                 </select>
             </div>
         `;
-
         const makeModelSelect = `
             <div class="col-md-4">
                 <label class="text-white">Make</label>
@@ -111,8 +69,6 @@ $(document).ready(function () {
                 </select>
             </div>
         `;
-
-        // For All Others → Text inputs for Make & Model
         const makeModelText = `
             <div class="col-md-4">
                 <label class="text-white">Make</label>
@@ -123,7 +79,6 @@ $(document).ready(function () {
                 <input type="text" name="vehicles[${index}][model]" class="form-control" placeholder="Enter Model" required>
             </div>
         `;
-
         const sizeFields = `
             <div class="row mt-2">
                 <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][length]" placeholder="Length (ft)" required></div>
@@ -132,7 +87,6 @@ $(document).ready(function () {
                 <div class="col-md-12 mt-2"><input type="number" class="form-control" name="vehicles[${index}][weight]" placeholder="Weight (lbs)" required></div>
             </div>
         `;
-
         const trailerAndCondition = `
             <div class="row mt-2">
                 <div class="col-md-6">
@@ -149,14 +103,12 @@ $(document).ready(function () {
                 </div>
             </div>
         `;
-
         const imageUpload = `
             <div class="input-form mt-4">
                 <input class="form-control image_input pt-0" name="images[${index}][]" type="file" accept="image/*" multiple onchange="previewImages(event, ${index})">
                 <div class="image-preview-container" id="imagePreviewContainer${index}"></div>
             </div>
         `;
-
         let fields = `<div class="row mt-2">${yearField}`;
         if (type === "Car") {
             fields += makeModelSelect;
@@ -164,14 +116,11 @@ $(document).ready(function () {
             fields += makeModelText;
         }
         fields += `</div>`;
-
         if (type === "Boat-Transport" || type === "Heavy-Equipment" || type === "RV-Transport") {
             fields += sizeFields;
         }
-
         return fields + trailerAndCondition + imageUpload;
     }
-
     $("#tabSelector").change(function () {
         const selected = $(this).val();
         $("#firstVehicle").empty();
@@ -190,11 +139,9 @@ $(document).ready(function () {
             $("#addVehicleBtn").hide();
         }
     });
-
     $("#addVehicleBtn").click(function () {
         const selected = $("#tabSelector").val();
         if (!selected) return;
-
         vehicleIndex++;
         const vehicleHtml = `
             <div class="vehicle-block vehicle-item extra-vehicle" style=" margin-bottom:10px; position:relative; display:none;">
@@ -204,22 +151,16 @@ $(document).ready(function () {
                 ${getVehicleFields(selected, vehicleIndex)}
             </div>
         `;
-
         const $newBlock = $(vehicleHtml);
         $("#additionalContent").append($newBlock);
         $newBlock.slideDown(400);
         generateYearOptions($newBlock.find(".year-select"));
     });
-
     $(document).on("change", ".year-select", function () {
         const $parent = $(this).closest(".vehicle-block");
         const year = $(this).val();
         const $makeSelect = $parent.find(".make-select");
         const $modelSelect = $parent.find(".model-select");
-
-        // $makeSelect.empty().append('<option value="">-- Select Make --</option>');
-        // $modelSelect.empty().append('<option value="">-- Select Model --</option>');
-
         if (year) {
             $.getJSON(`/get-makes/${year}`, function (data) {
                 data.forEach(make => {
@@ -228,18 +169,15 @@ $(document).ready(function () {
             });
         }
     });
-
     $(document).on("click", ".deleteVehicleBtn", function () {
         $(this).closest(".extra-vehicle").slideUp(400, function () {
             $(this).remove();
         });
     });
 });
-
 function previewImages(event, index) {
     const container = document.getElementById(`imagePreviewContainer${index}`);
     container.innerHTML = '';
-
     Array.from(event.target.files).forEach(file => {
         const reader = new FileReader();
         reader.onload = function (e) {
@@ -248,30 +186,31 @@ function previewImages(event, index) {
                     <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
                 </div>
                 `;
-                // <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
             container.insertAdjacentHTML('beforeend', imgHTML);
         }
         reader.readAsDataURL(file);
     });
 }
-
 function generateYearOptions($select) {
     const currentYear = new Date().getFullYear();
     for (let year = currentYear; year >= 1950; year--) {
         $select.append(`<option value="${year}">${year}</option>`);
     }
 }
-
 $(document).ready(function () {
-    // Apply mask
     $("#phone").inputmask({"mask": "(999) 999-9999"});
-
-    // Validation on form submit
     $("form").on("submit", function (e) {
-        let rawPhone = $("#phone").inputmask("unmaskedvalue"); // get digits only
+        let rawPhone = $("#phone").inputmask("unmaskedvalue"); 
         if (rawPhone.length !== 10) {
-            // alert("Please enter a valid 10-digit US phone number.");
-            e.preventDefault(); // stop form submission
+            e.preventDefault();
         }
+    });
+});
+document.querySelectorAll(".no_move").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+        e.preventDefault(); // form submit stop
+        e.stopPropagation(); // event bubbling stop
+        this.blur(); // button pe focus remove karo
+        console.log("Next button clicked, scroll nahi hoga!");
     });
 });

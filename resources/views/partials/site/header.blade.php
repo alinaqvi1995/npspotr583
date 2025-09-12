@@ -35,12 +35,12 @@
                 </a>
             </div>
         </div>
-        <div class="tj-search-box">
+        {{-- <div class="tj-search-box">
             <form action="#">
                 <input type="text" class="form-control-1" name="search" id="search" placeholder="Search" />
                 <a href="#"><i class="fal fa-search"></i></a>
             </form>
-        </div>
+        </div> --}}
         <!-- Canvas Mobile Menu start -->
         <nav class="right_menu_togle mobile-navbar-menu d-lg-none" id="mobile-navbar-menu"></nav>
         <p class="des d-none d-lg-block">

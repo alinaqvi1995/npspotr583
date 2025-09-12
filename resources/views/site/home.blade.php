@@ -202,26 +202,26 @@
                         <ul class="list-gap list-one">
                             <li>
                                 <div class="counter-number">
-                                    <div class="tj-count"><span class="odometer" data-count="380000">0</span></div>
-                                    <span class="sub-title">Packages Delivered</span>
+                                    <div class="tj-count"><span class="odometer" data-count="25767">0</span></div>
+                                    <span class="sub-title">Vehicles Delivered</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="counter-number">
-                                    <div class="tj-count"><span class="odometer" data-count="68000">0</span></div>
+                                    <div class="tj-count"><span class="odometer" data-count="23574">0</span></div>
                                     <span class="sub-title">Satisfied Customers</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="counter-number">
-                                    <div class="tj-count"><span class="odometer" data-count="120">0</span></div>
-                                    <span class="sub-title">Countries Served</span>
+                                    <div class="tj-count"><span class="odometer" data-count="25503770">0</span></div>
+                                    <span class="sub-title">Miles Covered</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="counter-number">
-                                    <div class="tj-count"><span class="odometer" data-count="50000">0</span></div>
-                                    <span class="sub-title">Tons of Freight Transported</span>
+                                    <div class="tj-count"><span class="odometer" data-count="10+">0</span></div>
+                                    <span class="sub-title">Years of Experiences</span>
                                 </div>
                             </li>
                         </ul>
@@ -284,7 +284,7 @@
                 </div>
                 <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
                     <div class="about_image text-end">
-                        <img src="web-assets/images/about/benefits.webp" alt="About Us Image" />
+                        <img src="web-assets/images/about/sec.png" alt="About Us Image" />
                     </div>
                 </div>
             </div>
