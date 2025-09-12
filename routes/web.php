@@ -47,7 +47,9 @@ Route::get('/motorcycle', [QuoteController::class, 'motorcycle'])->name('quote.m
 
 // submit quote
 Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('frontend.submit.quote');
-Route::get('/thank-you', function () {return view('frontend.thankyou');})->name('frontend.thankyou');
+Route::get('/thank-you', function () {
+    return view('frontend.thankyou');
+})->name('frontend.thankyou');
 
 
 // 🔹 Blog
@@ -69,8 +71,8 @@ Route::post('/verify-otp', [OtpController::class, 'verifyOtp'])->name('verify.ot
 Route::get('/resend-otp', [OtpController::class, 'resendOtp'])->name('resend.otp');
 
 // order form for customer
-Route::get('/quotes/{quote}/order-form', [QuoteManagementController::class, 'orderForm'])
-    ->name('dashboard.quotes.orderForm');
+Route::get('/order-form/{encrypted}', [QuoteManagementController::class, 'orderForm'])
+    ->name('quotes.orderForm');
 Route::post('/quote/{quote}/submit-order-form', [QuoteManagementController::class, 'submitOrderForm'])
     ->name('site.quote.submitOrderForm');
 

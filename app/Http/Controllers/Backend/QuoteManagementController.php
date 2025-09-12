@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+   use Illuminate\Contracts\Encryption\DecryptException;
 
 class QuoteManagementController extends Controller
 {
@@ -443,8 +444,15 @@ class QuoteManagementController extends Controller
         return redirect()->back()->with('success', 'Order form email sent successfully.');
     }
 
-    public function orderForm(Quote $quote)
+    public function orderForm($encrypted)
     {
+        try {
+            $quoteId = decrypt($encrypted);
+            $quote = Quote::findOrFail($quoteId);
+        } catch (DecryptException $e) {
+            abort(404);
+        }
+
         return view('site.quote.orderForm', compact('quote'));
     }
 
