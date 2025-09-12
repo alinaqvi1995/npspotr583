@@ -14,25 +14,15 @@ class ReportController extends Controller
 {
     public function quotesHistoriesReport(Request $request)
     {
-        $query = QuoteHistory::with(['quote.category', 'quote.subcategory', 'user']);
-
         // Map slugs back to real statuses
         $map = collect(\App\Models\Quote::$statuses)->keys()
             ->mapWithKeys(fn($s) => [Str::slug($s) => $s]);
 
-        // Date range filter
+        // Date range filter values
+        $start = $end = null;
         if ($request->filled('date_from') && $request->filled('date_to')) {
             $start = $request->date_from . ' 00:00:00';
             $end   = $request->date_to . ' 23:59:59';
-            $query->whereBetween('created_at', [$start, $end]);
-        }
-
-        // Status filter (convert slug → actual status)
-        if ($request->filled('status')) {
-            $status = $map[$request->status] ?? null;
-            if ($status) {
-                $query->where('status', $status);
-            }
         }
 
         // --- Compute status counts (first time each status was entered per quote) ---
@@ -43,7 +33,7 @@ class ReportController extends Controller
         )
             ->groupBy('quote_id', 'status');
 
-        if ($request->filled('date_from') && $request->filled('date_to')) {
+        if ($start && $end) {
             $firstStatusQuery->havingBetween('first_entered_at', [$start, $end]);
         }
 
@@ -65,7 +55,37 @@ class ReportController extends Controller
             $response = ['statusCounts' => $statusCounts];
 
             if ($request->filled('table')) {
-                $histories = $query->latest()->paginate(5);
+                // Subquery for table (first entered only)
+                $tableQuery = QuoteHistory::select(
+                    'quote_histories.*',
+                    DB::raw('MIN(quote_histories.created_at) as first_entered_at')
+                )
+                    ->join(
+                        DB::raw('(SELECT quote_id, status, MIN(created_at) as min_created
+                                  FROM quote_histories
+                                  GROUP BY quote_id, status) as fh'),
+                        function ($join) {
+                            $join->on('quote_histories.quote_id', '=', 'fh.quote_id')
+                                ->on('quote_histories.status', '=', 'fh.status')
+                                ->on('quote_histories.created_at', '=', 'fh.min_created');
+                        }
+                    )
+                    ->with(['quote.category', 'quote.subcategory', 'user'])
+                    ->orderByDesc('first_entered_at');
+
+                if ($start && $end) {
+                    $tableQuery->whereBetween('quote_histories.created_at', [$start, $end]);
+                }
+
+                if ($request->filled('status')) {
+                    $status = $map[$request->status] ?? null;
+                    if ($status) {
+                        $tableQuery->where('quote_histories.status', $status);
+                    }
+                }
+
+                $histories = $tableQuery->paginate(5);
+
                 $response['html'] = view('dashboard.reports.partials.quotes-table', compact('histories'))->render();
             }
 
