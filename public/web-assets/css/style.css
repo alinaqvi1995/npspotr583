@@ -1980,7 +1980,7 @@ body [class*=" icon-"]::before {
 }
 
 .service-item-three .service-image img {
-    border-radius: 3px;
+    border-radius: 25px;
     transition: 0.4s;
     transform: scale(1);
 }
