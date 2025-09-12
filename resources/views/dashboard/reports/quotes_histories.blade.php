@@ -25,7 +25,7 @@
 
         {{-- Filters --}}
         <form method="GET" action="{{ route('reports.quotes.histories') }}" class="card p-3 mb-4">
-            <div class="row g-3">
+            <div class="row g-3 align-items-end">
                 <div class="col-md-4">
                     <label class="form-label">Date Range</label>
                     <input type="text" id="dateRangePicker" class="form-control" placeholder="Select date range">
@@ -33,10 +33,11 @@
                     <input type="hidden" name="date_to" id="dateTo" value="{{ request('date_to') }}">
                     <input type="hidden" name="status" id="selectedStatus" value="{{ request('status') }}">
                 </div>
-            </div>
-            <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Filter</button>
-                <a href="{{ route('reports.quotes.histories') }}" class="btn btn-secondary">Reset</a>
+
+                <div class="col-md-auto">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{{ route('reports.quotes.histories') }}" class="btn btn-secondary">Reset</a>
+                </div>
             </div>
         </form>
 
