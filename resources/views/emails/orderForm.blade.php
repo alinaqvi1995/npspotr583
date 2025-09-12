@@ -31,9 +31,13 @@
                                 the link below:</p>
 
                             <p style="text-align:center; margin:30px 0;">
-                                <a href="{{ route('dashboard.quotes.orderForm', ['quote' => $quote->id]) }}"
+                                @php
+                                    $encryptedId = encrypt($quote->id);
+                                @endphp
+
+                                <a href="{{ route('quotes.orderForm', ['encrypted' => $encryptedId]) }}"
                                     style="display:inline-block; background:#1a73e8; color:#ffffff; text-decoration:none; 
-                                           padding:12px 25px; border-radius:5px; font-weight:500;">
+                                        padding:12px 25px; border-radius:5px; font-weight:500;">
                                     View Order Form
                                 </a>
                             </p>
