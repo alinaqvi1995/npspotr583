@@ -173,7 +173,7 @@
                             </div>
                             <div class="service-text">
                                 <div class="services-icon">
-                                    <i class="flaticon-plane"></i>
+                                    <i class="flaticon-delivery-van"></i>
                                 </div>
                                 <h4 class="service-title"><a href="{{ route('services.show.detail', $row->slug) }}">{{ $row->title }}</a></h4>
                                 <p class="des">
