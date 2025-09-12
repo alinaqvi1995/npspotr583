@@ -35,15 +35,20 @@ class ReportController extends Controller
             }
         }
 
-        // --- Compute status counts ---
-        $statusCountsQuery = QuoteHistory::query();
+        // --- Compute status counts (first time each status was entered per quote) ---
+        $firstStatusQuery = QuoteHistory::select(
+            'quote_id',
+            'status',
+            DB::raw('MIN(created_at) as first_entered_at')
+        )
+            ->groupBy('quote_id', 'status');
 
         if ($request->filled('date_from') && $request->filled('date_to')) {
-            $statusCountsQuery->whereBetween('created_at', [$start, $end]);
+            $firstStatusQuery->havingBetween('first_entered_at', [$start, $end]);
         }
 
-        // Raw DB counts
-        $dbCounts = $statusCountsQuery
+        $dbCounts = DB::table(DB::raw("({$firstStatusQuery->toSql()}) as first_statuses"))
+            ->mergeBindings($firstStatusQuery->getQuery()) // keep bindings safe
             ->select('status', DB::raw('COUNT(*) as total'))
             ->groupBy('status')
             ->pluck('total', 'status')
