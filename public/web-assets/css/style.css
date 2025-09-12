@@ -590,6 +590,8 @@ textarea:focus {
     width: 100%;
     z-index: 9;
     padding-top: 0;
+    background-color: #0e2e3aab;
+    border-bottom: #ef5212 1px solid;
 }
 
 .header-section-three .tj-main-menu li a {
@@ -2449,7 +2451,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 .tj-cta-section-two .tj_cta_image {
     content: "";
     position: absolute;
-    background: url(../images/cta/cta-2.jpg);
+    background: url(../images/cta/cta_image.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -2518,7 +2520,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 }
 
 .tj-cta-section-three {
-    background: url(../images/banner/cta-bg.webp);
+    background: url(../images/banner/counter_image.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

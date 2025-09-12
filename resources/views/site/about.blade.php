@@ -7,7 +7,7 @@
 @section('content')
 
     <!--========== breadcrumb Start ==============-->
-    <section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/cta-bg.webp') }}">
+    <section class="breadcrumb-wrapper" data-bg-image="{{ asset('web-assets/images/banner/page_start.png') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
                         <div class="about_image text-end">
-                            <img src="web-assets/images/about/benefits.webp" alt="About Us Image" />
+                            <img src="web-assets/images/about/sec.png" alt="About Us Image" />
                         </div>
                     </div>
                 </div>

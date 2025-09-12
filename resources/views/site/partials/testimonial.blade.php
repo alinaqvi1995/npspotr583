@@ -13,7 +13,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/test.png" alt="Image" />
+                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -46,7 +46,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/test1.png" alt="Image" />
+                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -79,7 +79,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/test.png" alt="Image" />
+                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -112,7 +112,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/test1.png" alt="Image" />
+                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
