@@ -3,14 +3,10 @@
 @section('title', 'Quotes Histories Report')
 
 @section('content')
-    {{-- Load Material Icons --}}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
-    {{-- Date Range Picker CSS --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <style>
-        /* Highlight selected status box */
         .status-box.active {
             border: 2px solid #0d6efd;
             background-color: #eaf2ff;
@@ -33,15 +29,13 @@
                 <div class="col-md-4">
                     <label class="form-label">Date Range</label>
                     <input type="text" id="dateRangePicker" class="form-control" placeholder="Select date range">
-
-                    {{-- hidden inputs for controller --}}
                     <input type="hidden" name="date_from" id="dateFrom" value="{{ request('date_from') }}">
                     <input type="hidden" name="date_to" id="dateTo" value="{{ request('date_to') }}">
                     <input type="hidden" name="status" id="selectedStatus" value="{{ request('status') }}">
                 </div>
             </div>
             <div class="mt-3">
-                <button class="btn btn-primary">Filter</button>
+                <button type="submit" class="btn btn-primary">Filter</button>
                 <a href="{{ route('reports.quotes.histories') }}" class="btn btn-secondary">Reset</a>
             </div>
         </form>
@@ -55,7 +49,7 @@
                 @endphp
                 <div class="col-6 col-md-3 col-lg-2">
                     <div class="status-box d-flex align-items-center justify-content-between rounded bg-white border p-3 shadow-sm h-100 cursor-pointer {{ $isActive }}"
-                        data-status="{{ $status }}">
+                        data-status="{{ Str::slug($status) }}">
                         <div>
                             <small class="d-block fw-bold text-secondary">{{ $status }}</small>
                             <span class="fs-5 fw-semibold text-dark">{{ $statusCounts[$status] ?? 0 }}</span>
@@ -68,7 +62,7 @@
             @endforeach
         </div>
 
-        {{-- Quotes Table (AJAX target) --}}
+        {{-- Quotes Table --}}
         <div id="quotesTableWrapper" class="mt-4" style="display: none;">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
@@ -84,7 +78,6 @@
 @endsection
 
 @section('extra_js')
-    {{-- Moment + Date Range Picker --}}
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
@@ -92,75 +85,111 @@
         $(function() {
             let selectedStatus = $('#selectedStatus').val() || '';
 
-            function loadQuotes(url, params = {}) {
-                $("#quotesTableWrapper").show();
-                $("#quotesTableContainer").html('<div class="text-center p-4">Loading...</div>');
+            function loadQuotes(url, params = {}, loadTable = false) {
+                // Only add table param when we actually want the table
+                if (loadTable) params.table = 1;
+
+                if (loadTable) {
+                    $("#quotesTableWrapper").show();
+                    $("#quotesTableContainer").html('<div class="text-center p-4">Loading...</div>');
+                }
 
                 $.get(url, params, function(data) {
-                    $("#quotesTableContainer").html(data);
+                    if (loadTable) {
+                        $("#quotesTableContainer").html(data.html);
+                    }
+
+                    // Always update status counts dynamically
+                    if (data.statusCounts) {
+                        $.each(data.statusCounts, function(status, count) {
+                            $('.status-box[data-status="' + status + '"] span').text(count);
+                        });
+                    }
                 }).fail(function(xhr) {
-                    $("#quotesTableContainer").html(
-                        '<div class="text-danger p-3">Error loading data.</div>');
+                    if (loadTable) {
+                        $("#quotesTableContainer").html(
+                            '<div class="text-danger p-3">Error loading data.</div>');
+                    }
                     console.error('AJAX error', xhr);
                 });
             }
 
-            // CLICK STATUS BOX
-            $(document).on("click", ".status-box", function(e) {
-                e.preventDefault();
-
+            // --- Status box click ---
+            $(document).on("click", ".status-box", function() {
                 $('.status-box').removeClass('active');
                 $(this).addClass('active');
 
-                selectedStatus = $(this).data('status') ?? '';
+                selectedStatus = $(this).data('status');
                 $('#selectedStatus').val(selectedStatus);
 
-                const params = {
+                loadQuotes("{{ route('reports.quotes.histories') }}", {
                     status: selectedStatus,
-                    date_from: $('#dateFrom').val() || '',
-                    date_to: $('#dateTo').val() || ''
-                };
-
-                loadQuotes("{{ route('reports.quotes.histories') }}", params);
+                    date_from: $('#dateFrom').val(),
+                    date_to: $('#dateTo').val()
+                }, true); // <-- true = load table
             });
 
-            // PAGINATION AJAX
+            // --- Date filter submit ---
+            // --- Date filter submit ---
+            $('form[action="{{ route('reports.quotes.histories') }}"]').on('submit', function(e) {
+                e.preventDefault(); // prevent page reload
+
+                // collect filter values
+                let dateFrom = $('#dateFrom').val();
+                let dateTo = $('#dateTo').val();
+                let status = $('#selectedStatus').val();
+
+                // AJAX request
+                $.get("{{ route('reports.quotes.histories') }}", {
+                    date_from: dateFrom,
+                    date_to: dateTo,
+                    status: status
+                }, function(data) {
+                    // Update status counts
+                    if (data.statusCounts) {
+                        console.log('yes innn');
+                        console.log(data.statusCounts);
+                        $.each(data.statusCounts, function(status, count) {
+                            let key = status.toLowerCase().replace(/\s+/g, '-');
+                            $('.status-box[data-status="' + key + '"] span').text(count);
+                        });
+                    }
+
+                    // Optionally hide table if open
+                    $('#quotesTableWrapper').hide();
+                    $('#quotesTableContainer').html(
+                        '<div class="text-center text-muted">Click a status box to load quotes.</div>'
+                    );
+
+                    // remove active class from status boxes (optional)
+                    $('.status-box').removeClass('active');
+                }).fail(function(xhr) {
+                    console.error('Error updating filter counts', xhr);
+                });
+            });
+
+            // --- Pagination ---
             $(document).on("click", "#quotesTableWrapper .pagination a", function(e) {
                 e.preventDefault();
                 const url = $(this).attr("href");
-
-                const params = {
-                    status: $('#selectedStatus').val() || selectedStatus || '',
-                    date_from: $('#dateFrom').val() || '',
-                    date_to: $('#dateTo').val() || ''
-                };
-
-                loadQuotes(url, params);
+                loadQuotes(url, {
+                    status: selectedStatus,
+                    date_from: $('#dateFrom').val(),
+                    date_to: $('#dateTo').val()
+                }, true);
             });
 
-            // FILTER FORM AJAX
-            $('form[action="{{ route('reports.quotes.histories') }}"]').on('submit', function(e) {
-                e.preventDefault();
-
-                const params = {
-                    status: $('#selectedStatus').val() || '',
-                    date_from: $('#dateFrom').val() || '',
-                    date_to: $('#dateTo').val() || ''
-                };
-
-                loadQuotes("{{ route('reports.quotes.histories') }}", params);
-            });
-
-            // CLOSE TABLE
+            // --- Close table ---
             $(document).on('click', '#closeTableBtn', function() {
                 $('#quotesTableWrapper').hide();
-                $('#quotesTableContainer').html('');
+                $('#quotesTableContainer').html(
+                    '<div class="text-center text-muted">Click a status box to load quotes.</div>');
                 $('.status-box').removeClass('active');
                 $('#selectedStatus').val('');
                 selectedStatus = '';
             });
 
-            // INIT DATERANGEPICKER
+            // --- Date picker ---
             $('#dateRangePicker').daterangepicker({
                 autoUpdateInput: false,
                 locale: {
@@ -168,9 +197,7 @@
                 },
                 ranges: {
                     'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days')
-                        .endOf('day')
-                    ],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                     'This Week': [moment().startOf('week'), moment().endOf('week')],
                     'Last Week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week')
                         .endOf('week')
@@ -198,14 +225,9 @@
                 $('#dateTo').val('');
             });
 
-            // If page loads with a pre-selected status (via request), show quotes
+            // --- Auto-load table only if status pre-selected ---
             if (selectedStatus) {
-                const params = {
-                    status: selectedStatus,
-                    date_from: $('#dateFrom').val() || '',
-                    date_to: $('#dateTo').val() || ''
-                };
-                loadQuotes("{{ route('reports.quotes.histories') }}", params);
+                $('.status-box[data-status="' + selectedStatus + '"]').trigger('click');
             }
         });
     </script>
