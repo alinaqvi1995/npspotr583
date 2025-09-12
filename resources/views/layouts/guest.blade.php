@@ -148,70 +148,70 @@
                 }
             });
             
-function bindSearch(inputId, suggestionBoxId) {
-    let selected = false;
+            function bindSearch(inputId, suggestionBoxId) {
+                let selected = false;
 
-    $(inputId).on('keyup', function () {
-        let query = $(this).val();
-        selected = false;
+                $(inputId).on('keyup', function () {
+                    let query = $(this).val();
+                    selected = false;
 
-        // Remove old error when typing
-        $(inputId).removeClass('is-invalid');
-        $(inputId).siblings('.invalid-feedback').remove();
+                    // Remove old error when typing
+                    $(inputId).removeClass('is-invalid');
+                    $(inputId).siblings('.invalid-feedback').remove();
 
-        if (query.length < 2) {
-            $(suggestionBoxId).slideUp(200);
-            return;
-        }
+                    if (query.length < 2) {
+                        $(suggestionBoxId).slideUp(200);
+                        return;
+                    }
 
-        $.ajax({
-            url: "{{ route('zipcode.searchByLocation') }}",
-            data: { q: query },
-            success: function (data) {
-                let html = '';
-                if (data.length > 0) {
-                    data.forEach(item => {
-                        html += `<div class="suggestion-item">${item.label}</div>`;
+                    $.ajax({
+                        url: "{{ route('zipcode.searchByLocation') }}",
+                        data: { q: query },
+                        success: function (data) {
+                            let html = '';
+                            if (data.length > 0) {
+                                data.forEach(item => {
+                                    html += `<div class="suggestion-item">${item.label}</div>`;
+                                });
+                            } else {
+                                html = '<div class="p-2 text-muted">No results found</div>';
+                            }
+
+                            $(suggestionBoxId).html(html).stop(true, true).slideDown(200);
+                        }
                     });
-                } else {
-                    html = '<div class="p-2 text-muted">No results found</div>';
-                }
+                });
 
-                $(suggestionBoxId).html(html).stop(true, true).slideDown(200);
+                // On selecting suggestion
+                $(document).on('click', suggestionBoxId + ' .suggestion-item', function () {
+                    $(inputId).val($(this).text());
+                    $(suggestionBoxId).slideUp(200);
+                    selected = true;
+                });
+
+                // Close dropdown if clicked outside
+                $(document).on('click', function (e) {
+                    if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId).length) {
+                        $(suggestionBoxId).slideUp(200);
+                    }
+                });
+
+                // Validate on form submit
+                $('form').on('submit', function (e) {
+                    if (!selected) {
+                        e.preventDefault();
+
+                        // Add error styling
+                        if (!$(inputId).hasClass('is-invalid')) {
+                            $(inputId).addClass('is-invalid')
+                                .after('<div class="invalid-feedback">Please select a location from the suggestions.</div>');
+                        }
+
+                        // Highlight dropdown
+                        $(suggestionBoxId).stop(true, true).slideDown(200);
+                    }
+                });
             }
-        });
-    });
-
-    // On selecting suggestion
-    $(document).on('click', suggestionBoxId + ' .suggestion-item', function () {
-        $(inputId).val($(this).text());
-        $(suggestionBoxId).slideUp(200);
-        selected = true;
-    });
-
-    // Close dropdown if clicked outside
-    $(document).on('click', function (e) {
-        if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId).length) {
-            $(suggestionBoxId).slideUp(200);
-        }
-    });
-
-    // Validate on form submit
-    $('form').on('submit', function (e) {
-        if (!selected) {
-            e.preventDefault();
-
-            // Add error styling
-            if (!$(inputId).hasClass('is-invalid')) {
-                $(inputId).addClass('is-invalid')
-                    .after('<div class="invalid-feedback">Please select a location from the suggestions.</div>');
-            }
-
-            // Highlight dropdown
-            $(suggestionBoxId).stop(true, true).slideDown(200);
-        }
-    });
-}
 
             bindSearch('#pickup-location', '#pickup-suggestions');
             bindSearch('#delivery-location', '#delivery-suggestions');

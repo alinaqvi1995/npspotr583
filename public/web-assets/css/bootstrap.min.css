@@ -2537,6 +2537,8 @@ textarea.form-control.is-valid {
     margin-top: 0.25rem;
     font-size: 0.875em;
     color: #dc3545;
+    padding: 10px;
+    background: white;
 }
 .invalid-tooltip {
     position: absolute;
