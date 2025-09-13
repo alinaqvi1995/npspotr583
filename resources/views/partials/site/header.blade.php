@@ -162,12 +162,12 @@
                                         <a class="{{ request()->routeIs('all_services.index') ? 'active' : '' }}" href="{{ route('all_services.index') }}">Services</a>
                                     </li>
 
-<li>
-    <a href="{{ route('multiform') }}" 
-       class="{{ request()->routeIs('multiform') ? 'active' : '' }}">
-       Get a Quote
-    </a>
-</li>
+                                    <li>
+                                        <a href="{{ route('multiform') }}" 
+                                        class="{{ request()->routeIs('multiform') ? 'active' : '' }}">
+                                        Get a Quote
+                                        </a>
+                                    </li>
 
 
                                     <li class="{{ request()->routeIs('blog.index') ? 'active current-menu-item' : '' }}">

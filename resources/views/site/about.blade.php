@@ -87,7 +87,7 @@
 
     <!--=========== Cta Section Start =========-->
     <section class="tj-cta-section icon-animate">
-        <div class="cta-inner" data-bg-image="web-assets/images/cta/cta-1.jpg"></div>
+        <div class="cta-inner" data-bg-image="web-assets/images/cta/gi.png"></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -157,7 +157,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="team-details-image">
-                        <img src="assets/images/team/team-7.jpg" alt="Team" />
+                        <img src="assets/images/team/aloo.png" alt="Team" />
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -198,27 +198,6 @@
                                     <span class="perc"></span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-center thumb-group">
-                <div class="col-lg-6">
-                    <div class="team-thumb-content">
-                        <h4 class="title">Certificates & Education</h4>
-                        <p>Trage agile frameworks to provide a robust synopsis approaches to corporate</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="team-thumb-image d-flex align-items-center justify-content-end">
-                        <div class="thumb-1">
-                            <img src="assets/images/team/thumb-1.png" alt="Team" />
-                        </div>
-                        <div class="thumb-1">
-                            <img src="assets/images/team/thumb-1.png" alt="Team" />
-                        </div>
-                        <div class="thumb-1">
-                            <img src="assets/images/team/thumb-1.png" alt="Team" />
                         </div>
                     </div>
                 </div>

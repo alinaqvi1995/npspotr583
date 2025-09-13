@@ -26,6 +26,8 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/quote-form', [HomeController::class, 'multiform'])->name('multiform');
 Route::view('/contact', 'site.contact')->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
+Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+Route::get('/trems&conditions', [HomeController::class, 'trems'])->name('trems');
 
 // 🔹 Services
 Route::get('/all-services', [FrontendServiceController::class, 'index'])->name('all_services.index');

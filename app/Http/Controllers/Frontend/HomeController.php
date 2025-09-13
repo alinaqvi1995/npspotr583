@@ -72,4 +72,12 @@ class HomeController extends Controller
     {
         return view('site.privacy');
     }
+        public function trems()
+    {
+        return view('site.trems');
+    }
+        public function faq()
+    {
+        return view('site.faq');
+    }
 }
