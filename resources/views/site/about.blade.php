@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
                         <div class="about_image text-end">
-                            <img src="web-assets/images/about/sec.png" alt="About Us Image" />
+                            <img src="web-assets/images/about/aloo.png" alt="About Us Image" />
                         </div>
                     </div>
                 </div>
@@ -162,39 +162,36 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="team-sidebar-inner">
-                        <h4 class="title">George Clooney</h4>
-                        <span> Land Transport</span>
-                        <div class="team-social">
-                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                        </div>
+                        <h4 class="title">Bridgeway Logistics LLC</h4>
+                        <span>Reliable Transport & Logistics Solutions</span>
                         <p>
-                            Lorem ipsum dolor sit amet, con adipiscing elit tiam convallis elit id impedie. Quisq
-                            commodo simply free ornare tortor. If you are going to use a passage.
+                            At Bridgeway Logistics, we specialize in providing seamless and cost-effective 
+                            transport solutions tailored to your needs. With years of industry expertise, 
+                            we are committed to ensuring timely deliveries, secure handling, and 
+                            customer-focused services that help businesses and individuals move forward 
+                            with confidence.
                         </p>
-                        <h5 class="title">I help my clients stand out and they help me grow.</h5>
+                        <h5 class="title">Our mission is to deliver with trust, efficiency, and excellence.</h5>
                         <div class="team-check d-flex align-items-center">
                             <ul class="list-gap">
-                                <li><i class="fa-light fa-check"></i> Best Quality Services</li>
-                                <li><i class="fa-light fa-check"></i> Meet the Deadlines</li>
+                                <li><i class="fa-light fa-check"></i> Dependable Transport Services</li>
+                                <li><i class="fa-light fa-check"></i> On-Time Deliveries</li>
                             </ul>
                             <ul class="list-gap">
-                                <li><i class="fa-light fa-check"></i> Best Quality Services</li>
-                                <li><i class="fa-light fa-check"></i> Meet the Deadlines</li>
+                                <li><i class="fa-light fa-check"></i> Secure & Safe Handling</li>
+                                <li><i class="fa-light fa-check"></i> Customer-Centric Approach</li>
                             </ul>
                         </div>
                         <div class="tj-team-progress-bar">
-                            <label> Public Relations</label>
+                            <label>Successful Deliveries</label>
                             <div class="progress-bars">
-                                <div class="bar" data-size="70">
+                                <div class="bar" data-size="100">
                                     <span class="perc"></span>
                                 </div>
                             </div>
-                            <label> Clients Daily</label>
+                            <label>Client Satisfaction</label>
                             <div class="progress-bars">
-                                <div class="bar" data-size="80">
+                                <div class="bar" data-size="98">
                                     <span class="perc"></span>
                                 </div>
                             </div>
