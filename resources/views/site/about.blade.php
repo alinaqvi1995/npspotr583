@@ -157,7 +157,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="team-details-image">
-                        <img src="assets/images/team/aloo.png" alt="Team" />
+                        <img src="{{ asset('web-assets/images/team/aloo.png') }}" alt="Team" />
                     </div>
                 </div>
                 <div class="col-lg-7">
