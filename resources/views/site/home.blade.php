@@ -199,7 +199,7 @@
                 <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
                     <div class="tj-cta-left-content">
                         <h3 class="title">Reliable Transportation Solutions for Your Business Growth</h3>
-                        <p>We ensure timely and secure delivery, helping your business move forward seamlessly.</p>
+                        <p>We guarantee secure and on-time delivery, facilitating the smooth operation of your company. Our committed staff is committed to provide dependable transportation solutions that are customized to your particular company requirements, guaranteeing effectiveness at every stage. We ensure that your shipment arrive on schedule and in great condition by using cutting-edge tracking technologies, expert handling, and a dedication to safety. By selecting us, you acquire a reliable partner and provides you with the assurance to go beyond any boundaries.</p>
                         <div class="tj-theme-button">
                             <a class="tj-primary-btn tj-transparent-btn" href="contact.html">
                                 Contact Us <i class="flaticon-right-1"></i>
@@ -458,35 +458,35 @@
     <section class="tj-project-section-three">
         <div class="tj-project-content-area">
             <div class="project-item-three project-image">
-                <div class="project-image" data-bg-image="web-assets/images/project/project2.jpg"></div>
-                <a class="arrow-btn" href="project-details.html"> <i class="flaticon-right-1"></i> </a>
+                <div class="project-image" data-bg-image="web-assets/images/project/1.png"></div>
+                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
-                    <span class="sub-title">logistics</span>
-                    <h6><a class="title-link" href="project-details.html">Car Shipping</a></h6>
+                    <span class="sub-title">Service Type</span>
+                    <h6><a class="title-link" href="{{ route('multiform') }}">Open Transport </a></h6>
                 </div>
             </div>
             <div class="project-item-three">
-                <div class="project-image" data-bg-image="web-assets/images/project/project3.jpg"></div>
-                <a class="arrow-btn" href="project-details.html"> <i class="flaticon-right-1"></i> </a>
+                <div class="project-image" data-bg-image="web-assets/images/project/2.png"></div>
+                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
-                    <span class="sub-title">logistics</span>
-                    <h6><a class="title-link" href="project-details.html">Motorcycle Shipping</a></h6>
+                    <span class="sub-title">Service Type</span>
+                    <h6><a class="title-link" href="{{ route('multiform') }}">Enclosed Transport </a></h6>
                 </div>
             </div>
             <div class="project-item-three">
-                <div class="project-image" data-bg-image="web-assets/images/project/project2.jpg"></div>
-                <a class="arrow-btn" href="project-details.html"> <i class="flaticon-right-1"></i> </a>
+                <div class="project-image" data-bg-image="web-assets/images/project/3.png"></div>
+                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
-                    <span class="sub-title">logistics</span>
-                    <h6><a class="title-link" href="project-details.html">Heavy Equipment Shipping</a></h6>
+                    <span class="sub-title">Service Type</span>
+                    <h6><a class="title-link" href="{{ route('multiform') }}">Tow Away Service</a></h6>
                 </div>
             </div>
             <div class="project-item-three">
-                <div class="project-image" data-bg-image="web-assets/images/project/project2.jpg"></div>
-                <a class="arrow-btn" href="project-details.html"> <i class="flaticon-right-1"></i> </a>
+                <div class="project-image" data-bg-image="web-assets/images/project/4.png"></div>
+                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
-                    <span class="sub-title">logistics</span>
-                    <h6><a class="title-link" href="project-details.html">Freight Transportation Shipping</a></h6>
+                    <span class="sub-title">Service Type</span>
+                    <h6><a class="title-link" href="{{ route('multiform') }}">Driveaway Service</a></h6>
                 </div>
             </div>
         </div>
