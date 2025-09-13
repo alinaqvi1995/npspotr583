@@ -9,7 +9,7 @@
             <div class="row">
                <div class="col-lg-12">
                   <div class="breadcrumb-content">
-                        <h1 class="breadcrumb-title text-center mb-5">Projects Page</h1>
+                        <h1 class="breadcrumb-title text-center mb-5">Quote Form</h1>
                         <div class="breadcrumb-link">
                            <span>
                               <a href="index.html">
@@ -18,7 +18,7 @@
                            </span>
                            >
                            <span>
-                              <span> Projects</span>
+                              <span> Quote Form</span>
                            </span>
                         </div>
                   </div>
@@ -27,11 +27,48 @@
       </div>
    </section>
    <!--========== breadcrumb End ==============-->
-
-<div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-      @include('site.partials.multiform')
-</div>
-
+        <section class="tj-choose-us-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
+                        <div class="tj-input-form m-0" data-bg-image="web-assets/images/banner/form-shape.png">
+                           <div id="make-options" class="d-none">
+                              @foreach ($makes as $make)
+                                 <option value="{{ $make }}">{{ $make }}</option>
+                              @endforeach
+                           </div>
+                              @include('site.partials.multiform')
+                        </div>
+                    </div>
+                     <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
+                        <div class="choose-us-content-1">
+                            <div class="tj-section-heading">
+                                <span class="sub-title active-shape2"> Why Choose Us</span>
+                                <h2 class="title">We are the Future of Cargo & Logistics</h2>
+                                <p class="desc">
+                                    Quisque dignissim enim diam, eget pulvinar ex viverra id. Nulla a lobortis lectus,
+                                    id volutpat magna. Morbi consequat porttitor
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-6">
+                                    <div class="tj-icon-box3 text-center">
+                                        <i class="flaticon flaticon-courier"></i>
+                                        <h6 class="title">Optimized Cost</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-6">
+                                    <div class="tj-icon-box3 text-center">
+                                        <i class="flaticon flaticon-cargo"></i>
+                                        <h6 class="title">Delivery on Time</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
    <!--=========== Project Section End =========-->
 
    <!--=========== Newsletter Section Start =========-->

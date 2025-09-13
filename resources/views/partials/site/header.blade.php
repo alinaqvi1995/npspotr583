@@ -162,20 +162,13 @@
                                         <a class="{{ request()->routeIs('all_services.index') ? 'active' : '' }}" href="{{ route('all_services.index') }}">Services</a>
                                     </li>
 
-                                    <li class=" {{ request()->is('quote/*') ? 'active current-menu-item' : '' }}">
-                                        <a href="#">Get a Quote</a>
-                                        <ul class="list-gap sub-menu-list">
-                                            <li class="{{ request()->routeIs('quote.atv_utv') ? 'active current-menu-item' : '' }}">
-                                                <a href="{{ route('quote.atv_utv') }}">ATV-UTV Quote</a>
-                                            </li>
-                                            <li class="{{ request()->routeIs('quote.car') ? 'active current-menu-item' : '' }}">
-                                                <a href="{{ route('quote.car') }}">Car Quote</a>
-                                            </li>
-                                            <li class="{{ request()->routeIs('quote.motorcycle') ? 'active current-menu-item' : '' }}">
-                                                <a href="{{ route('quote.motorcycle') }}">Motorcycle Quote</a>
-                                            </li>
-                                        </ul>
-                                    </li>
+<li>
+    <a href="{{ route('multiform') }}" 
+       class="{{ request()->routeIs('multiform') ? 'active' : '' }}">
+       Get a Quote
+    </a>
+</li>
+
 
                                     <li class="{{ request()->routeIs('blog.index') ? 'active current-menu-item' : '' }}">
                                         <a class="{{ request()->routeIs('blog.index') ? 'active' : '' }}" href="{{ route('blog.index') }}">Blog</a>

@@ -14,10 +14,7 @@ use App\Models\QuotePhone;
 
 class QuoteController extends Controller
 {
-    public function index()
-    {
-        return view('site.quote.index');
-    }
+
     public function car()
     {
         $makes = VehicleMakeModel::select('make')

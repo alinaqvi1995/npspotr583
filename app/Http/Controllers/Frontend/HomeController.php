@@ -35,6 +35,14 @@ class HomeController extends Controller
 
         return view('site.about', compact('services','makes','blogs'));
     }
+    public function multiform()
+    {
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+        return view('site.quote', compact('makes'));
+    }
     public function getModels(Request $request)
     {
         $make = $request->query('make');

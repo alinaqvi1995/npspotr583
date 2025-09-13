@@ -145,16 +145,8 @@ $(document).ready(function () {
     </div>
 `;
 
-    // const sizeFields = `
-    //     <div class="row mt-2">
-    //         <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][length]" placeholder="Length (ft)" required></div>
-    //         <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][width]" placeholder="Width (ft)" required></div>
-    //         <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][height]" placeholder="Height (ft)" required></div>
-    //         <div class="col-md-12 mt-2"><input type="number" class="form-control" name="vehicles[${index}][weight]" placeholder="Weight (lbs)" required></div>
-    //     </div>
-    // `;
 
-    // ✅ Trailer type options based on vehicle type
+    // Trailer type options based on vehicle type
     let trailerOptions = `
         <option value="Open Trailer">Open Trailer</option>
         <option value="Enclosed Trailer">Enclosed Trailer</option>
