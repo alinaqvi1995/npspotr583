@@ -30,83 +30,134 @@
         <!--========== breadcrumb End ==============-->
 
 <!--========== Privacy Policy Content ==============-->
-<section class="py-5 bg-gray">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <div class="bg-white rounded-3xl shadow-lg p-5">
-                    
-                    <h2 class="text-xl font-bold text-gray mb-5">Privacy Policy</h2>
-                    <p class="text-gray mb-10">Effective Date: <strong>January 2025</strong></p>
+        <section class="tj-project-details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="project-details-wrapper">
+                            <div class="tj-project-widget project-content-area">
+                                <h3>
+                                    <a class="title-link" href="#">
+                                        Privacy Policy</a>
+                                </h3>
+                                <p><strong>Effective Date:</strong> March 01, 2024</p>
+                                <p>
+                                    <strong>Bridgeway Logistics LLC</strong> (“Bridgeway Logistics,” “we,” “us,” or “our”) values your trust and is committed to safeguarding your privacy. 
+                                    This Privacy Policy explains how we collect, use, disclose, and protect your information when you visit our website, use our services, or interact with us. 
+                                    By using our services, you agree to the terms outlined in this Privacy Policy.
+                                </p>
+                            </div>
 
-                    <div class="space-y-10 text-gray-700 leading-relaxed">
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">1. Information We Collect</h3>
-                            <p>We may collect the following types of information:</p>
-                            <ul class="list-disc pl-6 mt-2 space-y-1">
-                                <li><strong>Personal Details:</strong> Name, email, phone number, pickup/drop-off addresses, and vehicle details.</li>
-                                <li><strong>Payment Details:</strong> We do not store card/banking data; all payments are processed securely via third parties.</li>
-                                <li><strong>Service &amp; Usage Info:</strong> Data required to provide and improve our services. We do not track IPs or online behavior.</li>
-                            </ul>
-                        </div>
+                            <div class="tj-project-widget row align-items-center">
+                                <div class="col-lg-12">
+                                    <div class="check-list">
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">2. What We Do With Your Information</h3>
-                            <ul class="list-disc pl-6 space-y-1">
-                                <li>Conduct and manage vehicle transport services.</li>
-                                <li>Send quotes, confirmations, pickup/delivery updates, and reminders.</li>
-                                <li>Verify transactions with safe payment processing.</li>
-                                <li>Improve customer service and support.</li>
-                            </ul>
-                        </div>
+                                        <h3 class="title">1. Information We Collect</h3>
+                                        <p>We may collect the following categories of information:</p>
+                                        <ul class="list-gap">
+                                            <li><i class="fa-light fa-check"></i> <strong>Personal Information:</strong> Full name, email, phone, addresses, business details, and other voluntary details.</li>
+                                            <li><i class="fa-light fa-check"></i> <strong>Service & Transaction Information:</strong> Shipment details, delivery preferences, and transaction data (excluding sensitive card data).</li>
+                                            <li><i class="fa-light fa-check"></i> <strong>Usage Information:</strong> Browser, device, visited pages, and statistical service data.</li>
+                                            <li><i class="fa-light fa-check"></i> <strong>Communication Information:</strong> Emails, SMS, calls, and customer support records.</li>
+                                        </ul>
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">3. Sharing Information</h3>
-                            <p>We do not sell or rent personal data. We share limited details only with carriers or payment providers required to fulfill services.</p>
-                        </div>
+                                        <h3 class="title">2. How We Use Your Information</h3>
+                                        <p>
+                                            We process your information to provide logistics services, process transactions, send notifications, 
+                                            communicate with you, enhance user experience, and comply with legal obligations.
+                                        </p>
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">4. SMS &amp; Communication Policy</h3>
-                            <p>By opting in, you may receive SMS updates regarding:</p>
-                            <ul class="list-disc pl-6 space-y-1">
-                                <li>Pickup &amp; delivery schedules</li>
-                                <li>Transport status updates</li>
-                                <li>Service reminders</li>
-                            </ul>
-                            <p class="mt-2 text-sm text-gray-500">Message frequency varies. Standard rates apply. Reply <strong>STOP</strong> to unsubscribe, <strong>HELP</strong> for assistance.</p>
-                        </div>
+                                        <h3 class="title">3. Information Sharing</h3>
+                                        <p>
+                                            We do not sell, rent, or trade personal data. We may share limited info with trusted vendors (e.g., payment processors, IT support) only for service delivery.  
+                                            We may also disclose information for legal compliance or safety.  
+                                            <br><strong>Note:</strong> Mobile/SMS opt-in data is never shared for marketing purposes.
+                                        </p>
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">5. Cookies &amp; Tracking</h3>
-                            <p>Bridgeway does not use cookies or tracking tools for advertising or behavior monitoring.</p>
-                        </div>
+                                        <h3 class="title">4. Payment Information</h3>
+                                        <p>
+                                            We do not store or process credit card details directly. Payments are securely handled via PCI DSS–compliant third-party processors.
+                                        </p>
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">6. Data Security</h3>
-                            <p>We apply industry-standard security measures to prevent unauthorized access or misuse of your information.</p>
-                        </div>
+                                        <h3 class="title">5. Cookies and Tracking Technologies</h3>
+                                        <p>
+                                            We do not use cookies for marketing or tracking. Only minimal, strictly necessary cookies (e.g., session, language preferences) are used.
+                                        </p>
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">7. Changes to This Policy</h3>
-                            <p>This policy may be updated periodically. Continued use of our site or services implies acceptance of any changes.</p>
-                        </div>
+                                        <h3 class="title">6. Data Retention</h3>
+                                        <p>
+                                            Personal data is retained only as long as needed for services, compliance, or dispute resolution. Once unnecessary, data is securely deleted or anonymized.
+                                        </p>
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">8. Contact Us</h3>
-                            <p>If you have questions, reach us at:</p>
-                            <ul class="mt-2 space-y-1">
-                                <li>Email: <a href="mailto:info@bridgewaylogistics.com" class="text-blue-600 hover:underline">info@bridgewaylogistics.com</a></li>
-                                <li>Phone: <a href="tel:+17134706157" class="text-blue-600 hover:underline">+1 (713) 470-6157</a></li>
-                            </ul>
+                                        <h3 class="title">7. Security</h3>
+                                        <p>
+                                            We use SSL encryption, restricted access, and monitoring to protect data. While we take reasonable precautions, no method of storage or transmission is 100% secure.
+                                        </p>
+
+                                        <h3 class="title">8. Children’s Privacy</h3>
+                                        <p>
+                                            Our services are not intended for individuals under 18. We do not knowingly collect children’s data. Any discovered records will be deleted immediately.
+                                        </p>
+
+                                        <h3 class="title">9. Your Privacy Rights</h3>
+                                        <p>
+                                            Depending on your jurisdiction, you may request access, corrections, deletion, or opt out of communications.  
+                                            To exercise these rights, contact us at <strong>info@bridgewaylogistics.com</strong>.
+                                        </p>
+
+                                        <h3 class="title">10. SMS and Contact Policy</h3>
+                                        <p>
+                                            By opting in, you agree to receive SMS about pick-ups, deliveries, and reminders. Message frequency may vary. Standard rates apply.  
+                                            Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for assistance (+1 713-470-6157).
+                                        </p>
+
+                                        <h3 class="title">11. Third-Party Links</h3>
+                                        <p>
+                                            Our site may contain links to third-party websites. We are not responsible for their content or policies. Please review their privacy practices separately.
+                                        </p>
+
+                                        <h3 class="title">12. Changes to This Privacy Policy</h3>
+                                        <p>
+                                            We may update this Privacy Policy from time to time. A revised version with a new effective date will be posted on our website.
+                                        </p>
+
+                                        <h3 class="title">13. Governing Law</h3>
+                                        <p>
+                                            This Privacy Policy is governed by the laws of the State of Texas, United States.
+                                        </p>
+
+                                        <h3 class="title">14. Contact Us</h3>
+                                        <p>
+                                            For questions regarding this Privacy Policy, contact:<br>
+                                            <strong>Bridgeway Logistics LLC</strong><br>
+                                            📧 Email: info@bridgewaylogistics.com<br>
+                                            📞 Phone: +1 713-470-6157<br>
+                                            🏢 Address: [Insert Official Company Address]
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="details-tags-box">
+                                <div class="share-link">
+                                    <span> Share Article</span>
+                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                                <div class="tags-link">
+                                    <a href="#">Privacy</a>
+                                    <a href="#">Data Protection</a>
+                                    <a href="#">Logistics</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <p class="mt-10 text-gray-500 text-sm">✅ By using our services, you agree to this Privacy Policy.</p>
                 </div>
             </div>
-        </div>
-    </div>
-</section>>
+        </section>
 
 
 @endsection
