@@ -13,6 +13,57 @@
         </ul>
     </div>
 @endif
+<style>
+        .input-container {
+        height: 34px;
+        background: white;
+        display: flex;
+        align-items: center;
+        /* border: 1px solid #ccc; */
+        border-radius: 4px;
+        padding: 8px 0px 8px 0px;
+        width: fit-content;
+    }
+    .input-container1 {
+        height: 34px;
+        background: white;
+        display: flex;
+        align-items: center;
+        /* border: 1px solid #ccc; */
+        border-radius: 4px;
+        padding: 8px 0px 8px 0px;
+        width: fit-content;
+    }
+    .input-field {
+        width: 50px;
+        padding: 5px;
+        font-size: 14px;
+        border: none;
+        outline: none;
+    }
+    .input-field-1 {
+        width: 65px;
+        padding: 0px 0px 0px 10px;
+        font-size: 14px;
+        border: none;
+        outline: none;
+    }
+    .separator {
+        margin: 0px 0px 0px 0px;
+        font-size: 14px;
+    }
+    .separators {
+        margin: 0px 5px 0px 0px;
+        font-size: 14px;
+    }
+    .separators-w {
+        margin: 0px 5px 0px 0px;
+        font-size: 14px;
+    }
+    .input-container input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
 <form class="rd-mailform validate-form" id="calculatePriceFrom" action="{{ route('frontend.submit.quote') }}" method="POST" enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled>
     @csrf
     @php $today = date('Y-m-d'); @endphp
