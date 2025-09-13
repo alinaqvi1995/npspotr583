@@ -1,5 +1,4 @@
 @extends('layouts.guest')
-
 @section('title', 'Home')
 @section('meta_description', 'Explore our SaaS solutions tailored to your business.')
 @section('meta_keywords', 'SaaS, services, business software')
@@ -145,65 +144,53 @@
     <!--========== Tabs Section End ==============-->
 
     <!--========== Service Section Start ==============-->
-    {{-- <section class="tj-service-section-four">
+    <section class="tj-service-section-three">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="tj-section-heading text-center">
-                        <span class="sub-title active-shape"> What We Do</span>
-                        <h2 class="title">Vehicle & Freight Transportation Services</h2>
-                    </div>
+                <div class="tj-section-heading text-center">
+                    <span class="sub-title active-shape"> What We Do</span>
+                    <h2 class="title">Vehicle & Freight Transportation Services</h2>
                 </div>
             </div>
-            <div class="row"> --}}
-        <section class="tj-service-section-three">
-            <div class="container">
-                <div class="row">
-                    <div class="tj-section-heading text-center">
-                        <span class="sub-title active-shape"> What We Do</span>
-                        <h2 class="title">Vehicle & Freight Transportation Services</h2>
-                    </div>
-                </div>
-                <div class="row">
-                @foreach ($services as $row)
-                    <div class="col-lg-6 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                        <div class="service-item-two d-flex justify-content-between">
-                            <div class="service-image">
-                                <img src="{{ asset($row->image_one) }}" alt="Image" />
-                            </div>
-                            <div class="service-text">
-                                <div class="services-icon">
-                                    <i class="flaticon-delivery-van"></i>
-                                </div>
-                                <h4 class="service-title"><a href="{{ route('services.show.detail', $row->slug) }}">{{ $row->title }}</a></h4>
-                                <p class="des">
-                                    {{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}
-                                </p>
-                                <div class="tj-theme-button">
-                                    <a class="tj-transparent-btn-two" href="{{ route('services.show.detail', $row->slug) }}"
-                                        >Read More <i class="flaticon-right-1"></i
-                                    ></a>
-                                </div>
-                            </div>
-                            {{-- <div class="service-content">
-                                <div class="service-icon">
-                                    <i class="flaticon-air-freight"></i>
-                                </div>
-                                <h4>
-                                    <a class="title" href="{{ route('services.show.detail', $row->slug) }}">
-                                        {{ $row->title }}
-                                    </a>
-                                </h4>
-                                <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
-                            </div> --}}
+            <div class="row">
+            @foreach ($services as $row)
+                <div class="col-lg-6 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                    <div class="service-item-two d-flex justify-content-between">
+                        <div class="service-image">
+                            <img src="{{ asset($row->image_one) }}" alt="Image" />
                         </div>
+                        <div class="service-text">
+                            <div class="services-icon">
+                                <i class="flaticon-delivery-van"></i>
+                            </div>
+                            <h4 class="service-title"><a href="{{ route('services.show.detail', $row->slug) }}">{{ $row->title }}</a></h4>
+                            <p class="des">
+                                {{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}
+                            </p>
+                            <div class="tj-theme-button">
+                                <a class="tj-transparent-btn-two" href="{{ route('services.show.detail', $row->slug) }}"
+                                    >Read More <i class="flaticon-right-1"></i
+                                ></a>
+                            </div>
+                        </div>
+                        {{-- <div class="service-content">
+                            <div class="service-icon">
+                                <i class="flaticon-air-freight"></i>
+                            </div>
+                            <h4>
+                                <a class="title" href="{{ route('services.show.detail', $row->slug) }}">
+                                    {{ $row->title }}
+                                </a>
+                            </h4>
+                            <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
+                        </div> --}}
                     </div>
-                @endforeach
                 </div>
+            @endforeach
             </div>
-        </section>
+        </div>
+    </section>
     <!--========== Service Section End ==============-->
-
 
     <!--========== Cta Section Start ==============-->
     <section class="tj-cta-section-three">
@@ -254,7 +241,6 @@
         </div>
     </section>
     <!--========== Cta Section End ==============-->
-
 
     <!--=========== About Section Start =========-->
     <section class="tj-about-section-three">
@@ -468,7 +454,6 @@
     </section>
     <!--========== FAQ Section End ==============-->
 
-
     <!--========== Project Section Start ==============-->
     <section class="tj-project-section-three">
         <div class="tj-project-content-area">
@@ -578,7 +563,6 @@
         </div>
     </section>
     <!--========== Choose Section End ==============-->
-
 
     <!--=========== Blog Section Start =========-->
     <section class="tj-blog-section-three">
