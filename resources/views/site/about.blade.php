@@ -227,9 +227,9 @@
                     <div class="faq-content">
                         <div class="faq-icon"><i class="fa-regular fa-check"></i></div>
                         <div class="faq-text">
-                        <h6 class="title">Reliable & Transparent</h6>
-                        <p>We work only with licensed carriers—no brokers, no hidden fees—ensuring clarity and peace of mind.</p>
-                        </div>
+                                <h6 class="title">Reliable & Transparent</h6>
+                                <p>We partner exclusively with fully licensed carriers no middlemen, no hidden charges providing you with complete transparency and peace of mind at every step.</p>
+                            </div>
                     </div>
                     <div class="faq-content">
                         <div class="faq-icon"><i class="fa-regular fa-check"></i></div>
