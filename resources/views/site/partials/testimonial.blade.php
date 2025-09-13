@@ -27,13 +27,12 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
+                                    Shipped half a Sprinter van frame to me, even picked it up 2 days earlier than scheduled. Easy to deal with Ahmed by phone and text. Overall Great service.
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
-                                        <h5 class="title">Kimberly Hansen</h5>
-                                        <span class="sub-title"> Manager</span>
+                                        <h5 class="title">Scott Vlastnik</h5>
+                                        <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
                                         <img src="web-assets/images/icon/comment.svg" alt="Icon" />
@@ -60,13 +59,44 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
+                                    I've used this company to transport several vehicles in the last month alone and they've delivered everytime. My dispatcher Mark Gib......
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
-                                        <h5 class="title">Miah Robbani</h5>
-                                        <span class="sub-title"> Manager</span>
+                                        <h5 class="title">Alhue Gayle</h5>
+                                        <span class="sub-title"> Customer</span>
+                                    </div>  
+                                    <div class="testimonial-comment">
+                                        <img src="web-assets/images/icon/comment.svg" alt="Icon" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="tj-testimonial-item">
+                            <div class="testimonial-rating d-flex justify-content-between">
+                                <div class="testimoniasl-image">
+                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
+                                </div>
+                                <div class="rating-icon">
+                                    <ul class="list-gap">
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="content-area">
+                                <p>
+                                    First time shipping a vehicle and I spoke with Mathew Wall,he explained all the details very well and made me feel comfortable with the whole process.
+                                </p>
+                                <div class="testimonial-content d-flex justify-content-between">
+                                    <div class="testimonial-auother">
+                                        <h5 class="title">Brandon Bethard</h5>
+                                        <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
                                         <img src="web-assets/images/icon/comment.svg" alt="Icon" />
@@ -93,46 +123,12 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
+                                    Very satisfied with the service provided by Bridgeway Logistics LLC. From the very beginning, Ahmed offered me excellent customer service.....
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
-                                        <h5 class="title">Kimberly Hansen</h5>
-                                        <span class="sub-title"> Manager</span>
-                                    </div>
-                                    <div class="testimonial-comment">
-                                        <img src="web-assets/images/icon/comment.svg" alt="Icon" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="tj-testimonial-item">
-                            <div class="testimonial-rating d-flex justify-content-between">
-                                <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
-                                </div>
-                                <div class="rating-icon">
-                                    <ul class="list-gap">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="content-area">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="testimonial-content d-flex justify-content-between">
-                                    <div class="testimonial-auother">
-                                        <h5 class="title">Miah Robbani</h5>
-                                        <span class="sub-title"> Manager</span>
+                                        <h5 class="title">Bryan Mesa</h5>
+                                        <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
                                         <img src="web-assets/images/icon/comment.svg" alt="Icon" />
