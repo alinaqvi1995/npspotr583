@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
                         <div class="about_image text-end">
-                            <img src="web-assets/images/about/aloo.png" alt="About Us Image" />
+                            <img src="web-assets/images/about/sec.png" alt="About Us Image" />
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
         </div>
     </section>
     
-    <section class="tj-team-details">
+    <section class="tj-team-details pb-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
