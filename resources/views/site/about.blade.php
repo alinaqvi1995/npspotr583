@@ -65,7 +65,9 @@
                                             <h5 class="title">Our Vision</h5>
                                         </div>
                                     </div>
-                                    <p class="desc">To be the nation’s most trusted all-round transport provider setting the standard for nationwide shipping , driven by innovation, transparency, and customer care.</p>
+                                    <p class="desc">To be the nation’s most trusted transport company, setting the
+                                    standard for nationwide shipping , driven by innovation, transparency, and customer
+                                    care.</p>
                                 </div>
                             </div>
                             <div class="tj-theme-button">
@@ -98,7 +100,7 @@
                             </div>
                             <div class="cta-text">
                                 <h3 class="title">Would you Like to get The Best Transport Services?</h3>
-                                <p class="desc">Dapibus interdum senectus malesuada est nec morbi cursus.</p>
+                                <p class="desc">Bridgeway logistics LLC ensure safe and timely delivery every time.</p>
                             </div>
                         </div>
                     </div>
