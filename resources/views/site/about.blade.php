@@ -41,7 +41,7 @@
                                 <span class="sub-title active-shape">Explore the Benefits of Nationwide Transport</span>
                                 <h2 class="title">Delivering Fast, Reliable Transport Solutions</h2>
                                 <p class="desc">
-                                    We are the "ALL-ROUNDER" in vehicle transport—specializing in shipping everything from cars and heavy equipment to ATVs, construction vehicles, trucks, and even boats.
+                                    We are the one stop solution in vehicle transport—specializing in shipping everything from cars and heavy equipment to ATVs, construction vehicles, trucks, and even boats.
                                 </p>
                             </div>
                             <div class="content-box d-flex align-items-center">
@@ -87,7 +87,7 @@
 
     <!--=========== Cta Section Start =========-->
     <section class="tj-cta-section icon-animate">
-        <div class="cta-inner" data-bg-image="web-assets/images/cta/cta-1.jpg"></div>
+        <div class="cta-inner" data-bg-image="web-assets/images/cta/gi.png"></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -152,73 +152,49 @@
         </div>
     </section>
     
-    <section class="tj-team-details">
+    <section class="tj-team-details pb-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
                     <div class="team-details-image">
-                        <img src="assets/images/team/team-7.jpg" alt="Team" />
+                        <img src="{{ asset('web-assets/images/team/aloo.png') }}" alt="Team" />
                     </div>
                 </div>
                 <div class="col-lg-7">
                     <div class="team-sidebar-inner">
-                        <h4 class="title">George Clooney</h4>
-                        <span> Land Transport</span>
-                        <div class="team-social">
-                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                        </div>
+                        <h4 class="title">Bridgeway Logistics LLC</h4>
+                        <span>Reliable Transport & Logistics Solutions</span>
                         <p>
-                            Lorem ipsum dolor sit amet, con adipiscing elit tiam convallis elit id impedie. Quisq
-                            commodo simply free ornare tortor. If you are going to use a passage.
+                            At Bridgeway Logistics, we specialize in providing seamless and cost-effective 
+                            transport solutions tailored to your needs. With years of industry expertise, 
+                            we are committed to ensuring timely deliveries, secure handling, and 
+                            customer-focused services that help businesses and individuals move forward 
+                            with confidence.
                         </p>
-                        <h5 class="title">I help my clients stand out and they help me grow.</h5>
+                        <h5 class="title">Our mission is to deliver with trust, efficiency, and excellence.</h5>
                         <div class="team-check d-flex align-items-center">
                             <ul class="list-gap">
-                                <li><i class="fa-light fa-check"></i> Best Quality Services</li>
-                                <li><i class="fa-light fa-check"></i> Meet the Deadlines</li>
+                                <li><i class="fa-light fa-check"></i> Dependable Transport Services</li>
+                                <li><i class="fa-light fa-check"></i> On-Time Deliveries</li>
                             </ul>
                             <ul class="list-gap">
-                                <li><i class="fa-light fa-check"></i> Best Quality Services</li>
-                                <li><i class="fa-light fa-check"></i> Meet the Deadlines</li>
+                                <li><i class="fa-light fa-check"></i> Secure & Safe Handling</li>
+                                <li><i class="fa-light fa-check"></i> Customer-Centric Approach</li>
                             </ul>
                         </div>
                         <div class="tj-team-progress-bar">
-                            <label> Public Relations</label>
+                            <label>Successful Deliveries</label>
                             <div class="progress-bars">
-                                <div class="bar" data-size="70">
+                                <div class="bar" data-size="100">
                                     <span class="perc"></span>
                                 </div>
                             </div>
-                            <label> Clients Daily</label>
+                            <label>Client Satisfaction</label>
                             <div class="progress-bars">
-                                <div class="bar" data-size="80">
+                                <div class="bar" data-size="98">
                                     <span class="perc"></span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-center thumb-group">
-                <div class="col-lg-6">
-                    <div class="team-thumb-content">
-                        <h4 class="title">Certificates & Education</h4>
-                        <p>Trage agile frameworks to provide a robust synopsis approaches to corporate</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="team-thumb-image d-flex align-items-center justify-content-end">
-                        <div class="thumb-1">
-                            <img src="assets/images/team/thumb-1.png" alt="Team" />
-                        </div>
-                        <div class="thumb-1">
-                            <img src="assets/images/team/thumb-1.png" alt="Team" />
-                        </div>
-                        <div class="thumb-1">
-                            <img src="assets/images/team/thumb-1.png" alt="Team" />
                         </div>
                     </div>
                 </div>
@@ -251,9 +227,9 @@
                     <div class="faq-content">
                         <div class="faq-icon"><i class="fa-regular fa-check"></i></div>
                         <div class="faq-text">
-                        <h6 class="title">Reliable & Transparent</h6>
-                        <p>We work only with licensed carriers—no brokers, no hidden fees—ensuring clarity and peace of mind.</p>
-                        </div>
+                                <h6 class="title">Reliable & Transparent</h6>
+                                <p>We partner exclusively with fully licensed carriers no middlemen, no hidden charges providing you with complete transparency and peace of mind at every step.</p>
+                            </div>
                     </div>
                     <div class="faq-content">
                         <div class="faq-icon"><i class="fa-regular fa-check"></i></div>

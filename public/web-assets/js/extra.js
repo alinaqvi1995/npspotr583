@@ -46,81 +46,166 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function () {
     let vehicleIndex = 0;
     function getVehicleFields(type, index) {
-        const yearField = `
-            <div class="col-md-4">
-                <label class="text-white">Year</label>
-                <select name="vehicles[${index}][year]" class="form-select year-select" required>
-                    <option value="">-- Select Year --</option>
-                </select>
+    const yearField = `
+        <div class="col-md-4">
+            <label class="text-white">Year</label>
+            <select name="vehicles[${index}][year]" class="form-select year-select" required>
+                <option value="">-- Select Year --</option>
+            </select>
+        </div>
+    `;
+    const makeModelSelect = `
+        <div class="col-md-4">
+            <label class="text-white">Make</label>
+            <select name="vehicles[${index}][make]" class="form-select make-select" required>
+                <option value="">-- Select Make --</option>
+                ${$('#make-options').html()}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="text-white">Model</label>
+            <select name="vehicles[${index}][model]" class="form-select model-select" required>
+                <option value="">-- Select Model --</option>
+            </select>
+        </div>
+    `;
+    const makeModelText = `
+        <div class="col-md-4">
+            <label class="text-white">Make</label>
+            <input type="text" name="vehicles[${index}][make]" class="form-control" placeholder="Enter Make" required>
+        </div>
+        <div class="col-md-4">
+            <label class="text-white">Model</label>
+            <input type="text" name="vehicles[${index}][model]" class="form-control" placeholder="Enter Model" required>
+        </div>
+    `;
+    const sizeFields = `
+    <div class="row mt-2">
+        <!-- Length -->
+        <div class="col-md-6">
+            <label class="text-white">Length</label>
+            <div class="input-container">
+                <input type="number" class="form-control px-2 border-0 py-0 feet-input" 
+                       name="vehicles[${index}][length_ft]" 
+                       placeholder="Feet" min="0" oninput="limitDigits(this, 3)" required>
+                <span class="separator">(Ft.)</span>
+                <input type="number" class="form-control px-2 border-0 py-0 inches-input" 
+                       name="vehicles[${index}][length_in]" 
+                       placeholder="Inches" min="0" max="11" 
+                       oninput="limitDigits(this, 2)" required>
+                <span class="separator">(In.)</span>
             </div>
+        </div>
+
+        <!-- Width -->
+        <div class="col-md-6">
+            <label class="text-white">Width</label>
+            <div class="input-container">
+                <input type="number" class="form-control px-2 border-0 py-0 feet-input" 
+                       name="vehicles[${index}][width_ft]" 
+                       placeholder="Feet" min="0" oninput="limitDigits(this, 3)" required>
+                <span class="separator">(Ft.)</span>
+                <input type="number" class="form-control px-2 border-0 py-0 inches-input" 
+                       name="vehicles[${index}][width_in]" 
+                       placeholder="Inches" min="0" max="11" 
+                       oninput="limitDigits(this, 2)" required>
+                <span class="separator">(In.)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <!-- Height -->
+        <div class="col-md-6">
+            <label class="text-white">Height</label>
+            <div class="input-container">
+                <input type="number" class="form-control px-2 border-0 py-0 feet-input" 
+                       name="vehicles[${index}][height_ft]" 
+                       placeholder="Feet" min="0" oninput="limitDigits(this, 3)" required>
+                <span class="separator">(Ft.)</span>
+                <input type="number" class="form-control px-2 border-0 py-0 inches-input" 
+                       name="vehicles[${index}][height_in]" 
+                       placeholder="Inches" min="0" max="11" 
+                       oninput="limitDigits(this, 2)" required>
+                <span class="separator">(In.)</span>
+            </div>
+        </div>
+
+        <!-- Weight -->
+        <div class="col-md-4">
+            <label class="text-white">Weight</label>
+            <div class="input-container">
+                <input type="number" class="form-control px-2 border-0 py-0" 
+                       name="vehicles[${index}][weight]" 
+                       placeholder="Weight" min="0" 
+                       oninput="limitDigits(this, 6)" required>
+                <span class="separator">(Lbs.)</span>
+            </div>
+        </div>
+    </div>
+`;
+
+
+    // Trailer type options based on vehicle type
+    let trailerOptions = `
+        <option value="Open Trailer">Open Trailer</option>
+        <option value="Enclosed Trailer">Enclosed Trailer</option>
+    `;
+
+    if (type === "RV-Transport") {
+        trailerOptions = `
+            <option value="Drive away">Drive away</option>
+            <option value="Tow away">Tow away</option>
+            <option value="Flatbed trailer">Flatbed trailer</option>
         `;
-        const makeModelSelect = `
-            <div class="col-md-4">
-                <label class="text-white">Make</label>
-                <select name="vehicles[${index}][make]" class="form-select make-select" required>
-                    <option value="">-- Select Make --</option>
-                    ${$('#make-options').html()}
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label class="text-white">Model</label>
-                <select name="vehicles[${index}][model]" class="form-select model-select" required>
-                    <option value="">-- Select Model --</option>
-                </select>
-            </div>
+    } else if (type === "Heavy-Equipment" || type === "Boat-Transport") {
+        trailerOptions = `
+            <option value="Flatbed trailers">Flatbed trailers</option>
+            <option value="Drop Deck Trailers">Drop Deck Trailers</option>
+            <option value="Extendable trailers">Extendable trailers</option>
+            <option value="Lowboy Trailers">Lowboy Trailers</option>
+            <option value="RGN">RGN</option>
         `;
-        const makeModelText = `
-            <div class="col-md-4">
-                <label class="text-white">Make</label>
-                <input type="text" name="vehicles[${index}][make]" class="form-control" placeholder="Enter Make" required>
-            </div>
-            <div class="col-md-4">
-                <label class="text-white">Model</label>
-                <input type="text" name="vehicles[${index}][model]" class="form-control" placeholder="Enter Model" required>
-            </div>
-        `;
-        const sizeFields = `
-            <div class="row mt-2">
-                <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][length]" placeholder="Length (ft)" required></div>
-                <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][width]" placeholder="Width (ft)" required></div>
-                <div class="col-md-4"><input type="number" class="form-control" name="vehicles[${index}][height]" placeholder="Height (ft)" required></div>
-                <div class="col-md-12 mt-2"><input type="number" class="form-control" name="vehicles[${index}][weight]" placeholder="Weight (lbs)" required></div>
-            </div>
-        `;
-        const trailerAndCondition = `
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[${index}][trailer_type]">
-                        <option value="Open Trailer">Open Trailer</option>
-                        <option value="Enclosed Trailer">Enclosed Trailer</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-control" name="vehicles[${index}][condition]">
-                        <option value="Running">Running</option>
-                        <option value="Non-Running">Non-Running</option>
-                    </select>
-                </div>
-            </div>
-        `;
-        const imageUpload = `
-            <div class="input-form mt-4">
-                <input class="form-control image_input pt-0" name="images[${index}][]" type="file" accept="image/*" multiple onchange="previewImages(event, ${index})">
-                <div class="image-preview-container" id="imagePreviewContainer${index}"></div>
-            </div>
-        `;
-        let fields = `<div class="row mt-2">${yearField}`;
-        if (type === "Car") {
-            fields += makeModelSelect;
-        } else {
-            fields += makeModelText;
-        }
-        fields += `</div>`;
-        if (type === "Boat-Transport" || type === "Heavy-Equipment" || type === "RV-Transport") {
-            fields += sizeFields;
-        }
-        return fields + trailerAndCondition + imageUpload;
     }
+
+    const trailerAndCondition = `
+        <div class="row mt-2">
+            <div class="col-md-6">
+            <label class="text-white">Trailer Type</label>
+                <select class="form-control" name="vehicles[${index}][trailer_type]">
+                    ${trailerOptions}
+                </select>
+            </div>
+            <div class="col-md-6">
+            <label class="text-white">Condition</label>
+                <select class="form-control" name="vehicles[${index}][condition]">
+                    <option value="Running">Running</option>
+                    <option value="Non-Running">Non-Running</option>
+                </select>
+            </div>
+        </div>
+    `;
+
+    const imageUpload = `
+        <div class="input-form mt-4">
+            <input class="form-control image_input pt-0" name="images[${index}][]" type="file" accept="image/*" multiple onchange="previewImages(event, ${index})">
+            <div class="image-preview-container" id="imagePreviewContainer${index}"></div>
+        </div>
+    `;
+
+    let fields = `<div class="row mt-2">${yearField}`;
+    if (type === "Car") {
+        fields += makeModelSelect;
+    } else {
+        fields += makeModelText;
+    }
+    fields += `</div>`;
+    if (type === "Boat-Transport" || type === "Heavy-Equipment" || type === "RV-Transport") {
+        fields += sizeFields;
+    }
+    return fields + trailerAndCondition + imageUpload;
+}
+
     $("#tabSelector").change(function () {
         const selected = $(this).val();
         $("#firstVehicle").empty();
@@ -145,7 +230,7 @@ $(document).ready(function () {
         vehicleIndex++;
         const vehicleHtml = `
             <div class="vehicle-block vehicle-item extra-vehicle" style=" margin-bottom:10px; position:relative; display:none;">
-                <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Delete</button>
+                <button type="button" class="deleteVehicleBtn" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;"><i class="fas fa-trash"></i></button>
                 <input type="hidden" name="vehicles[${vehicleIndex}][type]" value="${selected}">
                 <h4 class="text-white text-center text-decoration-underline">${selected.replace(/-/g, ' ')}</h4>
                 ${getVehicleFields(selected, vehicleIndex)}
@@ -208,9 +293,41 @@ $(document).ready(function () {
 });
 document.querySelectorAll(".no_move").forEach(btn => {
     btn.addEventListener("click", function(e) {
-        e.preventDefault(); // form submit stop
-        e.stopPropagation(); // event bubbling stop
-        this.blur(); // button pe focus remove karo
-        console.log("Next button clicked, scroll nahi hoga!");
+        e.preventDefault(); 
+        e.stopPropagation(); 
+        this.blur(); 
+        console.log("Next button clicked");
     });
 });
+
+    // Allow only digits & limit max length
+    function limitDigits(element, maxDigits) {
+        if (element.value.length > maxDigits) {
+            element.value = element.value.slice(0, maxDigits);
+        }
+    }
+
+    $(document).ready(function () {
+        // General number-only check
+        $(document).on('input', 'input[type="number"]', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Limit Inches (example if you add inches field later)
+        $(document).on('input', '.inches-input', function () {
+            if (this.value > 11) {
+                this.value = 11;
+            } else if (this.value < 0) {
+                this.value = 0;
+            }
+        });
+
+        // Example for max length restriction
+        $(document).on('input', 'input[name*="[length]"], input[name*="[width]"], input[name*="[height]"]', function () {
+            limitDigits(this, 3); // max 3 digits
+        });
+
+        $(document).on('input', 'input[name*="[weight]"]', function () {
+            limitDigits(this, 6); // max 6 digits
+        });
+    });

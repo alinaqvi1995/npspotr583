@@ -12,7 +12,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $services = Service::where('status', 1)->latest()->take(4)->get();
+        $services = Service::where('status', 1)
+            ->whereRaw('id % 2 = 1') 
+            ->latest()
+            ->get();
         $blogs = Blog::latest()->take(3)->get();
         $makes = VehicleMakeModel::select('make')
             ->distinct()
@@ -31,6 +34,14 @@ class HomeController extends Controller
             ->pluck('make');
 
         return view('site.about', compact('services','makes','blogs'));
+    }
+    public function multiform()
+    {
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+        return view('site.quote', compact('makes'));
     }
     public function getModels(Request $request)
     {
@@ -60,5 +71,13 @@ class HomeController extends Controller
     public function privacy()
     {
         return view('site.privacy');
+    }
+        public function trems()
+    {
+        return view('site.trems');
+    }
+        public function faq()
+    {
+        return view('site.faq');
     }
 }
