@@ -564,7 +564,7 @@
     <!--========== Choose Section End ==============-->
 
     <!--=========== Blog Section Start =========-->
-    <section class="tj-blog-section-three">
+    {{-- <section class="tj-blog-section-three">
         <div class="container">
             <div class="row">
                 <div class="tj-section-heading text-center">
@@ -624,6 +624,6 @@
                 @endforeach
             </div>
         </div>
-    </section>
+    </section> --}}
     <!--=========== Blog Section End =========-->
 @endsection
