@@ -109,8 +109,8 @@
             <div class="row">
                 <div class="col-lg-12 position-relative">
                     <div class="tj-theme-button">
-                        <a class="tj-transparent-btn" href="contact.html">
-                            Read More <i class="flaticon-right-1"></i>
+                        <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                            Get Quote <i class="flaticon-right-1"></i>
                         </a>
                     </div>
                 </div>
