@@ -72,10 +72,10 @@
                     <div class="choose-us-content-1">
                         <div class="tj-section-heading">
                             <span class="sub-title active-shape2"> Why Choose Us</span>
-                            <h2 class="title">We are the Future of Cargo & Logistics</h2>
+                            <h2 class="title">We are the Future of Auto Transport</h2>
                             <p class="desc">
-                                Quisque dignissim enim diam, eget pulvinar ex viverra id. Nulla a lobortis lectus,
-                                id volutpat magna. Morbi consequat porttitor
+                                Safe & Secure Shipping Your Shipment is handled with the utmost care from
+                                pick-up to delivery.
                             </p>
                         </div>
                         <div class="row">
