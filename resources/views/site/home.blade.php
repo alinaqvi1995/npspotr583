@@ -279,7 +279,7 @@
                                         <h5 class="title">Our Vision</h5>
                                     </div>
                                 </div>
-                                <p class="desc">To be the nation’s most trusted all-round transport provider setting the
+                                <p class="desc">To be the nation’s most trusted transport company, setting the
                                     standard for nationwide shipping , driven by innovation, transparency, and customer
                                     care.</p>
                             </div>
@@ -506,7 +506,7 @@
                     <div class="choose-us-top-content">
                         <div class="tj-section-heading">
                             <span class="sub-title active-shape2"> Why Partner With Us?</span>
-                            <h2 class="title">Reasons Why You Choose Bridgeway Logistics</h2>
+                            <h2 class="title">Reasons Why You Choose Bridgeway Logistics LLC</h2>
                         </div>
                         <div class="tj-theme-button">
                             <a class="tj-transparent-btn" href="contact.html">

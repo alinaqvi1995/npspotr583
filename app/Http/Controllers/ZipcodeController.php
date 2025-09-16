@@ -45,7 +45,13 @@ class ZipcodeController extends Controller
             ->orWhere('city', 'like', "%{$query}%")
             ->orWhere('state', 'like', "%{$query}%")
             ->limit(10)
+            ->distinct()
             ->get(['zipcode', 'city', 'state']);
+        // $results = Zipcode::where('zipcode', 'like', "%{$query}%")
+        //     ->orWhere('city', 'like', "%{$query}%")
+        //     ->orWhere('state', 'like', "%{$query}%")
+        //     ->limit(10)
+        //     ->get(['zipcode', 'city', 'state']);
 
         return response()->json($this->formatResults($results));
     }
