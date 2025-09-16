@@ -252,7 +252,7 @@
                             <span class="sub-title active-shape">Explore the Benefits of Nationwide Transport</span>
                             <h2 class="title">Delivering Fast, Reliable Transport Solutions</h2>
                             <p class="desc">
-                                We are the "ALL-ROUNDER" in vehicle transport—specializing in shipping everything from cars
+                                We are the one stop solution in vehicle transport—specializing in shipping everything from cars
                                 and heavy equipment to ATVs, construction vehicles, trucks, and even boats.
                             </p>
                         </div>
