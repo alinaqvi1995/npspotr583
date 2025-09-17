@@ -52,14 +52,14 @@
                                 <div class="social-title">
                                     <h5>Follow Us:</h5>
                                 </div>
-                                <div class="social-list">
+<!--                                 <div class="social-list">
                                     <ul class="list-gap">
                                         <li><a href="https://www.facebook.com/bridgewaylogistics" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a></li>
                                         <li><a href="https://www.instagram.com/bridgewaylogistics" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a></li>
                                         <li><a href="https://twitter.com/bridgewaylog" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a></li>
                                         <li><a href="https://www.linkedin.com/company/bridgewaylogistics" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
