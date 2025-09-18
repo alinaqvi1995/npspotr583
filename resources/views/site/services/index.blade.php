@@ -41,7 +41,7 @@
                     <div class="col-lg-6 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
                         <div class="service-item-two d-flex justify-content-between">
                             <div class="service-image">
-                                <img src="{{ asset('public/' . $row->image_one) }}" alt="Image" />
+                                <img src="{{ asset($row->image_one) }}" alt="Image" />
                             </div>
                             <div class="service-text">
                                 <div class="services-icon">
