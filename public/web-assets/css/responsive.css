@@ -1118,7 +1118,7 @@
         display: none;
     }
     .tj-slider-section-three .slider-tabs {
-        display: none;
+        /* display: none; */
     }
     .tj-service-icon-box {
         position: initial;

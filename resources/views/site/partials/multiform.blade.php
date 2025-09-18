@@ -64,6 +64,11 @@
         -moz-appearance: textfield;
     }
 </style>
+<div id="make-options" class="d-none">
+    @foreach ($makes as $make)
+        <option value="{{ $make }}">{{ $make }}</option>
+    @endforeach
+</div>
 <form class="rd-mailform validate-form" id="calculatePriceFrom" action="{{ route('frontend.submit.quote') }}" method="POST" enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled>
     @csrf
     @php $today = date('Y-m-d'); @endphp

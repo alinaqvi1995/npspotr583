@@ -31,13 +31,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-5 py-5 my-5">
-                                <div class="slider-tabs slider-tabs-two d-none d-lg-block">
+                                <div class="slider-tabs slider-tabs-two">
                                     <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-                                        <div id="make-options" class="d-none">
-                                            @foreach ($makes as $make)
-                                                <option value="{{ $make }}">{{ $make }}</option>
-                                            @endforeach
-                                        </div>
+                                        
                                         @include('site.partials.multiform')
                                     </div>
                                 </div>
@@ -128,7 +124,7 @@
     <!--========== Slider Section End ==============-->
 
     <!--========== Tabs Section Start ==============-->
-    <section class="tj-tabs-section-two d-lg-none">
+    {{-- <section class="tj-tabs-section-two d-lg-none">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -140,7 +136,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!--========== Tabs Section End ==============-->
 
     <!--========== Service Section Start ==============-->
