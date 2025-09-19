@@ -130,7 +130,12 @@
             });
 
             // modal
-            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            if ($.fn.modal) {
+                // Patch enforceFocus only if Constructor exists (Bootstrap 4.x)
+                if ($.fn.modal.Constructor) {
+                    $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+                }
+            }
 
             $('.select2').select2({
                 theme: 'bootstrap-5',

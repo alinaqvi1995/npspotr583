@@ -101,6 +101,18 @@
                                                     <i class="material-icons-outlined fs-6 me-1">send</i> Send Order Form
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="dropdown-item view-logs" href="javascript:;"
+                                                    data-id="{{ $quote->id }}">
+                                                    <i class="material-icons-outlined fs-6 me-1">receipt_long</i> View Logs
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item agent-history" href="javascript:;"
+                                                    data-id="{{ $quote->id }}">
+                                                    <i class="material-icons-outlined fs-6 me-1">history</i> Agent History
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -157,9 +169,187 @@
             </div>
         </div>
     </div>
+
+    <!-- Log Modal -->
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Quote History Log</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Change Type</th>
+                                <th>Old → New</th>
+                                <th>Changed By</th>
+                                <th>When</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="5" class="text-center">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Agent History Modal -->
+    <div class="modal fade" id="agentHistoryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content shadow border-0 rounded-3">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="material-icons-outlined me-2">history</i> Agent History</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs" id="agentHistoryTabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="add-tab" data-bs-toggle="tab"
+                                data-bs-target="#addHistory" type="button">Add History</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="view-tab" data-bs-toggle="tab" data-bs-target="#viewHistory"
+                                type="button">View History</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content mt-3">
+                        <!-- Add History -->
+                        <div class="tab-pane fade show active" id="addHistory">
+                            <form method="POST" action="{{ route('dashboard.quotes.agentHistory.store') }}">
+                                @csrf
+                                <input type="hidden" name="quote_id" id="agentHistoryQuoteId">
+                                <div class="mb-3">
+                                    <label class="form-label">Title</label>
+                                    <input type="text" name="title" class="form-control rounded-3" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    <textarea name="description" class="form-control rounded-3" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                            </form>
+                        </div>
+
+                        <!-- View History -->
+                        <div class="tab-pane fade" id="viewHistory">
+                            <div id="historyContent">Loading history...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('extra_js')
+    <script>
+        $(document).ready(function() {
+
+            // ✅ DataTable setup
+            var table = $('#quoteTable').DataTable({
+                pageLength: 10,
+                autoWidth: false,
+                order: [
+                    [0, 'asc']
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    targets: [1, 4, 5]
+                }]
+            });
+
+            // ✅ Column filter + search
+            $('#quoteSearch').on('keyup', function() {
+                var colIndex = $('#columnFilter').val();
+                if (colIndex === '') {
+                    table.search(this.value).draw();
+                } else {
+                    table.column(colIndex).search(this.value).draw();
+                }
+            });
+
+            // ✅ Send Order Form
+            $(document).on('click', '.send-order-form', function() {
+                let quoteId = $(this).data('id');
+                $('#orderFormQuoteId').val(quoteId);
+                $('#sendOrderFormModal').modal('show');
+            });
+
+            // ✅ View Logs (Quote History Log)
+            $(document).on('click', '.view-logs', function() {
+                let quoteId = $(this).data('id');
+                $('#historyModal').modal('show'); // correct modal ID
+                loadHistories(quoteId); // call loader
+            });
+
+            // ✅ Agent History (custom notes per agent)
+            $(document).on('click', '.agent-history', function() {
+                let quoteId = $(this).data('id');
+                $('#agentHistoryQuoteId').val(quoteId);
+                $('#agentHistoryModal').modal('show');
+
+                // Load history tab content
+                $('#historyContent').html('Loading...');
+                let agentUrl = "{{ route('dashboard.quotes.agentHistory', ':id') }}";
+                agentUrl = agentUrl.replace(':id', quoteId);
+
+                $.get(agentUrl, function(data) {
+                    $('#historyContent').html(data);
+                });
+            });
+
+            // ✅ AJAX loader for Quote History Log
+            function loadHistories(quoteId) {
+                $('#historyTableBody').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
+
+                let url = "{{ route('dashboard.quotes.histories', ':id') }}";
+                url = url.replace(':id', quoteId);
+
+                $.get(url, function(response) {
+                    let rows = '';
+                    if (response.histories.length === 0) {
+                        rows = '<tr><td colspan="5" class="text-center">No history found.</td></tr>';
+                    } else {
+                        response.histories.forEach((h, i) => {
+                            let changes = '';
+                            if (h.data) {
+                                for (const [key, val] of Object.entries(h.data)) {
+                                    let oldVal = h.old_status && key === 'status' ? h.old_status :
+                                        '-';
+                                    changes += `<div><b>${key}</b>: ${oldVal} → ${val}</div>`;
+                                }
+                            } else {
+                                changes = `${h.old_status ?? '-'} → ${h.new_status}`;
+                            }
+
+                            rows += `
+                            <tr>
+                                <td>${i+1}</td>
+                                <td>${h.change_type}</td>
+                                <td>${changes}</td>
+                                <td>${h.user?.name ?? 'System'}</td>
+                                <td>${h.created_at}</td>
+                            </tr>`;
+                        });
+                    }
+                    $('#historyTableBody').html(rows);
+                });
+            }
+        });
+    </script>
+@endsection
+
+{{-- @section('extra_js')
     <script>
         $(document).ready(function() {
 
@@ -192,6 +382,63 @@
                 $('#orderFormQuoteId').val(quoteId);
                 $('#sendOrderFormModal').modal('show'); // ✅ fixed ID
             });
+
+            // View Logs
+            $(document).on('click', '.view-logs', function() {
+                let quoteId = $(this).data('id');
+                $('#viewLogsModal').modal('show');
+                $('#logsContent').html('Loading...');
+
+                $.get("{{ url('dashboard/quotes/logs') }}/" + quoteId, function(data) {
+                    $('#logsContent').html(data);
+                });
+            });
+
+            // Agent History
+            $(document).on('click', '.agent-history', function() {
+                let quoteId = $(this).data('id');
+                $('#agentHistoryQuoteId').val(quoteId);
+                $('#agentHistoryModal').modal('show');
+
+                // Load history
+                $('#historyContent').html('Loading...');
+                $.get("{{ url('dashboard/quotes/agentHistory') }}/" + quoteId, function(data) {
+                    $('#historyContent').html(data);
+                });
+            });
+
+            function loadHistories(quoteId) {
+                $('#historyTableBody').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
+                $.get(`/quotes/${quoteId}/histories`, function(response) {
+                    let rows = '';
+                    if (response.histories.length === 0) {
+                        rows = '<tr><td colspan="5" class="text-center">No history found.</td></tr>';
+                    } else {
+                        response.histories.forEach((h, i) => {
+                            let changes = '';
+                            if (h.data) {
+                                for (const [key, val] of Object.entries(h.data)) {
+                                    let oldVal = h.old_status && key === 'status' ? h.old_status :
+                                        '-';
+                                    changes += `<div><b>${key}</b>: ${oldVal} → ${val}</div>`;
+                                }
+                            } else {
+                                changes = `${h.old_status ?? '-'} → ${h.status}`;
+                            }
+
+                            rows += `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td>${h.change_type}</td>
+                        <td>${changes}</td>
+                        <td>${h.changed_by}</td>
+                        <td>${h.created_at}</td>
+                    </tr>`;
+                        });
+                    }
+                    $('#historyTableBody').html(rows);
+                });
+            }
         });
     </script>
-@endsection
+@endsection --}}

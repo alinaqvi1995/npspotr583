@@ -12,6 +12,7 @@ class Quote extends Model
 {
     use LogsActivity;
     protected $fillable = [
+        'user_id',
         'category_id',
         'subcategory_id',
         'vehicle_type',
@@ -257,6 +258,16 @@ class Quote extends Model
     public function OrderForm()
     {
         return $this->hasOne(OrderForm::class);
+    }
+
+    public function agentHistories()
+    {
+        return $this->hasMany(QuoteAgentHistory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     // public function orderForms()

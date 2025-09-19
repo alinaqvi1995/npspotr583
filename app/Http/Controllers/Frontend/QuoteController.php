@@ -10,6 +10,7 @@ use App\Models\VehicleImage;
 use App\Models\VehicleMakeModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\QuoteLocation;
+use Illuminate\Support\Facades\Auth;
 use App\Models\QuotePhone;
 
 class QuoteController extends Controller
@@ -229,6 +230,7 @@ class QuoteController extends Controller
             // }
             // ✅ Create quote
             $quote = Quote::create([
+                'user_id'        => Auth::check() ? Auth::id() : 0,
                 'category_id' => $validated['category_id'] ?? null,
                 'subcategory_id' => $validated['subcategory_id'] ?? null,
                 'vehicle_type' => $validated['vehicle_type'] ?? null,

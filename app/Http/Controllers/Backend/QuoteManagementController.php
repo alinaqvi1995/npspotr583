@@ -9,6 +9,7 @@ use App\Models\VehicleMakeModel;
 use App\Models\Vehicle;
 use App\Models\VehicleImage;
 use App\Models\QuoteLocation;
+use App\Models\QuoteAgentHistory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
@@ -424,5 +425,56 @@ class QuoteManagementController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Failed to update quote: ' . $e->getMessage()])->withInput();
         }
+    }
+
+    public function logs(Quote $quote)
+    {
+        $logs = $quote->activities()->latest()->get(); // adjust based on logging package
+        return view('dashboard.quotes.partials.logs', compact('logs'));
+    }
+
+    public function agentHistory(Quote $quote)
+    {
+        $histories = $quote->agentHistories()->with('user')->latest()->get();
+        return view('dashboard.quotes.partials.agent_history', compact('histories'));
+    }
+
+    public function storeAgentHistory(Request $request)
+    {
+        $request->validate([
+            'quote_id' => 'required|exists:quotes,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        QuoteAgentHistory::create([
+            'quote_id' => $request->quote_id,
+            'user_id'  => Auth::id(),
+            'title'    => $request->title,
+            'description' => $request->description,
+        ]);
+
+        return back()->with('success', 'Agent history added!');
+    }
+
+    public function histories($quoteId)
+    {
+        $logs = \App\Models\QuoteHistory::with('user')
+            ->where('quote_id', $quoteId)
+            ->whereColumn('old_status', '!=', 'status') // only status changes
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($history) {
+                return [
+                    'id'          => $history->id,
+                    'change_type' => ucfirst($history->change_type),
+                    'old_status'  => $history->old_status ?: '-',
+                    'new_status'  => $history->status ?: '-',
+                    'changed_by'  => $history->user?->name ?: 'System',
+                    'created_at'  => $history->created_at->format('M d, Y h:i A'),
+                ];
+            });
+
+        return response()->json(['histories' => $logs]);
     }
 }

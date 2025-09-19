@@ -184,4 +184,9 @@ class User extends Authenticatable
     {
         return $this->updated_at ? $this->updated_at->format('Md, Y h:ia') : '-';
     }
+
+    public function quoteAgentHistory()
+    {
+        return $this->hasMany(QuoteAgentHistory::class);
+    }
 }

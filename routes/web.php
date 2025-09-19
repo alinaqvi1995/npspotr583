@@ -136,6 +136,13 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         Route::get('/{orderForm}', [OrderFormController::class, 'show'])->name('show');
         Route::get('/{orderForm}/download', [OrderFormController::class, 'download'])->name('download'); // optional PDF download
     });
+
+    Route::prefix('dashboard/quotes')->name('dashboard.quotes.')->group(function () {
+        Route::get('logs/{quote}', [QuoteManagementController::class, 'logs'])->name('logs');
+        Route::get('agentHistory/{quote}', [QuoteManagementController::class, 'agentHistory'])->name('agentHistory');
+        Route::post('agentHistory/store', [QuoteManagementController::class, 'storeAgentHistory'])->name('agentHistory.store');
+        Route::get('{id}/histories', [QuoteManagementController::class, 'histories'])->name('histories');
+    });
 });
 
 require __DIR__ . '/auth.php';
