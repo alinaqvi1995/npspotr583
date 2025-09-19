@@ -232,6 +232,68 @@
             margin: 0 0 10px 0;
         }
     }
+    /* Typography */
+body {
+  font-family: var(--tj-ff-body);
+  color: var(--tj-body-color);
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tj-ff-title);
+  color: var(--tj-secondary-color);
+}
+
+/* Map Bootstrap utilities to theme */
+.text-primary {
+  color: var(--tj-primary-color) !important;
+}
+.bg-primary {
+  background-color: var(--tj-primary-color) !important;
+}
+.border-primary {
+  border-color: var(--tj-primary-color) !important;
+}
+
+/* Muted text */
+.text-muted {
+  color: var(--tj-gray-color) !important;
+}
+
+/* Buttons */
+.tj-primary-btn {
+  background-color: var(--tj-primary-color);
+  color: var(--tj-white-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.tj-primary-btn:hover {
+  background-color: var(--tj-primary-color3); /* darker shade */
+}
+
+/* Badges */
+.badge.bg-primary {
+  background-color: var(--tj-primary-color) !important;
+  color: var(--tj-white-color);
+}
+
+/* Cards */
+.card {
+  border: 1px solid var(--tj-gray-color3);
+  border-radius: 10px;
+}
+.card-header {
+  background-color: var(--tj-primary-color2);
+  color: var(--tj-primary-color3);
+  font-weight: 600;
+}
+
+/* Footer */
+.footer-text {
+  color: var(--tj-gray-color7);
+}
+
 </style>
 
 </head>
