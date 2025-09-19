@@ -263,7 +263,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--tj-primary-color);
   color: var(--tj-white-color);
   border: none;
-  padding: 10px 20px;
   border-radius: 8px;
   font-weight: 600;
   transition: 0.3s;
@@ -546,7 +545,7 @@ h1, h2, h3, h4, h5, h6 {
                                                 </div>
                                                 <!-- Submit -->
                                                 <div class="tj-theme-button text-center mt-3">
-                                                    <button type="submit" class="tj-primary-btn tabs-button">Submit Order Form <i class="flaticon-right-1"></i></button>
+                                                    <button type="submit" class="tj-primary-btn">Submit Order Form <i class="flaticon-right-1"></i></button>
                                                 </div>
                                             </form>
 
