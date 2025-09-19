@@ -482,10 +482,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <!-- Submit -->
-                                                <div class="text-center mt-4">
-                                                    <button type="submit" class="btn btn-primary btn-lg px-5">Submit Order Form</button>
+                                                <div class="tj-theme-button text-center mt-3">
+                                                    <button type="submit" class="tj-primary-btn tabs-button">Submit Order Form <i class="flaticon-right-1"></i></button>
                                                 </div>
                                             </form>
 
