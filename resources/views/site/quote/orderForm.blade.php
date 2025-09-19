@@ -319,14 +319,27 @@ h1, h2, h3, h4, h5, h6 {
                                     <div class="col-lg-12">
                                         <div class="container my-5">
                                             <!-- Company Header -->
-                                            <div class="d-flex align-items-center border-bottom pb-3 mb-4">
-                                                <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Company Logo" class="me-3" style="height:70px;">
-                                                <div>
+                                            <div class="row align-items-center border-bottom pb-3 mb-4">
+                                                <!-- Logo -->
+                                                <div class="col-12 col-md-auto text-center text-md-start mb-3 mb-md-0">
+                                                    <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" 
+                                                        alt="Company Logo" 
+                                                        class="img-fluid" 
+                                                        style="max-height:70px;">
+                                                </div>
+
+                                                <!-- Company Info -->
+                                                <div class="col text-center text-md-start">
                                                     <h1 class="h4 fw-bold text-primary mb-1">Bridgeway Logistics</h1>
-                                                    <p class="mb-0 small text-muted">123 Main Street, Suite 100, City, State, ZIP</p>
-                                                    <p class="mb-0 small text-muted">Email: sales@bridgewaylogisticsllc.com | Phone: +1 (123) 456-7890</p>
+                                                    <p class="mb-0 small text-muted">
+                                                        123 Main Street, Suite 100, City, State, ZIP
+                                                    </p>
+                                                    <p class="mb-0 small text-muted">
+                                                        Email: sales@bridgewaylogisticsllc.com | Phone: +1 (123) 456-7890
+                                                    </p>
                                                 </div>
                                             </div>
+
 
                                             <!-- Form Title -->
                                             <h2 class="text-center fw-semibold mb-4">Order Form - Quote #{{ $quote->id }}</h2>
