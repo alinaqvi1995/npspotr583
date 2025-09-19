@@ -429,32 +429,45 @@
                                                         <label class="form-label">Payment Option</label>
                                                         <select name="payment_option" id="payment_option" class="form-select" required>
                                                             <option value="">Select Payment Option</option>
-                                                            <option value="now" {{ old('payment_option') === 'now' ? 'selected' : '' }}>Pay Now</option>
-                                                            <option value="later" {{ old('payment_option') === 'later' ? 'selected' : '' }}>Pay Later</option>
+                                                            <option value="now" {{ old('payment_option') === 'now' ? 'selected' : '' }}>Pay Now
+                                                            </option>
+                                                            <option value="later" {{ old('payment_option') === 'later' ? 'selected' : '' }}>Pay Later
+                                                            </option>
                                                         </select>
                                                     </div>
 
-                                                    <div id="custom-card-fields" class="card border mb-3 d-none">
-                                                        <div class="card-body">
-                                                            <div class="row g-3">
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Card Number</label>
-                                                                    <input type="text" class="form-control" id="card_number" maxlength="19" value="{{ old('card_number') }}" placeholder="1234 5678 9012 3456">
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <label class="form-label">Expiry</label>
-                                                                    <div class="d-flex">
-                                                                        <input type="text" class="form-control text-center me-1" id="exp_month" maxlength="2" placeholder="MM" value="{{ old('exp_month') }}">
-                                                                        <input type="text" class="form-control text-center ms-1" id="exp_year" maxlength="2" placeholder="YY" value="{{ old('exp_year') }}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <label class="form-label">CVC</label>
-                                                                    <input type="text" class="form-control" id="cvc" maxlength="4" value="{{ old('cvc') }}" placeholder="123">
+                                                    <!-- Custom Card Form -->
+                                                    <div id="custom-card-fields" class="border p-3 mb-3" style="display:none;">
+                                                        <div class="row">
+                                                            <!-- Card Number -->
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">Card Number</label>
+                                                                <input type="text" class="form-control" id="card_number" maxlength="19"
+                                                                    value="{{ old('card_number') }}" placeholder="1234 5678 9012 3456">
+                                                            </div>
+
+                                                            <!-- Expiry -->
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">Expiry</label>
+                                                                <div class="d-flex align-items-center">
+                                                                    <input type="text" class="form-control text-center me-1" id="exp_month"
+                                                                        maxlength="2" placeholder="MM" style="width:60px;"
+                                                                        value="{{ old('exp_month') }}">
+                                                                    <span class="mx-1">/</span>
+                                                                    <input type="text" class="form-control text-center ms-1" id="exp_year"
+                                                                        maxlength="2" placeholder="YY" style="width:60px;"
+                                                                        value="{{ old('exp_year') }}">
                                                                 </div>
                                                             </div>
-                                                            <div id="card-errors" class="text-danger mt-2"></div>
+
+                                                            <!-- CVC -->
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">CVC</label>
+                                                                <input type="text" class="form-control" id="cvc" maxlength="4"
+                                                                    value="{{ old('cvc') }}" placeholder="123">
+                                                            </div>
                                                         </div>
+                                                        <div id="card-errors" class="text-danger mt-2"></div>
                                                     </div>
 
                                                     <!-- Signature -->
@@ -524,87 +537,79 @@
     <script src="{{ asset('web-assets/js/main.js') }}"></script>
     <script src="{{ asset('web-assets/js/extra.js') }}"></script>
 
-<script>
-    $(document).ready(function () {
-        // Format card number (#### #### #### ####)
-        $('#card_number').on('input', function () {
-            let value = this.value.replace(/\D/g, '').substring(0, 16);
-            this.value = value.replace(/(.{4})/g, '$1 ').trim();
-        });
+    <script>
+        $(document).ready(function() {
+            // const stripe = Stripe('{{ config('services.stripe.key') }}');
 
-        // Format expiry month + auto-jump to year
-        $('#exp_month').on('input', function () {
-            let val = this.value.replace(/\D/g, '').substring(0, 2);
-            if (val.length === 2) {
-                let month = Math.max(1, Math.min(12, parseInt(val, 10)));
-                this.value = month.toString().padStart(2, '0');
-                $('#exp_year').focus();
-            } else {
-                this.value = val;
-            }
-        });
+            // Auto format card number (4242 4242 4242 4242)
+            $('#card_number').on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                value = value.substring(0, 16); // max 16 digits
+                let formatted = value.replace(/(.{4})/g, '$1 ').trim();
+                $(this).val(formatted);
+            });
 
-        // Expiry year (YY)
-        $('#exp_year').on('input', function () {
-            this.value = this.value.replace(/\D/g, '').substring(0, 2);
-        });
-
-        // CVC (3–4 digits)
-        $('#cvc').on('input', function () {
-            this.value = this.value.replace(/\D/g, '').substring(0, 4);
-        });
-
-        // Show/Hide card fields
-        $('#payment_option').on('change', function () {
-            if ($(this).val() === 'now') {
-                $('#custom-card-fields').slideDown();
-            } else {
-                $('#custom-card-fields').slideUp();
-                $('#card-errors').text('');
-                // reset fields when hidden
-                $('#card_number, #exp_month, #exp_year, #cvc').val('');
-            }
-        });
-
-        /**
-         * Stripe integration (uncomment if you want live handling)
-         * Make sure Stripe.js is loaded and config('services.stripe.key') is set.
-         */
-        /*
-        const stripe = Stripe('{{ config('services.stripe.key') }}');
-        const form = $('#order-form');
-
-        form.on('submit', async function (e) {
-            if ($('#payment_option').val() === 'now') {
-                e.preventDefault();
-
-                const cardData = {
-                    number: $('#card_number').val().replace(/\s+/g, ''),
-                    exp_month: $('#exp_month').val(),
-                    exp_year: $('#exp_year').val(),
-                    cvc: $('#cvc').val(),
-                };
-
-                const { token, error } = await stripe.createToken('card', cardData);
-
-                if (error) {
-                    $('#card-errors').text(error.message);
-                } else {
-                    $('<input>', {
-                        type: 'hidden',
-                        name: 'stripeToken',
-                        value: token.id
-                    }).appendTo(form);
-
-                    $('#card-errors').text('');
-                    form.get(0).submit();
+            // Expiry MM/YY auto-format (slash always visible)
+            $('#exp_month').on('input', function() {
+                let val = this.value.replace(/\D/g, '').substring(0, 2);
+                if (val.length === 2) {
+                    let month = parseInt(val, 10);
+                    if (month < 1) month = 1;
+                    if (month > 12) month = 12;
+                    val = month.toString().padStart(2, '0');
+                    $('#exp_year').focus(); // jump to year
                 }
-            }
-        });
-        */
-    });
-</script>
+                this.value = val;
+            });
 
+            $('#cvc').on('input', function() {
+                this.value = this.value.replace(/\D/g, '').substring(0, 4);
+            });
+
+            // Show/Hide card fields
+            $('#payment_option').on('change', function() {
+                if ($(this).val() === 'now') {
+                    $('#custom-card-fields').show();
+                } else {
+                    $('#custom-card-fields').hide();
+                    $('#card-errors').text('');
+                }
+            });
+
+            // Handle form submit
+            // $('#order-form').on('submit', async function(e) {
+            //     if ($('#payment_option').val() === 'now') {
+            //         e.preventDefault();
+
+            //         const cardData = {
+            //             number: $('#card_number').val().replace(/\s+/g, ''),
+            //             exp_month: $('#exp_month').val(),
+            //             exp_year: $('#exp_year').val(),
+            //             cvc: $('#cvc').val(),
+            //         };
+
+            //         // Create token
+            //         const {
+            //             token,
+            //             error
+            //         } = await stripe.createToken('card', cardData);
+
+            //         if (error) {
+            //             $('#card-errors').text(error.message);
+            //         } else {
+            //             // Append token to form and submit
+            //             $('<input>').attr({
+            //                 type: 'hidden',
+            //                 name: 'stripeToken',
+            //                 value: token.id
+            //             }).appendTo('#order-form');
+            //             $('#card-errors').text('');
+            //             this.submit();
+            //         }
+            //     }
+            // });
+        });
+    </script>
 </body>
 
 </html>
