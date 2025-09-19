@@ -329,7 +329,7 @@ h1, h2, h3, h4, h5, h6 {
                                                 </div>
 
                                                 <!-- Company Info -->
-                                                <div class="col text-center text-md-start">
+                                                <div class="col text-md-end">
                                                     <h1 class="h4 fw-bold text-primary mb-1">Bridgeway Logistics</h1>
                                                     <p class="mb-0 small text-muted">
                                                         123 Main Street, Suite 100, City, State, ZIP
