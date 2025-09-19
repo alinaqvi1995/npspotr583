@@ -109,8 +109,19 @@
             </div>
         </div>
 
-        <form id="order-form" action="{{ route('site.quote.submitOrderForm', $quote->id) }}" method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form id="order-form" action="{{ route('site.quote.submitOrderForm', $encrypted) }}" method="POST">
             @csrf
+            <input type="hidden" name="quote_id" value="{{ $encrypted }}">
 
             {{-- Step 1: Customer Info --}}
             <div class="mb-4">
@@ -119,17 +130,17 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Name</label>
                         <input type="text" class="form-control" name="customer_name"
-                            value="{{ $quote->customer_name }}" required>
+                            value="{{ old('customer_name', $quote->customer_name) }}" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control" name="customer_email"
-                            value="{{ $quote->customer_email }}" required>
+                            value="{{ old('customer_email', $quote->customer_email) }}" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Phone</label>
                         <input type="text" class="form-control" name="customer_phone"
-                            value="{{ $quote->customer_phone }}" required>
+                            value="{{ old('customer_phone', $quote->customer_phone) }}" required>
                     </div>
                 </div>
             </div>
@@ -188,18 +199,17 @@
                         <div class="p-3 border">
                             <label class="form-label">Address</label>
                             <input type="text" class="form-control mb-2" name="pickup_address1"
-                                value="{{ $quote->pickup_address1 }}" required>
+                                value="{{ old('pickup_address1', $quote->pickup_address1) }}" required>
 
                             <label class="form-label">City, State, Zip</label>
                             <input type="text" class="form-control mb-2"
-                                value="{{ $quote->pickupLocation->full_location }}"
-                                readonly>
+                                value="{{ optional($quote->pickupLocation)->full_location }}" readonly>
 
                             <label class="form-label">Contact</label>
                             <input type="text" class="form-control mb-2" name="pickup_contact_name"
-                                value="{{ $quote->pickup_contact_name }}">
+                                value="{{ old('pickup_contact_name', $quote->pickup_contact_name) }}">
                             <input type="email" class="form-control mb-2" name="pickup_contact_email"
-                                value="{{ $quote->pickup_contact_email }}">
+                                value="{{ old('pickup_contact_email', $quote->pickup_contact_email) }}">
 
                             @if (optional($quote->pickupLocation)->phones->count())
                                 @foreach ($quote->pickupLocation->phones as $phone)
@@ -210,7 +220,7 @@
 
                             <label class="form-label">Pickup Date</label>
                             <input type="datetime-local" class="form-control" name="pickup_date"
-                                value="{{ $quote->pickup_date ? $quote->pickup_date->format('Y-m-d\TH:i') : '' }}">
+                                value="{{ old('pickup_date', $quote->pickup_date ? $quote->pickup_date->format('Y-m-d\TH:i') : '') }}">
                         </div>
                     </div>
 
@@ -220,18 +230,17 @@
                         <div class="p-3 border">
                             <label class="form-label">Address</label>
                             <input type="text" class="form-control mb-2" name="delivery_address1"
-                                value="{{ $quote->delivery_address1 }}" required>
+                                value="{{ old('delivery_address1', $quote->delivery_address1) }}" required>
 
                             <label class="form-label">City, State, Zip</label>
                             <input type="text" class="form-control mb-2"
-                                value="{{ $quote->deliveryLocation->full_location }}"
-                                readonly>
+                                value="{{ optional($quote->deliveryLocation)->full_location }}" readonly>
 
                             <label class="form-label">Contact</label>
                             <input type="text" class="form-control mb-2" name="delivery_contact_name"
-                                value="{{ $quote->delivery_contact_name }}">
+                                value="{{ old('delivery_contact_name', $quote->delivery_contact_name) }}">
                             <input type="email" class="form-control mb-2" name="delivery_contact_email"
-                                value="{{ $quote->delivery_contact_email }}">
+                                value="{{ old('delivery_contact_email', $quote->delivery_contact_email) }}">
 
                             @if (optional($quote->deliveryLocation)->phones->count())
                                 @foreach ($quote->deliveryLocation->phones as $phone)
@@ -242,7 +251,7 @@
 
                             <label class="form-label">Delivery Date</label>
                             <input type="datetime-local" class="form-control" name="delivery_date"
-                                value="{{ $quote->delivery_date ? $quote->delivery_date->format('Y-m-d\TH:i') : '' }}">
+                                value="{{ old('delivery_date', $quote->delivery_date ? $quote->delivery_date->format('Y-m-d\TH:i') : '') }}">
                         </div>
                     </div>
                 </div>
@@ -251,7 +260,7 @@
             {{-- Step 4: Special Instructions --}}
             <div class="mb-4">
                 <div class="stepContainer"><span>4</span><strong>Special Instructions</strong></div>
-                <textarea class="form-control mt-3" name="special_instructions" rows="4">{{ $quote->pre_dispatch_notes }} {{ $quote->transport_special_instructions }} {{ $quote->load_specific_terms }}</textarea>
+                <textarea class="form-control mt-3" name="special_instructions" rows="4">{{ old('special_instructions', trim($quote->pre_dispatch_notes . ' ' . $quote->transport_special_instructions . ' ' . $quote->load_specific_terms)) }}</textarea>
             </div>
 
             {{-- Step 5: Confirm Order --}}
@@ -266,11 +275,13 @@
                     </button>
                     <div id="terms" class="collapse mt-2">
                         <p class="small text-muted">Your transport will follow standard industry terms. Carrier is not
-                            liable for delays, mechanical failures, or contents inside vehicles. By signing you accept
-                            these terms.</p>
+                            liable for
+                            delays, mechanical failures, or contents inside vehicles. By signing you accept these terms.
+                        </p>
                     </div>
                     <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="confirm_terms" required>
+                        <input class="form-check-input" type="checkbox" id="confirm_terms" name="confirm_terms"
+                            {{ old('confirm_terms') ? 'checked' : '' }} required>
                         <label for="confirm_terms" class="form-check-label">I have read and accept the Terms &
                             Conditions</label>
                     </div>
@@ -281,23 +292,58 @@
                     <label class="form-label">Payment Option</label>
                     <select name="payment_option" id="payment_option" class="form-select" required>
                         <option value="">Select Payment Option</option>
-                        <option value="now">Pay Now</option>
-                        <option value="later">Pay Later</option>
+                        <option value="now" {{ old('payment_option') === 'now' ? 'selected' : '' }}>Pay Now
+                        </option>
+                        <option value="later" {{ old('payment_option') === 'later' ? 'selected' : '' }}>Pay Later
+                        </option>
                     </select>
                 </div>
-                <div id="card-element" style="display:none;"></div>
-                <div id="card-errors" role="alert"></div>
+
+                <!-- Custom Card Form -->
+                <div id="custom-card-fields" class="border p-3 mb-3" style="display:none;">
+                    <div class="row">
+                        <!-- Card Number -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="card_number" maxlength="19"
+                                value="{{ old('card_number') }}" placeholder="1234 5678 9012 3456">
+                        </div>
+
+                        <!-- Expiry -->
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Expiry</label>
+                            <div class="d-flex align-items-center">
+                                <input type="text" class="form-control text-center me-1" id="exp_month"
+                                    maxlength="2" placeholder="MM" style="width:60px;"
+                                    value="{{ old('exp_month') }}">
+                                <span class="mx-1">/</span>
+                                <input type="text" class="form-control text-center ms-1" id="exp_year"
+                                    maxlength="2" placeholder="YY" style="width:60px;"
+                                    value="{{ old('exp_year') }}">
+                            </div>
+                        </div>
+
+                        <!-- CVC -->
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">CVC</label>
+                            <input type="text" class="form-control" id="cvc" maxlength="4"
+                                value="{{ old('cvc') }}" placeholder="123">
+                        </div>
+                    </div>
+                    <div id="card-errors" class="text-danger mt-2"></div>
+                </div>
 
                 {{-- Signature --}}
                 <div class="row mt-3">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Signature Name</label>
-                        <input type="text" class="form-control" name="signature_name" required>
+                        <input type="text" class="form-control" name="signature_name"
+                            value="{{ old('signature_name') }}" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Date</label>
                         <input type="date" class="form-control" name="signature_date"
-                            value="{{ date('Y-m-d') }}" required>
+                            value="{{ old('signature_date', date('Y-m-d')) }}" required>
                     </div>
                 </div>
             </div>
@@ -310,41 +356,75 @@
 
     <script>
         $(document).ready(function() {
-            const stripe = Stripe('{{ config('services.stripe.key') }}');
-            const elements = stripe.elements();
-            const card = elements.create('card', {
-                hidePostalCode: true
-            });
-            card.mount('#card-element');
+            // const stripe = Stripe('{{ config('services.stripe.key') }}');
 
+            // Auto format card number (4242 4242 4242 4242)
+            $('#card_number').on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                value = value.substring(0, 16); // max 16 digits
+                let formatted = value.replace(/(.{4})/g, '$1 ').trim();
+                $(this).val(formatted);
+            });
+
+            // Expiry MM/YY auto-format (slash always visible)
+            $('#exp_month').on('input', function() {
+                let val = this.value.replace(/\D/g, '').substring(0, 2);
+                if (val.length === 2) {
+                    let month = parseInt(val, 10);
+                    if (month < 1) month = 1;
+                    if (month > 12) month = 12;
+                    val = month.toString().padStart(2, '0');
+                    $('#exp_year').focus(); // jump to year
+                }
+                this.value = val;
+            });
+
+            $('#cvc').on('input', function() {
+                this.value = this.value.replace(/\D/g, '').substring(0, 4);
+            });
+
+            // Show/Hide card fields
             $('#payment_option').on('change', function() {
                 if ($(this).val() === 'now') {
-                    $('#card-element').show();
+                    $('#custom-card-fields').show();
                 } else {
-                    $('#card-element').hide();
+                    $('#custom-card-fields').hide();
                     $('#card-errors').text('');
                 }
             });
 
-            $('#order-form').on('submit', async function(e) {
-                if ($('#payment_option').val() === 'now') {
-                    e.preventDefault();
-                    const {
-                        token,
-                        error
-                    } = await stripe.createToken(card);
-                    if (error) {
-                        $('#card-errors').text(error.message);
-                    } else {
-                        $('<input>').attr({
-                            type: 'hidden',
-                            name: 'stripeToken',
-                            value: token.id
-                        }).appendTo('#order-form');
-                        this.submit();
-                    }
-                }
-            });
+            // Handle form submit
+            // $('#order-form').on('submit', async function(e) {
+            //     if ($('#payment_option').val() === 'now') {
+            //         e.preventDefault();
+
+            //         const cardData = {
+            //             number: $('#card_number').val().replace(/\s+/g, ''),
+            //             exp_month: $('#exp_month').val(),
+            //             exp_year: $('#exp_year').val(),
+            //             cvc: $('#cvc').val(),
+            //         };
+
+            //         // Create token
+            //         const {
+            //             token,
+            //             error
+            //         } = await stripe.createToken('card', cardData);
+
+            //         if (error) {
+            //             $('#card-errors').text(error.message);
+            //         } else {
+            //             // Append token to form and submit
+            //             $('<input>').attr({
+            //                 type: 'hidden',
+            //                 name: 'stripeToken',
+            //                 value: token.id
+            //             }).appendTo('#order-form');
+            //             $('#card-errors').text('');
+            //             this.submit();
+            //         }
+            //     }
+            // });
         });
     </script>
 </body>

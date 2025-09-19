@@ -157,9 +157,21 @@
             @endcan
 
             <li>
+                <a href="{{ route('dashboard.orderForms.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+                    <div class="menu-title">
+                        Order Forms
+                        <span class="badge bg-primary float-end">{{ $orderFormsCount ?? 0 }}</span>
+                    </div>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route('dashboard.invoice.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
-                    <div class="menu-title">Invoice</div>
+                    <div class="menu-title">
+                        Invoice
+                    </div>
                 </a>
             </li>
 

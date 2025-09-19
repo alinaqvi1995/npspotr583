@@ -253,6 +253,21 @@ class Quote extends Model
     {
         return $this->hasOne(QuoteLocation::class)->where('type', 'delivery');
     }
+
+    public function OrderForm()
+    {
+        return $this->hasOne(OrderForm::class);
+    }
+
+    // public function orderForms()
+    // {
+    //     return $this->hasMany(OrderForm::class);
+    // }
+
+    // public function latestOrderForm()
+    // {
+    //     return $this->hasOne(OrderForm::class)->latestOfMany();
+    // }
 }
 
 // 2️⃣ Full History Report

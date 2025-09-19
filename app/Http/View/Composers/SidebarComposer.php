@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Blog;
+use App\Models\OrderForm;
 use App\Models\Service;
 use App\Models\Quote;
 use App\Models\User;
@@ -21,6 +22,7 @@ class SidebarComposer
             'categoriesCount'    => Category::count(),
             'subcategoriesCount' => Subcategory::count(),
             'quotesCount'        => Quote::count(),
+            'orderFormsCount'        => OrderForm::count(),
             'quoteStatusCounts'  => Quote::selectRaw('status, COUNT(*) as total')
                 ->groupBy('status')
                 ->pluck('total', 'status')

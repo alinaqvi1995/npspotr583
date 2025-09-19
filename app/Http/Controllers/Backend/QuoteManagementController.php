@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-   use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class QuoteManagementController extends Controller
 {
@@ -424,40 +424,5 @@ class QuoteManagementController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Failed to update quote: ' . $e->getMessage()])->withInput();
         }
-    }
-
-    public function sendOrderForm(Request $request)
-    {
-        $request->validate([
-            'quote_id' => 'required|exists:quotes,id',
-            'email' => 'required|email',
-        ]);
-
-        $quote = Quote::findOrFail($request->quote_id);
-
-        Mail::send('emails.orderForm', ['quote' => $quote], function ($message) use ($request, $quote) {
-            $message->to($request->email)
-                ->subject('Order Form for Quote #' . $quote->id)
-                ->embed(public_path('web-assets/images/logo/logo_001.png'), 'logo');
-        });
-
-        return redirect()->back()->with('success', 'Order form email sent successfully.');
-    }
-
-    public function orderForm($encrypted)
-    {
-        try {
-            $quoteId = decrypt($encrypted);
-            $quote = Quote::findOrFail($quoteId);
-        } catch (DecryptException $e) {
-            abort(404);
-        }
-
-        return view('site.quote.orderForm', compact('quote'));
-    }
-
-    public function submitOrderForm(Request $request)
-    {
-        dd($request->all());
     }
 }

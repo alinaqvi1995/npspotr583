@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\QuoteManagementController;
 use App\Http\Controllers\Backend\UserTrustedIpController;
 use App\Http\Controllers\ZipcodeController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\OrderFormController;
 use App\Http\Controllers\Auth\OtpController;
 
 // 🔹 Static pages
@@ -74,9 +75,9 @@ Route::post('/verify-otp', [OtpController::class, 'verifyOtp'])->name('verify.ot
 Route::get('/resend-otp', [OtpController::class, 'resendOtp'])->name('resend.otp');
 
 // order form for customer
-Route::get('/order-form/{encrypted}', [QuoteManagementController::class, 'orderForm'])
+Route::get('/order-form/{encrypted}', [OrderFormController::class, 'orderForm'])
     ->name('quotes.orderForm');
-Route::post('/quote/{quote}/submit-order-form', [QuoteManagementController::class, 'submitOrderForm'])
+Route::post('/quote/{encrypted}/submit-order-form', [OrderFormController::class, 'submitOrderForm'])
     ->name('site.quote.submitOrderForm');
 
 // 🔐 Auth & Profile
@@ -127,8 +128,14 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         ->name('reports.quotes.histories');
 
     // send order
-    Route::post('/dashboard/quotes/send-order-form', [QuoteManagementController::class, 'sendOrderForm'])
+    Route::post('/dashboard/quotes/send-order-form', [OrderFormController::class, 'sendOrderForm'])
         ->name('dashboard.quotes.sendOrderForm');
+
+    Route::prefix('/order-forms')->name('dashboard.orderForms.')->middleware(['auth'])->group(function () {
+        Route::get('/', [OrderFormController::class, 'index'])->name('index');
+        Route::get('/{orderForm}', [OrderFormController::class, 'show'])->name('show');
+        Route::get('/{orderForm}/download', [OrderFormController::class, 'download'])->name('download'); // optional PDF download
+    });
 });
 
 require __DIR__ . '/auth.php';
