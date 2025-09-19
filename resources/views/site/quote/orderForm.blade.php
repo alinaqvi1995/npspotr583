@@ -481,7 +481,6 @@
                                                 © {{ date('Y') }} Bridgeway Logistics. All rights reserved.
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -525,79 +524,87 @@
     <script src="{{ asset('web-assets/js/main.js') }}"></script>
     <script src="{{ asset('web-assets/js/extra.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            // const stripe = Stripe('{{ config('services.stripe.key') }}');
-
-            // Auto format card number (4242 4242 4242 4242)
-            $('#card_number').on('input', function() {
-                let value = $(this).val().replace(/\D/g, '');
-                value = value.substring(0, 16); // max 16 digits
-                let formatted = value.replace(/(.{4})/g, '$1 ').trim();
-                $(this).val(formatted);
-            });
-
-            // Expiry MM/YY auto-format (slash always visible)
-            $('#exp_month').on('input', function() {
-                let val = this.value.replace(/\D/g, '').substring(0, 2);
-                if (val.length === 2) {
-                    let month = parseInt(val, 10);
-                    if (month < 1) month = 1;
-                    if (month > 12) month = 12;
-                    val = month.toString().padStart(2, '0');
-                    $('#exp_year').focus(); // jump to year
-                }
-                this.value = val;
-            });
-
-            $('#cvc').on('input', function() {
-                this.value = this.value.replace(/\D/g, '').substring(0, 4);
-            });
-
-            // Show/Hide card fields
-            $('#payment_option').on('change', function() {
-                if ($(this).val() === 'now') {
-                    $('#custom-card-fields').show();
-                } else {
-                    $('#custom-card-fields').hide();
-                    $('#card-errors').text('');
-                }
-            });
-
-            // Handle form submit
-            // $('#order-form').on('submit', async function(e) {
-            //     if ($('#payment_option').val() === 'now') {
-            //         e.preventDefault();
-
-            //         const cardData = {
-            //             number: $('#card_number').val().replace(/\s+/g, ''),
-            //             exp_month: $('#exp_month').val(),
-            //             exp_year: $('#exp_year').val(),
-            //             cvc: $('#cvc').val(),
-            //         };
-
-            //         // Create token
-            //         const {
-            //             token,
-            //             error
-            //         } = await stripe.createToken('card', cardData);
-
-            //         if (error) {
-            //             $('#card-errors').text(error.message);
-            //         } else {
-            //             // Append token to form and submit
-            //             $('<input>').attr({
-            //                 type: 'hidden',
-            //                 name: 'stripeToken',
-            //                 value: token.id
-            //             }).appendTo('#order-form');
-            //             $('#card-errors').text('');
-            //             this.submit();
-            //         }
-            //     }
-            // });
+<script>
+    $(document).ready(function () {
+        // Format card number (#### #### #### ####)
+        $('#card_number').on('input', function () {
+            let value = this.value.replace(/\D/g, '').substring(0, 16);
+            this.value = value.replace(/(.{4})/g, '$1 ').trim();
         });
-    </script>
+
+        // Format expiry month + auto-jump to year
+        $('#exp_month').on('input', function () {
+            let val = this.value.replace(/\D/g, '').substring(0, 2);
+            if (val.length === 2) {
+                let month = Math.max(1, Math.min(12, parseInt(val, 10)));
+                this.value = month.toString().padStart(2, '0');
+                $('#exp_year').focus();
+            } else {
+                this.value = val;
+            }
+        });
+
+        // Expiry year (YY)
+        $('#exp_year').on('input', function () {
+            this.value = this.value.replace(/\D/g, '').substring(0, 2);
+        });
+
+        // CVC (3–4 digits)
+        $('#cvc').on('input', function () {
+            this.value = this.value.replace(/\D/g, '').substring(0, 4);
+        });
+
+        // Show/Hide card fields
+        $('#payment_option').on('change', function () {
+            if ($(this).val() === 'now') {
+                $('#custom-card-fields').slideDown();
+            } else {
+                $('#custom-card-fields').slideUp();
+                $('#card-errors').text('');
+                // reset fields when hidden
+                $('#card_number, #exp_month, #exp_year, #cvc').val('');
+            }
+        });
+
+        /**
+         * Stripe integration (uncomment if you want live handling)
+         * Make sure Stripe.js is loaded and config('services.stripe.key') is set.
+         */
+        /*
+        const stripe = Stripe('{{ config('services.stripe.key') }}');
+        const form = $('#order-form');
+
+        form.on('submit', async function (e) {
+            if ($('#payment_option').val() === 'now') {
+                e.preventDefault();
+
+                const cardData = {
+                    number: $('#card_number').val().replace(/\s+/g, ''),
+                    exp_month: $('#exp_month').val(),
+                    exp_year: $('#exp_year').val(),
+                    cvc: $('#cvc').val(),
+                };
+
+                const { token, error } = await stripe.createToken('card', cardData);
+
+                if (error) {
+                    $('#card-errors').text(error.message);
+                } else {
+                    $('<input>', {
+                        type: 'hidden',
+                        name: 'stripeToken',
+                        value: token.id
+                    }).appendTo(form);
+
+                    $('#card-errors').text('');
+                    form.get(0).submit();
+                }
+            }
+        });
+        */
+    });
+</script>
+
 </body>
 
 </html>
