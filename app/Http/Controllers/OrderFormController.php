@@ -158,7 +158,7 @@ class OrderFormController extends Controller
             if ($validated['payment_option'] === 'later') {
                 $quote->status = 'Payment Missing';
             } else {
-                $quote->status = 'Dispatch';
+                $quote->status = 'Booked';
             }
 
             $quote->save();
