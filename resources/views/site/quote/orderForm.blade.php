@@ -298,16 +298,19 @@ h1, h2, h3, h4, h5, h6 {
 </head>
 
 <body>
-    <section class="tj-service-section-three pb-0">
-        <div class="container">
-            <div class="row">
-                <div class="tj-section-heading text-center">
-                    <span class="sub-title active-shape"> What We Do</span>
-                    <h2 class="title">Logistic &amp; Transport</h2>
-                </div>
+<section class="tj-service-section-three pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="tj-section-heading text-center">
+                <span class="sub-title active-shape"> Order Process </span>
+                <h2 class="title">Complete Your Order Form</h2>
+                <p class="mt-2 text-muted">
+                    Please review your details carefully and fill out the required information to confirm your transport booking.
+                </p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     <section class="tj-tabs-section">
         <div class="container">
             <div class="row">
