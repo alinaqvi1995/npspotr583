@@ -5,94 +5,99 @@
     <meta charset="UTF-8">
     <title>Order Form - Quote #{{ $quote->id }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('web-assets/images/logo/logo_001.png') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
+
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f4f5f7;
-            color: #333;
-        }
-
-        .order-form-container {
-            max-width: 1000px;
-            margin: 20px auto;
             background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: #000;
         }
 
-        h2,
-        .section-title,
-        .stepContainer span,
-        .card-header,
-        .btn-success {
-            background-color: #427ece !important;
-            color: #fff !important;
+        .letterhead {
+            border: 2px solid #427ece;
+            padding: 20px 40px;
+            max-width: 1000px;
+            margin: 30px auto;
         }
 
-        .stepContainer span {
-            background: #427ece !important;
+        .letterhead-header {
+            border-bottom: 2px solid #427ece;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
         }
 
-        .btn-success {
-            border-color: #427ece !important;
+        .letterhead-header img {
+            height: 70px;
+            margin-right: 20px;
         }
 
+        .company-info {
+            flex: 1;
+        }
 
-        .stepContainer span {
-            font-size: 20px;
-            width: 36px;
-            height: 36px;
-            background: #427ece;
-            border-radius: 50%;
-            display: inline-block;
-            line-height: 36px;
-            color: white;
-            font-weight: 600;
+        .company-info h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #427ece;
+            font-weight: 700;
+        }
+
+        .company-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .letterhead-footer {
+            border-top: 2px solid #427ece;
+            padding-top: 10px;
+            margin-top: 30px;
             text-align: center;
-            margin-right: 10px;
+            font-size: 0.85rem;
+            color: #666;
         }
 
         .section-title {
+            font-weight: 600;
+            color: #427ece;
             margin-top: 25px;
             margin-bottom: 15px;
-            font-weight: 500;
-            color: #1a73e8;
         }
 
-        .vehicle-images img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin: 3px;
-        }
-
-        #card-element {
-            padding: 12px;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-        }
-
-        #card-errors {
-            color: red;
-            margin-top: 10px;
-        }
-
-        .card-header {
-            background-color: #427ece !important;
-            color: #fff !important;
+        .stepContainer span {
+            background: #427ece;
+            color: #fff;
+            border-radius: 50%;
+            padding: 6px 12px;
             font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .btn-success {
+            background-color: #427ece !important;
+            border-color: #427ece !important;
         }
     </style>
 </head>
 
 <body>
-    <div class="order-form-container">
-        <h2 class="text-center">Book Order #{{ $quote->id }}</h2>
+    <div class="letterhead">
+        <!-- Company Letterhead Header -->
+        <div class="letterhead-header">
+            <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Company Logo">
+            <div class="company-info">
+                <h1>Bridgeway Logistics</h1>
+                <p>123 Main Street, Suite 100, City, State, ZIP</p>
+                <p>Email: sales@bridgewaylogisticsllc.com | Phone: +1 (123) 456-7890</p>
+            </div>
+        </div>
+
+        <!-- Form Body -->
+        <h2 class="text-center">Order Form - Quote #{{ $quote->id }}</h2>
 
         {{-- Summary --}}
         <div class="mb-4 border rounded p-3">
@@ -181,7 +186,13 @@
                         @if ($vehicle->images->count())
                             <div class="vehicle-images d-flex flex-wrap mt-2">
                                 @foreach ($vehicle->images as $img)
-                                    <img src="{{ asset($img->image_path) }}" alt="Vehicle Image">
+                                    <div class="image-preview-container">
+                                        <div class="position-relative d-inline-block"
+                                            style="width:80px;height:80px; margin:5px;">
+                                            <img src="{{ asset($img->image_path) }}" alt="Vehicle Image"
+                                                class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
+                                        </div>
+                                    </div>
                                 @endforeach
                             </div>
                         @endif
@@ -352,6 +363,11 @@
                 <button type="submit" class="btn btn-success btn-lg">Submit Order Form</button>
             </div>
         </form>
+
+        <!-- Letterhead Footer -->
+        <div class="letterhead-footer">
+            © {{ date('Y') }} Bridgeway Logistics. All rights reserved.
+        </div>
     </div>
 
     <script>
