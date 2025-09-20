@@ -56,7 +56,7 @@
                 </div>
                 <div class="contact-link">
                     <span class="d-block"> Location:</span>
-                    <p>United States (Nationwide Service)</p>
+                    <p>Houston, TX 77081, United States</p>
                 </div>
             </div>
             <div class="contact-box contact-box1">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="contact-link">
                     <span class="d-block"> Email us:</span>
-                    <a href="mailto:quote@bridgewaylogisticsllc.com">quote@bridgewaylogisticsllc.com</a>
+                    <a href="mailto:info@bridgewaylogisticsllc.com"> info@bridgewaylogisticsllc.com</a>
                 </div>
             </div>
             <div class="contact-box">
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="tj-offcanvas-icon-list">
+        {{-- <div class="tj-offcanvas-icon-list">
             <h4 class="offcanvas-title">Follow Us</h4>
             <ul>
                 <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
@@ -86,7 +86,7 @@
                 <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
                 <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
             </ul>
-        </div>
+        </div> --}}
         <div class="contact-map d-none d-lg-block">
             <iframe
                 src="https://maps.google.com/maps?q=USA&amp;t=&amp;z=4&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
@@ -95,7 +95,7 @@
             ></iframe>
         </div>
         <div class="tj-theme-button tj-btn d-lg-none">
-            <a class="tj-primary-btn" href="#">Get a Free Quote <i class="flaticon-right-1"></i></a>
+            <a class="tj-primary-btn" href="{{ route('multiform') }}">Get a Free Quote <i class="flaticon-right-1"></i></a>
         </div>
     </div>
 <!-- Offcanvas Area End -->

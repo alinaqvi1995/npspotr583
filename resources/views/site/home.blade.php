@@ -25,7 +25,7 @@
                                     <h1 class="slider-title">Reliable, Insured Vehicle Transport Across the USA</h1>
                                     <div class="tj-theme-button">
                                         <a class="tj-transparent-btn" href="contact.html">
-                                            Read More <i class="flaticon-right-1"></i>
+                                            Get Quote <i class="flaticon-right-1"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -56,8 +56,8 @@
                                     </div>
                                     <h1 class="slider-title">Door-to-Door Transport Services—Any Vehicle</h1>
                                     <div class="tj-theme-button">
-                                        <a class="tj-transparent-btn" href="#">
-                                            Read More <i class="flaticon-right-1"></i>
+                                        <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                                            Get Quote <i class="flaticon-right-1"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -89,8 +89,8 @@
                                     </div>
                                     <h1 class="slider-title">Fast, Reliable and All-Rounder Transport Company</h1>
                                     <div class="tj-theme-button">
-                                        <a class="tj-transparent-btn" href="#">
-                                            Read More <i class="flaticon-right-1"></i>
+                                        <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                                            Get Quote <i class="flaticon-right-1"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -309,7 +309,7 @@
                             <h2 class="title fs-4">Get Any Type of Quote for Your Shipping Needs</h2>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-transparent-btn" href="#">
+                            <a class="tj-transparent-btn" href="{{ route('multiform') }}">
                                 Get Quote<i class="flaticon-right-1"></i>
                             </a>
                         </div>
