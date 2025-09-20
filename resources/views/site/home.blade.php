@@ -24,8 +24,8 @@
                                     </div>
                                     <h1 class="slider-title">Reliable, Insured Vehicle Transport Across the USA</h1>
                                     <div class="tj-theme-button">
-                                        <a class="tj-transparent-btn" href="contact.html">
-                                            Read More <i class="flaticon-right-1"></i>
+                                        <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                                            Get Quote <i class="flaticon-right-1"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -56,8 +56,8 @@
                                     </div>
                                     <h1 class="slider-title">Door-to-Door Transport Services—Any Vehicle</h1>
                                     <div class="tj-theme-button">
-                                        <a class="tj-transparent-btn" href="#">
-                                            Read More <i class="flaticon-right-1"></i>
+                                        <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                                            Get Quote <i class="flaticon-right-1"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -87,10 +87,10 @@
                                             <p>100% Driver & Vehicle Safety Standards</p>
                                         </div>
                                     </div>
-                                    <h1 class="slider-title">Fast, Reliable and All-Rounder Transport Company</h1>
+                                    <h1 class="slider-title">Fast, Reliable and Delivering Excellence on Every Mile</h1>
                                     <div class="tj-theme-button">
-                                        <a class="tj-transparent-btn" href="#">
-                                            Read More <i class="flaticon-right-1"></i>
+                                        <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                                            Get Quote <i class="flaticon-right-1"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@
                         <h3 class="title">Reliable Transportation Solutions for Your Business Growth</h3>
                         <p>We guarantee secure and on-time delivery, facilitating the smooth operation of your company. Our committed staff is committed to provide dependable transportation solutions that are customized to your particular company requirements, guaranteeing effectiveness at every stage. We ensure that your shipment arrive on schedule and in great condition by using cutting-edge tracking technologies, expert handling, and a dedication to safety. By selecting us, you acquire a reliable partner and provides you with the assurance to go beyond any boundaries.</p>
                         <div class="tj-theme-button">
-                            <a class="tj-primary-btn tj-transparent-btn" href="contact.html">
+                            <a class="tj-primary-btn tj-transparent-btn" href="{{ route('contact') }}">
                                 Contact Us <i class="flaticon-right-1"></i>
                             </a>
                         </div>
@@ -281,7 +281,7 @@
                             </div>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-primary-btn" href="contact.html">
+                            <a class="tj-primary-btn" href="{{ route('contact') }}">
                                 Learn More <i class="flaticon-right-1"></i>
                             </a>
                         </div>
@@ -309,7 +309,7 @@
                             <h2 class="title fs-4">Get Any Type of Quote for Your Shipping Needs</h2>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-transparent-btn" href="#">
+                            <a class="tj-transparent-btn" href="{{ route('multiform') }}">
                                 Get Quote<i class="flaticon-right-1"></i>
                             </a>
                         </div>
@@ -359,12 +359,12 @@
                             <!-- FAQ 1 -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                         What types of services does Bridgeway Logistics LLC offer?
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                <div id="collapseOne" class="accordion-collapse collapse" style="visibility: visible !important;"
                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         Bridgeway offers reliable vehicle transport across the U.S., including sedans, SUVs,
@@ -381,7 +381,7 @@
                                         How can I contact Bridgeway Logistics LLC?
                                     </button>
                                 </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                <div id="collapseTwo" class="accordion-collapse collapse" style="visibility: visible !important;" aria-labelledby="headingTwo"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         You can easily reach them via phone at +1 (713) 470‑6157 or via email at <a
@@ -398,7 +398,7 @@
                                         Are there any extra fees I should know about?
                                     </button>
                                 </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse"
+                                <div id="collapseThree" class="accordion-collapse collapse" style="visibility: visible !important;"
                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         While quotes typically include coverage and standard charges, final pricing may vary
@@ -416,7 +416,7 @@
                                         What payment options are available?
                                     </button>
                                 </h2>
-                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                <div id="collapseFour" class="accordion-collapse collapse" style="visibility: visible !important;" aria-labelledby="headingFour"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         Bridgeway supports multiple payment methods including credit/debit cards, bank
@@ -433,7 +433,7 @@
                                         How often are raises provided for employees?
                                     </button>
                                 </h2>
-                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                <div id="collapseFive" class="accordion-collapse collapse" style="visibility: visible !important;" aria-labelledby="headingFive"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         According to employee feedback, raises are typically offered on a quarterly basis
@@ -505,7 +505,7 @@
                             <h2 class="title">Reasons Why You Choose Bridgeway Logistics LLC</h2>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-transparent-btn" href="contact.html">
+                            <a class="tj-transparent-btn" href="{{ route('contact') }}">
                                 Contact Us <i class="flaticon-right-1"></i>
                             </a>
                         </div>

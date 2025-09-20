@@ -11,7 +11,7 @@
                         <h1 class="breadcrumb-title text-center">Service Details</h1>
                         <div class="breadcrumb-link">
                             <span>
-                                <a href="#">
+                                <a href="{{ route('home') }}">
                                     <span>Home</span>
                                 </a>
                             </span>
@@ -35,13 +35,13 @@
                     <div class="page-details-wrapper service-details-wrapper">
                         <div class="tj-blog-item-three">
                             <div class="tj-blog-image">
-                                <a href="service-details.html">
+                                <a href="#">
                                     <img src="{{ asset($service->image_one) }}" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-header">
                                     <h3>
-                                        <a class="title-link" href="service-details.html"> {{ $service->heading_one }}</a>
+                                        <a class="title-link" href="#"> {{ $service->heading_one }}</a>
                                     </h3>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse show"
-                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_one !!}</strong>
                                                 </div>
@@ -121,7 +121,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseTwo" class="accordion-collapse collapse"
-                                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_two !!}</strong>
                                                 </div>
@@ -136,7 +136,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseThree" class="accordion-collapse collapse"
-                                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_three !!}</strong>
                                                 </div>
@@ -151,7 +151,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseFour" class="accordion-collapse collapse"
-                                                aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_four !!}</strong>
                                                 </div>
@@ -166,7 +166,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseFive" class="accordion-collapse collapse"
-                                                aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_five !!}</strong>
                                                 </div>
@@ -199,8 +199,8 @@
                                 data-bg-image="{{ asset('web-assets/images/banner/service_shape.png') }}"></div>
                             <div class="tj-appointment-body">
                                 <div class="appointment-percent text-center">
-                                    <span class="text-uppercase">100% <br />
-                                        Quality</span>
+                                    <span class="text-uppercase">Get <br />
+                                        Quote</span>
                                 </div>
                                 <div class="appointment-content text-center">
                                     <h4 class="title">Make An Appointment</h4>

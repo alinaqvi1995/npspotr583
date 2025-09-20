@@ -13,7 +13,7 @@
                         <h1 class="breadcrumb-title text-center">Contact Us</h1>
                         <div class="breadcrumb-link">
                             <span>
-                                <a href="index.html">
+                                <a href="#">
                                     <span>Home</span>
                                 </a>
                             </span>

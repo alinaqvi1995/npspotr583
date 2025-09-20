@@ -11,7 +11,7 @@
                         <h1 class="breadcrumb-title text-center">Service Page</h1>
                         <div class="breadcrumb-link">
                             <span>
-                                <a href="index.html">
+                                <a href="{{ route('home') }}">
                                     <span>Home</span>
                                 </a>
                             </span>

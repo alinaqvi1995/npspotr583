@@ -12,7 +12,7 @@
                         <h1 class="breadcrumb-title text-center mb-5">Blog Details</h1>
                         <div class="breadcrumb-link">
                             <span>
-                                <a href="index.html">
+                                <a href="{{ route('home') }}">
                                     <span>Home</span>
                                 </a>
                             </span>
@@ -36,16 +36,16 @@
                     <div class="page-details-wrapper">
                         <div class="tj-blog-item-three">
                             <div class="tj-blog-image">
-                                <a href="blog-details.html">
+                                <a href="#">
                                     <img src="{{ asset($blog->image_one) }}" alt="Blog" /></a>
                             </div>
                             <div class="active-text">
-                                <a href="blog-details.html"> {{ $blog->header_image_btn }}</a>
+                                <a href="#"> {{ $blog->header_image_btn }}</a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-header">
                                     <h3>
-                                        <a class="title-link" href="blog-details.html">
+                                        <a class="title-link" href="#">
                                             {{ $blog->title }}
                                         </a>
                                     </h3>
@@ -150,7 +150,7 @@
                                     <img src="{{ asset('web-assets/images/blog/blog-1.png') }}" alt="Blog" />
                                 </div>
                                 <div class="auother-content">
-                                    <h4><a class="title-link" href="blog-details.html"> Isaac Herman</a></h4>
+                                    <h4><a class="title-link" href="#"> Isaac Herman</a></h4>
                                     <span> June 14, 2023 / 12:00 AM</span>
                                     <p>
                                         Imperdiet in nulla sed viverraut loremut dapib estetur Lorem ipsum dolor sit
@@ -158,7 +158,7 @@
                                         minim sed exe ullamco laboris nisi ut aliquip cepteur
                                     </p>
                                     <div class="detils-reply">
-                                        <a href="blog-details.html"> Reply</a>
+                                        <a href="#"> Reply</a>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                     <img src="{{ asset('web-assets/images/blog/blog-2.png') }}" alt="Blog" />
                                 </div>
                                 <div class="auother-content">
-                                    <h4><a class="title-link" href="blog-details.html"> John Doe</a></h4>
+                                    <h4><a class="title-link" href="#"> John Doe</a></h4>
                                     <span> June 12, 2023 / 12:05 AM</span>
                                     <p>
                                         Imperdiet in nulla sed viverraut loremut dapib estetur Lorem ipsum dolor sit
@@ -175,7 +175,7 @@
                                         minim sed exe ullamco laboris nisi ut aliquip cepteur
                                     </p>
                                     <div class="detils-reply">
-                                        <a href="blog-details.html"> Reply</a>
+                                        <a href="#"> Reply</a>
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +231,7 @@
                             @foreach ($recentBlogs as $row)
                                 <div class="tj-post-content">
                                     <div class="tj-auother-img">
-                                        <a href="blog-details.html">
+                                        <a href="#">
                                             <img src="{{ asset($row->image_one) }}" alt="Blog" /></a>
                                     </div>
                                     <div class="tj-details-text">
@@ -246,7 +246,7 @@
                                         </div>
                                         <div class="tj-details-header">
                                             <h6>
-                                                <a href="blog-details.html">{{ $row->title }}</a>
+                                                <a href="#">{{ $row->title }}</a>
                                             </h6>
                                         </div>
                                     </div>

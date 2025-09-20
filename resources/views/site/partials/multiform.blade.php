@@ -170,7 +170,7 @@
             <div class="row justify-content-evenly">
                 <div class="col-12 d-flex flex-column flex-md-row justify-content-evenly">
                     <button type="button" id="step3_previous" class="tj-submit-btn no_move">Previous</button>
-                    <button type="submit" class="tj-submit-btn">Calculate Price</button>
+                    <button type="submit" class="tj-submit-btn">Submit Quote</button>
                 </div>
             </div>
         </div>
