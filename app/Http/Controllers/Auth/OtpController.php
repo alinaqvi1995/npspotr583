@@ -55,7 +55,7 @@ class OtpController extends Controller
             return redirect()->route('login');
         }
 
-        $otp = rand(100000, 999999);
+        $otp = rand(100000, 999999);-
         $user->otp_code = $otp;
         $user->otp_expires_at = now()->addMinutes(10);
         $user->save();

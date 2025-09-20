@@ -147,7 +147,7 @@
                             <input type="email" name="email" class="form-control rounded-3"
                                 placeholder="Enter recipient email" required>
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label fw-semibold">Quote Price</label>
                             <input type="text" name="number" class="form-control rounded-3"
                                 placeholder="Enter recipient name" required>
@@ -155,7 +155,7 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Description</label>
                             <textarea name="description" class="form-control rounded-3" rows="4" placeholder="Write your message..." required></textarea>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="modal-footer bg-light">
