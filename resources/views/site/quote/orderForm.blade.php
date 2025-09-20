@@ -311,260 +311,274 @@
             </div>
         </div>
     </section>
-    <section class="tj-tabs-section">
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade active show" id="pills-home" role="tabpanel" 
-                 aria-labelledby="pills-home-tab">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="container my-5">
-                            <!-- Company Header -->
-                            <div class="row align-items-center border-bottom pb-3 mb-4">
-                                <!-- Logo -->
-                                <div class="col-12 col-md-auto text-center text-md-start mb-3 mb-md-0">
-                                    <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" 
-                                        alt="Company Logo" 
-                                        class="img-fluid" 
-                                        style="max-height:70px;">
-                                </div>
-
-                                <!-- Company Info -->
-                                <div class="col text-md-end">
-                                    <h1 class="h4 fw-bold text-primary mb-1">Bridgeway Logistics</h1>
-                                    <p class="mb-0 small text-muted">
-                                        123 Main Street, Suite 100, City, State, ZIP
-                                    </p>
-                                    <p class="mb-0 small text-muted">
-                                        Email: sales@bridgewaylogisticsllc.com | Phone: +1 (123) 456-7890
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Form Title -->
-                            <h2 class="text-center fw-semibold mb-4">Order Form - Quote #{{ $quote->id }}</h2>
-                            <!-- Summary -->
-                            <div class="card shadow-sm mb-4">
-                                <div class="card-body">
-                                    <h5 class="card-title text-primary">Summary</h5>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p class="mb-1"><strong>Pickup:</strong> {{ $quote->pickupLocation?->full_location ?? '-' }}</p>
-                                            <p class="mb-0"><strong>Delivery:</strong> {{ $quote->deliveryLocation?->full_location ?? '-' }}</p>
-                                        </div>
-                                        <div class="col-md-6 text-md-end">
-                                            <p class="mb-1"><strong>Amount:</strong> ${{ $quote->amount_to_pay ?? 0 }}</p>
-                                            <p class="mb-0"><strong>Balance:</strong> ${{ $quote->balance_amount ?? 0 }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Errors -->
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul class="mb-0">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            <!-- Order Form -->
-                            <form id="order-form" action="{{ route('site.quote.submitOrderForm', $encrypted) }}" method="POST" class="needs-validation">
-                                @csrf
-                                <input type="hidden" name="quote_id" value="{{ $encrypted }}">
-
-                                <!-- Step 1 -->
-                                <div class="mb-4">
-                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">1</span> Customer Information</h6>
-                                    <div class="row g-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" name="customer_name" value="{{ old('customer_name', $quote->customer_name) }}" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" name="customer_email" value="{{ old('customer_email', $quote->customer_email) }}" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Phone</label>
-                                            <input type="text" class="form-control" name="customer_phone" value="{{ old('customer_phone', $quote->customer_phone) }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Step 2 -->
-                                <div class="mb-4">
-                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">2</span> Vehicle Information</h6>
-                                    @foreach ($quote->vehicles as $vehicle)
-                                        <div class="card border mb-3">
-                                            <div class="card-body">
-                                                <h6 class="fw-semibold">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}</h6>
-                                                <div class="row g-2 small text-muted">
-                                                    @if ($vehicle->vin)
-                                                        <div class="col-md-3"><strong>VIN:</strong> {{ $vehicle->vin }}</div>
-                                                    @endif
-                                                    @if ($vehicle->color)
-                                                        <div class="col-md-3"><strong>Color:</strong> {{ $vehicle->color }}</div>
-                                                    @endif
-                                                    <div class="col-md-3"><strong>Condition:</strong> {{ $vehicle->condition ?? '-' }}</div>
-                                                    <div class="col-md-3"><strong>Trailer:</strong> {{ $vehicle->trailer_type ?? '-' }}</div>
+    <section class="tj-cta-section-three">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-box">
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade active show" id="pills-home" role="tabpanel" 
+                            aria-labelledby="pills-home-tab">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="container-sm my-5">
+                                            <!-- Company Header -->
+                                            <div class="row align-items-center border-bottom pb-3 mb-4">
+                                                <!-- Logo -->
+                                                <div class="col-12 col-md-auto text-center text-md-start mb-3 mb-md-0">
+                                                    <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" 
+                                                        alt="Company Logo" 
+                                                        class="img-fluid" 
+                                                        style="max-height:70px;">
                                                 </div>
-                                                @if ($vehicle->images->count())
-                                                    <div class="d-flex flex-wrap mt-3">
-                                                        @foreach ($vehicle->images as $img)
-                                                            <img src="{{ asset($img->image_path) }}" class="img-thumbnail me-2 mb-2" style="width:80px;height:80px;object-fit:cover;">
-                                                        @endforeach
+
+                                                <!-- Company Info -->
+                                                <div class="col text-md-end">
+                                                    <h1 class="h4 fw-bold text-primary mb-1">Bridgeway Logistics</h1>
+                                                    <p class="mb-0 small text-muted">
+                                                        123 Main Street, Suite 100, City, State, ZIP
+                                                    </p>
+                                                    <p class="mb-0 small text-muted">
+                                                        Email: sales@bridgewaylogisticsllc.com | Phone: +1 (123) 456-7890
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Form Title -->
+                                            <h2 class="text-center fw-semibold mb-4">Order Form - Quote #{{ $quote->id }}</h2>
+
+                                            <!-- Summary -->
+                                            <div class="card shadow-sm mb-4">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-primary">Summary</h5>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p class="mb-1"><strong>Pickup:</strong> {{ $quote->pickupLocation?->full_location ?? '-' }}</p>
+                                                            <p class="mb-0"><strong>Delivery:</strong> {{ $quote->deliveryLocation?->full_location ?? '-' }}</p>
+                                                        </div>
+                                                        <div class="col-md-6 text-md-end">
+                                                            <p class="mb-1"><strong>Amount:</strong> ${{ $quote->amount_to_pay ?? 0 }}</p>
+                                                            <p class="mb-0"><strong>Balance:</strong> ${{ $quote->balance_amount ?? 0 }}</p>
+                                                        </div>
                                                     </div>
-                                                @endif
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </div>
 
-                                <!-- Step 3 -->
-                                <div class="mb-4">
-                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">3</span> Location Details</h6>
-                                    <div class="row g-4">
-                                        <div class="col-md-6">
-                                            <div class="card shadow-sm h-100">
-                                                <div class="card-header fw-semibold">Pickup Information</div>
-                                                <div class="card-body">
-                                                    <label class="form-label">Address</label>
-                                                    <input type="text" class="form-control mb-2" name="pickup_address1" value="{{ old('pickup_address1', $quote->pickup_address1) }}" required>
-                                                    <label class="form-label">City, State, Zip</label>
-                                                    <input type="text" class="form-control mb-2" value="{{ optional($quote->pickupLocation)->full_location }}" readonly>
-                                                    <label class="form-label">Contact</label>
-                                                    <input type="text" class="form-control mb-2" name="pickup_contact_name" value="{{ old('pickup_contact_name', $quote->pickup_contact_name) }}">
-                                                    <input type="email" class="form-control mb-2" name="pickup_contact_email" value="{{ old('pickup_contact_email', $quote->pickup_contact_email) }}">
-                                                    @if (optional($quote->pickupLocation)->phones->count())
-                                                        @foreach ($quote->pickupLocation->phones as $phone)
-                                                            <input type="text" class="form-control mb-2" value="{{ $phone->phone }}" readonly>
+                                            <!-- Errors -->
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul class="mb-0">
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
                                                         @endforeach
-                                                    @endif
-                                                    <label class="form-label">Pickup Date</label>
-                                                    <input type="datetime-local" class="form-control" name="pickup_date" value="{{ old('pickup_date', $quote->pickup_date ? $quote->pickup_date->format('Y-m-d\TH:i') : '') }}">
+                                                    </ul>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card shadow-sm h-100">
-                                                <div class="card-header fw-semibold">Delivery Information</div>
-                                                <div class="card-body">
-                                                    <label class="form-label">Address</label>
-                                                    <input type="text" class="form-control mb-2" name="delivery_address1" value="{{ old('delivery_address1', $quote->delivery_address1) }}" required>
-                                                    <label class="form-label">City, State, Zip</label>
-                                                    <input type="text" class="form-control mb-2" value="{{ optional($quote->deliveryLocation)->full_location }}" readonly>
-                                                    <label class="form-label">Contact</label>
-                                                    <input type="text" class="form-control mb-2" name="delivery_contact_name" value="{{ old('delivery_contact_name', $quote->delivery_contact_name) }}">
-                                                    <input type="email" class="form-control mb-2" name="delivery_contact_email" value="{{ old('delivery_contact_email', $quote->delivery_contact_email) }}">
-                                                    @if (optional($quote->deliveryLocation)->phones->count())
-                                                        @foreach ($quote->deliveryLocation->phones as $phone)
-                                                            <input type="text" class="form-control mb-2" value="{{ $phone->phone }}" readonly>
-                                                        @endforeach
-                                                    @endif
-                                                    <label class="form-label">Delivery Date</label>
-                                                    <input type="datetime-local" class="form-control" name="delivery_date" value="{{ old('delivery_date', $quote->delivery_date ? $quote->delivery_date->format('Y-m-d\TH:i') : '') }}">
+                                            @endif
+
+                                            <!-- Order Form -->
+                                            <form id="order-form" action="{{ route('site.quote.submitOrderForm', $encrypted) }}" method="POST" class="needs-validation">
+                                                @csrf
+                                                <input type="hidden" name="quote_id" value="{{ $encrypted }}">
+
+                                                <!-- Step 1 -->
+                                                <div class="mb-4">
+                                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">1</span> Customer Information</h6>
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Name</label>
+                                                            <input type="text" class="form-control" name="customer_name" value="{{ old('customer_name', $quote->customer_name) }}" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Email</label>
+                                                            <input type="email" class="form-control" name="customer_email" value="{{ old('customer_email', $quote->customer_email) }}" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Phone</label>
+                                                            <input type="text" class="form-control" name="customer_phone" value="{{ old('customer_phone', $quote->customer_phone) }}" required>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <!-- Step 4 -->
-                                <div class="mb-4">
-                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">4</span> Special Instructions</h6>
-                                    <textarea class="form-control" name="special_instructions" rows="4">{{ old('special_instructions', trim($quote->pre_dispatch_notes . ' ' . $quote->transport_special_instructions . ' ' . $quote->load_specific_terms)) }}</textarea>
-                                </div>
-
-                                <!-- Step 5 -->
-                                <div class="mb-4">
-                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">5</span> Confirm Order & Payment</h6>
-                                    
-                                    <!-- Terms -->
-                                    <div class="card border mb-3">
-                                        <div class="card-body">
-                                            <button type="button" class="btn btn-link p-0" data-bs-toggle="collapse" data-bs-target="#terms">[+] Terms & Conditions</button>
-                                            <div id="terms" class="collapse mt-2">
-                                                <p class="small text-muted mb-0">Your transport will follow standard industry terms...</p>
-                                            </div>
-                                            <div class="form-check mt-2">
-                                                <input class="form-check-input" type="checkbox" id="confirm_terms" name="confirm_terms" {{ old('confirm_terms') ? 'checked' : '' }} required>
-                                                <label for="confirm_terms" class="form-check-label">I accept the Terms & Conditions</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Payment -->
-                                    <div class="mb-3">
-                                        <label class="form-label">Payment Option</label>
-                                        <select name="payment_option" id="payment_option" class="form-select" required>
-                                            <option value="">Select Payment Option</option>
-                                            <option value="now" {{ old('payment_option') === 'now' ? 'selected' : '' }}>Pay Now
-                                            </option>
-                                            <option value="later" {{ old('payment_option') === 'later' ? 'selected' : '' }}>Pay Later
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Custom Card Form -->
-                                    <div id="custom-card-fields" class="border p-3 mb-3" style="display:none;">
-                                        <div class="row">
-                                            <!-- Card Number -->
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Card Number</label>
-                                                <input type="text" class="form-control" id="card_number" maxlength="19"
-                                                    value="{{ old('card_number') }}" placeholder="1234 5678 9012 3456">
-                                            </div>
-
-                                            <!-- Expiry -->
-                                            <div class="col-md-3 mb-3">
-                                                <label class="form-label">Expiry</label>
-                                                <div class="d-flex align-items-center">
-                                                    <input type="text" class="form-control text-center me-1" id="exp_month"
-                                                        maxlength="2" placeholder="MM" style="width:60px;"
-                                                        value="{{ old('exp_month') }}">
-                                                    <span class="mx-1">/</span>
-                                                    <input type="text" class="form-control text-center ms-1" id="exp_year"
-                                                        maxlength="2" placeholder="YY" style="width:60px;"
-                                                        value="{{ old('exp_year') }}">
+                                                <!-- Step 2 -->
+                                                <div class="mb-4">
+                                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">2</span> Vehicle Information</h6>
+                                                    @foreach ($quote->vehicles as $vehicle)
+                                                        <div class="card border mb-3">
+                                                            <div class="card-body">
+                                                                <h6 class="fw-semibold">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}</h6>
+                                                                <div class="row g-2 small text-muted">
+                                                                    @if ($vehicle->vin)
+                                                                        <div class="col-md-3"><strong>VIN:</strong> {{ $vehicle->vin }}</div>
+                                                                    @endif
+                                                                    @if ($vehicle->color)
+                                                                        <div class="col-md-3"><strong>Color:</strong> {{ $vehicle->color }}</div>
+                                                                    @endif
+                                                                    <div class="col-md-3"><strong>Condition:</strong> {{ $vehicle->condition ?? '-' }}</div>
+                                                                    <div class="col-md-3"><strong>Trailer:</strong> {{ $vehicle->trailer_type ?? '-' }}</div>
+                                                                </div>
+                                                                @if ($vehicle->images->count())
+                                                                    <div class="d-flex flex-wrap mt-3">
+                                                                        @foreach ($vehicle->images as $img)
+                                                                            <img src="{{ asset($img->image_path) }}" class="img-thumbnail me-2 mb-2" style="width:80px;height:80px;object-fit:cover;">
+                                                                        @endforeach
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
-                                            </div>
 
-                                            <!-- CVC -->
-                                            <div class="col-md-3 mb-3">
-                                                <label class="form-label">CVC</label>
-                                                <input type="text" class="form-control" id="cvc" maxlength="4"
-                                                    value="{{ old('cvc') }}" placeholder="123">
-                                            </div>
-                                        </div>
-                                        <div id="card-errors" class="text-danger mt-2"></div>
-                                    </div>
+                                                <!-- Step 3 -->
+                                                <div class="mb-4">
+                                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">3</span> Location Details</h6>
+                                                    <div class="row g-4">
+                                                        <div class="col-md-6">
+                                                            <div class="card shadow-sm h-100">
+                                                                <div class="card-header fw-semibold">Pickup Information</div>
+                                                                <div class="card-body">
+                                                                    <label class="form-label">Address</label>
+                                                                    <input type="text" class="form-control mb-2" name="pickup_address1" value="{{ old('pickup_address1', $quote->pickup_address1) }}" required>
+                                                                    <label class="form-label">City, State, Zip</label>
+                                                                    <input type="text" class="form-control mb-2" value="{{ optional($quote->pickupLocation)->full_location }}" readonly>
+                                                                    <label class="form-label">Contact</label>
+                                                                    <input type="text" class="form-control mb-2" name="pickup_contact_name" value="{{ old('pickup_contact_name', $quote->pickup_contact_name) }}">
+                                                                    <input type="email" class="form-control mb-2" name="pickup_contact_email" value="{{ old('pickup_contact_email', $quote->pickup_contact_email) }}">
+                                                                    @if (optional($quote->pickupLocation)->phones->count())
+                                                                        @foreach ($quote->pickupLocation->phones as $phone)
+                                                                            <input type="text" class="form-control mb-2" value="{{ $phone->phone }}" readonly>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    <label class="form-label">Pickup Date</label>
+                                                                    <input type="datetime-local" class="form-control" name="pickup_date" value="{{ old('pickup_date', $quote->pickup_date ? $quote->pickup_date->format('Y-m-d\TH:i') : '') }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="card shadow-sm h-100">
+                                                                <div class="card-header fw-semibold">Delivery Information</div>
+                                                                <div class="card-body">
+                                                                    <label class="form-label">Address</label>
+                                                                    <input type="text" class="form-control mb-2" name="delivery_address1" value="{{ old('delivery_address1', $quote->delivery_address1) }}" required>
+                                                                    <label class="form-label">City, State, Zip</label>
+                                                                    <input type="text" class="form-control mb-2" value="{{ optional($quote->deliveryLocation)->full_location }}" readonly>
+                                                                    <label class="form-label">Contact</label>
+                                                                    <input type="text" class="form-control mb-2" name="delivery_contact_name" value="{{ old('delivery_contact_name', $quote->delivery_contact_name) }}">
+                                                                    <input type="email" class="form-control mb-2" name="delivery_contact_email" value="{{ old('delivery_contact_email', $quote->delivery_contact_email) }}">
+                                                                    @if (optional($quote->deliveryLocation)->phones->count())
+                                                                        @foreach ($quote->deliveryLocation->phones as $phone)
+                                                                            <input type="text" class="form-control mb-2" value="{{ $phone->phone }}" readonly>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    <label class="form-label">Delivery Date</label>
+                                                                    <input type="datetime-local" class="form-control" name="delivery_date" value="{{ old('delivery_date', $quote->delivery_date ? $quote->delivery_date->format('Y-m-d\TH:i') : '') }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                    <!-- Signature -->
-                                    <div class="row g-3 mt-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Signature Name</label>
-                                            <input type="text" class="form-control" name="signature_name" value="{{ old('signature_name') }}" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Date</label>
-                                            <input type="date" class="form-control" name="signature_date" value="{{ old('signature_date', date('Y-m-d')) }}" required>
+                                                <!-- Step 4 -->
+                                                <div class="mb-4">
+                                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">4</span> Special Instructions</h6>
+                                                    <textarea class="form-control" name="special_instructions" rows="4">{{ old('special_instructions', trim($quote->pre_dispatch_notes . ' ' . $quote->transport_special_instructions . ' ' . $quote->load_specific_terms)) }}</textarea>
+                                                </div>
+
+                                                <!-- Step 5 -->
+                                                <div class="mb-4">
+                                                    <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">5</span> Confirm Order & Payment</h6>
+                                                    
+                                                    <!-- Terms -->
+                                                    <div class="card border mb-3">
+                                                        <div class="card-body">
+                                                            <button type="button" class="btn btn-link p-0" data-bs-toggle="collapse" data-bs-target="#terms">[+] Terms & Conditions</button>
+                                                            <div id="terms" class="collapse mt-2">
+                                                                <p class="small text-muted mb-0">Your transport will follow standard industry terms...</p>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="checkbox" id="confirm_terms" name="confirm_terms" {{ old('confirm_terms') ? 'checked' : '' }} required>
+                                                                <label for="confirm_terms" class="form-check-label">I accept the Terms & Conditions</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Payment -->
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Payment Option</label>
+                                                        <select name="payment_option" id="payment_option" class="form-select" required>
+                                                            <option value="">Select Payment Option</option>
+                                                            <option value="now" {{ old('payment_option') === 'now' ? 'selected' : '' }}>Pay Now
+                                                            </option>
+                                                            <option value="later" {{ old('payment_option') === 'later' ? 'selected' : '' }}>Pay Later
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- Custom Card Form -->
+                                                    <div id="custom-card-fields" class="border p-3 mb-3" style="display:none;">
+                                                        <div class="row">
+                                                            <!-- Card Number -->
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">Card Number</label>
+                                                                <input type="text" class="form-control" id="card_number" maxlength="19"
+                                                                    value="{{ old('card_number') }}" placeholder="1234 5678 9012 3456">
+                                                            </div>
+
+                                                            <!-- Expiry -->
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">Expiry</label>
+                                                                <div class="d-flex align-items-center">
+                                                                    <input type="text" class="form-control text-center me-1" id="exp_month"
+                                                                        maxlength="2" placeholder="MM" style="width:60px;"
+                                                                        value="{{ old('exp_month') }}">
+                                                                    <span class="mx-1">/</span>
+                                                                    <input type="text" class="form-control text-center ms-1" id="exp_year"
+                                                                        maxlength="2" placeholder="YY" style="width:60px;"
+                                                                        value="{{ old('exp_year') }}">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- CVC -->
+                                                            <div class="col-md-3 mb-3">
+                                                                <label class="form-label">CVC</label>
+                                                                <input type="text" class="form-control" id="cvc" maxlength="4"
+                                                                    value="{{ old('cvc') }}" placeholder="123">
+                                                            </div>
+                                                        </div>
+                                                        <div id="card-errors" class="text-danger mt-2"></div>
+                                                    </div>
+
+                                                    <!-- Signature -->
+                                                    <div class="row g-3 mt-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Signature Name</label>
+                                                            <input type="text" class="form-control" name="signature_name" value="{{ old('signature_name') }}" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Date</label>
+                                                            <input type="date" class="form-control" name="signature_date" value="{{ old('signature_date', date('Y-m-d')) }}" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Submit -->
+                                                <div class="tj-theme-button text-center mt-3">
+                                                    <button type="submit" class="tj-primary-btn">Submit Order Form <i class="flaticon-right-1"></i></button>
+                                                </div>
+                                            </form>
+
+                                            <!-- Footer -->
+                                            <div class="border-top pt-3 mt-4 text-center small text-muted">
+                                                © {{ date('Y') }} Bridgeway Logistics. All rights reserved.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Submit -->
-                                <div class="tj-theme-button text-center mt-3">
-                                    <button type="submit" class="tj-primary-btn">Submit Order Form <i class="flaticon-right-1"></i></button>
-                                </div>
-                            </form>
-                            <!-- Footer -->
-                            <div class="border-top pt-3 mt-4 text-center small text-muted">
-                                © {{ date('Y') }} Bridgeway Logistics. All rights reserved.
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>     
+        </div>
     </section>
 
     <!-- Modernizr.JS -->
