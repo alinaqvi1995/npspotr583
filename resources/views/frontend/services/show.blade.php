@@ -35,13 +35,13 @@
                     <div class="page-details-wrapper service-details-wrapper">
                         <div class="tj-blog-item-three">
                             <div class="tj-blog-image">
-                                <a href="service-details.html">
+                                <a href="#">
                                     <img src="{{ asset($service->image_one) }}" alt="Blog" /></a>
                             </div>
                             <div class="blog-content-area">
                                 <div class="blog-header">
                                     <h3>
-                                        <a class="title-link" href="service-details.html"> {{ $service->heading_one }}</a>
+                                        <a class="title-link" href="#"> {{ $service->heading_one }}</a>
                                     </h3>
                                 </div>
                             </div>
