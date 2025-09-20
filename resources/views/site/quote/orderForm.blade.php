@@ -294,7 +294,7 @@
         }
         .tabs-box .tab-content-1 {
             position: relative;
-            max-width: 1100px;
+            max-width: 1250px;
             border-radius: 30px;
             background: var(--tj-white-color);
             box-shadow: 0px 0px 35px 0px rgba(0, 0, 0, 0.1);
