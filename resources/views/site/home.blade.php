@@ -197,7 +197,7 @@
                         <h3 class="title">Reliable Transportation Solutions for Your Business Growth</h3>
                         <p>We guarantee secure and on-time delivery, facilitating the smooth operation of your company. Our committed staff is committed to provide dependable transportation solutions that are customized to your particular company requirements, guaranteeing effectiveness at every stage. We ensure that your shipment arrive on schedule and in great condition by using cutting-edge tracking technologies, expert handling, and a dedication to safety. By selecting us, you acquire a reliable partner and provides you with the assurance to go beyond any boundaries.</p>
                         <div class="tj-theme-button">
-                            <a class="tj-primary-btn tj-transparent-btn" href="contact.html">
+                            <a class="tj-primary-btn tj-transparent-btn" href="{{ route('contact') }}">
                                 Contact Us <i class="flaticon-right-1"></i>
                             </a>
                         </div>
@@ -281,7 +281,7 @@
                             </div>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-primary-btn" href="contact.html">
+                            <a class="tj-primary-btn" href="{{ route('contact') }}">
                                 Learn More <i class="flaticon-right-1"></i>
                             </a>
                         </div>
@@ -505,7 +505,7 @@
                             <h2 class="title">Reasons Why You Choose Bridgeway Logistics LLC</h2>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-transparent-btn" href="contact.html">
+                            <a class="tj-transparent-btn" href="{{ route('contact') }}">
                                 Contact Us <i class="flaticon-right-1"></i>
                             </a>
                         </div>
