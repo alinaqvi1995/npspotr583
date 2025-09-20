@@ -87,7 +87,7 @@
                                             <p>100% Driver & Vehicle Safety Standards</p>
                                         </div>
                                     </div>
-                                    <h1 class="slider-title">Fast, Reliable and All-Rounder Transport Company</h1>
+                                    <h1 class="slider-title">Fast, Reliable and Delivering Excellence on Every Mile</h1>
                                     <div class="tj-theme-button">
                                         <a class="tj-transparent-btn" href="{{ route('multiform') }}">
                                             Get Quote <i class="flaticon-right-1"></i>
