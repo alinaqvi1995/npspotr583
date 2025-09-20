@@ -13,7 +13,7 @@
                             <h1 class="breadcrumb-title text-center">FAQ</h1>
                             <div class="breadcrumb-link">
                                 <span>
-                                    <a href="index.html">
+                                    <a href="#">
                                         <span>Home</span>
                                     </a>
                                 </span>
@@ -75,7 +75,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    aria-labelledby="headingOne" style="visibility: visible !important;" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         Bridgeway offers reliable vehicle transport across the U.S., including sedans, SUVs,
                                         motorcycles, heavy equipment, boats, and more, all with competitive pricing and
@@ -92,7 +92,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                    data-bs-parent="#accordionExample">
+                                    style="visibility: visible !important;" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         You can easily reach them via phone at +1 (713) 470‑6157 or via email at <a
                                             href="mailto:quote@bridgewaylogisticsllc.com">quote@bridgewaylogisticsllc.com</a>.
@@ -109,7 +109,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    aria-labelledby="headingThree" style="visibility: visible !important;" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         While quotes typically include coverage and standard charges, final pricing may vary
                                         depending on distance and unique circumstances. Bridgeway prides itself on
@@ -127,7 +127,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                                    data-bs-parent="#accordionExample">
+                                    style="visibility: visible !important;" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         Bridgeway supports multiple payment methods including credit/debit cards, bank
                                         transfers, and major digital platforms for your convenience.
@@ -144,7 +144,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
-                                    data-bs-parent="#accordionExample">
+                                    style="visibility: visible !important;" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         According to employee feedback, raises are typically offered on a quarterly basis
                                         for delivery staff.
