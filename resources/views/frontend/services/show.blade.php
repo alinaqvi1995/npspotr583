@@ -106,7 +106,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse show"
-                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_one !!}</strong>
                                                 </div>
@@ -121,7 +121,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseTwo" class="accordion-collapse collapse"
-                                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_two !!}</strong>
                                                 </div>
@@ -136,7 +136,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseThree" class="accordion-collapse collapse"
-                                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_three !!}</strong>
                                                 </div>
@@ -151,7 +151,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseFour" class="accordion-collapse collapse"
-                                                aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_four !!}</strong>
                                                 </div>
@@ -166,7 +166,7 @@
                                                 </button>
                                             </h2>
                                             <div id="collapseFive" class="accordion-collapse collapse"
-                                                aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                                 style="visibility: visible !important;" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <strong>{!! $service->ans_five !!}</strong>
                                                 </div>
