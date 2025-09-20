@@ -199,8 +199,8 @@
                                 data-bg-image="{{ asset('web-assets/images/banner/service_shape.png') }}"></div>
                             <div class="tj-appointment-body">
                                 <div class="appointment-percent text-center">
-                                    <span class="text-uppercase">100% <br />
-                                        Quality</span>
+                                    <span class="text-uppercase">Get <br />
+                                        Quote</span>
                                 </div>
                                 <div class="appointment-content text-center">
                                     <h4 class="title">Make An Appointment</h4>
