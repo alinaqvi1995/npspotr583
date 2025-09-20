@@ -347,18 +347,18 @@
                         <div class="row g-3">
 
                             <div class="col-md-6">
-                                <label class="form-label">Amount to Pay Carrier <span class="text-danger">*</span></label>
+                                <label class="form-label">Amount(Book) <span class="text-danger">*</span></label>
                                 <input type="number" step="0.01" class="form-control" name="pricing[amount_to_pay]"
                                     value="{{ old('pricing.amount_to_pay', $quote->pricing['amount_to_pay'] ?? '') }}"
                                     placeholder="Enter amount to pay carrier">
                             </div>
 
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <label class="form-label">COP/COD</label>
                                 <input type="number" step="0.01" class="form-control" name="pricing[cop_cod]"
                                     value="{{ old('pricing.cop_cod', $quote->pricing['cop_cod'] ?? '') }}"
                                     placeholder="COP/COD">
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6">
                                 <label class="form-label">COP/COD Amount <span class="text-danger">*</span></label>
@@ -367,12 +367,12 @@
                                     placeholder="0.00">
                             </div>
 
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <label class="form-label">Balance</label>
                                 <input type="number" step="0.01" class="form-control" name="pricing[balance]"
                                     value="{{ old('pricing.balance', $quote->pricing['balance'] ?? '') }}"
                                     placeholder="Balance Amount">
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6">
                                 <label class="form-label">Balance Amount</label>

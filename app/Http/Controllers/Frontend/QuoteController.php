@@ -329,6 +329,9 @@ class QuoteController extends Controller
             }
 
             DB::commit();
+            if (Auth::id() != 0) {
+                return back()->with('success', 'Quote submitted successfully!');
+            }
 
             // return redirect()->route('dashboard.quotes.index')->with('success', 'Quote submitted successfully');
             // return redirect()->back()->with('success', 'Quote submitted successfully');
