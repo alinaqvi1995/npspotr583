@@ -193,9 +193,12 @@
                                         <select name="vehicles[1][type]" class="form-select" required>
                                             <option value="">Select</option>
                                             <option>Car</option>
-                                            <option>SUV</option>
-                                            <option>Truck</option>
                                             <option>Motorcycle</option>
+                                            <option>Golf Cart</option>
+                                            <option>ATV</option>
+                                            <option>Heavy Equipment</option>
+                                            <option>RV Transport</option>
+                                            <option>Boat Transport</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
@@ -468,160 +471,199 @@
 @endsection
 
 @section('extra_js')
-    <script>
-        $(document).ready(function() {
-            let vehicleIndex = $('.vehicle-item').length;
+<script>
+    $(document).ready(function() {
+        let vehicleIndex = $('.vehicle-item').length;
+        const currentYear = new Date().getFullYear();
+
+        // ✅ Generate years for dropdown
+        function generateYearOptions($select) {
+            $select.empty().append('<option value="">-- Year --</option>');
+            for (let y = currentYear; y >= currentYear - 30; y--) {
+                $select.append('<option value="' + y + '">' + y + '</option>');
+            }
+        }
+        generateYearOptions($('.year-select'));
+
+        // ✅ Add Vehicle
+        $('#addVehicleBtn').click(function() {
+            const $clone = $('.vehicle-item').first().clone();
+
+            // Reset inputs
+            $clone.find('input[type="text"], input[type="number"], input[type="hidden"]').val('');
+            $clone.find('input[type="checkbox"]').prop('checked', false);
+
+            // Reset selects
+            $clone.find('select').each(function() {
+                const defaultSelected = $(this).find('option[selected]').val() || '';
+                $(this).val(defaultSelected);
+            });
+
+            $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
+            $clone.find('h6').text('Vehicle #'); // temporarily blank, will fix in renumber
+            $clone.find('.image-preview').html('');
+            $clone.find('.text-end').html(
+                '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
+            );
+
+            $('#vehiclesContainer').append($clone);
+
+            // ✅ Renumber all vehicles after adding
+            renumberVehicles();
+
+            // ✅ Generate years for the new vehicle
             const currentYear = new Date().getFullYear();
-
-            // ✅ Generate years for dropdown
-            function generateYearOptions($select) {
-                $select.empty().append('<option value="">-- Year --</option>');
-                for (let y = currentYear; y >= currentYear - 30; y--) {
-                    $select.append('<option value="' + y + '">' + y + '</option>');
-                }
+            $clone.find('.year-select').empty().append('<option value="">-- Year --</option>');
+            for (let y = currentYear; y >= currentYear - 30; y--) {
+                $clone.find('.year-select').append('<option value="' + y + '">' + y + '</option>');
             }
-            generateYearOptions($('.year-select'));
-
-            // Add Vehicle
-            $('#addVehicleBtn').click(function() {
-                const $clone = $('.vehicle-item').first().clone();
-
-                // Reset inputs
-                $clone.find('input[type="text"], input[type="number"], input[type="hidden"]').val('');
-                $clone.find('input[type="checkbox"]').prop('checked', false);
-
-                // Reset selects
-                $clone.find('select').each(function() {
-                    const defaultSelected = $(this).find('option[selected]').val() || '';
-                    $(this).val(defaultSelected);
-                });
-
-                $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
-                $clone.find('h6').text('Vehicle #'); // temporarily blank, will fix in renumber
-                $clone.find('.image-preview').html('');
-                $clone.find('.text-end').html(
-                    '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
-                );
-
-                $('#vehiclesContainer').append($clone);
-
-                // ✅ Renumber all vehicles after adding
-                renumberVehicles();
-
-                // ✅ Generate years for the new vehicle
-                const currentYear = new Date().getFullYear();
-                $clone.find('.year-select').empty().append('<option value="">-- Year --</option>');
-                for (let y = currentYear; y >= currentYear - 30; y--) {
-                    $clone.find('.year-select').append('<option value="' + y + '">' + y + '</option>');
-                }
-            });
-
-            // ✅ Delete Vehicle
-            $(document).on('click', '.deleteVehicleBtn', function() {
-                if ($('.vehicle-item').length > 1) {
-                    $(this).closest('.vehicle-item').remove();
-                    renumberVehicles();
-                } else {
-                    alert('At least one vehicle is required.');
-                }
-            });
-
-            // ✅ Image Preview with Remove Option
-            $(document).on('change', '.image-input', function() {
-                const previewContainer = $(this).siblings('.image-preview');
-                previewContainer.html('');
-                const files = this.files;
-
-                if (files) {
-                    Array.from(files).forEach((file, index) => {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const img = `
-                        <div class="position-relative d-inline-block" style="width:80px;height:80px;">
-                            <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
-                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
-                        </div>
-                    `;
-                            previewContainer.append(img);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                }
-            });
-
-            // ✅ Remove image from preview (and input)
-            $(document).on('click', '.remove-image', function() {
-                const index = $(this).data('index');
-                const $input = $(this).closest('.image-preview').siblings('.image-input');
-                const dt = new DataTransfer();
-
-                const files = $input[0].files;
-                for (let i = 0; i < files.length; i++) {
-                    if (i !== index) {
-                        dt.items.add(files[i]);
-                    }
-                }
-                $input[0].files = dt.files;
-                $(this).parent().remove();
-            });
-
-            // ✅ Renumber Vehicles
-            function renumberVehicles() {
-                $('.vehicle-item').each(function(index) {
-                    const newIndex = index + 1;
-                    $(this).attr('data-index', newIndex);
-                    $(this).find('h6').text('Vehicle #' + newIndex);
-
-                    $(this).find('input, select').each(function() {
-                        const oldName = $(this).attr('name');
-                        if (!oldName) return;
-
-                        // Replace only the first number inside 'vehicles[...]'
-                        const newName = oldName.replace(/vehicles\[\d+\]/, `vehicles[${newIndex}]`);
-                        $(this).attr('name', newName);
-                    });
-
-                    // ✅ Update image input name
-                    $(this).find('.image-input').attr('name', `images[${newIndex}][]`);
-
-                    // Reset file input and image preview
-                    $(this).find('.image-input').val('');
-                    $(this).find('.image-preview').html('');
-                });
-            }
-
-            // ✅ Add phone input dynamically
-            $(document).on('click', '.addPhoneBtn', function(e) {
-                e.preventDefault();
-                const index = $(this).closest('.location-item').data('index');
-                $(this).before('<input type="text" name="locations[' + index +
-                    '][contact_phone][]" class="form-control mt-1" placeholder="Additional phone">');
-            });
-
-            $(document).on('change', '.make-select', function() {
-                const make = $(this).val();
-                const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
-
-                $modelSelect.html('<option value="">-- Select Model --</option>');
-
-                if (make) {
-                    $.ajax({
-                        url: "{{ route('vehicles.models') }}",
-                        data: {
-                            make: make
-                        },
-                        success: function(models) {
-                            models.forEach(model => {
-                                $modelSelect.append('<option value="' + model + '">' +
-                                    model + '</option>');
-                            });
-                        },
-                        error: function() {
-                            alert('Failed to fetch models.');
-                        }
-                    });
-                }
-            });
         });
-    </script>
+
+        // ✅ Delete Vehicle
+        $(document).on('click', '.deleteVehicleBtn', function() {
+            if ($('.vehicle-item').length > 1) {
+                $(this).closest('.vehicle-item').remove();
+                renumberVehicles();
+            } else {
+                alert('At least one vehicle is required.');
+            }
+        });
+
+        // ✅ Image Preview with Remove Option
+        $(document).on('change', '.image-input', function() {
+            const previewContainer = $(this).siblings('.image-preview');
+            previewContainer.html('');
+            const files = this.files;
+
+            if (files) {
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = `
+                            <div class="position-relative d-inline-block" style="width:80px;height:80px;">
+                                <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
+                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
+                            </div>
+                        `;
+                        previewContainer.append(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        });
+
+        // ✅ Remove image from preview (and input)
+        $(document).on('click', '.remove-image', function() {
+            const index = $(this).data('index');
+            const $input = $(this).closest('.image-preview').siblings('.image-input');
+            const dt = new DataTransfer();
+
+            const files = $input[0].files;
+            for (let i = 0; i < files.length; i++) {
+                if (i !== index) {
+                    dt.items.add(files[i]);
+                }
+            }
+            $input[0].files = dt.files;
+            $(this).parent().remove();
+        });
+
+        // ✅ Renumber Vehicles
+        function renumberVehicles() {
+            $('.vehicle-item').each(function(index) {
+                const newIndex = index + 1;
+                $(this).attr('data-index', newIndex);
+                $(this).find('h6').text('Vehicle #' + newIndex);
+
+                $(this).find('input, select').each(function() {
+                    const oldName = $(this).attr('name');
+                    if (!oldName) return;
+
+                    // Replace only the first number inside 'vehicles[...]'
+                    const newName = oldName.replace(/vehicles\[\d+\]/, `vehicles[${newIndex}]`);
+                    $(this).attr('name', newName);
+                });
+
+                // ✅ Update image input name
+                $(this).find('.image-input').attr('name', `images[${newIndex}][]`);
+
+                // Reset file input and image preview
+                $(this).find('.image-input').val('');
+                $(this).find('.image-preview').html('');
+            });
+        }
+
+        // ✅ Add phone input dynamically
+        $(document).on('click', '.addPhoneBtn', function(e) {
+            e.preventDefault();
+            const index = $(this).closest('.location-item').data('index');
+            $(this).before('<input type="text" name="locations[' + index +
+                '][contact_phone][]" class="form-control mt-1" placeholder="Additional phone">');
+        });
+
+        // ✅ Type Change → Toggle Make/Model as Select or Input
+        $(document).on('change', '.vehicle-item select[name*="[type]"]', function() {
+            const type = $(this).val();
+            const $vehicle = $(this).closest('.vehicle-item');
+            const $makeWrapper = $vehicle.find('.col-md-3').eq(2); // Make column
+            const $modelWrapper = $vehicle.find('.col-md-3').eq(3); // Model column
+            const index = $vehicle.data('index');
+
+            if (type === "Car") {
+                // Replace Make with dropdown
+                $makeWrapper.html(`
+                    <label class="form-label">Make *</label>
+                    <select name="vehicles[${index}][make]" class="form-select make-select" required>
+                        <option value="">-- Select Make --</option>
+                        @foreach ($makes as $make)
+                            <option value="{{ $make }}">{{ $make }}</option>
+                        @endforeach
+                    </select>
+                `);
+
+                // Replace Model with dropdown
+                $modelWrapper.html(`
+                    <label class="form-label">Model *</label>
+                    <select name="vehicles[${index}][model]" class="form-select model-select" required>
+                        <option value="">-- Select Model --</option>
+                    </select>
+                `);
+            } else {
+                // Replace with text inputs
+                $makeWrapper.html(`
+                    <label class="form-label">Make *</label>
+                    <input type="text" name="vehicles[${index}][make]" class="form-control" placeholder="Enter Make" required>
+                `);
+
+                $modelWrapper.html(`
+                    <label class="form-label">Model *</label>
+                    <input type="text" name="vehicles[${index}][model]" class="form-control" placeholder="Enter Model" required>
+                `);
+            }
+        });
+
+        // ✅ AJAX for Model dropdown (only when Car is selected)
+        $(document).on('change', '.make-select', function() {
+            const make = $(this).val();
+            const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
+
+            $modelSelect.html('<option value="">-- Select Model --</option>');
+
+            if (make) {
+                $.ajax({
+                    url: "{{ route('vehicles.models') }}",
+                    data: { make: make },
+                    success: function(models) {
+                        models.forEach(model => {
+                            $modelSelect.append('<option value="' + model + '">' + model + '</option>');
+                        });
+                    },
+                    error: function() {
+                        alert('Failed to fetch models.');
+                    }
+                });
+            }
+        });
+    });
+</script>
 @endsection

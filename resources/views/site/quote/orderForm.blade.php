@@ -103,224 +103,225 @@
         }
     </style>
     <style>
-    /* Container */
-    .order-form-wrapper {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        padding: 30px;
-        max-width: 1100px;
-        margin: 30px auto;
-    }
+            /* Container */
+            .order-form-wrapper {
+                background: #fff;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                padding: 30px;
+                max-width: 1100px;
+                margin: 30px auto;
+            }
 
-    /* Header */
-    .order-form-header {
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid #e5eaf2;
-        padding-bottom: 15px;
-        margin-bottom: 25px;
-    }
+            /* Header */
+            .order-form-header {
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #e5eaf2;
+                padding-bottom: 15px;
+                margin-bottom: 25px;
+            }
 
-    .order-form-header img {
-        height: 60px;
-        margin-right: 15px;
-    }
+            .order-form-header img {
+                height: 60px;
+                margin-right: 15px;
+            }
 
-    .order-form-header .company-info h1 {
-        font-size: 1.6rem;
-        margin: 0;
-        font-weight: 700;
-        color: #1e3a8a; /* logiland’s blue shade */
-    }
+            .order-form-header .company-info h1 {
+                font-size: 1.6rem;
+                margin: 0;
+                font-weight: 700;
+                color: #1e3a8a; /* logiland’s blue shade */
+            }
 
-    .order-form-header .company-info p {
-        font-size: 0.9rem;
-        margin: 2px 0;
-        color: #6b7280;
-    }
+            .order-form-header .company-info p {
+                font-size: 0.9rem;
+                margin: 2px 0;
+                color: #6b7280;
+            }
 
-    /* Step Title */
-    .stepContainer {
-        display: flex;
-        align-items: center;
+            /* Step Title */
+            .stepContainer {
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+                font-size: 1.05rem;
+                margin-bottom: 15px;
+                color: #1e3a8a;
+            }
+
+            .stepContainer span {
+                background: #1e3a8a;
+                color: #fff;
+                border-radius: 50%;
+                width: 28px;
+                height: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 10px;
+                font-size: 0.9rem;
+            }
+
+            /* Card-style sections */
+            .order-section {
+                background: #f9fafb;
+                border: 1px solid #e5eaf2;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+
+            /* Inputs */
+            .form-control, .form-select {
+                border-radius: 8px;
+                border: 1px solid #d1d5db;
+                padding: 10px 14px;
+                font-size: 0.95rem;
+            }
+
+            .form-label {
+                font-weight: 500;
+                margin-bottom: 6px;
+                color: #374151;
+            }
+
+            /* Buttons */
+            .btn-success {
+                background: #1e3a8a !important;
+                border-color: #1e3a8a !important;
+                border-radius: 8px;
+                padding: 10px 24px;
+                font-size: 1rem;
+                font-weight: 600;
+                transition: all 0.2s ease;
+            }
+
+            .btn-success:hover {
+                background: #0f235a !important;
+                border-color: #0f235a !important;
+            }
+
+            /* Vehicle images */
+            .vehicle-images img {
+                border-radius: 6px;
+                border: 1px solid #e5eaf2;
+            }
+
+            /* Footer */
+            .order-form-footer {
+                border-top: 1px solid #e5eaf2;
+                margin-top: 25px;
+                padding-top: 12px;
+                text-align: center;
+                font-size: 0.85rem;
+                color: #6b7280;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .order-form-wrapper {
+                    padding: 20px;
+                    margin: 15px;
+                }
+                .order-form-header {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                .order-form-header img {
+                    margin: 0 0 10px 0;
+                }
+            }
+            /* Typography */
+        body {
+        font-family: var(--tj-ff-body);
+        color: var(--tj-body-color);
+        }
+        h1, h2, h3, h4, h5, h6 {
+        font-family: var(--tj-ff-title);
+        color: var(--tj-secondary-color);
+        }
+
+        /* Map Bootstrap utilities to theme */
+        .text-primary {
+        color: var(--tj-primary-color) !important;
+        }
+        .bg-primary {
+        background-color: var(--tj-primary-color) !important;
+        }
+        .border-primary {
+        border-color: var(--tj-primary-color) !important;
+        }
+
+        /* Muted text */
+        .text-muted {
+        color: var(--tj-gray-color) !important;
+        }
+
+        /* Buttons */
+        .tj-primary-btn {
+        background-color: var(--tj-primary-color);
+        color: var(--tj-white-color);
+        border: none;
+        border-radius: 8px;
         font-weight: 600;
-        font-size: 1.05rem;
-        margin-bottom: 15px;
-        color: #1e3a8a;
-    }
+        transition: 0.3s;
+        }
+        .tj-primary-btn:hover {
+        background-color: var(--tj-primary-color3); /* darker shade */
+        }
 
-    .stepContainer span {
-        background: #1e3a8a;
-        color: #fff;
-        border-radius: 50%;
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 10px;
-        font-size: 0.9rem;
-    }
+        /* Badges */
+        .badge.bg-primary {
+        background-color: var(--tj-primary-color) !important;
+        color: var(--tj-white-color);
+        }
 
-    /* Card-style sections */
-    .order-section {
-        background: #f9fafb;
-        border: 1px solid #e5eaf2;
+        /* Cards */
+        .card {
+        border: 1px solid var(--tj-gray-color3);
         border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 25px;
-    }
-
-    /* Inputs */
-    .form-control, .form-select {
-        border-radius: 8px;
-        border: 1px solid #d1d5db;
-        padding: 10px 14px;
-        font-size: 0.95rem;
-    }
-
-    .form-label {
-        font-weight: 500;
-        margin-bottom: 6px;
-        color: #374151;
-    }
-
-    /* Buttons */
-    .btn-success {
-        background: #1e3a8a !important;
-        border-color: #1e3a8a !important;
-        border-radius: 8px;
-        padding: 10px 24px;
-        font-size: 1rem;
+        }
+        .card-header {
+        background-color: var(--tj-primary-color2);
+        color: var(--tj-primary-color3);
         font-weight: 600;
-        transition: all 0.2s ease;
-    }
-
-    .btn-success:hover {
-        background: #0f235a !important;
-        border-color: #0f235a !important;
-    }
-
-    /* Vehicle images */
-    .vehicle-images img {
-        border-radius: 6px;
-        border: 1px solid #e5eaf2;
-    }
-
-    /* Footer */
-    .order-form-footer {
-        border-top: 1px solid #e5eaf2;
-        margin-top: 25px;
-        padding-top: 12px;
-        text-align: center;
-        font-size: 0.85rem;
-        color: #6b7280;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .order-form-wrapper {
-            padding: 20px;
-            margin: 15px;
         }
-        .order-form-header {
-            flex-direction: column;
-            text-align: center;
+
+        /* Footer */
+        .footer-text {
+        color: var(--tj-gray-color7);
         }
-        .order-form-header img {
-            margin: 0 0 10px 0;
-        }
-    }
-    /* Typography */
-body {
-  font-family: var(--tj-ff-body);
-  color: var(--tj-body-color);
-}
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--tj-ff-title);
-  color: var(--tj-secondary-color);
-}
 
-/* Map Bootstrap utilities to theme */
-.text-primary {
-  color: var(--tj-primary-color) !important;
-}
-.bg-primary {
-  background-color: var(--tj-primary-color) !important;
-}
-.border-primary {
-  border-color: var(--tj-primary-color) !important;
-}
-
-/* Muted text */
-.text-muted {
-  color: var(--tj-gray-color) !important;
-}
-
-/* Buttons */
-.tj-primary-btn {
-  background-color: var(--tj-primary-color);
-  color: var(--tj-white-color);
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: 0.3s;
-}
-.tj-primary-btn:hover {
-  background-color: var(--tj-primary-color3); /* darker shade */
-}
-
-/* Badges */
-.badge.bg-primary {
-  background-color: var(--tj-primary-color) !important;
-  color: var(--tj-white-color);
-}
-
-/* Cards */
-.card {
-  border: 1px solid var(--tj-gray-color3);
-  border-radius: 10px;
-}
-.card-header {
-  background-color: var(--tj-primary-color2);
-  color: var(--tj-primary-color3);
-  font-weight: 600;
-}
-
-/* Footer */
-.footer-text {
-  color: var(--tj-gray-color7);
-}
-
-</style>
+    </style>
 
 </head>
 
 <body>
-<section class="tj-service-section-three pb-0">
-    <div class="container">
-        <div class="row">
-            <div class="tj-section-heading text-center">
-                <span class="sub-title active-shape"> Order Process </span>
-                <h2 class="title">Complete Your Order Form</h2>
-                <p class="mt-2 text-muted">
-                    Please review your details carefully and fill out the required information to confirm your transport booking.
-                </p>
+    <section class="tj-service-section-three pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="tj-section-heading text-center">
+                    <span class="sub-title active-shape"> Order Process </span>
+                    <h2 class="title">Complete Your Order Form</h2>
+                    <p class="mt-2 text-muted">
+                        Please review your details carefully and fill out the required information to confirm your transport booking.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-    <section class="tj-tabs-section">
+    </section>
+    <section class="tj-cta-section-three">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="tabs-box">
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="tab-pane fade active show" id="pills-home" role="tabpanel" 
+                            aria-labelledby="pills-home-tab">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div class="container my-5">
+                                        <div class="container-sm my-5">
                                             <!-- Company Header -->
                                             <div class="row align-items-center border-bottom pb-3 mb-4">
                                                 <!-- Logo -->
