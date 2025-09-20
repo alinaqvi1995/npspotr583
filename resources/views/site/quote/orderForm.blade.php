@@ -292,13 +292,20 @@
         .footer-text {
         color: var(--tj-gray-color7);
         }
-
+        .tabs-box .tab-content-1 {
+            position: relative;
+            max-width: 1100px;
+            border-radius: 30px;
+            background: var(--tj-white-color);
+            box-shadow: 0px 0px 35px 0px rgba(0, 0, 0, 0.1);
+            padding: 50px 45px 60px;
+        }
     </style>
 
 </head>
 
 <body>
-    <section class="tj-service-section-three pb-0">
+    <section class="tj-service-section-three pt-5 pb-0">
         <div class="container">
             <div class="row">
                 <div class="tj-section-heading text-center">
@@ -316,7 +323,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="tabs-box">
-                        <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-content-1" id="pills-tabContent">
                             <div class="tab-pane fade active show" id="pills-home" role="tabpanel" 
                             aria-labelledby="pills-home-tab">
                                 <div class="row">
