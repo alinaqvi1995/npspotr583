@@ -24,7 +24,7 @@
                                     </div>
                                     <h1 class="slider-title">Reliable, Insured Vehicle Transport Across the USA</h1>
                                     <div class="tj-theme-button">
-                                        <a class="tj-transparent-btn" href="contact.html">
+                                        <a class="tj-transparent-btn" href="{{ route('multiform') }}">
                                             Get Quote <i class="flaticon-right-1"></i>
                                         </a>
                                     </div>
