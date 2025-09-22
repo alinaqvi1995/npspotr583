@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Quote;
+use App\Observers\QuoteObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // 🔹 Register QuoteObserver
+        Quote::observe(QuoteObserver::class);
+
         Gate::before(function (User $user, string $ability) {
             if ($user->hasRole('admin')) {
                 return true;

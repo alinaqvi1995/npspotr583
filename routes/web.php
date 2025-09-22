@@ -101,6 +101,9 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::get('/add_new_quote', [QuoteManagementController::class, 'quoteCreate'])->name('dashboard.quotes.create');
     Route::get('/edit_quote/{id}', [QuoteManagementController::class, 'quoteEdit'])->name('dashboard.quotes.edit');
     Route::put('/quotes/{quote}', [QuoteManagementController::class, 'quoteUpdate'])->name('dashboard.quotes.update');
+    Route::patch('/quotes/{quote}/status', [QuoteManagementController::class, 'updateStatus'])
+        ->name('dashboard.quotes.updateStatus');
+
 
     Route::middleware(['admin'])->group(function () {
         Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');

@@ -488,4 +488,15 @@ class QuoteManagementController extends Controller
 
         return response()->json(['histories' => $logs]);
     }
+
+    public function updateStatus(Request $request, Quote $quote)
+    {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+
+        $quote->update(['status' => $request->status]);
+
+        return redirect()->back()->with('success', 'Status updated.');
+    }
 }

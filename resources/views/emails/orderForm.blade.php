@@ -1,4 +1,51 @@
-<!DOCTYPE html>
+@extends('emails.layouts.app')
+
+@section('title', "Order Form - Quote #{$quote->id}")
+@section('header', 'Order Form')
+
+@section('content')
+    <p>Hello {{ $quote->customer_name }},</p>
+    <p>Please review your order form for Quote #<strong>{{ $quote->id }}</strong> by clicking
+        the link below:</p>
+
+    <p style="text-align:center; margin:30px 0;">
+        @php $encryptedId = encrypt($quote->id); @endphp
+
+        <a href="{{ route('quotes.orderForm', ['encrypted' => $encryptedId]) }}"
+            style="display:inline-block; background:#1a73e8; color:#ffffff; text-decoration:none; 
+                padding:12px 25px; border-radius:5px; font-weight:500;">
+            View Order Form
+        </a>
+    </p>
+
+    <hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
+
+    <h3 style="margin-bottom:10px; font-weight:500;">Quote Details</h3>
+    <p>
+        <strong>Customer Email:</strong> {{ $quote->customer_email }}<br>
+        <strong>Phone:</strong> {{ $quote->customer_phone }}
+    </p>
+
+    <h4 style="margin-bottom:10px; font-weight:500;">Vehicles</h4>
+    <ul style="margin:0; padding-left:20px;">
+        @foreach ($quote->vehicles as $vehicle)
+            <li>{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}</li>
+        @endforeach
+    </ul>
+
+    <h4 style="margin-top:20px; font-weight:500;">Pickup</h4>
+    <p>{{ $quote->pickupLocation->full_location }} <br>{{ $quote->pickup_date_formatted }}</p>
+
+    <h4 style="margin-top:20px; font-weight:500;">Delivery</h4>
+    <p>{{ $quote->deliveryLocation->full_location }} <br>{{ $quote->delivery_date_formatted }}</p>
+
+    <p style="margin-top:30px; font-size:13px; color:#777;">
+        If you have any questions, please contact us directly.
+    </p>
+@endsection
+
+
+{{-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -83,4 +130,4 @@
 
 </body>
 
-</html>
+</html> --}}

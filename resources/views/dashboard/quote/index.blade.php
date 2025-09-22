@@ -144,6 +144,13 @@
                                                     <i class="material-icons-outlined fs-6 me-1">history</i> Agent History
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="dropdown-item change-status" href="javascript:;"
+                                                    data-id="{{ $quote->id }}" data-status="{{ $quote->status }}">
+                                                    <i class="material-icons-outlined fs-6 me-1">swap_horiz</i> Change
+                                                    Status
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -288,6 +295,36 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="statusModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form id="statusForm" method="POST" action="">
+                @csrf
+                @method('PATCH')
+                <input type="hidden" name="quote_id" id="statusQuoteId">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Change Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <select name="status" id="statusSelect" class="form-select">
+                            @foreach ($quote->allowedStatuses($quote->status) as $status => $details)
+                                <option value="{{ $status }}"
+                                    {{ old('status', $quote->status) == $status ? 'selected' : '' }}>
+                                    {{ $status }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 
 @section('extra_js')
@@ -384,6 +421,20 @@
                     $('#historyTableBody').html(rows);
                 });
             }
+
+            $(document).on('click', '.change-status', function() {
+                let id = $(this).data('id');
+                let current = $(this).data('status');
+
+                // build route with ID
+                let url = "{{ route('dashboard.quotes.updateStatus', ':id') }}";
+                url = url.replace(':id', id);
+
+                $('#statusForm').attr('action', url);
+                $('#statusQuoteId').val(id);
+                $('#statusSelect').val(current);
+                $('#statusModal').modal('show');
+            });
         });
     </script>
 @endsection
