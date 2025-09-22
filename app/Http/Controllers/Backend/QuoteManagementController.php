@@ -33,18 +33,20 @@ class QuoteManagementController extends Controller
         }
     }
 
-    public function allQuotes(Request $request)
+    public function allQuotes(Request $request, $status)
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
         $query = Quote::with('vehicles.images')->orderBy('created_at', 'desc');
 
+        // Normalize requested status (convert "follow-up" => "Follow Up")
+        $requestedStatus = Str::title(str_replace('-', ' ', $status));
+
         if ($user->isAdmin()) {
-            if ($request->has('status') && !empty($request->status)) {
-                $requestedStatus = Str::title(str_replace('-', ' ', $request->status));
-                $query->where('status', $requestedStatus);
-            }
+            // Admins can see any status
+            $query->where('status', $requestedStatus);
         } else {
+            // Get statuses user is allowed to view
             $allowedPermissions = $user->allPermissions()
                 ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
                 ->pluck('slug')
@@ -58,31 +60,59 @@ class QuoteManagementController extends Controller
                 $query->whereIn('status', $allowedStatuses);
             }
 
-            if ($request->has('status') && !empty($request->status)) {
-                $requestedStatus = Str::title(str_replace('-', ' ', $request->status));
-                if (in_array($requestedStatus, $allowedStatuses)) {
-                    $query->where('status', $requestedStatus);
-                } else {
-                    $query->whereRaw('0=1');
-                }
+            // Restrict further by requested status
+            if (in_array($requestedStatus, $allowedStatuses)) {
+                $query->where('status', $requestedStatus);
+            } else {
+                // If requested status is not allowed → return nothing
+                $query->whereRaw('0=1');
             }
         }
 
-        $quotes = $query->paginate(10);
+        // Debug check
+        // dd($query->pluck('status')->take(20)->toArray());
+
+        $quotes = $query->paginate(20);
 
         return view('dashboard.quote.index', compact('quotes'));
     }
 
-    // public function allQuotes(Request $request)
+    // public function allQuotes(Request $request, $status)
     // {
-    //     $query = Quote::with('vehicles.images')
-    //         ->orderBy('created_at', 'desc');
+    //     /** @var \App\Models\User|null $user */
+    //     $user = Auth::user();
+    //     $query = Quote::with('vehicles.images')->orderBy('created_at', 'desc');
 
-    //     if ($request->has('status') && !empty($request->status)) {
-    //         $status = Str::title(str_replace('-', ' ', $request->status));
-    //         $query->where('status', $status);
+    //     if ($user->isAdmin()) {
+    //         if ($request->has('status') && !empty($status)) {
+    //             $requestedStatus = Str::title(str_replace('-', ' ', $status));
+    //             $query->where('status', $requestedStatus);
+    //         }
+    //     } else {
+    //         $allowedPermissions = $user->allPermissions()
+    //             ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
+    //             ->pluck('slug')
+    //             ->toArray();
+
+    //         $allowedStatuses = collect($allowedPermissions)
+    //             ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
+    //             ->toArray();
+
+    //         if (!empty($allowedStatuses)) {
+    //             $query->whereIn('status', $allowedStatuses);
+    //         }
+
+    //         if ($request->has('status') && !empty($status)) {
+    //             $requestedStatus = Str::title(str_replace('-', ' ', $status));
+    //             if (in_array($requestedStatus, $allowedStatuses)) {
+    //                 $query->where('status', $requestedStatus);
+    //             } else {
+    //                 $query->whereRaw('0=1');
+    //             }
+    //         }
     //     }
 
+    //     dd($query->pluck('status')->take(20)->toArray());
     //     $quotes = $query->paginate(10);
 
     //     return view('dashboard.quote.index', compact('quotes'));
@@ -93,25 +123,6 @@ class QuoteManagementController extends Controller
         $quote = Quote::with('vehicles.images')->findOrFail($id);
         return view('dashboard.quote.details', compact('quote'));
     }
-
-    // public function quoteCreate()
-    // {
-    //     $makes = [];
-    //     $models = [];
-
-    //     VehicleMakeModel::select('make', 'model')
-    //         ->orderBy('make')
-    //         ->chunk(500, function ($rows) use (&$makes, &$models) {
-    //             foreach ($rows as $row) {
-    //                 if (!in_array($row->make, $makes)) {
-    //                     $makes[] = $row->make;
-    //                 }
-    //                 $models[$row->make][] = $row->model;
-    //             }
-    //         });
-
-    //     return view('dashboard.quote.create', compact('makes', 'models'));
-    // }
 
     public function quoteCreate()
     {

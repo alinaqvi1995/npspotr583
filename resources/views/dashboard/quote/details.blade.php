@@ -248,5 +248,5 @@
     </div>
 @endif
 
-<a href="{{ route('dashboard.quotes.index') }}" class="btn btn-secondary">Back to Quotes</a>
+<a href="{{ route('dashboard.quotes.index', ['status' => 'New']) }}" class="btn btn-secondary">Back to Quotes</a>
 @endsection

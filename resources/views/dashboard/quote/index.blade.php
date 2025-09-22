@@ -3,6 +3,37 @@
 @section('title', 'Quotes')
 
 @section('content')
+    <style>
+        .pagination {
+            margin: 0;
+            display: flex;
+            gap: 4px;
+        }
+
+        .pagination .page-item .page-link {
+            border-radius: 50% !important;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            padding: 0;
+            font-size: 0.9rem;
+            margin: 0;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
     <h6 class="mb-0 text-uppercase">All Quotes</h6>
     <hr>
     <div class="card">
@@ -122,7 +153,15 @@
                     </tbody>
                 </table>
             </div>
-
+            {{-- Pagination controls --}}
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="small text-muted">
+                    {{-- Showing {{ $quotes->firstItem() }} to {{ $quotes->lastItem() }} of {{ $quotes->total() }} entries --}}
+                </div>
+                <div>
+                    {{ $quotes->onEachSide(1)->links('pagination::bootstrap-5') }}
+                </div>
+            </div>
         </div>
     </div>
 
@@ -256,17 +295,17 @@
         $(document).ready(function() {
 
             // ✅ DataTable setup
-            var table = $('#quoteTable').DataTable({
-                pageLength: 10,
-                autoWidth: false,
-                order: [
-                    [0, 'asc']
-                ],
-                columnDefs: [{
-                    orderable: false,
-                    targets: [1, 4, 5]
-                }]
-            });
+            // var table = $('#quoteTable').DataTable({
+            //     pageLength: 10,
+            //     autoWidth: false,
+            //     order: [
+            //         [0, 'asc']
+            //     ],
+            //     columnDefs: [{
+            //         orderable: false,
+            //         targets: [1, 4, 5]
+            //     }]
+            // });
 
             // ✅ Column filter + search
             $('#quoteSearch').on('keyup', function() {
@@ -348,97 +387,3 @@
         });
     </script>
 @endsection
-
-{{-- @section('extra_js')
-    <script>
-        $(document).ready(function() {
-
-            // DataTable
-            var table = $('#quoteTable').DataTable({
-                pageLength: 10,
-                autoWidth: false,
-                order: [
-                    [0, 'asc']
-                ],
-                columnDefs: [{
-                    orderable: false,
-                    targets: [1, 4, 5]
-                }]
-            });
-
-            // Column filter
-            $('#quoteSearch').on('keyup', function() {
-                var colIndex = $('#columnFilter').val();
-                if (colIndex === '') {
-                    table.search(this.value).draw();
-                } else {
-                    table.column(colIndex).search(this.value).draw();
-                }
-            });
-
-            // Open modal with quote ID
-            $(document).on('click', '.send-order-form', function() {
-                let quoteId = $(this).data('id');
-                $('#orderFormQuoteId').val(quoteId);
-                $('#sendOrderFormModal').modal('show'); // ✅ fixed ID
-            });
-
-            // View Logs
-            $(document).on('click', '.view-logs', function() {
-                let quoteId = $(this).data('id');
-                $('#viewLogsModal').modal('show');
-                $('#logsContent').html('Loading...');
-
-                $.get("{{ url('dashboard/quotes/logs') }}/" + quoteId, function(data) {
-                    $('#logsContent').html(data);
-                });
-            });
-
-            // Agent History
-            $(document).on('click', '.agent-history', function() {
-                let quoteId = $(this).data('id');
-                $('#agentHistoryQuoteId').val(quoteId);
-                $('#agentHistoryModal').modal('show');
-
-                // Load history
-                $('#historyContent').html('Loading...');
-                $.get("{{ url('dashboard/quotes/agentHistory') }}/" + quoteId, function(data) {
-                    $('#historyContent').html(data);
-                });
-            });
-
-            function loadHistories(quoteId) {
-                $('#historyTableBody').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
-                $.get(`/quotes/${quoteId}/histories`, function(response) {
-                    let rows = '';
-                    if (response.histories.length === 0) {
-                        rows = '<tr><td colspan="5" class="text-center">No history found.</td></tr>';
-                    } else {
-                        response.histories.forEach((h, i) => {
-                            let changes = '';
-                            if (h.data) {
-                                for (const [key, val] of Object.entries(h.data)) {
-                                    let oldVal = h.old_status && key === 'status' ? h.old_status :
-                                        '-';
-                                    changes += `<div><b>${key}</b>: ${oldVal} → ${val}</div>`;
-                                }
-                            } else {
-                                changes = `${h.old_status ?? '-'} → ${h.status}`;
-                            }
-
-                            rows += `
-                    <tr>
-                        <td>${i+1}</td>
-                        <td>${h.change_type}</td>
-                        <td>${changes}</td>
-                        <td>${h.changed_by}</td>
-                        <td>${h.created_at}</td>
-                    </tr>`;
-                        });
-                    }
-                    $('#historyTableBody').html(rows);
-                });
-            }
-        });
-    </script>
-@endsection --}}
