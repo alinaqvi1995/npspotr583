@@ -441,6 +441,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- FAQ 6 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseSix" aria-expanded="false"
+                                        aria-controls="collapseSix">
+                                        Will I have to pay anything up-front?
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" style="visibility: visible !important;" aria-labelledby="headingSix"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        There is no initial deposit. The driver is only paid the sum of money you pay after the delivery of your vehicle.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
