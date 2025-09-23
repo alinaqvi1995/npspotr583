@@ -74,6 +74,7 @@
                             <th>Vehicles</th>
                             <th>Pickup / Delivery</th>
                             <th>Status</th>
+                            <th>Created At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -113,6 +114,7 @@
                                     <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
                                 <td>{!! $quote->status_label !!}</td>
+                                <td>{{ $loop->created_at }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-light border dropdown-toggle" type="button"
