@@ -239,20 +239,20 @@
                 });
 
                 // Validate on form submit
-                $('form').on('submit', function(e) {
-                    if (!selected) {
-                        e.preventDefault();
+                // $('form').on('submit', function(e) {
+                //     if (!selected) {
+                //         e.preventDefault();
 
-                        if (!$(inputId).hasClass('is-invalid')) {
-                            $(inputId).addClass('is-invalid')
-                                .after(
-                                    '<div class="invalid-feedback">Please select a location from the suggestions.</div>'
-                                );
-                        }
+                //         if (!$(inputId).hasClass('is-invalid')) {
+                //             $(inputId).addClass('is-invalid')
+                //                 .after(
+                //                     '<div class="invalid-feedback">Please select a location from the suggestions.</div>'
+                //                 );
+                //         }
 
-                        $(suggestionBoxId).stop(true, true).slideDown(200);
-                    }
-                });
+                //         $(suggestionBoxId).stop(true, true).slideDown(200);
+                //     }
+                // });
             }
 
             bindSearch('#pickup-location', '#pickup-suggestions', '#pickup_city', '#pickup_state', '#pickup_zip');
