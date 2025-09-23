@@ -82,7 +82,7 @@
                         @forelse($quotes as $quote)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $loop->id }}</td>
+                                <td>{{ $quote->id }}</td>
                                 <td>
                                     {{ $quote->customer_name }}<br>
                                     <small>{{ $quote->customer_email }}</small><br>
@@ -114,7 +114,7 @@
                                     <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
                                 <td>{!! $quote->status_label !!}</td>
-                                <td>{{ $loop->created_at }}</td>
+                                <td>{{ $quote->created_at }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-light border dropdown-toggle" type="button"
