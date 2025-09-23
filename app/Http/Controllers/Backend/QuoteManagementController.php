@@ -38,6 +38,7 @@ class QuoteManagementController extends Controller
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
         $query = Quote::with('vehicles.images')->orderBy('created_at', 'desc');
+        $changeStatus = '';
 
         // Normalize requested status (convert "follow-up" => "Follow Up")
         $requestedStatus = Str::title(str_replace('-', ' ', $status));
@@ -56,6 +57,11 @@ class QuoteManagementController extends Controller
                 ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
                 ->toArray();
 
+            $changeStatus = collect($allowedPermissions)
+                ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
+                ->toArray();
+
+
             if (!empty($allowedStatuses)) {
                 $query->whereIn('status', $allowedStatuses);
             }
@@ -68,13 +74,14 @@ class QuoteManagementController extends Controller
                 $query->whereRaw('0=1');
             }
         }
+        $statusToChange = Quote::changeStatus($requestedStatus);
 
         // Debug check
         // dd($query->pluck('status')->take(20)->toArray());
 
         $quotes = $query->paginate(20);
 
-        return view('dashboard.quote.index', compact('quotes'));
+        return view('dashboard.quote.index', compact('quotes', 'statusToChange'));
     }
 
     // public function allQuotes(Request $request, $status)

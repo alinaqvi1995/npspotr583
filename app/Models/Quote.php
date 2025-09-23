@@ -92,6 +92,30 @@ class Quote extends Model
         'Deleted' => ['icon' => 'delete', 'class' => 'bg-danger'],
     ];
 
+    public static function changeStatus(string $currentStatus): array
+    {
+        $statuses = [
+            'New' => ['Payment Missing', 'In Progress', 'Interested', 'Not Interested', 'No Response', 'Asking Low', 'Follow Up'],
+            'Listed' => ['Dispatch', 'Pickup', 'Delivery', 'Cancelled'],
+            'Payment Missing' => ['Booked', 'Listed', 'Dispatch', 'Pickup', 'Delivery', 'Cancelled'],
+            'Booked' => ['Dispatch', 'Pickup', 'Delivery', 'Completed', 'Cancelled'],
+            'Dispatch' => ['Pickup', 'Delivery', 'Completed', 'Cancelled'],
+            'Pickup' => ['Delivery', 'Completed', 'Cancelled'],
+            'Delivery' => ['Completed', 'Cancelled'],
+            'In Progress' => ['Booked', 'Listed', 'Dispatch', 'Pickup', 'Delivery', 'Cancelled'],
+            'Asking Low' => ['Interested', 'Follow Up', 'Not Interested', 'No Response', 'Booked', 'Payment Missing', 'In Progress'],
+            'Interested' => ['Follow Up', 'Not Interested', 'Booked', 'No Response', 'Payment Missing', 'In Progress', 'Asking Low'],
+            'Follow Up' => ['Interested', 'Not Interested', 'Booked', 'No Response', 'Payment Missing', 'In Progress', 'Asking Low'],
+            'Not Interested' => ['Follow Up', 'Booked', 'No Response', 'Payment Missing', 'In Progress', 'Asking Low'],
+            'No Response' => ['Follow Up', 'Interested', 'Booked', 'No Response', 'Payment Missing', 'In Progress', 'Asking Low'],
+            'Completed' => [],
+            'Cancelled' => [],
+            'Deleted' => [],
+        ];
+
+        return $statuses[$currentStatus] ?? [];
+    }
+
     public function allowedStatuses(string $currentStatus): array
     {
         $transitions = [

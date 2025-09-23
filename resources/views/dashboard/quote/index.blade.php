@@ -69,6 +69,7 @@
                     <thead>
                         <tr>
                             <th>Sr#.</th>
+                            <th>Quote#.</th>
                             <th>Customer</th>
                             <th>Vehicles</th>
                             <th>Pickup / Delivery</th>
@@ -80,6 +81,7 @@
                         @forelse($quotes as $quote)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $loop->id }}</td>
                                 <td>
                                     {{ $quote->customer_name }}<br>
                                     <small>{{ $quote->customer_email }}</small><br>
@@ -309,10 +311,9 @@
                     </div>
                     <div class="modal-body">
                         <select name="status" id="statusSelect" class="form-select">
-                            @foreach ($quote->allowedStatuses($quote->status) as $status => $details)
-                                <option value="{{ $status }}"
-                                    {{ old('status', $quote->status) == $status ? 'selected' : '' }}>
-                                    {{ $status }}
+                            @foreach ($statusToChange as $status => $details)
+                                <option value="{{ $status }}">
+                                    {{ $details }}
                                 </option>
                             @endforeach
                         </select>
