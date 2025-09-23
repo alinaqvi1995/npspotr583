@@ -94,32 +94,43 @@
     });
     
 
-    // Hero Slider One
-    var slider1 = new Swiper(".sc-slider-1", {
-        speed: 800,
-        effect: "fade",
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        loop: true,
-    });
+// Hero Slider One
+var slider1 = new Swiper(".sc-slider-1", {
+    speed: 800,
+    effect: "fade",
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    loop: true,
+    autoplay: {
+        delay: 4000, // har 4 second baad slide change
+        disableOnInteraction: false, // user click kare to bhi autoplay continue rahe
+    },
+});
 
-    // Hero Thumb Slider 2
-    var slider2 = new Swiper(".thumb-slider", {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesProgress: true,
-    });
-    var thumb_slider2 = new Swiper(".thumb-slider2", {
-        spaceBetween: 10,
-        allowTouchMove: false,
-        thumbs: {
-            swiper: slider2,
-        },
-        loop: true,
-    });
+// Hero Thumb Slider
+var slider2 = new Swiper(".thumb-slider", {
+    spaceBetween: 10,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesProgress: true,
+});
+
+// Hero Thumb Slider 2 (Main BG Slider)
+var thumb_slider2 = new Swiper(".thumb-slider2", {
+    spaceBetween: 10,
+    allowTouchMove: false,
+    loop: true,
+    autoplay: {
+        delay: 4000, // same delay rakhna taake sync rahe
+        disableOnInteraction: false,
+    },
+    thumbs: {
+        swiper: slider2,
+    },
+});
+
 
     // Testimonial Slider One
     var testimonial1 = new Swiper(".tj-testimonial-slider", {

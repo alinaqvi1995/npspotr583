@@ -4,9 +4,54 @@
 @section('meta_keywords', 'SaaS, services, business software')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+
+        /* ✅ Default Desktop/Laptop */
+        .fixed-form {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            z-index: 20;
+            width: 100%; /* form width */
+        }
+
+        /* ✅ Tablet (screen <= 991px) */
+        @media (max-width: 991px) {
+            .fixed-form {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                width: 100%;
+                max-width: 500px;
+                margin: 30px auto;
+                z-index: 20;
+            }
+        }
+
+        /* ✅ Mobile (screen <= 575px) */
+        @media (max-width: 575px) {
+            .fixed-form {
+                width: 100%;
+                max-width: 100%;
+                padding: 0 15px;
+            }
+
+            .fixed-form .tj-input-form {
+                background-size: cover;
+                padding: 20px 15px;
+            }
+        }
+
+    </style>
     <!--========== Slider Section Start ==============-->
     <section class="tj-slider-section-three">
-        <div class="slider_shape2"><img src="web-assets/images/banner/shape-2.png" alt="Image" /></div>
+        <div class="slider_shape2">
+            <img src="web-assets/images/banner/shape-2.png" alt="Image" />
+        </div>
+
+        <!-- Slider Background + Content -->
         <div class="swiper thumb-slider2">
             <div class="swiper-wrapper">
                 <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-3.webp">
@@ -30,17 +75,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5 py-5 my-5">
-                                <div class="slider-tabs slider-tabs-two">
-                                    <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-                                        
-                                        @include('site.partials.multiform')
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="col-lg-5"><!-- form yahan nahi hoga --></div>
                         </div>
                     </div>
                 </div>
+
                 <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-1.webp ">
                     <div class="container container-two">
                         <div class="row align-items-center">
@@ -62,19 +101,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
-                                {{-- <div class="slider-tabs slider-tabs-two d-none d-lg-block"> 
-                                    <div  class="tj-input-form"
-                                        data-bg-image="web-assets/images/banner/form-shape.png">
-                                        @include('site.partials.multiform')
-                                    </div>
-                                </div> --}}
-                            </div>
+                            <div class="col-lg-5"><!-- empty --></div>
                         </div>
                     </div>
                 </div>
+
                 <div class="swiper-slide tj-bg-layer" data-bg-image="web-assets/images/slider/slider-2.webp">
-                    <div class="slide-image sc-image-layer"></div>
                     <div class="container container-two">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
@@ -95,18 +127,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
-                                {{-- <div class="slider-tabs slider-tabs-two d-none d-lg-block"> 
-                                    <div  class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
-                                        @include('site.partials.multiform')
-                                    </div>
-                                </div> --}}
-                            </div>
+                            <div class="col-lg-5"><!-- empty --></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- ✅ Fixed Form -->
+        <div class="fixed-form">
+            <div class="slider-tabs slider-tabs-two">
+                <div class="tj-input-form" data-bg-image="web-assets/images/banner/form-shape.png">
+                    @include('site.partials.multiform')
+                </div>
+            </div>
+        </div>
+
+        <!-- Thumbs -->
         <div class="swiper thumb-slider">
             <div class="swiper-wrapper thumb_slider">
                 <div class="swiper-slide thumb_slide">
@@ -121,6 +158,7 @@
             </div>
         </div>
     </section>
+
     <!--========== Slider Section End ==============-->
 
     <!--========== Tabs Section Start ==============-->
@@ -438,6 +476,22 @@
                                     <div class="accordion-body">
                                         According to employee feedback, raises are typically offered on a quarterly basis
                                         for delivery staff.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FAQ 6 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseSix" aria-expanded="false"
+                                        aria-controls="collapseSix">
+                                        Will I have to pay anything up-front?
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" style="visibility: visible !important;" aria-labelledby="headingSix"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        There is no initial deposit. The driver is only paid the sum of money you pay after the delivery of your vehicle.
                                     </div>
                                 </div>
                             </div>

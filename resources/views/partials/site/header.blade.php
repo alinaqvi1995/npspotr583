@@ -56,7 +56,7 @@
                 </div>
                 <div class="contact-link">
                     <span class="d-block"> Location:</span>
-                    <p>Houston, TX 77081, United States</p>
+                    <p>5402 Renwick Dr Apt 902, Houston, TX 77081</p>
                 </div>
             </div>
             <div class="contact-box contact-box1">

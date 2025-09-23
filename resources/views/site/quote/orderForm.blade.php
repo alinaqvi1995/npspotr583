@@ -343,10 +343,10 @@
                                                 <div class="col text-md-end">
                                                     <h1 class="h4 fw-bold text-primary mb-1">Bridgeway Logistics</h1>
                                                     <p class="mb-0 small text-muted">
-                                                        123 Main Street, Suite 100, City, State, ZIP
+                                                        5402 Renwick Dr Apt 902, Houston, TX 77081
                                                     </p>
                                                     <p class="mb-0 small text-muted">
-                                                        Email: sales@bridgewaylogisticsllc.com | Phone: +1 (123) 456-7890
+                                                        Email: sales@bridgewaylogisticsllc.com | Phone: +1 713-470-6157
                                                     </p>
                                                 </div>
                                             </div>
