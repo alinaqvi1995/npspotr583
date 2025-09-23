@@ -7202,6 +7202,10 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
     color: var(--tj-primary-color);
 }
 
+.tj-footer-v2 .widget_date_menu .widget-time ul li a:hover {
+    color: var(--tj-primary-color);
+}
+
 .tj-footer-v2 .widget_nav_menu .widget-menu ul li {
     margin-bottom: 15px;
     position: relative;
