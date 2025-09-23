@@ -27,11 +27,14 @@
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             <!-- Pickup and Delivery Locations -->
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header mb-4">
+                        <h3 class="fw-bold text-center">Order#: {{ $quote->id }}</h3>
+                    </div>
                     <div class="card-body p-4">
+                        {{-- <h3>Order #: {{ $quote->id }}</h3> --}}
                         <h5 class="mb-4">Locations</h5>
                         <div class="row">
                             @foreach (['pickup', 'delivery'] as $type)
@@ -81,23 +84,34 @@
                                                     value="{{ $location->address2 ?? '' }}">
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
+                                                <label class="form-label">City/State/Zip *</label>
+                                                <div class="input-form single-input-field">
+                                                    <input class="form-control" type="text" id="{{ $location->type .'-location' }}"
+                                                        name="" placeholder="Enter City or ZipCode"
+                                                        value="{{ $location->full_location ?? '' }}" required>
+                                                    <div id="{{ $location->type .'-suggestions' }}" class="form-control suggestions-box">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
                                                 <label class="form-label">City *</label>
-                                                <input type="text" name="locations[{{ $index }}][city]"
+                                                <input type="text" name="locations[{{ $index }}][city]" readonly  id="{{ $location->type .'_city' }}"
                                                     class="form-control" placeholder="City"
                                                     value="{{ $location->city ?? '' }}">
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <label class="form-label">State *</label>
-                                                <input type="text" name="locations[{{ $index }}][state]"
+                                                <input type="text" name="locations[{{ $index }}][state]" readonly  id="{{ $location->type .'_state' }}"
                                                     class="form-control" placeholder="State"
                                                     value="{{ $location->state ?? '' }}">
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <label class="form-label">ZIP *</label>
-                                                <input type="text" name="locations[{{ $index }}][zip]"
+                                                <input type="text" name="locations[{{ $index }}][zip]" readonly  id="{{ $location->type .'_zip' }}"
                                                     class="form-control" placeholder="ZIP"
                                                     value="{{ $location->zip ?? '' }}">
                                             </div>
@@ -110,7 +124,8 @@
 
                                             <div class="col-md-6">
                                                 <label class="form-label">Contact Email</label>
-                                                <input type="email" name="locations[{{ $index }}][contact_email]"
+                                                <input type="email"
+                                                    name="locations[{{ $index }}][contact_email]"
                                                     class="form-control" value="{{ $location->contact_email ?? '' }}">
                                             </div>
 
@@ -241,21 +256,21 @@
                                         </div>
 
                                         <!-- Trailer Type only for heavy equipment and RV -->
-                                        @if (in_array($vehicle->type, ['Heavy-Equipment', 'RV-Transport']))
-                                            <div class="col-md-3">
-                                                <label class="form-label">Trailer Type</label>
-                                                <select name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
-                                                    class="form-select">
-                                                    <option value="Open Trailer"
-                                                        {{ $vehicle->trailer_type == 'Open Trailer' ? 'selected' : '' }}>
-                                                        Open Trailer
-                                                    </option>
-                                                    <option value="Enclosed Trailer"
-                                                        {{ $vehicle->trailer_type == 'Enclosed Trailer' ? 'selected' : '' }}>
-                                                        Enclosed Trailer</option>
-                                                </select>
-                                            </div>
-                                        @endif
+                                        {{-- @if (in_array($vehicle->type, ['Heavy-Equipment', 'RV-Transport'])) --}}
+                                        <div class="col-md-3">
+                                            <label class="form-label">Trailer Type</label>
+                                            <select name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
+                                                class="form-select">
+                                                <option value="Open Trailer"
+                                                    {{ $vehicle->trailer_type == 'Open Trailer' ? 'selected' : '' }}>
+                                                    Open Trailer
+                                                </option>
+                                                <option value="Enclosed Trailer"
+                                                    {{ $vehicle->trailer_type == 'Enclosed Trailer' ? 'selected' : '' }}>
+                                                    Enclosed Trailer</option>
+                                            </select>
+                                        </div>
+                                        {{-- @endif --}}
 
                                         <!-- Booleans -->
                                         <div class="col-md-2">
@@ -375,7 +390,6 @@
                                 <input type="text" class="form-control" name="pricing[cop_cod]"
                                     value="{{ old('pricing.cop_cod', $quote->cop_cod) }}" placeholder="COP/COD">
                             </div> --}}
-
                             <div class="col-md-6">
                                 <label class="form-label">COP/COD Amount <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="pricing[cop_cod_amount]"

@@ -45,6 +45,38 @@
 </head>
 
 <body>
+    <style>
+        .suggestions-box {
+            position: relative;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+        }
+
+        .suggestions-box div {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .suggestions-box div:hover {
+            background: #f0f0f0;
+        }
+
+        .make-select,
+        .model-select {
+            width: 100%;
+        }
+
+        select option {
+            white-space: nowrap;
+        }
+    </style>
 
     @section('navbar')
         @include('dashboard.includes.partial.nav')
@@ -142,6 +174,89 @@
                 width: '100%',
                 allowClear: true,
             });
+
+            function bindSearch(inputId, suggestionBoxId, cityId, stateId, zipId) {
+                let selected = false;
+
+                $(inputId).on('keyup', function() {
+                    let query = $(this).val();
+                    selected = false;
+
+                    $(inputId).removeClass('is-invalid');
+                    $(inputId).siblings('.invalid-feedback').remove();
+
+                    if (query.length < 2) {
+                        $(suggestionBoxId).slideUp(200);
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{ route('zipcode.searchByLocation') }}",
+                        data: {
+                            q: query
+                        },
+                        success: function(data) {
+                            let html = '';
+                            if (data.length > 0) {
+                                data.forEach(item => {
+                                    // pass structured data with dataset
+                                    html += `<div class="suggestion-item" 
+                                    data-city="${item.city}" 
+                                    data-state="${item.state}" 
+                                    data-zip="${item.zip}">
+                                    ${item.label}
+                                 </div>`;
+                                });
+                            } else {
+                                html = '<div class="p-2 text-muted">No results found</div>';
+                            }
+
+                            $(suggestionBoxId).html(html).stop(true, true).slideDown(200);
+                        }
+                    });
+                });
+
+                // On selecting suggestion
+                $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
+                    let city = $(this).data('city');
+                    let state = $(this).data('state');
+                    let zip = $(this).data('zip');
+
+                    $(inputId).val($(this).text()); // show full label in search box
+                    $(cityId).val(city);
+                    $(stateId).val(state);
+                    $(zipId).val(zip);
+
+                    $(suggestionBoxId).slideUp(200);
+                    selected = true;
+                });
+
+                // Close dropdown if clicked outside
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId).length) {
+                        $(suggestionBoxId).slideUp(200);
+                    }
+                });
+
+                // Validate on form submit
+                $('form').on('submit', function(e) {
+                    if (!selected) {
+                        e.preventDefault();
+
+                        if (!$(inputId).hasClass('is-invalid')) {
+                            $(inputId).addClass('is-invalid')
+                                .after(
+                                    '<div class="invalid-feedback">Please select a location from the suggestions.</div>'
+                                );
+                        }
+
+                        $(suggestionBoxId).stop(true, true).slideDown(200);
+                    }
+                });
+            }
+
+            bindSearch('#pickup-location', '#pickup-suggestions', '#pickup_city', '#pickup_state', '#pickup_zip');
+            bindSearch('#delivery-location', '#delivery-suggestions', '#delivery_city', '#delivery_state', '#delivery_zip');
         </script>
     @endif
 

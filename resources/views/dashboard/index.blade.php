@@ -650,7 +650,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (\App\Models\Quote::latest()->take(5)->get() as $quote)
+                                @foreach (\App\Models\Quote::latest()->where('status', 'New')->take(5)->get() as $quote)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>

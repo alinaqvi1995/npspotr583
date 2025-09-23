@@ -59,20 +59,29 @@
                                             <input type="text" name="locations[1][address2]" class="form-control"
                                                 placeholder="Apt, suite, etc.">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <label class="form-label">City/State/Zip *</label>
+                                            <div class="input-form single-input-field">
+                                                <input class="form-control" type="text" id="pickup-location"
+                                                    name="pickup_location" placeholder="Enter City or ZipCode"
+                                                    value="{{ old('pickup_location') }}" required>
+                                                <div id="pickup-suggestions" class="form-control suggestions-box"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label class="form-label">City *</label>
-                                            <input type="text" name="locations[1][city]" class="form-control"
-                                                placeholder="City">
+                                            <input type="text" name="locations[1][city]" id="pickup_city"
+                                                class="form-control" readonly placeholder="City">
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label class="form-label">State *</label>
-                                            <input type="text" name="locations[1][state]" class="form-control"
-                                                placeholder="State">
+                                            <input type="text" name="locations[1][state]" id="pickup_state"
+                                                class="form-control" readonly placeholder="State">
                                         </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label">ZIP *</label>
-                                            <input type="text" name="locations[1][zip]" class="form-control"
-                                                placeholder="ZIP">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Zip *</label>
+                                            <input type="text" name="locations[1][zip]" id="pickup_zip"
+                                                class="form-control" readonly placeholder="ZIP">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Contact Name</label>
@@ -84,8 +93,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Contact Phone</label>
-                                            <input type="text" name="locations[1][contact_phone][]" class="form-control"
-                                                placeholder="Phone">
+                                            <input type="text" name="locations[1][contact_phone][]"
+                                                class="form-control" placeholder="Phone">
                                             <small><a href="#" class="text-primary addPhoneBtn">+ Add
                                                     phone</a></small>
                                         </div>
@@ -131,46 +140,54 @@
                                             <input type="text" name="locations[2][address2]" class="form-control"
                                                 placeholder="Apt, suite, etc.">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <label class="form-label">City/State/Zip *</label>
+                                            <div class="input-form single-input-field">
+                                                <input class="form-control" type="text" id="delivery-location"
+                                                    name="delivery_location" placeholder="Enter City or ZipCode"
+                                                    value="{{ old('delivery_location') }}" required>
+                                                <div id="delivery-suggestions" class="form-control suggestions-box"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label class="form-label">City *</label>
-                                            <input type="text" name="locations[2][city]" class="form-control"
-                                                placeholder="City">
+                                            <input type="text" name="locations[2][city]" id="delivery_city"
+                                                class="form-control" readonly placeholder="City">
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label class="form-label">State *</label>
-                                            <input type="text" name="locations[2][state]" class="form-control"
-                                                placeholder="State">
+                                            <input type="text" name="locations[2][state]" id="delivery_state"
+                                                class="form-control" readonly placeholder="State">
                                         </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label">ZIP *</label>
-                                            <input type="text" name="locations[2][zip]" class="form-control"
-                                                placeholder="ZIP">
+                                        <div class="col-md-4">
+                                            <label class="form-label">Zip *</label>
+                                            <input type="text" name="locations[2][zip]" id="delivery_zip"
+                                                class="form-control" readonly placeholder="ZIP">
                                         </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Contact Name</label>
-                                            <input type="text" name="locations[2][contact_name]" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Contact Email</label>
-                                            <input type="email" name="locations[2][contact_email]"
-                                                class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Contact Phone</label>
-                                            <input type="text" name="locations[2][contact_phone][]"
-                                                class="form-control" placeholder="Phone">
-                                            <small><a href="#" class="text-primary addPhoneBtn">+ Add
-                                                    phone</a></small>
-                                        </div>
-                                        <div class="col-md-12 mt-2">
-                                            {{-- <input class="form-check-input" type="checkbox" name="locations[2][twic]"
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Contact Name</label>
+                                        <input type="text" name="locations[2][contact_name]" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Contact Email</label>
+                                        <input type="email" name="locations[2][contact_email]" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Contact Phone</label>
+                                        <input type="text" name="locations[2][contact_phone][]" class="form-control"
+                                            placeholder="Phone">
+                                        <small><a href="#" class="text-primary addPhoneBtn">+ Add
+                                                phone</a></small>
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                        {{-- <input class="form-check-input" type="checkbox" name="locations[2][twic]"
                                                 id="twic2">
                                             <label for="twic2">TWIC Card Required?</label> --}}
-                                            <input type="hidden" name="locations[2][twic]" value="0">
-                                            <input class="form-check-input" type="checkbox" name="locations[2][twic]"
-                                                id="twic2" value="1">
-                                            <label for="twic2">TWIC Card Required?</label>
-                                        </div>
+                                        <input type="hidden" name="locations[2][twic]" value="0">
+                                        <input class="form-check-input" type="checkbox" name="locations[2][twic]"
+                                            id="twic2" value="1">
+                                        <label for="twic2">TWIC Card Required?</label>
                                     </div>
                                 </div>
                             </div>
@@ -178,172 +195,171 @@
                     </div>
                 </div>
             </div>
+    </div>
 
-            <!-- Dynamic Vehicles -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body p-4">
-                        <h5 class="mb-4">Vehicles</h5>
-                        <div id="vehiclesContainer">
-                            <div class="vehicle-item mb-4 border p-3 rounded" data-index="1">
-                                <h6 class="mb-3">Vehicle #1</h6>
-                                <div class="row g-3">
-                                    <div class="col-md-3">
-                                        <label class="form-label">Type *</label>
-                                        <select name="vehicles[1][type]" class="form-select" required>
-                                            <option value="">Select</option>
-                                            <option>Car</option>
-                                            <option>Motorcycle</option>
-                                            <option>Golf Cart</option>
-                                            <option>ATV</option>
-                                            <option>Heavy Equipment</option>
-                                            <option>RV Transport</option>
-                                            <option>Boat Transport</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Year *</label>
-                                        <select name="vehicles[1][year]" class="form-select year-select"></select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Make *</label>
-                                        <select name="vehicles[1][make]" class="form-select make-select" required>
-                                            <option value="">-- Select Make --</option>
-                                            @foreach ($makes as $make)
-                                                <option value="{{ $make }}">{{ $make }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Model *</label>
-                                        <select name="vehicles[1][model]" class="form-select model-select" required>
-                                            <option value="">-- Select Model --</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Color</label>
-                                        <input type="text" name="vehicles[1][color]" class="form-control">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">VIN</label>
-                                        <input type="text" name="vehicles[1][vin]" class="form-control">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Length (ft)</label>
-                                        <input type="number" class="form-control" name="vehicles[1][length_ft]">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Width (ft)</label>
-                                        <input type="number" class="form-control" name="vehicles[1][width_ft]">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Height (ft)</label>
-                                        <input type="number" class="form-control" name="vehicles[1][height_ft]">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Weight (lbs)</label>
-                                        <input type="number" class="form-control" name="vehicles[1][weight]">
-                                    </div>
-
-                                    <!-- Condition & Trailer -->
-                                    <div class="col-md-3">
-                                        <label class="form-label">Condition</label>
-                                        <select name="vehicles[1][condition]" class="form-select">
-                                            <option value="Running" selected>Running
-                                            </option>
-                                            <option value="Non-Running">
-                                                Non-Running</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Trailer Type only for heavy equipment and RV -->
-                                    <div class="col-md-3">
-                                        <label class="form-label">Trailer Type</label>
-                                        <select name="vehicles[1][trailer_type]" class="form-select">
-                                            <option value="Open Trailer" selected>
-                                                Open Trailer
-                                            </option>
-                                            <option value="Enclosed Trailer">
-                                                Enclosed Trailer</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Booleans -->
-                                    <div class="col-md-2">
-                                        <label class="form-label">Modified</label><br>
-                                        <input type="hidden" name="vehicles[1][modified]" value="0">
-                                        <input type="checkbox" name="vehicles[1][modified]" value="1">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class="form-label">Modified Info</label>
-                                        <input type="text" class="form-control" name="vehicles[1][modified_info]">
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label class="form-label">Auction</label><br>
-                                        <input type="hidden" name="vehicles[1][available_at_auction]" value="0">
-                                        <input type="checkbox" name="vehicles[1][available_at_auction]" value="1">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Auction Link</label>
-                                        <input type="text" class="form-control" name="vehicles[1][available_link]">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Images</label>
-                                        <input type="file" name="images[1][]" class="form-control image-input"
-                                            multiple>
-                                        <div class="image-preview mt-2 d-flex flex-wrap gap-2"></div>
-                                    </div>
-                                </div>
-                                <div class="text-end mt-3"></div>
-                            </div>
-                        </div>
-                        <button type="button" id="addVehicleBtn" class="btn btn-outline-primary mt-3">+ Add
-                            Vehicle</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dates Section -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body p-4">
-                        <h5 class="mb-4">Dates</h5>
+    <!-- Dynamic Vehicles -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body p-4">
+                <h5 class="mb-4">Vehicles</h5>
+                <div id="vehiclesContainer">
+                    <div class="vehicle-item mb-4 border p-3 rounded" data-index="1">
+                        <h6 class="mb-3">Vehicle #1</h6>
                         <div class="row g-3">
-
-                            <!-- Date Available to Ship -->
-                            <div class="col-md-4">
-                                <label class="form-label">Date Available to Ship <span
-                                        class="text-danger">*</span></label>
-                                <input type="date" class="form-control" name="dates[pickup_date]"
-                                    value="{{ old('dates.pickup_date', $quote->dates['pickup_date'] ?? '') }}">
-                                <small class="text-muted">Select up to 30 days from your creation date</small>
+                            <div class="col-md-3">
+                                <label class="form-label">Type *</label>
+                                <select name="vehicles[1][type]" class="form-select" required>
+                                    <option value="">Select</option>
+                                    <option>Car</option>
+                                    <option>Motorcycle</option>
+                                    <option>Golf Cart</option>
+                                    <option>ATV</option>
+                                    <option>Heavy Equipment</option>
+                                    <option>RV Transport</option>
+                                    <option>Boat Transport</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Year *</label>
+                                <select name="vehicles[1][year]" class="form-select year-select"></select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Make *</label>
+                                <select name="vehicles[1][make]" class="form-select make-select" required>
+                                    <option value="">-- Select Make --</option>
+                                    @foreach ($makes as $make)
+                                        <option value="{{ $make }}">{{ $make }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Model *</label>
+                                <select name="vehicles[1][model]" class="form-select model-select" required>
+                                    <option value="">-- Select Model --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Color</label>
+                                <input type="text" name="vehicles[1][color]" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">VIN</label>
+                                <input type="text" name="vehicles[1][vin]" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Length (ft)</label>
+                                <input type="number" class="form-control" name="vehicles[1][length_ft]">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Width (ft)</label>
+                                <input type="number" class="form-control" name="vehicles[1][width_ft]">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Height (ft)</label>
+                                <input type="number" class="form-control" name="vehicles[1][height_ft]">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Weight (lbs)</label>
+                                <input type="number" class="form-control" name="vehicles[1][weight]">
                             </div>
 
-                            <!-- Expiration Date -->
-                            <div class="col-md-4">
-                                <label class="form-label">Expiration Date <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" name="dates[expiration_date]"
-                                    value="{{ old('dates.expiration_date', $quote->dates['expiration_date'] ?? now()->addDays(30)->format('Y-m-d')) }}">
-                                <small class="text-muted">Select up to 30 days from your creation date</small>
+                            <!-- Condition & Trailer -->
+                            <div class="col-md-3">
+                                <label class="form-label">Condition</label>
+                                <select name="vehicles[1][condition]" class="form-select">
+                                    <option value="Running" selected>Running
+                                    </option>
+                                    <option value="Non-Running">
+                                        Non-Running</option>
+                                </select>
                             </div>
 
-                            <!-- Desired Delivery Date -->
-                            <div class="col-md-4">
-                                <label class="form-label">Desired Delivery Date</label>
-                                <input type="date" class="form-control" name="dates[delivery_date]"
-                                    value="{{ old('dates.delivery_date', $quote->dates['delivery_date'] ?? '') }}">
-                                <small class="text-muted">Optional field</small>
+                            <!-- Trailer Type only for heavy equipment and RV -->
+                            <div class="col-md-3">
+                                <label class="form-label">Trailer Type</label>
+                                <select name="vehicles[1][trailer_type]" class="form-select">
+                                    <option value="Open Trailer" selected>
+                                        Open Trailer
+                                    </option>
+                                    <option value="Enclosed Trailer">
+                                        Enclosed Trailer</option>
+                                </select>
                             </div>
 
+                            <!-- Booleans -->
+                            <div class="col-md-2">
+                                <label class="form-label">Modified</label><br>
+                                <input type="hidden" name="vehicles[1][modified]" value="0">
+                                <input type="checkbox" name="vehicles[1][modified]" value="1">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Modified Info</label>
+                                <input type="text" class="form-control" name="vehicles[1][modified_info]">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Auction</label><br>
+                                <input type="hidden" name="vehicles[1][available_at_auction]" value="0">
+                                <input type="checkbox" name="vehicles[1][available_at_auction]" value="1">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Auction Link</label>
+                                <input type="text" class="form-control" name="vehicles[1][available_link]">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Images</label>
+                                <input type="file" name="images[1][]" class="form-control image-input" multiple>
+                                <div class="image-preview mt-2 d-flex flex-wrap gap-2"></div>
+                            </div>
                         </div>
+                        <div class="text-end mt-3"></div>
                     </div>
                 </div>
+                <button type="button" id="addVehicleBtn" class="btn btn-outline-primary mt-3">+ Add
+                    Vehicle</button>
             </div>
+        </div>
+    </div>
 
-            <!-- Pricing and Payment Section -->
-            <div class="col-12">
+    <!-- Dates Section -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body p-4">
+                <h5 class="mb-4">Dates</h5>
+                <div class="row g-3">
+
+                    <!-- Date Available to Ship -->
+                    <div class="col-md-4">
+                        <label class="form-label">Date Available to Ship <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="dates[pickup_date]"
+                            value="{{ old('dates.pickup_date', $quote->dates['pickup_date'] ?? '') }}">
+                        <small class="text-muted">Select up to 30 days from your creation date</small>
+                    </div>
+
+                    <!-- Expiration Date -->
+                    <div class="col-md-4">
+                        <label class="form-label">Expiration Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="dates[expiration_date]"
+                            value="{{ old('dates.expiration_date', $quote->dates['expiration_date'] ?? now()->addDays(30)->format('Y-m-d')) }}">
+                        <small class="text-muted">Select up to 30 days from your creation date</small>
+                    </div>
+
+                    <!-- Desired Delivery Date -->
+                    <div class="col-md-4">
+                        <label class="form-label">Desired Delivery Date</label>
+                        <input type="date" class="form-control" name="dates[delivery_date]"
+                            value="{{ old('dates.delivery_date', $quote->dates['delivery_date'] ?? '') }}">
+                        <small class="text-muted">Optional field</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing and Payment Section -->
+    {{-- <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Pricing and Payment</h5>
@@ -356,26 +372,12 @@
                                     placeholder="Enter amount to pay carrier">
                             </div>
 
-                            {{-- <div class="col-md-6">
-                                <label class="form-label">COP/COD</label>
-                                <input type="number" step="0.01" class="form-control" name="pricing[cop_cod]"
-                                    value="{{ old('pricing.cop_cod', $quote->pricing['cop_cod'] ?? '') }}"
-                                    placeholder="COP/COD">
-                            </div> --}}
-
                             <div class="col-md-6">
                                 <label class="form-label">COP/COD Amount <span class="text-danger">*</span></label>
                                 <input type="number" step="0.01" class="form-control" name="pricing[cop_cod_amount]"
                                     value="{{ old('pricing.cop_cod_amount', $quote->pricing['cop_cod_amount'] ?? '') }}"
                                     placeholder="0.00">
                             </div>
-
-                            {{-- <div class="col-md-6">
-                                <label class="form-label">Balance</label>
-                                <input type="number" step="0.01" class="form-control" name="pricing[balance]"
-                                    value="{{ old('pricing.balance', $quote->pricing['balance'] ?? '') }}"
-                                    placeholder="Balance Amount">
-                            </div> --}}
 
                             <div class="col-md-6">
                                 <label class="form-label">Balance Amount</label>
@@ -387,10 +389,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <!-- Additional Info Section -->
-            <div class="col-12">
+    <!-- Additional Info Section -->
+    {{-- <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Additional Info</h5>
@@ -421,10 +423,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <!-- Your Contract Section -->
-            <div class="col-12">
+    <!-- Your Contract Section -->
+    {{-- <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Your Contract</h5>
@@ -460,158 +462,158 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <!-- Submit -->
-            <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-grd btn-grd-primary px-4">Submit Quote</button>
-            </div>
-        </form>
+    <!-- Submit -->
+    <div class="col-12 mt-4">
+        <button type="submit" class="btn btn-grd btn-grd-primary px-4">Submit Quote</button>
+    </div>
+    </form>
     </div>
 @endsection
 
 @section('extra_js')
-<script>
-    $(document).ready(function() {
-        let vehicleIndex = $('.vehicle-item').length;
-        const currentYear = new Date().getFullYear();
+    <script>
+        $(document).ready(function() {
+            let vehicleIndex = $('.vehicle-item').length;
+            const currentYear = new Date().getFullYear();
 
-        // ✅ Generate years for dropdown
-        function generateYearOptions($select) {
-            $select.empty().append('<option value="">-- Year --</option>');
-            for (let y = currentYear; y >= currentYear - 30; y--) {
-                $select.append('<option value="' + y + '">' + y + '</option>');
+            // ✅ Generate years for dropdown
+            function generateYearOptions($select) {
+                $select.empty().append('<option value="">-- Year --</option>');
+                for (let y = currentYear; y >= currentYear - 30; y--) {
+                    $select.append('<option value="' + y + '">' + y + '</option>');
+                }
             }
-        }
-        generateYearOptions($('.year-select'));
+            generateYearOptions($('.year-select'));
 
-        // ✅ Add Vehicle
-        $('#addVehicleBtn').click(function() {
-            const $clone = $('.vehicle-item').first().clone();
+            // ✅ Add Vehicle
+            $('#addVehicleBtn').click(function() {
+                const $clone = $('.vehicle-item').first().clone();
 
-            // Reset inputs
-            $clone.find('input[type="text"], input[type="number"], input[type="hidden"]').val('');
-            $clone.find('input[type="checkbox"]').prop('checked', false);
+                // Reset inputs
+                $clone.find('input[type="text"], input[type="number"], input[type="hidden"]').val('');
+                $clone.find('input[type="checkbox"]').prop('checked', false);
 
-            // Reset selects
-            $clone.find('select').each(function() {
-                const defaultSelected = $(this).find('option[selected]').val() || '';
-                $(this).val(defaultSelected);
+                // Reset selects
+                $clone.find('select').each(function() {
+                    const defaultSelected = $(this).find('option[selected]').val() || '';
+                    $(this).val(defaultSelected);
+                });
+
+                $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
+                $clone.find('h6').text('Vehicle #'); // temporarily blank, will fix in renumber
+                $clone.find('.image-preview').html('');
+                $clone.find('.text-end').html(
+                    '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
+                );
+
+                $('#vehiclesContainer').append($clone);
+
+                // ✅ Renumber all vehicles after adding
+                renumberVehicles();
+
+                // ✅ Generate years for the new vehicle
+                const currentYear = new Date().getFullYear();
+                $clone.find('.year-select').empty().append('<option value="">-- Year --</option>');
+                for (let y = currentYear; y >= currentYear - 30; y--) {
+                    $clone.find('.year-select').append('<option value="' + y + '">' + y + '</option>');
+                }
             });
 
-            $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
-            $clone.find('h6').text('Vehicle #'); // temporarily blank, will fix in renumber
-            $clone.find('.image-preview').html('');
-            $clone.find('.text-end').html(
-                '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
-            );
+            // ✅ Delete Vehicle
+            $(document).on('click', '.deleteVehicleBtn', function() {
+                if ($('.vehicle-item').length > 1) {
+                    $(this).closest('.vehicle-item').remove();
+                    renumberVehicles();
+                } else {
+                    alert('At least one vehicle is required.');
+                }
+            });
 
-            $('#vehiclesContainer').append($clone);
+            // ✅ Image Preview with Remove Option
+            $(document).on('change', '.image-input', function() {
+                const previewContainer = $(this).siblings('.image-preview');
+                previewContainer.html('');
+                const files = this.files;
 
-            // ✅ Renumber all vehicles after adding
-            renumberVehicles();
-
-            // ✅ Generate years for the new vehicle
-            const currentYear = new Date().getFullYear();
-            $clone.find('.year-select').empty().append('<option value="">-- Year --</option>');
-            for (let y = currentYear; y >= currentYear - 30; y--) {
-                $clone.find('.year-select').append('<option value="' + y + '">' + y + '</option>');
-            }
-        });
-
-        // ✅ Delete Vehicle
-        $(document).on('click', '.deleteVehicleBtn', function() {
-            if ($('.vehicle-item').length > 1) {
-                $(this).closest('.vehicle-item').remove();
-                renumberVehicles();
-            } else {
-                alert('At least one vehicle is required.');
-            }
-        });
-
-        // ✅ Image Preview with Remove Option
-        $(document).on('change', '.image-input', function() {
-            const previewContainer = $(this).siblings('.image-preview');
-            previewContainer.html('');
-            const files = this.files;
-
-            if (files) {
-                Array.from(files).forEach((file, index) => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = `
+                if (files) {
+                    Array.from(files).forEach((file, index) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = `
                             <div class="position-relative d-inline-block" style="width:80px;height:80px;">
                                 <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
                                 <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
                             </div>
                         `;
-                        previewContainer.append(img);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-        });
-
-        // ✅ Remove image from preview (and input)
-        $(document).on('click', '.remove-image', function() {
-            const index = $(this).data('index');
-            const $input = $(this).closest('.image-preview').siblings('.image-input');
-            const dt = new DataTransfer();
-
-            const files = $input[0].files;
-            for (let i = 0; i < files.length; i++) {
-                if (i !== index) {
-                    dt.items.add(files[i]);
+                            previewContainer.append(img);
+                        };
+                        reader.readAsDataURL(file);
+                    });
                 }
-            }
-            $input[0].files = dt.files;
-            $(this).parent().remove();
-        });
-
-        // ✅ Renumber Vehicles
-        function renumberVehicles() {
-            $('.vehicle-item').each(function(index) {
-                const newIndex = index + 1;
-                $(this).attr('data-index', newIndex);
-                $(this).find('h6').text('Vehicle #' + newIndex);
-
-                $(this).find('input, select').each(function() {
-                    const oldName = $(this).attr('name');
-                    if (!oldName) return;
-
-                    // Replace only the first number inside 'vehicles[...]'
-                    const newName = oldName.replace(/vehicles\[\d+\]/, `vehicles[${newIndex}]`);
-                    $(this).attr('name', newName);
-                });
-
-                // ✅ Update image input name
-                $(this).find('.image-input').attr('name', `images[${newIndex}][]`);
-
-                // Reset file input and image preview
-                $(this).find('.image-input').val('');
-                $(this).find('.image-preview').html('');
             });
-        }
 
-        // ✅ Add phone input dynamically
-        $(document).on('click', '.addPhoneBtn', function(e) {
-            e.preventDefault();
-            const index = $(this).closest('.location-item').data('index');
-            $(this).before('<input type="text" name="locations[' + index +
-                '][contact_phone][]" class="form-control mt-1" placeholder="Additional phone">');
-        });
+            // ✅ Remove image from preview (and input)
+            $(document).on('click', '.remove-image', function() {
+                const index = $(this).data('index');
+                const $input = $(this).closest('.image-preview').siblings('.image-input');
+                const dt = new DataTransfer();
 
-        // ✅ Type Change → Toggle Make/Model as Select or Input
-        $(document).on('change', '.vehicle-item select[name*="[type]"]', function() {
-            const type = $(this).val();
-            const $vehicle = $(this).closest('.vehicle-item');
-            const $makeWrapper = $vehicle.find('.col-md-3').eq(2); // Make column
-            const $modelWrapper = $vehicle.find('.col-md-3').eq(3); // Model column
-            const index = $vehicle.data('index');
+                const files = $input[0].files;
+                for (let i = 0; i < files.length; i++) {
+                    if (i !== index) {
+                        dt.items.add(files[i]);
+                    }
+                }
+                $input[0].files = dt.files;
+                $(this).parent().remove();
+            });
 
-            if (type === "Car") {
-                // Replace Make with dropdown
-                $makeWrapper.html(`
+            // ✅ Renumber Vehicles
+            function renumberVehicles() {
+                $('.vehicle-item').each(function(index) {
+                    const newIndex = index + 1;
+                    $(this).attr('data-index', newIndex);
+                    $(this).find('h6').text('Vehicle #' + newIndex);
+
+                    $(this).find('input, select').each(function() {
+                        const oldName = $(this).attr('name');
+                        if (!oldName) return;
+
+                        // Replace only the first number inside 'vehicles[...]'
+                        const newName = oldName.replace(/vehicles\[\d+\]/, `vehicles[${newIndex}]`);
+                        $(this).attr('name', newName);
+                    });
+
+                    // ✅ Update image input name
+                    $(this).find('.image-input').attr('name', `images[${newIndex}][]`);
+
+                    // Reset file input and image preview
+                    $(this).find('.image-input').val('');
+                    $(this).find('.image-preview').html('');
+                });
+            }
+
+            // ✅ Add phone input dynamically
+            $(document).on('click', '.addPhoneBtn', function(e) {
+                e.preventDefault();
+                const index = $(this).closest('.location-item').data('index');
+                $(this).before('<input type="text" name="locations[' + index +
+                    '][contact_phone][]" class="form-control mt-1" placeholder="Additional phone">');
+            });
+
+            // ✅ Type Change → Toggle Make/Model as Select or Input
+            $(document).on('change', '.vehicle-item select[name*="[type]"]', function() {
+                const type = $(this).val();
+                const $vehicle = $(this).closest('.vehicle-item');
+                const $makeWrapper = $vehicle.find('.col-md-3').eq(2); // Make column
+                const $modelWrapper = $vehicle.find('.col-md-3').eq(3); // Model column
+                const index = $vehicle.data('index');
+
+                if (type === "Car") {
+                    // Replace Make with dropdown
+                    $makeWrapper.html(`
                     <label class="form-label">Make *</label>
                     <select name="vehicles[${index}][make]" class="form-select make-select" required>
                         <option value="">-- Select Make --</option>
@@ -621,49 +623,52 @@
                     </select>
                 `);
 
-                // Replace Model with dropdown
-                $modelWrapper.html(`
+                    // Replace Model with dropdown
+                    $modelWrapper.html(`
                     <label class="form-label">Model *</label>
                     <select name="vehicles[${index}][model]" class="form-select model-select" required>
                         <option value="">-- Select Model --</option>
                     </select>
                 `);
-            } else {
-                // Replace with text inputs
-                $makeWrapper.html(`
+                } else {
+                    // Replace with text inputs
+                    $makeWrapper.html(`
                     <label class="form-label">Make *</label>
                     <input type="text" name="vehicles[${index}][make]" class="form-control" placeholder="Enter Make" required>
                 `);
 
-                $modelWrapper.html(`
+                    $modelWrapper.html(`
                     <label class="form-label">Model *</label>
                     <input type="text" name="vehicles[${index}][model]" class="form-control" placeholder="Enter Model" required>
                 `);
-            }
+                }
+            });
+
+            // ✅ AJAX for Model dropdown (only when Car is selected)
+            $(document).on('change', '.make-select', function() {
+                const make = $(this).val();
+                const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
+
+                $modelSelect.html('<option value="">-- Select Model --</option>');
+
+                if (make) {
+                    $.ajax({
+                        url: "{{ route('vehicles.models') }}",
+                        data: {
+                            make: make
+                        },
+                        success: function(models) {
+                            models.forEach(model => {
+                                $modelSelect.append('<option value="' + model + '">' +
+                                    model + '</option>');
+                            });
+                        },
+                        error: function() {
+                            alert('Failed to fetch models.');
+                        }
+                    });
+                }
+            });
         });
-
-        // ✅ AJAX for Model dropdown (only when Car is selected)
-        $(document).on('change', '.make-select', function() {
-            const make = $(this).val();
-            const $modelSelect = $(this).closest('.vehicle-item').find('.model-select');
-
-            $modelSelect.html('<option value="">-- Select Model --</option>');
-
-            if (make) {
-                $.ajax({
-                    url: "{{ route('vehicles.models') }}",
-                    data: { make: make },
-                    success: function(models) {
-                        models.forEach(model => {
-                            $modelSelect.append('<option value="' + model + '">' + model + '</option>');
-                        });
-                    },
-                    error: function() {
-                        alert('Failed to fetch models.');
-                    }
-                });
-            }
-        });
-    });
-</script>
+    </script>
 @endsection

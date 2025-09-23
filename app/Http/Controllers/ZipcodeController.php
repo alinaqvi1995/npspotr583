@@ -47,11 +47,6 @@ class ZipcodeController extends Controller
             ->limit(10)
             ->distinct()
             ->get(['zipcode', 'city', 'state']);
-        // $results = Zipcode::where('zipcode', 'like', "%{$query}%")
-        //     ->orWhere('city', 'like', "%{$query}%")
-        //     ->orWhere('state', 'like', "%{$query}%")
-        //     ->limit(10)
-        //     ->get(['zipcode', 'city', 'state']);
 
         return response()->json($this->formatResults($results));
     }
@@ -62,7 +57,10 @@ class ZipcodeController extends Controller
             $label = "{$item->city}, {$item->state}, {$item->zipcode}";
             return [
                 'label' => $label,
-                'value' => $label
+                'value' => $label,
+                'city'  => $item->city,
+                'state' => $item->state,
+                'zip'   => $item->zipcode,
             ];
         });
     }
