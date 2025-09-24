@@ -70,13 +70,13 @@
                                 {!! $blog->description_one !!}
                             </p>
                         </div>
-                        {{-- <div class="row align-items-center">
-                            <div class="col-lg-5 col-md-6">
+                        <div class="row align-items-center">
+                            {{-- <div class="col-lg-5 col-md-6">
                                 <div class="check-image">
                                     <img src="{{ asset($blog->image_two) }}" alt="Blog" />
                                 </div>
-                            </div>
-                            <div class="col-lg-5 col-md-6">
+                            </div> --}}
+                            <div class="col-lg-5 col-md-12">
                                 <div class="check-list">
                                     <ul class="list-gap">
                                         <li><i class="fa-light fa-check"></i> {!! $blog->description_two_one !!}</li>
@@ -89,7 +89,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="details-video-content">
                             <h4 class="title">{{ $blog->heading_two }}</h4>
                             <p>

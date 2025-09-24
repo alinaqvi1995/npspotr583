@@ -87,33 +87,35 @@
                                             <div class="col-md-12">
                                                 <label class="form-label">City/State/Zip *</label>
                                                 <div class="input-form single-input-field">
-                                                    <input class="form-control" type="text" id="{{ $location->type .'-location' }}"
-                                                        name="" placeholder="Enter City or ZipCode"
+                                                    <input class="form-control" type="text"
+                                                        id="{{ $location->type . '-location' }}" name=""
+                                                        placeholder="Enter City or ZipCode"
                                                         value="{{ $location->full_location ?? '' }}" required>
-                                                    <div id="{{ $location->type .'-suggestions' }}" class="form-control suggestions-box">
+                                                    <div id="{{ $location->type . '-suggestions' }}"
+                                                        class="form-control suggestions-box">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <label class="form-label">City *</label>
-                                                <input type="text" name="locations[{{ $index }}][city]" readonly  id="{{ $location->type .'_city' }}"
-                                                    class="form-control" placeholder="City"
-                                                    value="{{ $location->city ?? '' }}">
+                                                <input type="text" name="locations[{{ $index }}][city]" readonly
+                                                    id="{{ $location->type . '_city' }}" class="form-control"
+                                                    placeholder="City" value="{{ $location->city ?? '' }}">
                                             </div>
 
                                             <div class="col-md-4">
                                                 <label class="form-label">State *</label>
-                                                <input type="text" name="locations[{{ $index }}][state]" readonly  id="{{ $location->type .'_state' }}"
-                                                    class="form-control" placeholder="State"
-                                                    value="{{ $location->state ?? '' }}">
+                                                <input type="text" name="locations[{{ $index }}][state]" readonly
+                                                    id="{{ $location->type . '_state' }}" class="form-control"
+                                                    placeholder="State" value="{{ $location->state ?? '' }}">
                                             </div>
 
                                             <div class="col-md-4">
                                                 <label class="form-label">ZIP *</label>
-                                                <input type="text" name="locations[{{ $index }}][zip]" readonly  id="{{ $location->type .'_zip' }}"
-                                                    class="form-control" placeholder="ZIP"
-                                                    value="{{ $location->zip ?? '' }}">
+                                                <input type="text" name="locations[{{ $index }}][zip]" readonly
+                                                    id="{{ $location->type . '_zip' }}" class="form-control"
+                                                    placeholder="ZIP" value="{{ $location->zip ?? '' }}">
                                             </div>
 
                                             <div class="col-md-6">
@@ -189,8 +191,21 @@
                                         <!-- Basic Info -->
                                         <div class="col-md-3">
                                             <label class="form-label">Type *</label>
-                                            <input type="text" class="form-control"
-                                                name="vehicles[{{ $vIndex + 1 }}][type]" value="{{ $vehicle->type }}">
+                                            <select name="vehicles[{{ $vIndex + 1 }}][type]" class="form-select"
+                                                required>
+                                                <option value="">Select</option>
+                                                <option @if ($vehicle->type == 'Car') selected @endif>Car</option>
+                                                <option @if ($vehicle->type == 'Motorcycle') selected @endif>Motorcycle
+                                                </option>
+                                                <option @if ($vehicle->type == 'Golf Cart') selected @endif>Golf Cart</option>
+                                                <option @if ($vehicle->type == 'ATV') selected @endif>ATV</option>
+                                                <option @if ($vehicle->type == 'Heavy Equipment') selected @endif>Heavy Equipment
+                                                </option>
+                                                <option @if ($vehicle->type == 'RV Transport') selected @endif>RV Transport
+                                                </option>
+                                                <option @if ($vehicle->type == 'Boat Transport') selected @endif>Boat Transport
+                                                </option>
+                                            </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Year</label>

@@ -225,18 +225,20 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Make *</label>
-                                <select name="vehicles[1][make]" class="form-select make-select" required>
+                                <input type="text" name="vehicles[1][make]" class="form-control" id="">
+                                {{-- <select name="vehicles[1][make]" class="form-select make-select" required>
                                     <option value="">-- Select Make --</option>
                                     @foreach ($makes as $make)
                                         <option value="{{ $make }}">{{ $make }}</option>
                                     @endforeach
-                                </select>
+                                </select> --}}
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Model *</label>
-                                <select name="vehicles[1][model]" class="form-select model-select" required>
+                                <input type="text" name="vehicles[1][model]" class="form-control" id="">
+                                {{-- <select name="vehicles[1][model]" class="form-select model-select" required>
                                     <option value="">-- Select Model --</option>
-                                </select>
+                                </select> --}}
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Color</label>
