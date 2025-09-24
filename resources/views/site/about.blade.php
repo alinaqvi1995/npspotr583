@@ -314,7 +314,7 @@
                                 </div>
                             </div>
                             <!-- FAQ 5 -->
-                            <div class="accordion-item">
+                            {{-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFive">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFive" aria-expanded="false"
@@ -329,7 +329,7 @@
                                         for delivery staff.
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- FAQ 6 -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingSix">

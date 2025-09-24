@@ -6,7 +6,7 @@
                         <div class="footer-contact-box">
                             <div class="footer-logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Bridgeway Logistics Logo" />
+                                    <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics Logo" />
                                 </a>
                             </div>
                             <p>
@@ -130,7 +130,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                         <div class="footer-widget footer2_col_1 footer-content-info">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Logo" />
+                                <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Logo" />
                             </a>
                             <p>
                                 Bridgeway Logistics LLC is committed to providing reliable and secure vehicle
