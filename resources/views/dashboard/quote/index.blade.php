@@ -108,12 +108,12 @@
                                         <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
                                         </p>
                                         @if ($vehicle->condition)
-                                            <strong>Condition:</strong> {{ $vehicle->condition }}
+                                            <strong>Condition:</strong> {{ $vehicle->condition }}<br>
                                         @endif
 
                                         {{-- {{ dd($quote->vehicles->toArray()) }} --}}
                                         @if ($vehicle->trailer_type)
-                                            <strong>Trailer Type:</strong> {{ $vehicle->trailer_type }}
+                                            <strong>Trailer Type:</strong> {{ $vehicle->trailer_type }}<br>
                                         @endif
 
                                         @if ($vehicle->images->count())
