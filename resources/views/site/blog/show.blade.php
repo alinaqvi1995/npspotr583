@@ -95,7 +95,7 @@
                             <p>
                                 {!! $blog->description_two !!}
                             </p>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="video-image">
                                         <img src="{{ asset($blog->image_three) }}" alt="Image" />
@@ -112,7 +112,7 @@
                                         <img src="{{ asset($blog->image_four) }}" alt="Image" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         {{-- <div class="details-quote-content">
                             <h4 class="title">{{ $blog->heading_three }}</h4>
