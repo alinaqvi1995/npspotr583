@@ -39,7 +39,7 @@
 
                             <div class="col-md-12">
                                 <label class="form-label">Excerpt</label>
-                                <textarea name="excerpt" class="form-control" rows="3" maxlength="500" placeholder="Short summary">{{ old('excerpt') }}</textarea>
+                                <textarea name="excerpt" class="form-control summernote" rows="3" maxlength="500" placeholder="Short summary">{{ old('excerpt') }}</textarea>
                                 <small class="text-muted">Max 500 characters</small>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description One</label>
-                                <textarea name="description_one" class="form-control" rows="4">{{ old('description_one') }}</textarea>
+                                <textarea name="description_one" class="form-control summernote" rows="4">{{ old('description_one') }}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Image One</label>
@@ -78,14 +78,14 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description Two</label>
-                                <textarea name="description_two" class="form-control" rows="4">{{ old('description_two') }}</textarea>
+                                <textarea name="description_two" class="form-control summernote" rows="4">{{ old('description_two') }}</textarea>
                             </div>
 
                             <!-- Additional descriptions for Section Two -->
                             @for ($i = 1; $i <= 7; $i++)
                                 <div class="col-md-12">
                                     <label class="form-label">Extra Description {{ $i }}</label>
-                                    <textarea name="description_two_{{ $i }}" class="form-control" rows="2">{{ old('description_two_' . $i) }}</textarea>
+                                    <textarea name="description_two_{{ $i }}" class="form-control summernote" rows="2">{{ old('description_two_' . $i) }}</textarea>
                                 </div>
                             @endfor
 
@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description Three</label>
-                                <textarea name="description_three" class="form-control" rows="4">{{ old('description_three') }}</textarea>
+                                <textarea name="description_three" class="form-control summernote" rows="4">{{ old('description_three') }}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Image Three</label>
@@ -183,7 +183,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Author Note</label>
-                                <textarea name="author_note" class="form-control" rows="3">{{ old('author_note') }}</textarea>
+                                <textarea name="author_note" class="form-control summernote" rows="3">{{ old('author_note') }}</textarea>
                             </div>
                         </div>
                     </div>

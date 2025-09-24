@@ -220,7 +220,7 @@ class UserManagementController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6',
-            'roles' => 'required|array',
+            // 'roles' => 'required|array',
             'panel_types' => 'nullable|array',
             'permissions' => 'nullable|array',
             'referral_code' => 'nullable|string|unique:user_details,referral_code,' . ($user->detail->id ?? 'NULL'),
@@ -288,7 +288,9 @@ class UserManagementController extends Controller
             $detail->save();
 
             // Sync roles, panels, permissions
-            $user->roles()->sync($request->roles);
+            if ($request->has('roles') && !empty($request->roles)) {
+                $user->roles()->sync($request->roles);
+            }
             $user->panelTypes()->sync($request->panel_types ?? []);
             $user->directPermissions()->sync($request->permissions ?? []);
 

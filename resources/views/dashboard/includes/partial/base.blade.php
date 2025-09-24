@@ -32,6 +32,9 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
 
+    {{-- summernote --}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
     <!--main css-->
     <link href="{{ asset('admin/css/bootstrap-extended.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/sass/main.css') }}" rel="stylesheet">
@@ -146,6 +149,9 @@
     <!-- Bootstrap bundle -->
     <script src="{{ asset('admin/js/bootstrap.bundle.min.js') }}"></script>
 
+    {{-- summernote --}}
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
     @yield('extra_js')
 
     @if (Route::currentRouteName() !== 'reports.quotes.histories')
@@ -257,6 +263,19 @@
 
             bindSearch('#pickup-location', '#pickup-suggestions', '#pickup_city', '#pickup_state', '#pickup_zip');
             bindSearch('#delivery-location', '#delivery-suggestions', '#delivery_city', '#delivery_state', '#delivery_zip');
+
+
+            // summernote
+            $('.summernote').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['fontsize', 'color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
+            });
         </script>
     @endif
 
