@@ -203,13 +203,13 @@
                                 <h5 class="title">Recent Post</h5>
                             </div>
                             @php
-                                $blogs = App\Models\Blog::where('status', 1)->get();
+                                $blogs = App\Models\Blog::where('status', 1)->take(5)->get();
                             @endphp
                             @foreach ($blogs as $blog)
                                 <div class="widget-post">
-                                    <div class="post-img">
+                                    {{-- <div class="post-img">
                                         <img src="{{ asset($blog->image_one) }}" alt="Image" />
-                                    </div>
+                                    </div> --}}
                                     <div class="post-calender">
                                         <i class="flaticon-calendar"></i> <span>
                                             {{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</span>

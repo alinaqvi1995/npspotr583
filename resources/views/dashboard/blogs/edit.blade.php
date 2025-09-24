@@ -34,7 +34,7 @@
 
                             <div class="col-md-12">
                                 <label class="form-label">Excerpt</label>
-                                <textarea name="excerpt" class="form-control" rows="3" maxlength="500" placeholder="Short summary">{{ old('excerpt', $blog->excerpt) }}</textarea>
+                                <textarea name="excerpt" class="form-control summernote" rows="3" maxlength="500" placeholder="Short summary">{{ old('excerpt', $blog->excerpt) }}</textarea>
                                 <small class="text-muted">Max 500 characters</small>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description One</label>
-                                <textarea name="description_one" class="form-control" rows="4">{{ old('description_one', $blog->description_one) }}</textarea>
+                                <textarea name="description_one" class="form-control summernote" rows="4">{{ old('description_one', $blog->description_one) }}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Image One</label>
@@ -76,36 +76,36 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description Two</label>
-                                <textarea name="description_two" class="form-control" rows="4">{{ old('description_two', $blog->description_two) }}</textarea>
+                                <textarea name="description_two" class="form-control summernote" rows="4">{{ old('description_two', $blog->description_two) }}</textarea>
                             </div>
 
                             <div class="col-md-12">
                                 <label class="form-label">Extra Description 1</label>
-                                <textarea name="description_two_one" class="form-control" rows="2">{{ old('description_two_one', $blog->description_two_one) }}</textarea>
+                                <textarea name="description_two_one" class="form-control summernote" rows="2">{{ old('description_two_one', $blog->description_two_one) }}</textarea>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Extra Description 2</label>
-                                <textarea name="description_two_two" class="form-control" rows="2">{{ old('description_two_two', $blog->description_two_two) }}</textarea>
+                                <textarea name="description_two_two" class="form-control summernote" rows="2">{{ old('description_two_two', $blog->description_two_two) }}</textarea>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Extra Description 3</label>
-                                <textarea name="description_two_three" class="form-control" rows="2">{{ old('description_two_three', $blog->description_two_three) }}</textarea>
+                                <textarea name="description_two_three" class="form-control summernote" rows="2">{{ old('description_two_three', $blog->description_two_three) }}</textarea>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Extra Description 4</label>
-                                <textarea name="description_two_four" class="form-control" rows="2">{{ old('description_two_four', $blog->description_two_four) }}</textarea>
+                                <textarea name="description_two_four" class="form-control summernote" rows="2">{{ old('description_two_four', $blog->description_two_four) }}</textarea>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Extra Description 5</label>
-                                <textarea name="description_two_five" class="form-control" rows="2">{{ old('description_two_five', $blog->description_two_five) }}</textarea>
+                                <textarea name="description_two_five" class="form-control summernote" rows="2">{{ old('description_two_five', $blog->description_two_five) }}</textarea>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Extra Description 6</label>
-                                <textarea name="description_two_six" class="form-control" rows="2">{{ old('description_two_six', $blog->description_two_six) }}</textarea>
+                                <textarea name="description_two_six" class="form-control summernote" rows="2">{{ old('description_two_six', $blog->description_two_six) }}</textarea>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Extra Description 7</label>
-                                <textarea name="description_two_seven" class="form-control" rows="2">{{ old('description_two_seven', $blog->description_two_seven) }}</textarea>
+                                <textarea name="description_two_seven" class="form-control summernote" rows="2">{{ old('description_two_seven', $blog->description_two_seven) }}</textarea>
                             </div>
 
                             <div class="col-md-6">
@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description Three</label>
-                                <textarea name="description_three" class="form-control" rows="4">{{ old('description_three', $blog->description_three) }}</textarea>
+                                <textarea name="description_three" class="form-control summernote" rows="4">{{ old('description_three', $blog->description_three) }}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Image Three</label>
@@ -224,7 +224,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Author Note</label>
-                                <textarea name="author_note" class="form-control" rows="3">{{ old('author_note', $blog->author_note) }}</textarea>
+                                <textarea name="author_note" class="form-control summernote" rows="3">{{ old('author_note', $blog->author_note) }}</textarea>
                             </div>
                         </div>
                     </div>
