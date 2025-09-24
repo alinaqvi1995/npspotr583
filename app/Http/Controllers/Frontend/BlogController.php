@@ -20,7 +20,7 @@ class BlogController extends Controller
                     ->orWhere('excerpt', 'LIKE', "%{$search}%")
                     ->orWhere('tags', 'LIKE', "%{$search}%")
                     ->orWhere('heading_one', 'LIKE', "%{$search}%")
-                    ->orWhere('slug', 'LIKE', "%{$search}%")
+                    ->orWhere('slug', 'LIKE', "%{$search}%"); // ← semicolon was missing
             });
         }
 
