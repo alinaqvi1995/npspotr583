@@ -155,6 +155,10 @@
                                         <i class="flaticon flaticon-call"></i
                                         ><a href="tel:+17134706157"> +1 (713) 470-6157</a>
                                     </li>
+                                    <li>
+                                        <i class="fa-brands fa-whatsapp fa-bounce fa-lg " style="display:inline-block; position: relative;"></i
+                                        ><a href="tel:+17134706157"> +1 (713) 470-6157</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="header-content-right d-flex align-items-center justify-content-end">
