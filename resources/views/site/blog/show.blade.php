@@ -70,7 +70,7 @@
                                 {!! $blog->description_one !!}
                             </p>
                         </div>
-                        <div class="row align-items-center">
+                        {{-- <div class="row align-items-center">
                             <div class="col-lg-5 col-md-6">
                                 <div class="check-image">
                                     <img src="{{ asset($blog->image_two) }}" alt="Blog" />
@@ -89,7 +89,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="details-video-content">
                             <h4 class="title">{{ $blog->heading_two }}</h4>
                             <p>
@@ -253,7 +253,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="tj-sidebar-widget sidebar-catagory">
+                        {{-- <div class="tj-sidebar-widget sidebar-catagory">
                             <h5 class="details_title">All Catagory</h5>
                             <ul class="list-gap">
                                 @foreach ($categories as $category)
@@ -264,7 +264,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div>
+                        </div> --}}
                         {{-- <div class="tj-sidebar-widget sidebar-tags">
                             <h5 class="details_title">Popular Tags</h5>
                             <div class="tagcloud">
