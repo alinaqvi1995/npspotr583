@@ -72,8 +72,8 @@
                         </div>
                         <div class="row align-items-center">
                             <div class="">
-                                    <h3>{{ $blog->heading_one }}</h3>
-                                    <p> {!! $blog->description_one !!}</p>
+                                <h3>{{ $blog->heading_one }}</h3>
+                                <p> {!! $blog->description_one !!}</p>
                             </div>
                         </div>
                         {{-- <div class="row align-items-center">
@@ -148,7 +148,7 @@
                                 <div class="tags-link">
                                     <span> Tags</span>
                                     @foreach (explode(',', $blog->tags) as $tag)
-                                        <a href="javascript:void(0)">{{ trim($tag) }}</a>
+                                        <a href="javascript:void(0)">{{ strtoupper(trim($tag)) }}</a>
                                     @endforeach
                                 </div>
                                 <div class="share-link">
