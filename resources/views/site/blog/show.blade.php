@@ -236,10 +236,12 @@
                 <div class="col-lg-4">
                     <div class="details-sidebar-inner">
                         <div class="tj-sidebar-widget sidebar-search">
-                            <form action="#">
+                            <form action="{{ route('blogs.index') }}" method="GET">
                                 <input type="text" class="form-control" name="search" id="searchOne"
-                                    placeholder="Search" />
-                                <i class="flaticon-loupe"></i>
+                                    placeholder="Search" value="{{ request('search') }}" />
+                                <button type="submit" class="btn btn-link p-0 border-0">
+                                    <i class="flaticon-loupe"></i>
+                                </button>
                             </form>
                         </div>
                         <div class="tj-sidebar-widget sidebar-post">

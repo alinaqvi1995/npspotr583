@@ -9,9 +9,23 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::latest()->get();
+        $query = Blog::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                    ->orWhere('excerpt', 'LIKE', "%{$search}%")
+                    ->orWhere('tags', 'LIKE', "%{$search}%")
+                    ->orWhere('heading_one', 'LIKE', "%{$search}%")
+                    ->orWhere('slug', 'LIKE', "%{$search}%")
+            });
+        }
+
+        $blogs = $query->latest()->get();
+
         return view('site.blog.index', compact('blogs'));
     }
 
