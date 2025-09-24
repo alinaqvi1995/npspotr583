@@ -41,7 +41,7 @@ class BlogController extends Controller
     {
         $request->validate([
             'title'       => 'required|string|max:255',
-            'excerpt'     => 'nullable|string|max:500',
+            'excerpt'     => 'nullable|string',
             'heading_one' => 'required|string|max:255',
             'description_one' => 'required|string',
             'category_id' => 'nullable|exists:categories,id',
@@ -113,7 +113,7 @@ class BlogController extends Controller
 
         $request->validate([
             'title'       => 'required|string|max:255',
-            'excerpt'     => 'nullable|string|max:500',
+            'excerpt'     => 'nullable|string',
             'heading_one' => 'required|string|max:255',
             'description_one' => 'required|string',
             'category_id' => 'nullable|exists:categories,id',

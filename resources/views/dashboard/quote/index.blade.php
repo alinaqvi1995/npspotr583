@@ -88,7 +88,7 @@
                             <th>Customer</th>
                             <th>Vehicles</th>
                             <th>Pickup / Delivery</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>Created At</th>
                             <th>Actions</th>
                         </tr>
@@ -97,7 +97,10 @@
                         @forelse($quotes as $quote)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $quote->id }}</td>
+                                <td>
+                                    {{ $quote->id }}<br>
+                                    {!! $quote->status_label !!}    
+                                </td>
                                 <td>
                                     {{ $quote->customer_name }}<br>
                                     <small>{{ $quote->customer_email }}</small><br>
@@ -149,7 +152,7 @@
                                         target="_blank">{{ $quote->deliveryLocation->full_location }}</a><br>
                                     <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
-                                <td>{!! $quote->status_label !!}</td>
+                                {{-- <td>{!! $quote->status_label !!}</td> --}}
                                 <td>{{ $quote->created_at }}</td>
                                 <td>
                                     <div class="dropdown">
