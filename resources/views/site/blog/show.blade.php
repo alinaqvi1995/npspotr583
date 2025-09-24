@@ -265,20 +265,6 @@
                                 @endforeach
                             </ul>
                         </div> --}}
-                        {{-- <div class="tj-sidebar-widget sidebar-tags">
-                            <h5 class="details_title">Popular Tags</h5>
-                            <div class="tagcloud">
-                                <a href="#"> Business</a>
-                                <a href="#"> Career</a>
-                                <a href="#"> Logistics</a>
-                                <a href="#"> Delivery</a>
-                                <a href="#"> Consulting</a>
-                                <a href="#"> Travel</a>
-                                <a href="#">Education</a>
-                                <a href="#">America</a>
-                                <a href="#">Maintenance</a>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
