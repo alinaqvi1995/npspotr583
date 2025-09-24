@@ -3,7 +3,7 @@
 @section('title', 'Order Form Detail')
 
 @section('content')
-    <h6 class="mb-0 text-uppercase">Order Form Detail</h6>
+    <h3 class="mb-0 text-uppercase">Order Form For Order#: <b>{{ $orderForm->quote_id }}</b></h3>
     <hr>
 
     <div class="card">

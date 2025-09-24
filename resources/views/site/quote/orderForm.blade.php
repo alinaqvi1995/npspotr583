@@ -363,6 +363,7 @@
                                                         <div class="col-md-6">
                                                             <p class="mb-1"><strong>Pickup:</strong> {{ $quote->pickupLocation?->full_location ?? '-' }}</p>
                                                             <p class="mb-0"><strong>Delivery:</strong> {{ $quote->deliveryLocation?->full_location ?? '-' }}</p>
+                                                            <p class="mb-0"><strong>Created At:</strong> {{ $quote->created_at_formatted ?? '-' }}</p>
                                                         </div>
                                                         <div class="col-md-6 text-md-end">
                                                             <p class="mb-1"><strong>Amount:</strong> ${{ $quote->amount_to_pay ?? 0 }}</p>

@@ -18,10 +18,12 @@ class QuoteService
         $query = Quote::with(['vehicles.images', 'pickupLocation', 'deliveryLocation'])
             ->orderBy('created_at', 'desc');
 
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
 
-        // apply status filtering
-        $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
+        if ($user->isAdmin() && !$search) {
+            // apply status filtering
+            $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
+        }
 
         // apply search
         if ($search) {
@@ -38,10 +40,10 @@ class QuoteService
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
-        
+
         if ($isAdmin) {
             // dd($query->where('id', 'like', "%74038%")->get()->toArray());
-            // $query->where('status', $requestedStatus);
+            $query->where('status', $requestedStatus);
             return;
         }
 

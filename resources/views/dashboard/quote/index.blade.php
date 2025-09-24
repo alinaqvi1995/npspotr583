@@ -107,6 +107,14 @@
                                     @foreach ($quote->vehicles as $vehicle)
                                         <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
                                         </p>
+                                        @if ($vehicle->condition)
+                                            <strong>Condition:</strong> {{ $vehicle->condition }}
+                                        @endif
+
+                                        @if ($vehicle->trailer_type)
+                                            <strong>Trailer Type:</strong> {{ $vehicle->trailer_type }}
+                                        @endif
+
                                         @if ($vehicle->images->count())
                                             <div class="d-flex flex-wrap mb-2">
                                                 @foreach ($vehicle->images as $img)
@@ -146,10 +154,20 @@
                                                 </li>
                                             @endcan
                                             <li>
-                                                <a class="dropdown-item send-order-form" href="javascript:;"
-                                                    data-id="{{ $quote->id }}">
-                                                    <i class="material-icons-outlined fs-6 me-1">send</i> Send Order Form
-                                                </a>
+                                                @if ($quote->orderForm()->exists())
+                                                    <a class="dropdown-item view-order-form"
+                                                        href="{{ route('dashboard.orderForms.show', $quote->orderForm->id) }}"
+                                                        target="_blank" data-id="{{ $quote->id }}">
+                                                        <i class="material-icons-outlined fs-6 me-1">send</i> View Order
+                                                        Form
+                                                    </a>
+                                                @else
+                                                    <a class="dropdown-item send-order-form" href="javascript:;"
+                                                        data-id="{{ $quote->id }}">
+                                                        <i class="material-icons-outlined fs-6 me-1">send</i> Send Order
+                                                        Form
+                                                    </a>
+                                                @endif
                                             </li>
                                             <li>
                                                 <a class="dropdown-item view-logs" href="javascript:;"
