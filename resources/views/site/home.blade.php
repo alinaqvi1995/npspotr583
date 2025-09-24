@@ -634,69 +634,6 @@
     </section>
     <!--========== Choose Section End ==============-->
 
-    <!--=========== Blog Section Start =========-->
-    {{-- <section class="tj-blog-section-three">
-        <div class="container">
-            <div class="row">
-                <div class="tj-section-heading text-center">
-                    <span class="sub-title active-shape"> Latest Blogs</span>
-                    <h2 class="title">Insights & Industry Updates</h2>
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($blogs as $blog)
-                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                        <div class="tj-blog-item">
-                            <div class="tj-blog-image">
-                                <a href="{{ route('blog.show', $blog->slug) }}">
-                                    <img src="{{ asset($blog->image_one) }}" alt="Blog" class="blog-img" />
-                                </a>
-                            </div>
-                            <div class="blog-content-area">
-                                <div class="blog-meta">
-                                    <div class="meta-date">
-                                        <ul class="list-gap">
-                                            <li>{{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</li>
-                                            <li>{{ $blog->created_at ? $blog->created_at->format('M') : '-' }}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="meta-list">
-                                        <ul class="list-gap">
-                                            <li>
-                                                <i class="fa-light fa-user"></i>
-                                                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->author }}</a>
-                                            </li>
-                                            <li><i class="fa-light fa-comment"></i> <span> Comment (5)</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="blog-text-box">
-                                    <div class="blog-header">
-                                        <h4>
-                                            <a class="title-link" href="{{ route('blog.show', $blog->slug) }}">
-                                                {{ $blog->title }}
-                                            </a>
-                                        </h4>
-                                        <p>{!! Str::limit(strip_tags($blog->description_one), 100, '...') !!}</p>
-                                    </div>
-                                    <div class="blog-button">
-                                        <ul class="list-gap">
-                                            <li>
-                                                <a href="{{ route('blog.show', $blog->slug) }}">
-                                                    Read More <i class="fa-regular fa-arrow-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section> --}}
-    <!--=========== Blog Section End =========-->
     <!--=========== Map Section Start =========-->
     <section class="tj-map-section">
         <div class="google-map">
@@ -818,4 +755,68 @@
         </div> --}}
     </section>
     <!--=========== Map Section End =========-->
+
+    <!--=========== Blog Section Start =========-->
+    <section class="tj-blog-section-three">
+        <div class="container">
+            <div class="row">
+                <div class="tj-section-heading text-center">
+                    <span class="sub-title active-shape"> Latest Blogs</span>
+                    <h2 class="title">Insights & Industry Updates</h2>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($blogs as $blog)
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                        <div class="tj-blog-item">
+                            <div class="tj-blog-image">
+                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                    <img src="{{ asset($blog->image_one) }}" alt="Blog" class="blog-img" />
+                                </a>
+                            </div>
+                            <div class="blog-content-area">
+                                <div class="blog-meta">
+                                    <div class="meta-date">
+                                        <ul class="list-gap">
+                                            <li>{{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</li>
+                                            <li>{{ $blog->created_at ? $blog->created_at->format('M') : '-' }}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="meta-list">
+                                        <ul class="list-gap">
+                                            <li>
+                                                <i class="fa-light fa-user"></i>
+                                                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->author }}</a>
+                                            </li>
+                                            <li><i class="fa-light fa-comment"></i> <span> Comment (5)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="blog-text-box">
+                                    <div class="blog-header">
+                                        <h4>
+                                            <a class="title-link" href="{{ route('blog.show', $blog->slug) }}">
+                                                {{ $blog->title }}
+                                            </a>
+                                        </h4>
+                                        <p>{!! Str::limit(strip_tags($blog->description_one), 100, '...') !!}</p>
+                                    </div>
+                                    <div class="blog-button">
+                                        <ul class="list-gap">
+                                            <li>
+                                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                                    Read More <i class="fa-regular fa-arrow-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!--=========== Blog Section End =========-->
 @endsection
