@@ -176,6 +176,9 @@
                             </div>
                             <div class="widget-menu">
                                 <ul class="list-gap">
+                                    @php
+                                        $services = App\Models\Service::where('status', 1)->get();
+                                    @endphp
                                     @foreach ($services->take(5) as $row)
                                         <li>
                                             <a href="{{ route('services.show.detail', $row->slug) }}">

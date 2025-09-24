@@ -111,7 +111,7 @@
                                             <strong>Condition:</strong> {{ $vehicle->condition }}
                                         @endif
 
-                                        {{ dd($quote->vehicles->toArray()) }}
+                                        {{-- {{ dd($quote->vehicles->toArray()) }} --}}
                                         @if ($vehicle->trailer_type)
                                             <strong>Trailer Type:</strong> {{ $vehicle->trailer_type }}
                                         @endif
