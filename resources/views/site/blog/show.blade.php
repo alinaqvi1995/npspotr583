@@ -127,22 +127,22 @@
                                 <h5 class="title">{{ $blog->author }}</h5>
                             </div>
                         </div> --}}
-                        <div class="details-tags-box">
-                            <div class="tags-link">
-                                <span> Tags</span>
-                                @if (!empty($blog->tags))
+                        @if (!empty($blog->tags))
+                            <div class="details-tags-box">
+                                <div class="tags-link">
+                                    <span> Tags</span>
                                     @foreach (explode(',', $blog->tags) as $tag)
                                         <a href="javascript:void(0)">{{ trim($tag) }}</a>
                                     @endforeach
-                                @endif
+                                </div>
+                                <div class="share-link">
+                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
                             </div>
-                            <div class="share-link">
-                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
+                        @endif
                         {{-- <div class="details-comment-content">
                             <h4 class="details_title">Comments (2)</h4>
                             <div class="comment-auother-box">
