@@ -80,7 +80,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered table-striped align-middle" id="quoteTable">
+                <table class="table table-bordered table-striped align-middle text-center" id="quoteTable">
                     <thead>
                         <tr>
                             <th>Sr#.</th>
@@ -105,26 +105,38 @@
                                 </td>
                                 <td>
                                     @foreach ($quote->vehicles as $vehicle)
-                                        <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
-                                        </p>
-                                        @if ($vehicle->condition)
-                                            <strong>Condition:</strong> {{ $vehicle->condition }}<br>
-                                        @endif
+                                        <div class="mb-2 border-bottom pb-2">
+                                            {{-- Prominent YMM --}}
+                                            <p class="mb-1 fw-bold fs-6">
+                                                {{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
+                                            </p>
 
-                                        {{-- {{ dd($quote->vehicles->toArray()) }} --}}
-                                        @if ($vehicle->trailer_type)
-                                            <strong>Trailer Type:</strong> {{ $vehicle->trailer_type }}<br>
-                                        @endif
+                                            {{-- Smaller condition --}}
+                                            @if ($vehicle->condition)
+                                                <div class="small text-muted">
+                                                    Condition: {!! $vehicle->condition_label !!}
+                                                </div>
+                                            @endif
 
-                                        @if ($vehicle->images->count())
-                                            <div class="d-flex flex-wrap mb-2">
-                                                @foreach ($vehicle->images as $img)
-                                                    <img src="{{ asset($img->image_path) }}"
-                                                        alt="{{ $vehicle->make }} {{ $vehicle->model }}" width="50"
-                                                        height="50" class="rounded-circle me-1 mb-1">
-                                                @endforeach
-                                            </div>
-                                        @endif
+                                            {{-- Smaller trailer type --}}
+                                            @if ($vehicle->trailer_type)
+                                                <div class="small text-muted">
+                                                    Trailer: {!! $vehicle->trailer_type_label !!}
+                                                </div>
+                                            @endif
+
+                                            {{-- Vehicle images --}}
+                                            @if ($vehicle->images->count())
+                                                <div class="d-flex flex-wrap justify-content-center mt-1">
+                                                    @foreach ($vehicle->images as $img)
+                                                        <img src="{{ asset($img->image_path) }}"
+                                                            alt="{{ $vehicle->make }} {{ $vehicle->model }}"
+                                                            width="50" height="50"
+                                                            class="rounded-circle me-1 mb-1 border">
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
                                     @endforeach
                                 </td>
                                 <td>
