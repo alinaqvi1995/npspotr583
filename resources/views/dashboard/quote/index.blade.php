@@ -56,12 +56,27 @@
 
             <div class="d-flex mb-3">
                 <select id="columnFilter" class="form-select w-auto me-2">
-                    <option value="">All Columns</option>
-                    <option value="1">Customer</option>
-                    <option value="2">Vehicles</option>
-                    <option value="3">Pickup / Delivery</option>
+                    <option value="" {{ request('column') == '' ? 'selected' : '' }}>All Columns</option>
+                    <option value="order" {{ request('column', 'order') == 'order' ? 'selected' : 'selected' }}>Order#
+                    </option>
+                    <option value="customer" {{ request('column') == 'customer' ? 'selected' : '' }}>Customer</option>
+                    <option value="vehicles" {{ request('column') == 'vehicles' ? 'selected' : '' }}>Vehicles</option>
+                    <option value="pickup" {{ request('column') == 'pickup' ? 'selected' : '' }}>Pickup</option>
+                    <option value="delivery" {{ request('column') == 'delivery' ? 'selected' : '' }}>Delivery</option>
                 </select>
-                <input class="form-control rounded-5 px-3" type="text" placeholder="Search..." id="quoteSearch">
+
+                <input class="form-control rounded-5 px-3 me-2" type="text" placeholder="Search..." id="quoteSearch"
+                    value="{{ request('search') }}">
+
+                <!-- Search Button -->
+                <button id="searchBtn" class="btn btn-sm btn-primary me-2" title="Search">
+                    <i class="material-icons-outlined">search</i>
+                </button>
+
+                <!-- Reset Button -->
+                <button id="resetBtn" class="btn btn-sm btn-secondary" title="Reset">
+                    <i class="material-icons-outlined">refresh</i>
+                </button>
             </div>
 
             <div class="table-responsive">
@@ -333,28 +348,40 @@
 @section('extra_js')
     <script>
         $(document).ready(function() {
+            $(document).ready(function() {
+                function doSearch() {
+                    let search = $('#quoteSearch').val();
+                    let column = $('#columnFilter').val() || 'order'; // default to order
 
-            // ✅ DataTable setup
-            // var table = $('#quoteTable').DataTable({
-            //     pageLength: 10,
-            //     autoWidth: false,
-            //     order: [
-            //         [0, 'asc']
-            //     ],
-            //     columnDefs: [{
-            //         orderable: false,
-            //         targets: [1, 4, 5]
-            //     }]
-            // });
+                    let url = new URL(window.location.href);
+                    url.searchParams.set('search', search);
+                    url.searchParams.set('column', column);
+                    url.searchParams.delete('page'); // reset pagination
 
-            // ✅ Column filter + search
-            $('#quoteSearch').on('keyup', function() {
-                var colIndex = $('#columnFilter').val();
-                if (colIndex === '') {
-                    table.search(this.value).draw();
-                } else {
-                    table.column(colIndex).search(this.value).draw();
+                    window.location.href = url.toString();
                 }
+
+                // Search on button click
+                $('#searchBtn').on('click', function() {
+                    doSearch();
+                });
+
+                // Search on Enter key
+                $('#quoteSearch').on('keypress', function(e) {
+                    if (e.which === 13) { // Enter key
+                        e.preventDefault();
+                        doSearch();
+                    }
+                });
+
+                // Reset button clears filters and search
+                $('#resetBtn').on('click', function() {
+                    let url = new URL(window.location.href);
+                    url.searchParams.delete('search');
+                    url.searchParams.delete('column');
+                    url.searchParams.delete('page'); // reset pagination
+                    window.location.href = url.toString();
+                });
             });
 
             // ✅ Send Order Form

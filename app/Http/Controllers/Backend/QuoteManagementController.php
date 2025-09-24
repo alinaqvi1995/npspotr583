@@ -7,20 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\Quote;
 use App\Models\VehicleMakeModel;
 use App\Models\Vehicle;
-use App\Models\VehicleImage;
 use App\Models\QuoteLocation;
 use App\Models\QuoteAgentHistory;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Contracts\Encryption\DecryptException;
+use App\Services\QuoteService;
 
 class QuoteManagementController extends Controller
 {
-    public function __construct()
+    private QuoteService $quoteService;
+    public function __construct(QuoteService $quoteService)
     {
+        $this->quoteService = $quoteService;
+
         $permissions = [
             'allQuotes'   => 'view-quotes',
             'quoteDetail'   => 'view-quoteDetail',
@@ -33,97 +32,16 @@ class QuoteManagementController extends Controller
         }
     }
 
-    public function allQuotes(Request $request, $status)
+    public function allQuotes(Request $request, string $status)
     {
-        /** @var \App\Models\User|null $user */
-        $user = Auth::user();
-        $query = Quote::with('vehicles.images')->orderBy('created_at', 'desc');
-        $changeStatus = '';
+        $data = $this->quoteService->getQuotes(
+            $status,
+            $request->input('search'),
+            $request->input('column')
+        );
 
-        // Normalize requested status (convert "follow-up" => "Follow Up")
-        $requestedStatus = Str::title(str_replace('-', ' ', $status));
-
-        if ($user->isAdmin()) {
-            // Admins can see any status
-            $query->where('status', $requestedStatus);
-        } else {
-            // Get statuses user is allowed to view
-            $allowedPermissions = $user->allPermissions()
-                ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
-                ->pluck('slug')
-                ->toArray();
-
-            $allowedStatuses = collect($allowedPermissions)
-                ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
-                ->toArray();
-
-            $changeStatus = collect($allowedPermissions)
-                ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
-                ->toArray();
-
-
-            if (!empty($allowedStatuses)) {
-                $query->whereIn('status', $allowedStatuses);
-            }
-
-            // Restrict further by requested status
-            if (in_array($requestedStatus, $allowedStatuses)) {
-                $query->where('status', $requestedStatus);
-            } else {
-                // If requested status is not allowed → return nothing
-                $query->whereRaw('0=1');
-            }
-        }
-        $statusToChange = Quote::changeStatus($requestedStatus);
-
-        // Debug check
-        // dd($query->pluck('status')->take(20)->toArray());
-
-        $quotes = $query->paginate(20);
-
-        return view('dashboard.quote.index', compact('quotes', 'statusToChange'));
+        return view('dashboard.quote.index', $data);
     }
-
-    // public function allQuotes(Request $request, $status)
-    // {
-    //     /** @var \App\Models\User|null $user */
-    //     $user = Auth::user();
-    //     $query = Quote::with('vehicles.images')->orderBy('created_at', 'desc');
-
-    //     if ($user->isAdmin()) {
-    //         if ($request->has('status') && !empty($status)) {
-    //             $requestedStatus = Str::title(str_replace('-', ' ', $status));
-    //             $query->where('status', $requestedStatus);
-    //         }
-    //     } else {
-    //         $allowedPermissions = $user->allPermissions()
-    //             ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
-    //             ->pluck('slug')
-    //             ->toArray();
-
-    //         $allowedStatuses = collect($allowedPermissions)
-    //             ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
-    //             ->toArray();
-
-    //         if (!empty($allowedStatuses)) {
-    //             $query->whereIn('status', $allowedStatuses);
-    //         }
-
-    //         if ($request->has('status') && !empty($status)) {
-    //             $requestedStatus = Str::title(str_replace('-', ' ', $status));
-    //             if (in_array($requestedStatus, $allowedStatuses)) {
-    //                 $query->where('status', $requestedStatus);
-    //             } else {
-    //                 $query->whereRaw('0=1');
-    //             }
-    //         }
-    //     }
-
-    //     dd($query->pluck('status')->take(20)->toArray());
-    //     $quotes = $query->paginate(10);
-
-    //     return view('dashboard.quote.index', compact('quotes'));
-    // }
 
     public function quoteDetail($id)
     {
