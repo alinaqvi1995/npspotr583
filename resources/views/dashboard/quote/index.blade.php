@@ -99,7 +99,6 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     {{ $quote->id }}<br>
-                                    {!! $quote->status_label !!}    
                                 </td>
                                 <td>
                                     {{ $quote->customer_name }}<br>
@@ -153,8 +152,9 @@
                                     <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
                                 {{-- <td>{!! $quote->status_label !!}</td> --}}
-                                <td>{{ $quote->created_at }}</td>
+                                <td>{{ $quote->created_at_formatted }}</td>
                                 <td>
+                                    {!! $quote->status_label !!}
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-light border dropdown-toggle" type="button"
                                             data-bs-toggle="dropdown">
