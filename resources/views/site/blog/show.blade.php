@@ -76,16 +76,26 @@
                                     <img src="{{ asset($blog->image_two) }}" alt="Blog" />
                                 </div>
                             </div> --}}
+                            @php
+                                $points = [
+                                    $blog->description_two_one,
+                                    $blog->description_two_two,
+                                    $blog->description_two_three,
+                                    $blog->description_two_four,
+                                    $blog->description_two_five,
+                                    $blog->description_two_six,
+                                    $blog->description_two_seven,
+                                ];
+                            @endphp
+
                             <div class="">
                                 <div class="check-list">
                                     <ul class="list-gap">
-                                        <li><i class="fa-light fa-check"></i> {!! $blog->description_two_one !!}</li>
-                                        <li><i class="fa-light fa-check"></i> {!! $blog->description_two_two !!}</li>
-                                        <li><i class="fa-light fa-check"></i> {!! $blog->description_two_three !!}.</li>
-                                        <li><i class="fa-light fa-check"></i> {!! $blog->description_two_four !!}</li>
-                                        <li><i class="fa-light fa-check"></i> {!! $blog->description_two_five !!}</li>
-                                        <li><i class="fa-light fa-check"></i> {!! $blog->description_two_six !!}</li>
-                                        <li><i class="fa-light fa-check"></i> {!! $blog->description_two_seven !!}</li>
+                                        @foreach ($points as $point)
+                                            @if ($point)
+                                                <li><i class="fa-light fa-check"></i> {!! $point !!}</li>
+                                            @endif
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
