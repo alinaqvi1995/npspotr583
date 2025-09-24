@@ -133,7 +133,7 @@
                                 <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Logo" />
                             </a>
                             <p>
-                                Bridgeway Logistics LLC is committed to providing reliable and secure vehicle 
+                                Bridgeway Logistics LLC is committed to providing reliable and secure vehicle
                                 transportation services across the United States. Your shipment is our priority.
                             </p>
                             <div class="footer-social-icon">
@@ -159,11 +159,16 @@
                             </div>
                             <div class="widget-time">
                                 <ul class="list-gap">
-                                    <li><a href="{{ route('about') }}"><i class="flaticon-right-chevron-1"></i> About Us</a></li>
-                                    <li><a href="{{ route('multiform') }}"><i class="flaticon-right-chevron-1"></i> Get Quote</a></li>
-                                    <li><a href="{{ route('contact') }}"><i class="flaticon-right-chevron-1"></i> Contact Us</a></li>
-                                    <li><a href="{{ route('trems') }}"><i class="flaticon-right-chevron-1"></i> Terms & Conditions</a></li>
-                                    <li><a href="{{ route('faq') }}"><i class="flaticon-right-chevron-1"></i> FAQs</a></li>
+                                    <li><a href="{{ route('about') }}"><i class="flaticon-right-chevron-1"></i> About
+                                            Us</a></li>
+                                    <li><a href="{{ route('multiform') }}"><i class="flaticon-right-chevron-1"></i> Get
+                                            Quote</a></li>
+                                    <li><a href="{{ route('contact') }}"><i class="flaticon-right-chevron-1"></i>
+                                            Contact Us</a></li>
+                                    <li><a href="{{ route('trems') }}"><i class="flaticon-right-chevron-1"></i> Terms &
+                                            Conditions</a></li>
+                                    <li><a href="{{ route('faq') }}"><i class="flaticon-right-chevron-1"></i> FAQs</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -197,16 +202,22 @@
                             <div class="footer-title">
                                 <h5 class="title">Recent Post</h5>
                             </div>
+                            @php
+                                $blogs = App\Models\Blog::where('status', 1)->get();
+                            @endphp
                             @foreach ($blogs as $blog)
-                            <div class="widget-post">
-                                <div class="post-img">
-                                    <img src="{{ asset($blog->image_one) }}" alt="Image" />
+                                <div class="widget-post">
+                                    <div class="post-img">
+                                        <img src="{{ asset($blog->image_one) }}" alt="Image" />
+                                    </div>
+                                    <div class="post-calender">
+                                        <i class="flaticon-calendar"></i> <span>
+                                            {{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</span>
+                                        <h6><a class="post-title"
+                                                href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }} </a>
+                                        </h6>
+                                    </div>
                                 </div>
-                                <div class="post-calender">
-                                    <i class="flaticon-calendar"></i> <span> {{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</span>
-                                    <h6><a class="post-title" href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }} </a></h6>
-                                </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -243,30 +254,19 @@
         <!-- start scrollUp  -->
         <div class="logiland-scroll-top progress-done">
             <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                <path
-                    d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
                     style="
                         transition: stroke-dashoffset 10ms linear 0s;
                         stroke-dasharray: 307.919px, 307.919px;
                         stroke-dashoffset: 71.1186px;
-                    "
-                ></path>
+                    ">
+                </path>
             </svg>
             <div class="logiland-scroll-top-icon">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    role="img"
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 24 24"
-                    data-icon="mdi:arrow-up"
-                    class="iconify iconify--mdi"
-                >
-                    <path
-                        fill="currentColor"
-                        d="M13 20h-2V8l-5.5 5.5l-1.42-1.42L12 4.16l7.92 7.92l-1.42 1.42L13 8v12Z"
-                    ></path>
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em"
+                    viewBox="0 0 24 24" data-icon="mdi:arrow-up" class="iconify iconify--mdi">
+                    <path fill="currentColor" d="M13 20h-2V8l-5.5 5.5l-1.42-1.42L12 4.16l7.92 7.92l-1.42 1.42L13 8v12Z">
+                    </path>
                 </svg>
             </div>
         </div>
