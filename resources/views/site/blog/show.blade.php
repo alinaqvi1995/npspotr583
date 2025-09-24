@@ -67,8 +67,14 @@
                                 </div>
                             </div>
                             <p>
-                                {!! $blog->description_one !!}
+                                {!! $blog->excerpt !!}
                             </p>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="">
+                                    <h3>{{ $blog->heading_one }}</h3>
+                                    <p> {!! $blog->description_one !!}</p>
+                            </div>
                         </div>
                         {{-- <div class="row align-items-center">
                             <div class="col-lg-5 col-md-6">
