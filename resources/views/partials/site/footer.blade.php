@@ -203,9 +203,9 @@
                                 <h5 class="title">Recent Post</h5>
                             </div>
                             @php
-                                $blogs = App\Models\Blog::where('status', 1)->take(5)->get();
+                                $blogs = App\Models\Blog::where('status', 1)->take(2)->get();
                             @endphp
-                            @foreach ($blogs as $blog)
+                            @foreach ($blogs->take(2) as $blog)
                                 <div class="widget-post">
                                     {{-- <div class="post-img">
                                         <img src="{{ asset($blog->image_one) }}" alt="Image" />

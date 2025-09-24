@@ -13,9 +13,30 @@
             right: 10%;
             transform: translateY(-50%);
             z-index: 20;
-            width: 100%; /* form width */
+            width: 80%; /* form width */
         }
-
+        @media only screen and (min-width: 1400px) and (max-width: 1599px) {
+            .fixed-form {
+                    position: absolute;
+                    top: 50%;
+                    right: 4%;
+                    transform: translateY(-50%);
+                    z-index: 20;
+                    width: 80%; /* form width */
+                }
+        }
+        @media only screen and (min-width: 992px) and (max-width: 1199px) {
+            .fixed-form {
+                position: absolute;
+                top: 50%;
+                right: 3%;
+                transform: translateY(-50%);
+                z-index: 20;
+                width: 38%;
+                max-width: 500px;
+                margin: 30px auto;
+            }
+        }
         /* ✅ Tablet (screen <= 991px) */
         @media (max-width: 991px) {
             .fixed-form {
@@ -23,7 +44,7 @@
                 top: auto;
                 right: auto;
                 transform: none;
-                width: 100%;
+                width: 80%;
                 max-width: 500px;
                 margin: 30px auto;
                 z-index: 20;
@@ -33,7 +54,7 @@
         /* ✅ Mobile (screen <= 575px) */
         @media (max-width: 575px) {
             .fixed-form {
-                width: 100%;
+                width: 80%;
                 max-width: 100%;
                 padding: 0 15px;
             }
