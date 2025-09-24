@@ -66,7 +66,7 @@
                                 @endif
                             </div>
 
-                            <hr class="mt-3">
+                            {{-- <hr class="mt-3">
 
                             <!-- Section Two -->
                             <div class="col-md-6">
@@ -145,7 +145,7 @@
                                     <img src="{{ asset($blog->image_four) }}" alt="Image Four" class="mt-2"
                                         width="100">
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

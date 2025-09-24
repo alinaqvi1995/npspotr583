@@ -68,7 +68,7 @@
                                 <input type="file" name="image_one" class="form-control">
                             </div>
 
-                            <hr class="mt-3">
+                            {{-- <hr class="mt-3">
 
                             <!-- Section Two -->
                             <div class="col-md-6">
@@ -114,7 +114,7 @@
                             <div class="col-md-6">
                                 <label class="form-label">Image Four</label>
                                 <input type="file" name="image_four" class="form-control">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

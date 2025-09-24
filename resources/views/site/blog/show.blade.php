@@ -70,12 +70,12 @@
                                 {!! $blog->description_one !!}
                             </p>
                         </div>
-                        <div class="row align-items-center">
-                            {{-- <div class="col-lg-5 col-md-6">
+                        {{-- <div class="row align-items-center">
+                            <div class="col-lg-5 col-md-6">
                                 <div class="check-image">
                                     <img src="{{ asset($blog->image_two) }}" alt="Blog" />
                                 </div>
-                            </div> --}}
+                            </div>
                             @php
                                 $points = [
                                     $blog->description_two_one,
@@ -105,7 +105,7 @@
                             <p>
                                 {!! $blog->description_two !!}
                             </p>
-                            {{-- <div class="row">
+                            <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="video-image">
                                         <img src="{{ asset($blog->image_three) }}" alt="Image" />
@@ -122,8 +122,8 @@
                                         <img src="{{ asset($blog->image_four) }}" alt="Image" />
                                     </div>
                                 </div>
-                            </div> --}}
-                        </div>
+                            </div>
+                        </div> --}}
                         {{-- <div class="details-quote-content">
                             <h4 class="title">{{ $blog->heading_three }}</h4>
                             <p>
@@ -239,28 +239,30 @@
                         <div class="tj-sidebar-widget sidebar-post">
                             <h5 class="details_title">Popular Post</h5>
                             @foreach ($recentBlogs as $row)
-                                <div class="tj-post-content">
-                                    <div class="tj-auother-img">
-                                        <a href="#">
-                                            <img src="{{ asset($row->image_one) }}" alt="Blog" /></a>
-                                    </div>
-                                    <div class="tj-details-text">
-                                        <div class="details-meta">
-                                            <ul class="list-gap">
-                                                <li>
-                                                    <i class="flaticon-calendar"></i>
-                                                    {{ $blog->created_at ? $blog->created_at->format('M d, Y') : '-' }}
-                                                </li>
-                                                {{-- <li><i class="fa-light fa-comment"></i> (05)</li> --}}
-                                            </ul>
+                                @if ($row->id != $blog->id)
+                                    <div class="tj-post-content">
+                                        <div class="tj-auother-img">
+                                            <a href="#">
+                                                <img src="{{ asset($row->image_one) }}" alt="Blog" /></a>
                                         </div>
-                                        <div class="tj-details-header">
-                                            <h6>
-                                                <a href="#">{{ $row->title }}</a>
-                                            </h6>
+                                        <div class="tj-details-text">
+                                            <div class="details-meta">
+                                                <ul class="list-gap">
+                                                    <li>
+                                                        <i class="flaticon-calendar"></i>
+                                                        {{ $blog->created_at ? $blog->created_at->format('M d, Y') : '-' }}
+                                                    </li>
+                                                    {{-- <li><i class="fa-light fa-comment"></i> (05)</li> --}}
+                                                </ul>
+                                            </div>
+                                            <div class="tj-details-header">
+                                                <h6>
+                                                    <a href="#">{{ $row->title }}</a>
+                                                </h6>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
                         {{-- <div class="tj-sidebar-widget sidebar-catagory">
