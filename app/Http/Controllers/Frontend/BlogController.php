@@ -17,9 +17,9 @@ class BlogController extends Controller
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'LIKE', "%{$search}%")
-                    ->orWhere('excerpt', 'LIKE', "%{$search}%")
+                    // ->orWhere('excerpt', 'LIKE', "%{$search}%")
                     ->orWhere('tags', 'LIKE', "%{$search}%")
-                    ->orWhere('heading_one', 'LIKE', "%{$search}%")
+                    // ->orWhere('heading_one', 'LIKE', "%{$search}%")
                     ->orWhere('slug', 'LIKE', "%{$search}%"); // ← semicolon was missing
             });
         }
