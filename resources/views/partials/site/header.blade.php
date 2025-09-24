@@ -35,12 +35,6 @@
                 </a>
             </div>
         </div>
-        {{-- <div class="tj-search-box">
-            <form action="#">
-                <input type="text" class="form-control-1" name="search" id="search" placeholder="Search" />
-                <a href="#"><i class="fal fa-search"></i></a>
-            </form>
-        </div> --}}
         <!-- Canvas Mobile Menu start -->
         <nav class="right_menu_togle mobile-navbar-menu d-lg-none" id="mobile-navbar-menu"></nav>
         <p class="des d-none d-lg-block">
@@ -78,21 +72,28 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="tj-offcanvas-icon-list">
+        <div class="tj-offcanvas-icon-list">
             <h4 class="offcanvas-title">Follow Us</h4>
             <ul>
                 <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
                 <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
                 <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
                 <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                <li>
+                    <a href="tel:+17134706157" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </li>
             </ul>
-        </div> --}}
+        </div>
         <div class="contact-map d-none d-lg-block">
             <iframe
-                src="https://maps.google.com/maps?q=USA&amp;t=&amp;z=4&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
-                style="border: 0"
+                src="https://www.google.com/maps?q=5402+Renwick+Dr+Apt+902,+Houston,+TX+77081&hl=en&z=15&output=embed"
+                style="border:0; width:100%; height:250px;"
                 allowfullscreen=""
-            ></iframe>
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
         <div class="tj-theme-button tj-btn d-lg-none">
             <a class="tj-primary-btn" href="{{ route('multiform') }}">Get a Free Quote <i class="flaticon-right-1"></i></a>
@@ -115,7 +116,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="search_form">
+                        {{-- <div class="search_form">
                             <form action="search-results.html" method="GET">
                                 <div class="search_input">
                                     <input
@@ -128,7 +129,7 @@
                                     <button type="submit"><i class="flaticon-loupe"></i></button>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -138,7 +139,53 @@
 <!-- end: Search Popup -->
 
 <!--========== Header Section Start ==============-->
-    <header class="header-section-three" id="header-sticky">
+    <header class="header-section-two" id="header-sticky">
+        <div class="header-topbar d-none d-lg-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="topbar-content-area">
+                            <div class="header-content-left">
+                                <ul class="list-gap">
+                                    <li>
+                                        <i class="flaticon flaticon-mail"></i
+                                        ><a href="mailto:info@bridgewaylogisticsllc.com"> info@bridgewaylogisticsllc.com</a>
+                                    </li>
+                                    <li>
+                                        <i class="flaticon flaticon-call"></i
+                                        ><a href="tel:+17134706157"> +1 (713) 470-6157</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="header-content-right d-flex align-items-center justify-content-end">
+                                {{-- <div class="input-form tj-select">
+                                    <select class="nice-select">
+                                        <option value="1">English</option>
+                                        <option value="2">Arabic</option>
+                                    </select>
+                                </div> --}}
+                                <div class="header-social-icon">
+                                    <ul class="list-gap social-list">
+                                        <li>
+                                            <a href="#"> <i class="fa-brands fa-facebook-f"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="fa-brands fa-youtube"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="fa-brands fa-linkedin-in"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="fa-brands fa-twitter"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- header menu Start -->
         <div class="tj-header-menu-bottom">
             <div class="container">

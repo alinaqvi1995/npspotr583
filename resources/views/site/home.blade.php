@@ -676,4 +676,125 @@
         </div>
     </section> --}}
     <!--=========== Blog Section End =========-->
+    <!--=========== Map Section Start =========-->
+    <section class="tj-map-section">
+        <div class="google-map">
+            <iframe
+                src="https://www.google.com/maps?q=5402+Renwick+Dr+Apt+902,+Houston,+TX+77081&hl=en&z=15&output=embed"
+                style="border:0; width:100%; height:300px;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+        </div>
+        {{-- <div class="tj-map-tabs" data-bg-image="assets/images/banner/form-shape2.png">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h4 class="accordion-header" id="headingOne">
+                        <button
+                            class="accordion-button"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne"
+                            aria-expanded="true"
+                            aria-controls="collapseOne"
+                        >
+                            London Office
+                        </button>
+                    </h4>
+                    <div
+                        id="collapseOne"
+                        class="accordion-collapse collapse show"
+                        aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample"
+                        style=""
+                    >
+                        <div class="accordion-body">
+                            <ul class="list-gap">
+                                <li><i class="flaticon-placeholder"></i><span> Commercial Road, London</span></li>
+                                <li>
+                                    <i class="flaticon-mail"></i
+                                    ><a href="mailto:subai2025@gmail.com"> subai2025@gmail.com</a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-call"></i
+                                    ><a href="tel:+92(8800)-987025"> +92 (8800) - 9870 25</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo"
+                            aria-expanded="false"
+                            aria-controls="collapseTwo"
+                        >
+                            Australia Office
+                        </button>
+                    </h2>
+                    <div
+                        id="collapseTwo"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample"
+                    >
+                        <div class="accordion-body">
+                            <ul class="list-gap">
+                                <li><i class="flaticon-placeholder"></i><span> Commercial Road ,London</span></li>
+                                <li>
+                                    <i class="flaticon-mail"></i
+                                    ><a href="mailto:subai2025@gmail.com"> subai2025@gmail.com</a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-call"></i
+                                    ><a href="tel:+92(8800)-987025"> +92 (8800) - 9870 25</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree"
+                            aria-expanded="false"
+                            aria-controls="collapseThree"
+                        >
+                            Canada office
+                        </button>
+                    </h2>
+                    <div
+                        id="collapseThree"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample"
+                    >
+                        <div class="accordion-body">
+                            <ul class="list-gap">
+                                <li><i class="flaticon-placeholder"></i><span> Commercial Road ,London</span></li>
+                                <li>
+                                    <i class="flaticon-mail"></i
+                                    ><a href="mailto:subai2025@gmail.com"> subai2025@gmail.com</a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-call"></i
+                                    ><a href="tel:+92(8800)-987025"> +92 (8800) - 9870 25</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+    </section>
+    <!--=========== Map Section End =========-->
 @endsection
