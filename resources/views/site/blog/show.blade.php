@@ -236,7 +236,7 @@
                 <div class="col-lg-4">
                     <div class="details-sidebar-inner">
                         <div class="tj-sidebar-widget sidebar-search">
-                            <form action="{{ route('blogs.index') }}" method="GET">
+                            <form action="{{ route('blog.index') }}" method="GET">
                                 <input type="text" class="form-control" name="search" id="searchOne"
                                     placeholder="Search" value="{{ request('search') }}" />
                                 <button type="submit" class="btn btn-link p-0 border-0">
