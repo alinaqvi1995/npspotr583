@@ -356,9 +356,9 @@
                             <div class="details-tags-box">
                                 <div class="share-link">
                                     <span> Share Article</span>
-                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="https://www.facebook.com/p/Bridgeway-Logistics-LLC-100095155214364/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                                     <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="https://www.instagram.com/bridgewaylogistics.llc?igsh=MTQ5MnFjaDhucnpjdg==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                                     <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
                                 </div>
                                 <div class="tags-link">
