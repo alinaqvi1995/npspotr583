@@ -132,6 +132,7 @@
             <div class="row">
                 @foreach ($services as $row)
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                        <a href="{{ route('services.show.detail', $row->slug) }}">
                         <div class="service-item-three h-100">
                             <div class="service-image">
                                 <img src="{{ asset($row->image_one) }}" 
@@ -151,6 +152,7 @@
                                 <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
                             </div>
                         </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
