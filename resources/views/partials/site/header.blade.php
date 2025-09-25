@@ -148,11 +148,11 @@
                             <div class="header-content-left">
                                 <ul class="list-gap">
                                     <li>
-                                        <i class="flaticon flaticon-mail"></i
+                                        <i class="fa-solid fa-envelope fa-bounce fa-lg" style="display:inline-block; position: relative;"></i
                                         ><a href="mailto:info@bridgewaylogisticsllc.com"> info@bridgewaylogisticsllc.com</a>
                                     </li>
                                     <li>
-                                        <i class="flaticon flaticon-call"></i
+                                        <i class="fa-solid fa-phone fa-bounce fa-lg" style="display:inline-block; position: relative;"></i
                                         ><a href="tel:+17134706157"> +1 (713) 470-6157</a>
                                     </li>
                                     <li>
