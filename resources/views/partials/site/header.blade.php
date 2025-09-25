@@ -197,7 +197,7 @@
                     <div class="col-lg-12">
                         <div class="header-menu-area">
                             <div class="logo-box">
-                                <a href="{{ route('home') }}"><img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics LLC" /></a>
+                                <a href="{{ route('home') }}"><img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Bridgeway Logistics LLC" /></a>
                             </div>
                             <div class="tj-main-menu d-lg-block d-none text-end" id="main-menu">
                                 <ul class="main-menu">
