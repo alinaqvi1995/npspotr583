@@ -22,7 +22,7 @@
     <meta name="keywords" content="logistics, auto shipping, freight, transport, Bridgeway Logistics, heavy equipment transport">
     <meta name="author" content="Bridgeway Logistics LLC">
     <meta name="robots" content="index, follow">
-
+    <meta name="google-site-verification" content="JzuAKKT0vXQUnnT258OUXEiaTSVKBzr3mnMpecX1kNg" />
     <!-- Title -->
     <title>@yield('title', 'Bridgeway Logistics LLC')</title>
 
