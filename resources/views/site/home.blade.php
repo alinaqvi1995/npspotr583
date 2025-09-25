@@ -54,9 +54,9 @@
         /* ✅ Mobile (screen <= 575px) */
         @media (max-width: 575px) {
             .fixed-form {
-                width: 80%;
+                width: 100%;
                 max-width: 100%;
-                padding: 0 15px;
+                padding: 0 5px;
             }
 
             .fixed-form .tj-input-form {
