@@ -771,7 +771,7 @@
                         <div class="tj-blog-item">
                             <div class="tj-blog-image">
                                 <a href="{{ route('blog.show', $blog->slug) }}">
-                                    <img src="{{ asset($blog->image_one) }}" alt="Blog" class="blog-img" />
+                                    <img src="{{ asset($blog->image_one) }}" alt="Blog" class="blog-img img-fluid w-100" style="height:250px; object-fit:cover;" />
                                 </a>
                             </div>
                             <div class="blog-content-area">
