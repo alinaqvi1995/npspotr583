@@ -1312,7 +1312,7 @@ body [class*=" icon-"]::before {
     height: 2px;
     width: 30px;
     display: block;
-    background: var(--tj-secondary-color);
+    background: var(--tj-white-color);
     cursor: pointer;
     list-style: none;
     margin: 8px 0;
