@@ -185,8 +185,8 @@
                                         $services = App\Models\Service::where('status', 1)->get();
                                     @endphp
                                     @foreach ($services->take(5) as $row)
-                                        <li class="text-white">
-                                            <a href="{{ route('services.show.detail', $row->slug) }}">
+                                        <li>
+                                            <a class="text-white" href="{{ route('services.show.detail', $row->slug) }}">
                                                 <i class="flaticon-right-chevron-1"></i> {{ $row->title }}
                                             </a>
                                         </li>
@@ -233,13 +233,13 @@
                         <div class="col-lg-12">
                             <div class="footer-copyright-two">
                                 <div class="copyright-target">
-                                    <p>© 2025 Bridgeway Logistics LLC. All Rights Reserved.</p>
+                                    <p class="text-white">© 2025 Bridgeway Logistics LLC. All Rights Reserved.</p>
                                 </div>
                                 <div class="copyright-menu">
                                     <ul class="list-gap">
-                                        <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
-                                        <li><a href="{{ route('faq') }}">FAQs</a></li>
-                                        <li><a href="{{ route('trems') }}">Terms & Conditions</a></li>
+                                        <li><a class="text-white" href="{{ route('privacy') }}">Privacy Policy</a></li>
+                                        <li><a class="text-white" href="{{ route('faq') }}">FAQs</a></li>
+                                        <li><a class="text-white" href="{{ route('trems') }}">Terms & Conditions</a></li>
                                     </ul>
                                 </div>
                             </div>
