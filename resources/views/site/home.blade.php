@@ -796,10 +796,10 @@
                                     <div class="blog-header">
                                         <h4>
                                             <a class="title-link" href="{{ route('blog.show', $blog->slug) }}">
-                                                {{ $blog->title }}
+                                                {!! Str::limit(strip_tags( $blog->title ), 20, '...') !!}
                                             </a>
                                         </h4>
-                                        <p>{!! Str::limit(strip_tags($blog->description_one), 100, '...') !!}</p>
+                                        <p>{!! Str::limit(strip_tags($blog->description_one), 70, '...') !!}</p>
                                     </div>
                                     <div class="blog-button">
                                         <ul class="list-gap">
