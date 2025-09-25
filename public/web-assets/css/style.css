@@ -346,7 +346,7 @@ textarea:focus {
 }
 
 .header-content-right .header-social-icon .social-list li a i {
-    color: var(--tj-white-color);
+    color: #072f3a;
     font-size: 15px;
     transition: 0.4s;
 }
@@ -364,7 +364,7 @@ textarea:focus {
 }
 
 .header-section-two .header-topbar {
-    background: var(--tj-secondary-color);
+    background: #ffffff;
     padding: 7px 0;
 }
 
@@ -398,10 +398,11 @@ textarea:focus {
     transform: translateY(-50%);
     left: 0;
     line-height: 1;
+    color: #072f3a;
 }
 
 .header-section-two .header-content-left ul li a {
-    color: var(--tj-white-color);
+    color: #103641;
     transition: 0.4s;
 }
 
@@ -522,6 +523,7 @@ textarea:focus {
 }
 
 .tj-header-menu-bottom {
+    background: #062e39;
     padding: 15px 0;
 }
 
@@ -1117,7 +1119,7 @@ body [class*=" icon-"]::before {
 }
 
 .tj-main-menu li a {
-    color: var(--tj-secondary-color);
+    color: var(--tj-white-color);
     font-size: 16px;
     font-weight: 500;
     font-family: var(--tj-ff-title);
