@@ -1,2 +1,4 @@
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://bridgewaylogisticsllc.com/sitemap.xml

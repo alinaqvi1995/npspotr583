@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
@@ -10,6 +10,38 @@
     <meta name="theme-style-mode" content="1">
     <meta name="description" content="@yield('meta_description', 'saas, software, tools, solutions')">
     <title>@yield('title', 'Service Site')</title>
+    <!-- Favicon --> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="theme-style-mode" content="1">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="@yield('meta_description', 'Bridgeway Logistics LLC offers tailored logistics services including auto transport, freight, and heavy equipment shipping.')">
+    <meta name="keywords" content="logistics, auto shipping, freight, transport, Bridgeway Logistics, heavy equipment transport">
+    <meta name="author" content="Bridgeway Logistics LLC">
+    <meta name="robots" content="index, follow">
+
+    <!-- Title -->
+    <title>@yield('title', 'Bridgeway Logistics LLC')</title>
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="@yield('title', 'Bridgeway Logistics LLC')">
+    <meta property="og:description" content="@yield('meta_description', 'From open transport to heavy equipment shipping, we offer a full range of tailored logistics services.')">
+    <meta property="og:image" content="{{ asset('web-assets/images/og-image.jpg') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', 'Bridgeway Logistics LLC')">
+    <meta name="twitter:description" content="@yield('meta_description', 'From open transport to heavy equipment shipping, we offer a full range of tailored logistics services.')">
+    <meta name="twitter:image" content="{{ asset('web-assets/images/og-image.jpg') }}">
+
     <!-- Favicon -->
     <link rel="apple-touch-icon" href="{{ asset('web-assets/images/fav.svg') }}" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('web-assets/images/fav.svg') }}" />

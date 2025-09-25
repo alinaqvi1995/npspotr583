@@ -1,7 +1,7 @@
 @extends('layouts.guest')
-@section('title', 'Home')
-@section('meta_description', 'Explore our SaaS solutions tailored to your business.')
-@section('meta_keywords', 'SaaS, services, business software')
+@section('title', 'Home – Bridgeway Logistics LLC')
+@section('meta_description', 'Bridgeway Logistics LLC – Professional auto transport, freight services, and heavy equipment shipping across the USA.')
+@section('meta_keywords', 'auto shipping, car transport, logistics, freight, heavy equipment shipping, Bridgeway Logistics, USA transport, vehicle transport')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
