@@ -132,9 +132,12 @@
             <div class="row">
                 @foreach ($services as $row)
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                        <div class="service-item-three">
+                        <div class="service-item-three h-100">
                             <div class="service-image">
-                                <img src="{{ asset($row->image_one) }}" alt="Image" />
+                                <img src="{{ asset($row->image_one) }}" 
+                                    alt="Image" 
+                                    class="img-fluid w-100" 
+                                    style="height:250px; object-fit:cover;" />
                             </div>
                             <div class="service-content">
                                 <div class="service-icon">
