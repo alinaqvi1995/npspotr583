@@ -130,9 +130,9 @@
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                         <div class="footer-widget footer2_col_1 footer-content-info">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Logo" />
+                                <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Logo" />
                             </a>
-                            <p>
+                            <p class="text-white">
                                 Bridgeway Logistics LLC is committed to providing reliable and secure vehicle
                                 transportation services across the United States. Your shipment is our priority.
                             </p>
@@ -159,15 +159,15 @@
                             </div>
                             <div class="widget-time">
                                 <ul class="list-gap">
-                                    <li><a href="{{ route('about') }}"><i class="flaticon-right-chevron-1"></i> About
+                                    <li><a class="text-white" href="{{ route('about') }}"><i class="flaticon-right-chevron-1"></i> About
                                             Us</a></li>
-                                    <li><a href="{{ route('multiform') }}"><i class="flaticon-right-chevron-1"></i> Get
+                                    <li><a class="text-white" href="{{ route('multiform') }}"><i class="flaticon-right-chevron-1"></i> Get
                                             Quote</a></li>
-                                    <li><a href="{{ route('contact') }}"><i class="flaticon-right-chevron-1"></i>
+                                    <li><a class="text-white" href="{{ route('contact') }}"><i class="flaticon-right-chevron-1"></i>
                                             Contact Us</a></li>
-                                    <li><a href="{{ route('trems') }}"><i class="flaticon-right-chevron-1"></i> Terms &
+                                    <li><a class="text-white" href="{{ route('trems') }}"><i class="flaticon-right-chevron-1"></i> Terms &
                                             Conditions</a></li>
-                                    <li><a href="{{ route('faq') }}"><i class="flaticon-right-chevron-1"></i> FAQs</a>
+                                    <li><a class="text-white" href="{{ route('faq') }}"><i class="flaticon-right-chevron-1"></i> FAQs</a>
                                     </li>
                                 </ul>
                             </div>
@@ -185,7 +185,7 @@
                                         $services = App\Models\Service::where('status', 1)->get();
                                     @endphp
                                     @foreach ($services->take(5) as $row)
-                                        <li>
+                                        <li class="text-white">
                                             <a href="{{ route('services.show.detail', $row->slug) }}">
                                                 <i class="flaticon-right-chevron-1"></i> {{ $row->title }}
                                             </a>
