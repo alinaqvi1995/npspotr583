@@ -7255,7 +7255,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 }
 
 .tj-footer-v2 .widget_recent_post .widget-post .post-calender .post-title {
-    color: var(--tj-secondary-color);
+    color: var(--tj-white-color);
     transition: 0.4s;
     font-size: 18px;
 }
@@ -7277,7 +7277,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 }
 
 .tj-footer-v2 {
-    background: var(--tj-dark-color2);
+    background: var(--tj-secondary-color);
     padding-top: 90px;
     position: relative;
 }
@@ -7299,7 +7299,7 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 }
 
 .tj-footer-v2 .footer-title .title {
-    color: var(--tj-dark-color);
+    color: var(--tj-white-color);
     font-weight: 700;
     display: block;
     margin-bottom: 0;
