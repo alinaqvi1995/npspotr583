@@ -54,7 +54,7 @@ class OrderFormController extends Controller
                         ->subject('Order Form for Quote #' . $quote->id);
 
                     // Attach/embed logo if exists
-                    $logoPath = public_path('web-assets/images/logo/logo_001.png');
+                    $logoPath = public_path('web-assets/images/logo/1-logo.png');
                     if (file_exists($logoPath)) {
                         $message->embed($logoPath, 'logo');
                     }

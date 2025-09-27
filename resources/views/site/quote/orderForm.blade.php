@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Order Form - Quote #{{ $quote->id }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ asset('web-assets/images/logo/logo_001.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('web-assets/images/logo/1-logo.png') }}" type="image/png">
     <!-- Bootstrap  v5.1.3 css -->
     <link rel="stylesheet" href="{{ asset('web-assets/css/bootstrap.min.css') }}" />
     <!-- Meanmenu  css -->
@@ -333,7 +333,7 @@
                                             <div class="row align-items-center border-bottom pb-3 mb-4">
                                                 <!-- Logo -->
                                                 <div class="col-12 col-md-auto text-center text-md-start mb-3 mb-md-0">
-                                                    <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" 
+                                                    <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" 
                                                         alt="Company Logo" 
                                                         class="img-fluid" 
                                                         style="max-height:70px;">
@@ -499,10 +499,10 @@
                                                     <!-- Terms -->
                                                     <div class="card border mb-3">
                                                         <div class="card-body">
-                                                            <button type="button" class="btn btn-link p-0" data-bs-toggle="collapse" data-bs-target="#terms">[+] Terms & Conditions</button>
-                                                            <div id="terms" class="collapse mt-2">
-                                                                <p class="small text-muted mb-0">Your transport will follow standard industry terms...</p>
-                                                            </div>
+                                                            <p class="small text-muted mb-2">
+                                                                Your transport will follow standard industry terms. Please make sure you read all guidelines carefully before booking...
+                                                            </p>
+                                                            <a href="{{ route('trems') }}" class="btn btn-link p-0">View Full Terms & Conditions</a>
                                                             <div class="form-check mt-2">
                                                                 <input class="form-check-input" type="checkbox" id="confirm_terms" name="confirm_terms" {{ old('confirm_terms') ? 'checked' : '' }} required>
                                                                 <label for="confirm_terms" class="form-check-label">I accept the Terms & Conditions</label>

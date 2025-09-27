@@ -27,7 +27,7 @@
     <div class="tj-offcanvas-area">
         <div class="tj-offcanvas-header d-flex align-items-center justify-content-between">
             <div class="logo-area text-center">
-                <a href="{{ route('home') }}"><img src="web-assets/images/logo/logo_001.png" alt="Bridgeway Logistics LLC" /></a>
+                <a href="{{ route('home') }}"><img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics LLC" /></a>
             </div>
             <div class="offcanvas-icon">
                 <a id="canva_close" href="#">
@@ -75,10 +75,10 @@
         <div class="tj-offcanvas-icon-list">
             <h4 class="offcanvas-title">Follow Us</h4>
             <ul>
-                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                <li><a href="https://www.facebook.com/p/Bridgeway-Logistics-LLC-100095155214364/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
+                <li><a href="https://www.instagram.com/bridgewaylogistics.llc?igsh=MTQ5MnFjaDhucnpjdg==" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                {{-- <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li> --}}
                 <li>
                     <a href="tel:+17134706157" target="_blank">
                         <i class="fa-brands fa-whatsapp"></i>
@@ -112,7 +112,7 @@
                         <div class="search_top d-flex justify-content-between align-items-center">
                             <div class="search_logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="web-assets/images/logo/logo_001.png" alt="Bridgeway Logistics LLC" />
+                                    <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics LLC" />
                                 </a>
                             </div>
                         </div>
@@ -148,11 +148,15 @@
                             <div class="header-content-left">
                                 <ul class="list-gap">
                                     <li>
-                                        <i class="flaticon flaticon-mail"></i
+                                        <i class="fa-solid fa-envelope fa-bounce fa-lg" style="display:inline-block; position: relative;"></i
                                         ><a href="mailto:info@bridgewaylogisticsllc.com"> info@bridgewaylogisticsllc.com</a>
                                     </li>
                                     <li>
-                                        <i class="flaticon flaticon-call"></i
+                                        <i class="fa-solid fa-phone fa-bounce fa-lg" style="display:inline-block; position: relative;"></i
+                                        ><a href="tel:+17134706157"> +1 (713) 470-6157</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa-brands fa-whatsapp fa-bounce fa-lg " style="display:inline-block; position: relative;"></i
                                         ><a href="tel:+17134706157"> +1 (713) 470-6157</a>
                                     </li>
                                 </ul>
@@ -167,17 +171,17 @@
                                 <div class="header-social-icon">
                                     <ul class="list-gap social-list">
                                         <li>
-                                            <a href="#"> <i class="fa-brands fa-facebook-f"></i></a>
+                                            <a href="https://www.facebook.com/p/Bridgeway-Logistics-LLC-100095155214364/" target="_blank"> <i class="fa-brands fa-facebook-f"></i></a>
                                         </li>
                                         <li>
+                                            <a href="https://www.instagram.com/bridgewaylogistics.llc?igsh=MTQ5MnFjaDhucnpjdg==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                        </li>
+                                        {{-- <li>
                                             <a href="#"> <i class="fa-brands fa-youtube"></i></a>
                                         </li>
                                         <li>
                                             <a href="#"> <i class="fa-brands fa-linkedin-in"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> <i class="fa-brands fa-twitter"></i></a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </div>

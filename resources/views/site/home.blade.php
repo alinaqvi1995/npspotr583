@@ -1,7 +1,7 @@
 @extends('layouts.guest')
-@section('title', 'Home')
-@section('meta_description', 'Explore our SaaS solutions tailored to your business.')
-@section('meta_keywords', 'SaaS, services, business software')
+@section('title', 'Home – Bridgeway Logistics LLC')
+@section('meta_description', 'Bridgeway Logistics LLC – Professional auto transport, freight services, and heavy equipment shipping across the USA.')
+@section('meta_keywords', 'auto shipping, car transport, logistics, freight, heavy equipment shipping, Bridgeway Logistics, USA transport, vehicle transport')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -13,9 +13,30 @@
             right: 10%;
             transform: translateY(-50%);
             z-index: 20;
-            width: 100%; /* form width */
+            width: 80%; /* form width */
         }
-
+        @media only screen and (min-width: 1400px) and (max-width: 1599px) {
+            .fixed-form {
+                    position: absolute;
+                    top: 50%;
+                    right: 4%;
+                    transform: translateY(-50%);
+                    z-index: 20;
+                    width: 80%; /* form width */
+                }
+        }
+        @media only screen and (min-width: 992px) and (max-width: 1199px) {
+            .fixed-form {
+                position: absolute;
+                top: 50%;
+                right: 3%;
+                transform: translateY(-50%);
+                z-index: 20;
+                width: 38%;
+                max-width: 500px;
+                margin: 30px auto;
+            }
+        }
         /* ✅ Tablet (screen <= 991px) */
         @media (max-width: 991px) {
             .fixed-form {
@@ -23,7 +44,7 @@
                 top: auto;
                 right: auto;
                 transform: none;
-                width: 100%;
+                width: 80%;
                 max-width: 500px;
                 margin: 30px auto;
                 z-index: 20;
@@ -35,7 +56,7 @@
             .fixed-form {
                 width: 100%;
                 max-width: 100%;
-                padding: 0 15px;
+                padding: 0 5px;
             }
 
             .fixed-form .tj-input-form {
@@ -463,7 +484,7 @@
                                 </div>
                             </div>
                             <!-- FAQ 5 -->
-                            <div class="accordion-item">
+                            {{-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFive">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFive" aria-expanded="false"
@@ -478,7 +499,7 @@
                                         for delivery staff.
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- FAQ 6 -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingSix">
@@ -613,69 +634,6 @@
     </section>
     <!--========== Choose Section End ==============-->
 
-    <!--=========== Blog Section Start =========-->
-    {{-- <section class="tj-blog-section-three">
-        <div class="container">
-            <div class="row">
-                <div class="tj-section-heading text-center">
-                    <span class="sub-title active-shape"> Latest Blogs</span>
-                    <h2 class="title">Insights & Industry Updates</h2>
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($blogs as $blog)
-                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                        <div class="tj-blog-item">
-                            <div class="tj-blog-image">
-                                <a href="{{ route('blog.show', $blog->slug) }}">
-                                    <img src="{{ asset($blog->image_one) }}" alt="Blog" class="blog-img" />
-                                </a>
-                            </div>
-                            <div class="blog-content-area">
-                                <div class="blog-meta">
-                                    <div class="meta-date">
-                                        <ul class="list-gap">
-                                            <li>{{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</li>
-                                            <li>{{ $blog->created_at ? $blog->created_at->format('M') : '-' }}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="meta-list">
-                                        <ul class="list-gap">
-                                            <li>
-                                                <i class="fa-light fa-user"></i>
-                                                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->author }}</a>
-                                            </li>
-                                            <li><i class="fa-light fa-comment"></i> <span> Comment (5)</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="blog-text-box">
-                                    <div class="blog-header">
-                                        <h4>
-                                            <a class="title-link" href="{{ route('blog.show', $blog->slug) }}">
-                                                {{ $blog->title }}
-                                            </a>
-                                        </h4>
-                                        <p>{!! Str::limit(strip_tags($blog->description_one), 100, '...') !!}</p>
-                                    </div>
-                                    <div class="blog-button">
-                                        <ul class="list-gap">
-                                            <li>
-                                                <a href="{{ route('blog.show', $blog->slug) }}">
-                                                    Read More <i class="fa-regular fa-arrow-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section> --}}
-    <!--=========== Blog Section End =========-->
     <!--=========== Map Section Start =========-->
     <section class="tj-map-section">
         <div class="google-map">
@@ -797,4 +755,68 @@
         </div> --}}
     </section>
     <!--=========== Map Section End =========-->
+
+    <!--=========== Blog Section Start =========-->
+    <section class="tj-blog-section-three">
+        <div class="container">
+            <div class="row">
+                <div class="tj-section-heading text-center">
+                    <span class="sub-title active-shape"> Latest Blogs</span>
+                    <h2 class="title">Insights & Industry Updates</h2>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($blogs as $blog)
+                    <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
+                        <div class="tj-blog-item">
+                            <div class="tj-blog-image">
+                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                    <img src="{{ asset($blog->image_one) }}" alt="Blog" class="blog-img img-fluid w-100" style="height:250px; object-fit:cover;" />
+                                </a>
+                            </div>
+                            <div class="blog-content-area">
+                                <div class="blog-meta">
+                                    <div class="meta-date">
+                                        <ul class="list-gap">
+                                            <li>{{ $blog->created_at ? $blog->created_at->format('d') : '-' }}</li>
+                                            <li>{{ $blog->created_at ? $blog->created_at->format('M') : '-' }}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="meta-list">
+                                        <ul class="list-gap">
+                                            <li>
+                                                <i class="fa-light fa-user"></i>
+                                                <a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->author }}</a>
+                                            </li>
+                                            <li><i class="fa-light fa-comment"></i> <span> Comment (5)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="blog-text-box">
+                                    <div class="blog-header">
+                                        <h4>
+                                            <a class="title-link" href="{{ route('blog.show', $blog->slug) }}">
+                                                {!! Str::limit(strip_tags( $blog->title ), 20, '...') !!}
+                                            </a>
+                                        </h4>
+                                        <p>{!! Str::limit(strip_tags($blog->description_one), 70, '...') !!}</p>
+                                    </div>
+                                    <div class="blog-button">
+                                        <ul class="list-gap">
+                                            <li>
+                                                <a href="{{ route('blog.show', $blog->slug) }}">
+                                                    Read More <i class="fa-regular fa-arrow-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!--=========== Blog Section End =========-->
 @endsection

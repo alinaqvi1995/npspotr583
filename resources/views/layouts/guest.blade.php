@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="theme-style-mode" content="1">
-    <meta name="description" content="@yield('meta_description', 'saas, software, tools, solutions')">
-    <title>@yield('title', 'Service Site')</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="@yield('meta_description', 'Bridgeway Logistics LLC offers tailored logistics services including auto transport, freight, and heavy equipment shipping.')">
+    <meta name="keywords" content="logistics, auto shipping, freight, transport, Bridgeway Logistics, heavy equipment transport">
+    <meta name="author" content="Bridgeway Logistics LLC">
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="JzuAKKT0vXQUnnT258OUXEiaTSVKBzr3mnMpecX1kNg" />
+    <!-- Title -->
+    <title>@yield('title', 'Bridgeway Logistics LLC')</title>
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ url()->current() }}">
+
     <!-- Favicon -->
     <link rel="apple-touch-icon" href="{{ asset('web-assets/images/fav.svg') }}" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('web-assets/images/fav.svg') }}" />

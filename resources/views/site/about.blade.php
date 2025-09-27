@@ -132,9 +132,13 @@
             <div class="row">
                 @foreach ($services as $row)
                     <div class="col-lg-4 col-md-6" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">
-                        <div class="service-item-three">
+                        <a href="{{ route('services.show.detail', $row->slug) }}">
+                        <div class="service-item-three h-100">
                             <div class="service-image">
-                                <img src="{{ asset($row->image_one) }}" alt="Image" />
+                                <img src="{{ asset($row->image_one) }}" 
+                                    alt="Image" 
+                                    class="img-fluid w-100" 
+                                    style="height:250px; object-fit:cover;" />
                             </div>
                             <div class="service-content">
                                 <div class="service-icon">
@@ -148,6 +152,7 @@
                                 <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
                             </div>
                         </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
@@ -314,7 +319,7 @@
                                 </div>
                             </div>
                             <!-- FAQ 5 -->
-                            <div class="accordion-item">
+                            {{-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFive">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFive" aria-expanded="false"
@@ -329,7 +334,7 @@
                                         for delivery staff.
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- FAQ 6 -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingSix">
