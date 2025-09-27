@@ -50,7 +50,10 @@
                         @forelse($orderForms as $form)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $form->quote->id . ' / ' . $form->quote->load_id }}</td>
+                                <td>
+                                    <strong>Order ID:</strong> {{ $form->quote->id }}<br>
+                                    <strong>Order Load ID:</strong> {{ $form->quote->load_id ?? '---' }}<br>
+                                </td>
                                 <td>
                                     {{ $form->customer_name }}<br>
                                     <small>{{ $form->customer_email }}</small><br>

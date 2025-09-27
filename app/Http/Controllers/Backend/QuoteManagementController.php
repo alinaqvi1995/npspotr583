@@ -40,13 +40,13 @@ class QuoteManagementController extends Controller
             $request->input('column')
         );
 
-        return view('dashboard.quote.index', $data);
+        return view('dashboard.quotes.index', $data);
     }
 
     public function quoteDetail($id)
     {
         $quote = Quote::with('vehicles.images')->findOrFail($id);
-        return view('dashboard.quote.details', compact('quote'));
+        return view('dashboard.quotes.details', compact('quote'));
     }
 
     public function quoteCreate()
@@ -56,7 +56,7 @@ class QuoteManagementController extends Controller
             ->orderBy('make')
             ->pluck('make');
 
-        return view('dashboard.quote.create', compact('makes'));
+        return view('dashboard.quotes.create', compact('makes'));
     }
 
     public function quoteEdit($id)
@@ -68,7 +68,7 @@ class QuoteManagementController extends Controller
 
         $quote = Quote::with(['locations', 'vehicles.images'])->findOrFail($id);
 
-        return view('dashboard.quote.edit', compact('makes', 'quote'));
+        return view('dashboard.quotes.edit', compact('makes', 'quote'));
     }
 
     public function invoice()

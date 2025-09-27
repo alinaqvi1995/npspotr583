@@ -25,6 +25,43 @@
                 </div>
             </div>
 
+            <h5 class="mb-3">Vehicle Information</h5>
+            <div class="row">
+                @foreach ($orderForm->quote->vehicles as $vehicle)
+                    <div class="col-md-6 mb-3"> {{-- 2 cards per row --}}
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="fw-semibold mb-2">
+                                    {{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}
+                                </h6>
+                                <dl class="row mb-0 small text-muted">
+                                    @if ($vehicle->vin)
+                                        <dt class="col-sm-4">VIN</dt>
+                                        <dd class="col-sm-8">{{ $vehicle->vin }}</dd>
+                                    @endif
+                                    @if ($vehicle->color)
+                                        <dt class="col-sm-4">Color</dt>
+                                        <dd class="col-sm-8">{{ $vehicle->color }}</dd>
+                                    @endif
+                                    <dt class="col-sm-4">Condition</dt>
+                                    <dd class="col-sm-8">{{ $vehicle->condition ?? '-' }}</dd>
+                                    <dt class="col-sm-4">Trailer</dt>
+                                    <dd class="col-sm-8">{{ $vehicle->trailer_type ?? '-' }}</dd>
+                                </dl>
+                                @if ($vehicle->images->count())
+                                    <div class="d-flex flex-wrap mt-3">
+                                        @foreach ($vehicle->images as $img)
+                                            <img src="{{ asset($img->image_path) }}" class="img-thumbnail me-2 mb-2"
+                                                style="width:80px;height:80px;object-fit:cover;">
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
             <h5 class="mb-3">Pickup Information</h5>
             <div class="row mb-3">
                 <div class="col-md-6">
