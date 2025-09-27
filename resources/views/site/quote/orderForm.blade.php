@@ -367,7 +367,7 @@
                                                         </div>
                                                         <div class="col-md-6 text-md-end">
                                                             <p class="mb-1"><strong>Amount:</strong> ${{ $quote->amount_to_pay ?? 0 }}</p>
-                                                            <p class="mb-0"><strong>Balance:</strong> ${{ $quote->balance_amount ?? 0 }}</p>
+                                                            {{-- <p class="mb-0"><strong>Balance:</strong> ${{ $quote->balance_amount ?? 0 }}</p> --}}
                                                         </div>
                                                     </div>
                                                 </div>

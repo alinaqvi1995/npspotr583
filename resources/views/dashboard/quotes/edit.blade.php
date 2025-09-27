@@ -435,12 +435,12 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">Additional Info</h5>
                         <div class="row g-3">
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <label class="form-label">Your Load ID</label>
                                 <input type="text" class="form-control" name="additional[load_id]" maxlength="50"
                                     value="{{ old('additional.load_id', $quote->load_id) }}" placeholder="ID Number">
                                 <small class="text-muted">50 characters remaining</small>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12">
                                 <label class="form-label">Pre-dispatch Notes</label>

@@ -179,7 +179,8 @@
                                                     </a>
                                                 @else
                                                     <a class="dropdown-item send-order-form" href="javascript:;"
-                                                        data-id="{{ $quote->id }}">
+                                                        data-id="{{ $quote->id }}"
+                                                        data-price="{{ $quote->amount_to_pay }}">
                                                         <i class="material-icons-outlined fs-6 me-1">send</i> Send Order
                                                         Form
                                                     </a>
@@ -246,12 +247,12 @@
                             <input type="email" name="email" class="form-control rounded-3"
                                 placeholder="Enter recipient email" required>
                         </div>
-                        {{-- <div class="mb-3">
-                            <label class="form-label fw-semibold">Quote Price</label>
-                            <input type="text" name="number" class="form-control rounded-3"
-                                placeholder="Enter recipient name" required>
-                        </div>
                         <div class="mb-3">
+                            <label class="form-label fw-semibold">Amount to Pay</label>
+                            <input type="number" step="0.01" name="amount_to_pay" id="orderFormQuoteAmount"
+                                class="form-control rounded-3" placeholder="Enter recipient name" required>
+                        </div>
+                        {{-- <div class="mb-3">
                             <label class="form-label fw-semibold">Description</label>
                             <textarea name="description" class="form-control rounded-3" rows="4" placeholder="Write your message..." required></textarea>
                         </div> --}}
@@ -421,7 +422,9 @@
             // ✅ Send Order Form
             $(document).on('click', '.send-order-form', function() {
                 let quoteId = $(this).data('id');
+                let quoteAmount = $(this).data('price');
                 $('#orderFormQuoteId').val(quoteId);
+                $('#orderFormQuoteAmount').val(quoteAmount);
                 $('#sendOrderFormModal').modal('show');
             });
 

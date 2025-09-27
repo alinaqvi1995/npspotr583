@@ -41,11 +41,14 @@ class OrderFormController extends Controller
         $validated = $request->validate([
             'quote_id' => 'required|exists:quotes,id',
             'email'    => 'required|email',
+            'amount_to_pay'    => 'required',
         ]);
 
         try {
             // ✅ Fetch the quote safely
             $quote = Quote::findOrFail($validated['quote_id']);
+            $quote->amount_to_pay = $validated['amount_to_pay'];
+            $quote->save();
 
             // ✅ Send mail (with catch for failures)
             try {
