@@ -18,7 +18,7 @@
                                     {{-- <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li> --}}
                                     <li>
-                                        <a href="tel:+17134706157" target="_blank">
+                                        <a href="https://wa.me/17134706157" target="_blank">
                                             <i class="fa-brands fa-whatsapp"></i>
                                         </a>
                                     </li>

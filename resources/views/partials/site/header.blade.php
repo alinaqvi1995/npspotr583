@@ -80,7 +80,7 @@
                 {{-- <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
                 <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li> --}}
                 <li>
-                    <a href="tel:+17134706157" target="_blank">
+                    <a href="https://wa.me/17134706157" target="_blank">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </li>
@@ -157,7 +157,7 @@
                                     </li>
                                     <li>
                                         <i class="fa-brands fa-whatsapp fa-bounce fa-lg " style="display:inline-block; position: relative;"></i
-                                        ><a href="tel:+17134706157"> +1 (713) 470-6157</a>
+                                        ><a href="https://wa.me/17134706157"> +1 (713) 470-6157</a>
                                     </li>
                                 </ul>
                             </div>
