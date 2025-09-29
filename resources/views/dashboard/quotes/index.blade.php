@@ -60,6 +60,7 @@
                     <option value="order" {{ request('column', 'order') == 'order' ? 'selected' : 'selected' }}>Order#
                     </option>
                     <option value="customer" {{ request('column') == 'customer' ? 'selected' : '' }}>Customer</option>
+                    <option value="customer_phone" {{ request('column') == 'customer_phone' ? 'selected' : '' }}>Customer Phone</option>
                     <option value="vehicles" {{ request('column') == 'vehicles' ? 'selected' : '' }}>Vehicles</option>
                     <option value="pickup" {{ request('column') == 'pickup' ? 'selected' : '' }}>Pickup</option>
                     <option value="delivery" {{ request('column') == 'delivery' ? 'selected' : '' }}>Delivery</option>

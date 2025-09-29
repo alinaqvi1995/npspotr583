@@ -80,8 +80,12 @@ class QuoteService
 
                 case 'customer':
                     $q->where('customer_name', 'like', "%{$search}%")
-                        ->orWhere('customer_email', 'like', "%{$search}%")
-                        ->orWhere('customer_phone', 'like', "%{$search}%");
+                        ->orWhere('customer_email', 'like', "%{$search}%");
+                    break;
+
+                case 'customer_phone':
+                    $normalizedSearch = preg_replace('/\D+/', '', $search);
+                    $q->whereRaw("REPLACE(REPLACE(REPLACE(REPLACE(customer_phone, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ?", ["%$normalizedSearch%"]);
                     break;
 
                 case 'vehicles':
