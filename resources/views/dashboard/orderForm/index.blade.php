@@ -55,9 +55,25 @@
                                     <strong>Order Load ID:</strong> {{ $form->quote->load_id ?? '---' }}<br>
                                 </td>
                                 <td>
-                                    {{ $form->customer_name }}<br>
+                                    {{-- {{ $form->customer_name }}<br>
                                     <small>{{ $form->customer_email }}</small><br>
-                                    <small>{{ $form->customer_phone }}</small>
+                                    <small>{{ $form->customer_phone }}</small> --}}
+                                    @if ($form->quote->customer_name == optional($form->quote->pickupLocation)->contact_name)
+                                        {{-- Case: Normal == Pickup → show Delivery --}}
+                                        {{ optional($form->quote->deliveryLocation)->contact_name }}<br>
+                                        <small>{{ optional($form->quote->deliveryLocation)->contact_email }}</small><br>
+                                        <small>{{ optional($form->quote->deliveryPhones->first())->phone }}</small>
+                                    @elseif ($form->quote->customer_name || $form->quote->customer_email || $form->quote->customer_phone)
+                                        {{-- Case: Normal (customer) exists → show Customer --}}
+                                        {{ $form->quote->customer_name ?? optional($form->quote->deliveryLocation)->contact_name }}<br>
+                                        <small>{{ $form->quote->customer_email ?? optional($form->quote->deliveryLocation)->contact_email }}</small><br>
+                                        <small>{{ $form->quote->customer_phone ?? optional($form->quote->deliveryPhones->first())->phone }}</small>
+                                    @else
+                                        {{-- Fallback → Delivery --}}
+                                        {{ optional($form->quote->deliveryLocation)->contact_name }}<br>
+                                        <small>{{ optional($form->quote->deliveryLocation)->contact_email }}</small><br>
+                                        <small>{{ optional($form->quote->deliveryPhones->first())->phone }}</small>
+                                    @endif
                                 </td>
                                 <td>
                                     <strong>Pickup:</strong><br>
