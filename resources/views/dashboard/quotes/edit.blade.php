@@ -27,12 +27,40 @@
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <!-- Pickup and Delivery Locations -->
+
             <div class="col-12">
                 <div class="card">
                     <div class="card-header mb-4">
                         <h3 class="fw-bold text-center">Order#: {{ $quote->id }}</h3>
                     </div>
+                    <div class="card-body p-4">
+                        <h5 class="mb-4">Customer Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Name</label>
+                                <input type="text" name="customer_name" value="{{ $quote->customer_name }}"
+                                    class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Email</label>
+                                <input type="email" name="customer_email" value="{{ $quote->customer_email }}"
+                                    class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Phone</label>
+                                <input type="text" name="customer_phone" value="{{ $quote->customer_phone }}"
+                                    class="form-control" placeholder="Phone">
+                                {{-- <small><a href="#" class="text-primary addPhoneBtn">+ Add
+                                        phone</a></small> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pickup and Delivery Locations -->
+            <div class="col-12">
+                <div class="card">
                     <div class="card-body p-4">
                         {{-- <h3>Order #: {{ $quote->id }}</h3> --}}
                         <h5 class="mb-4">Locations</h5>
@@ -106,8 +134,8 @@
 
                                             <div class="col-md-4">
                                                 <label class="form-label">State *</label>
-                                                <input type="text" name="locations[{{ $index }}][state]" readonly
-                                                    id="{{ $location->type . '_state' }}" class="form-control"
+                                                <input type="text" name="locations[{{ $index }}][state]"
+                                                    readonly id="{{ $location->type . '_state' }}" class="form-control"
                                                     placeholder="State" value="{{ $location->state ?? '' }}">
                                             </div>
 
@@ -307,6 +335,48 @@
                                             <input type="hidden"
                                                 name="vehicles[{{ $vIndex + 1 }}][available_at_auction]"
                                                 value="0">
+                                            <input type="checkbox" class="auction-toggle" data-target="#auctionFields-1"
+                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]" value="1"
+                                                {{ $vehicle->available_at_auction ? 'checked' : '' }}>
+                                        </div>
+
+                                        <!-- Auction extra fields (hidden by default) -->
+                                        <div class="col-12 auction-fields" id="auctionFields-1"
+                                            @if ($vehicle->available_at_auction == 0) style="display: none;" @endif
+                                            style="">
+                                            <div class="row g-3 mt-2">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Auction Link</label>
+                                                    <input type="text" class="form-control"
+                                                        name="vehicles[{{ $vIndex + 1 }}][available_link]"
+                                                        value="{{ $vehicle->available_link }}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Buyer</label>
+                                                    <input type="text" class="form-control"
+                                                        name="vehicles[{{ $vIndex + 1 }}][buyer]"
+                                                        value="{{ $vehicle->buyer }}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Lot</label>
+                                                    <input type="text" class="form-control"
+                                                        name="vehicles[{{ $vIndex + 1 }}][lot]"
+                                                        value="{{ $vehicle->lot }}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Gate PIN</label>
+                                                    <input type="text" class="form-control"
+                                                        name="vehicles[{{ $vIndex + 1 }}][gatepin]"
+                                                        value="{{ $vehicle->gatepin }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- <div class="col-md-2">
+                                            <label class="form-label">Auction</label><br>
+                                            <input type="hidden"
+                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]"
+                                                value="0">
                                             <input type="checkbox"
                                                 name="vehicles[{{ $vIndex + 1 }}][available_at_auction]" value="1"
                                                 {{ $vehicle->available_at_auction ? 'checked' : '' }}>
@@ -316,7 +386,7 @@
                                             <input type="text" class="form-control"
                                                 name="vehicles[{{ $vIndex + 1 }}][available_link]"
                                                 value="{{ $vehicle->available_link }}">
-                                        </div>
+                                        </div> --}}
 
                                         <!-- Images -->
                                         <div class="col-md-12">

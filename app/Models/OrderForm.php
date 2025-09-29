@@ -42,6 +42,16 @@ class OrderForm extends Model
         return $this->belongsTo(Quote::class);
     }
 
+    public function getPickupDateFormattedAttribute()
+    {
+        return $this->pickup_date ? $this->pickup_date->format('Md, Y h:ia') : '-';
+    }
+
+    public function getDeliveryDateFormattedAttribute()
+    {
+        return $this->delivery_date ? $this->delivery_date->format('Md, Y h:ia') : '-';
+    }
+
     protected static function booted()
     {
         static::creating(function ($orderForm) {

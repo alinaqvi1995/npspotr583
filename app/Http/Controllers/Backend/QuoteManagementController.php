@@ -161,6 +161,11 @@ class QuoteManagementController extends Controller
 
         DB::beginTransaction();
 
+
+            $customer_name = $request->customer_name ?? null;
+            $customer_email = $request->customer_email ?? null;
+            $customer_phone = $request->customer_phone ?? null;
+
         try {
             // --- Update main quote ---
             $quote->update([
@@ -172,9 +177,9 @@ class QuoteManagementController extends Controller
                 'delivery_date' => $validated['dates']['delivery_date'] ?? null,
                 'available_date' => $validated['dates']['available_date'] ?? null,
                 'expiration_date' => $validated['dates']['expiration_date'] ?? null,
-                'customer_name' => $validated['locations'][1]['contact_name'] ?? null,
-                'customer_email' => $validated['locations'][1]['contact_email'] ?? null,
-                'customer_phone' => !empty($validated['locations'][1]['contact_phone']) ? implode(',', $validated['locations'][1]['contact_phone']) : null,
+                'customer_name' => $customer_name ?? null,
+                'customer_email' => $customer_email ?? null,
+                'customer_phone' => $customer_phone ?? null,
                 'additional_info' => json_encode($validated['additional'] ?? []),
                 'load_id' => $validated['additional']['load_id'] ?? null,
                 'pre_dispatch_notes' => $validated['additional']['pre_dispatch_notes'] ?? null,

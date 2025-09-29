@@ -28,6 +28,30 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
+                        <h5 class="mb-4">Customer Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Name</label>
+                                <input type="text" name="customer_name" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Email</label>
+                                <input type="email" name="customer_email" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Phone</label>
+                                <input type="text" name="customer_phone" class="form-control" placeholder="Phone">
+                                {{-- <small><a href="#" class="text-primary addPhoneBtn">+ Add
+                                        phone</a></small> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-4">
                         <h5 class="mb-4">Locations</h5>
                         <div class="row">
                             <div class="col-md-6">
@@ -35,7 +59,7 @@
                                     <h6 class="mb-3">Pickup Location</h6>
                                     <div class="row g-3">
                                         <input type="hidden" name="locations[1][type]" value="pickup">
-                                        <div class="col-md-12">
+                                        {{-- <div class="col-md-12">
                                             <label class="form-label">Location Name</label>
                                             <input type="text" name="locations[1][name]" class="form-control"
                                                 placeholder="Location Name">
@@ -58,7 +82,7 @@
                                             <label class="form-label">Address 2</label>
                                             <input type="text" name="locations[1][address2]" class="form-control"
                                                 placeholder="Apt, suite, etc.">
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-12">
                                             <label class="form-label">City/State/Zip *</label>
                                             <div class="input-form single-input-field">
@@ -83,7 +107,7 @@
                                             <input type="text" name="locations[1][zip]" id="pickup_zip"
                                                 class="form-control" readonly placeholder="ZIP">
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <label class="form-label">Contact Name</label>
                                             <input type="text" name="locations[1][contact_name]" class="form-control">
                                         </div>
@@ -99,14 +123,11 @@
                                                     phone</a></small>
                                         </div>
                                         <div class="col-md-12 mt-2">
-                                            {{-- <input class="form-check-input" type="checkbox" name="locations[1][twic]"
-                                                id="twic1">
-                                            <label for="twic1">TWIC Card Required?</label> --}}
                                             <input type="hidden" name="locations[1][twic]" value="0">
                                             <input class="form-check-input" type="checkbox" name="locations[1][twic]"
                                                 id="twic1" value="1">
                                             <label for="twic1">TWIC Card Required?</label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +137,7 @@
                                     <h6 class="mb-3">Delivery Location</h6>
                                     <div class="row g-3">
                                         <input type="hidden" name="locations[2][type]" value="delivery">
-                                        <div class="col-md-12">
+                                        {{-- <div class="col-md-12">
                                             <label class="form-label">Location Name</label>
                                             <input type="text" name="locations[2][name]" class="form-control"
                                                 placeholder="Location Name">
@@ -139,7 +160,7 @@
                                             <label class="form-label">Address 2</label>
                                             <input type="text" name="locations[2][address2]" class="form-control"
                                                 placeholder="Apt, suite, etc.">
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-12">
                                             <label class="form-label">City/State/Zip *</label>
                                             <div class="input-form single-input-field">
@@ -165,7 +186,7 @@
                                                 class="form-control" readonly placeholder="ZIP">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label class="form-label">Contact Name</label>
                                         <input type="text" name="locations[2][contact_name]" class="form-control">
                                     </div>
@@ -181,187 +202,217 @@
                                                 phone</a></small>
                                     </div>
                                     <div class="col-md-12 mt-2">
-                                        {{-- <input class="form-check-input" type="checkbox" name="locations[2][twic]"
-                                                id="twic2">
-                                            <label for="twic2">TWIC Card Required?</label> --}}
                                         <input type="hidden" name="locations[2][twic]" value="0">
                                         <input class="form-check-input" type="checkbox" name="locations[2][twic]"
                                             id="twic2" value="1">
                                         <label for="twic2">TWIC Card Required?</label>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
 
-    <!-- Dynamic Vehicles -->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body p-4">
-                <h5 class="mb-4">Vehicles</h5>
-                <div id="vehiclesContainer">
-                    <div class="vehicle-item mb-4 border p-3 rounded" data-index="1">
-                        <h6 class="mb-3">Vehicle #1</h6>
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label class="form-label">Type *</label>
-                                <select name="vehicles[1][type]" class="form-select" required>
-                                    <option value="">Select</option>
-                                    <option>Car</option>
-                                    <option>Motorcycle</option>
-                                    <option>Golf Cart</option>
-                                    <option>ATV</option>
-                                    <option>Heavy Equipment</option>
-                                    <option>RV Transport</option>
-                                    <option>Boat Transport</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Year *</label>
-                                <select name="vehicles[1][year]" class="form-select year-select"></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Make *</label>
-                                <input type="text" name="vehicles[1][make]" class="form-control" id="">
-                                {{-- <select name="vehicles[1][make]" class="form-select make-select" required>
+            <!-- Dynamic Vehicles -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="mb-4">Vehicles</h5>
+                        <div id="vehiclesContainer">
+                            <div class="vehicle-item mb-4 border p-3 rounded" data-index="1">
+                                <h6 class="mb-3">Vehicle #1</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Type *</label>
+                                        <select name="vehicles[1][type]" class="form-select" required>
+                                            <option value="">Select</option>
+                                            <option>Car</option>
+                                            <option>Motorcycle</option>
+                                            <option>Golf Cart</option>
+                                            <option>ATV</option>
+                                            <option>Heavy Equipment</option>
+                                            <option>RV Transport</option>
+                                            <option>Boat Transport</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Year *</label>
+                                        <select name="vehicles[1][year]" class="form-select year-select"></select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Make *</label>
+                                        <input type="text" name="vehicles[1][make]" class="form-control"
+                                            id="">
+                                        {{-- <select name="vehicles[1][make]" class="form-select make-select" required>
                                     <option value="">-- Select Make --</option>
                                     @foreach ($makes as $make)
                                         <option value="{{ $make }}">{{ $make }}</option>
                                     @endforeach
                                 </select> --}}
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Model *</label>
-                                <input type="text" name="vehicles[1][model]" class="form-control" id="">
-                                {{-- <select name="vehicles[1][model]" class="form-select model-select" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Model *</label>
+                                        <input type="text" name="vehicles[1][model]" class="form-control"
+                                            id="">
+                                        {{-- <select name="vehicles[1][model]" class="form-select model-select" required>
                                     <option value="">-- Select Model --</option>
                                 </select> --}}
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Color</label>
-                                <input type="text" name="vehicles[1][color]" class="form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">VIN</label>
-                                <input type="text" name="vehicles[1][vin]" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">Length (ft)</label>
-                                <input type="number" class="form-control" name="vehicles[1][length_ft]">
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">Width (ft)</label>
-                                <input type="number" class="form-control" name="vehicles[1][width_ft]">
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">Height (ft)</label>
-                                <input type="number" class="form-control" name="vehicles[1][height_ft]">
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">Weight (lbs)</label>
-                                <input type="number" class="form-control" name="vehicles[1][weight]">
-                            </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Color</label>
+                                        <input type="text" name="vehicles[1][color]" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">VIN</label>
+                                        <input type="text" name="vehicles[1][vin]" class="form-control">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Length (ft)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][length_ft]">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Width (ft)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][width_ft]">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Height (ft)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][height_ft]">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Weight (lbs)</label>
+                                        <input type="number" class="form-control" name="vehicles[1][weight]">
+                                    </div>
 
-                            <!-- Condition & Trailer -->
-                            <div class="col-md-3">
-                                <label class="form-label">Condition</label>
-                                <select name="vehicles[1][condition]" class="form-select">
-                                    <option value="Running" selected>Running
-                                    </option>
-                                    <option value="Non-Running">
-                                        Non-Running</option>
-                                </select>
-                            </div>
+                                    <!-- Condition & Trailer -->
+                                    <div class="col-md-3">
+                                        <label class="form-label">Condition</label>
+                                        <select name="vehicles[1][condition]" class="form-select">
+                                            <option value="Running" selected>Running
+                                            </option>
+                                            <option value="Non-Running">
+                                                Non-Running</option>
+                                        </select>
+                                    </div>
 
-                            <!-- Trailer Type only for heavy equipment and RV -->
-                            <div class="col-md-3">
-                                <label class="form-label">Trailer Type</label>
-                                <select name="vehicles[1][trailer_type]" class="form-select">
-                                    <option value="Open Trailer" selected>
-                                        Open Trailer
-                                    </option>
-                                    <option value="Enclosed Trailer">
-                                        Enclosed Trailer</option>
-                                </select>
-                            </div>
+                                    <!-- Trailer Type only for heavy equipment and RV -->
+                                    <div class="col-md-3">
+                                        <label class="form-label">Trailer Type</label>
+                                        <select name="vehicles[1][trailer_type]" class="form-select">
+                                            <option value="Open Trailer" selected>
+                                                Open Trailer
+                                            </option>
+                                            <option value="Enclosed Trailer">
+                                                Enclosed Trailer</option>
+                                        </select>
+                                    </div>
 
-                            <!-- Booleans -->
-                            <div class="col-md-2">
-                                <label class="form-label">Modified</label><br>
-                                <input type="hidden" name="vehicles[1][modified]" value="0">
-                                <input type="checkbox" name="vehicles[1][modified]" value="1">
-                            </div>
+                                    <!-- Booleans -->
+                                    <div class="col-md-2">
+                                        <label class="form-label">Modified</label><br>
+                                        <input type="hidden" name="vehicles[1][modified]" value="0">
+                                        <input type="checkbox" name="vehicles[1][modified]" value="1">
+                                    </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label">Modified Info</label>
-                                <input type="text" class="form-control" name="vehicles[1][modified_info]">
-                            </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Modified Info</label>
+                                        <input type="text" class="form-control" name="vehicles[1][modified_info]">
+                                    </div>
 
-                            <div class="col-md-2">
-                                <label class="form-label">Auction</label><br>
-                                <input type="hidden" name="vehicles[1][available_at_auction]" value="0">
-                                <input type="checkbox" name="vehicles[1][available_at_auction]" value="1">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Auction Link</label>
-                                <input type="text" class="form-control" name="vehicles[1][available_link]">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Images</label>
-                                <input type="file" name="images[1][]" class="form-control image-input" multiple>
-                                <div class="image-preview mt-2 d-flex flex-wrap gap-2"></div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Auction</label><br>
+                                        <input type="hidden" name="vehicles[1][available_at_auction]" value="0">
+                                        <input type="checkbox" class="auction-toggle" data-target="#auctionFields-1"
+                                            name="vehicles[1][available_at_auction]" value="1">
+                                    </div>
+
+                                    <!-- Auction extra fields (hidden by default) -->
+                                    <div class="col-12 auction-fields" id="auctionFields-1" style="display: none;">
+                                        <div class="row g-3 mt-2">
+                                            <div class="col-md-4">
+                                                <label class="form-label">Auction Link</label>
+                                                <input type="text" class="form-control"
+                                                    name="vehicles[1][available_link]">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Buyer #</label>
+                                                <input type="text" class="form-control" name="vehicles[1][buyer]">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Lot #</label>
+                                                <input type="text" class="form-control" name="vehicles[1][lot]">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Gate PIN</label>
+                                                <input type="text" class="form-control" name="vehicles[1][gatepin]">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- <div class="col-md-2">
+                                        <label class="form-label">Auction</label><br>
+                                        <input type="hidden" name="vehicles[1][available_at_auction]" value="0">
+                                        <input type="checkbox" name="vehicles[1][available_at_auction]" value="1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Auction Link</label>
+                                        <input type="text" class="form-control" name="vehicles[1][available_link]">
+                                    </div> --}}
+                                    <div class="col-md-3">
+                                        <label class="form-label">Images</label>
+                                        <input type="file" name="images[1][]" class="form-control image-input"
+                                            multiple>
+                                        <div class="image-preview mt-2 d-flex flex-wrap gap-2"></div>
+                                    </div>
+                                </div>
+                                <div class="text-end mt-3"></div>
                             </div>
                         </div>
-                        <div class="text-end mt-3"></div>
+                        <button type="button" id="addVehicleBtn" class="btn btn-outline-primary mt-3">+ Add
+                            Vehicle</button>
                     </div>
                 </div>
-                <button type="button" id="addVehicleBtn" class="btn btn-outline-primary mt-3">+ Add
-                    Vehicle</button>
             </div>
-        </div>
-    </div>
 
-    <!-- Dates Section -->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body p-4">
-                <h5 class="mb-4">Dates</h5>
-                <div class="row g-3">
+            <!-- Dates Section -->
+            {{-- <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="mb-4">Dates</h5>
+                        <div class="row g-3">
 
-                    <!-- Date Available to Ship -->
-                    <div class="col-md-4">
-                        <label class="form-label">Date Available to Ship <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" name="dates[pickup_date]"
-                            value="{{ old('dates.pickup_date', $quote->dates['pickup_date'] ?? '') }}">
-                        <small class="text-muted">Select up to 30 days from your creation date</small>
+                            <!-- Date Available to Ship -->
+                            <div class="col-md-4">
+                                <label class="form-label">Date Available to Ship <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="dates[pickup_date]"
+                                    value="{{ old('dates.pickup_date', $quote->dates['pickup_date'] ?? '') }}">
+                                <small class="text-muted">Select up to 30 days from your creation date</small>
+                            </div>
+
+                            <!-- Expiration Date -->
+                            <div class="col-md-4">
+                                <label class="form-label">Expiration Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="dates[expiration_date]"
+                                    value="{{ old('dates.expiration_date', $quote->dates['expiration_date'] ?? now()->addDays(30)->format('Y-m-d')) }}">
+                                <small class="text-muted">Select up to 30 days from your creation date</small>
+                            </div>
+
+                            <!-- Desired Delivery Date -->
+                            <div class="col-md-4">
+                                <label class="form-label">Desired Delivery Date</label>
+                                <input type="date" class="form-control" name="dates[delivery_date]"
+                                    value="{{ old('dates.delivery_date', $quote->dates['delivery_date'] ?? '') }}">
+                                <small class="text-muted">Optional field</small>
+                            </div>
+
+                        </div>
                     </div>
-
-                    <!-- Expiration Date -->
-                    <div class="col-md-4">
-                        <label class="form-label">Expiration Date <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" name="dates[expiration_date]"
-                            value="{{ old('dates.expiration_date', $quote->dates['expiration_date'] ?? now()->addDays(30)->format('Y-m-d')) }}">
-                        <small class="text-muted">Select up to 30 days from your creation date</small>
-                    </div>
-
-                    <!-- Desired Delivery Date -->
-                    <div class="col-md-4">
-                        <label class="form-label">Desired Delivery Date</label>
-                        <input type="date" class="form-control" name="dates[delivery_date]"
-                            value="{{ old('dates.delivery_date', $quote->dates['delivery_date'] ?? '') }}">
-                        <small class="text-muted">Optional field</small>
-                    </div>
-
                 </div>
-            </div>
-        </div>
-    </div>
+            </div> --}}
 
-    <!-- Pricing and Payment Section -->
-    {{-- <div class="col-12">
+            <!-- Pricing and Payment Section -->
+            {{-- <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Pricing and Payment</h5>
@@ -393,8 +444,8 @@
                 </div>
             </div> --}}
 
-    <!-- Additional Info Section -->
-    {{-- <div class="col-12">
+            <!-- Additional Info Section -->
+            {{-- <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Additional Info</h5>
@@ -427,8 +478,8 @@
                 </div>
             </div> --}}
 
-    <!-- Your Contract Section -->
-    {{-- <div class="col-12">
+            <!-- Your Contract Section -->
+            {{-- <div class="col-12">
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Your Contract</h5>
@@ -466,11 +517,11 @@
                 </div>
             </div> --}}
 
-    <!-- Submit -->
-    <div class="col-12 mt-4">
-        <button type="submit" class="btn btn-grd btn-grd-primary px-4">Submit Quote</button>
-    </div>
-    </form>
+            <!-- Submit -->
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-grd btn-grd-primary px-4">Submit Quote</button>
+            </div>
+        </form>
     </div>
 @endsection
 
@@ -572,6 +623,16 @@
                 $(this).parent().remove();
             });
 
+            // ✅ Toggle auction fields (delegated binding for dynamic items)
+            $(document).on('change', '.auction-toggle', function() {
+                const target = $(this).data('target');
+                if ($(this).is(':checked')) {
+                    $(target).slideDown();
+                } else {
+                    $(target).slideUp();
+                }
+            });
+
             // ✅ Renumber Vehicles
             function renumberVehicles() {
                 $('.vehicle-item').each(function(index) {
@@ -582,20 +643,49 @@
                     $(this).find('input, select').each(function() {
                         const oldName = $(this).attr('name');
                         if (!oldName) return;
-
-                        // Replace only the first number inside 'vehicles[...]'
                         const newName = oldName.replace(/vehicles\[\d+\]/, `vehicles[${newIndex}]`);
                         $(this).attr('name', newName);
                     });
 
-                    // ✅ Update image input name
+                    // ✅ Fix auction toggle target & fields
+                    const $auctionToggle = $(this).find('.auction-toggle');
+                    const $auctionFields = $(this).find('.auction-fields');
+
+                    $auctionFields.attr('id', `auctionFields-${newIndex}`);
+                    $auctionToggle.attr('data-target', `#auctionFields-${newIndex}`);
+
+                    // ✅ Update image input
                     $(this).find('.image-input').attr('name', `images[${newIndex}][]`);
 
-                    // Reset file input and image preview
+                    // Reset file input and preview
                     $(this).find('.image-input').val('');
                     $(this).find('.image-preview').html('');
                 });
             }
+
+            // function renumberVehicles() {
+            //     $('.vehicle-item').each(function(index) {
+            //         const newIndex = index + 1;
+            //         $(this).attr('data-index', newIndex);
+            //         $(this).find('h6').text('Vehicle #' + newIndex);
+
+            //         $(this).find('input, select').each(function() {
+            //             const oldName = $(this).attr('name');
+            //             if (!oldName) return;
+
+            //             // Replace only the first number inside 'vehicles[...]'
+            //             const newName = oldName.replace(/vehicles\[\d+\]/, `vehicles[${newIndex}]`);
+            //             $(this).attr('name', newName);
+            //         });
+
+            //         // ✅ Update image input name
+            //         $(this).find('.image-input').attr('name', `images[${newIndex}][]`);
+
+            //         // Reset file input and image preview
+            //         $(this).find('.image-input').val('');
+            //         $(this).find('.image-preview').html('');
+            //     });
+            // }
 
             // ✅ Add phone input dynamically
             $(document).on('click', '.addPhoneBtn', function(e) {

@@ -156,6 +156,9 @@ class QuoteController extends Controller
             'vehicles.*.trailer_type' => 'nullable|string|max:255',
             'vehicles.*.load_method' => 'nullable|string|max:255',
             'vehicles.*.unload_method' => 'nullable|string|max:255',
+            'vehicles.*.buyer' => 'nullable|string|max:255',
+            'vehicles.*.lot' => 'nullable|string|max:255',
+            'vehicles.*.gatepin' => 'nullable|string|max:255',
 
             // Dates
             'dates.pickup_date' => 'nullable|date',
@@ -200,9 +203,7 @@ class QuoteController extends Controller
                         'city' => trim($pickupParts[0] ?? ''),
                         'state' => trim($pickupParts[1] ?? ''),
                         'zip' => trim($pickupParts[2] ?? ''),
-                        'contact_name' => $request->input('customer_name'),
-                        'contact_email' => $request->input('customer_email'),
-                        'contact_phone' => [$request->input('customer_phone')],
+                        'contact_phone' => [],
                     ];
                 }
 
@@ -218,16 +219,10 @@ class QuoteController extends Controller
                 }
             }
 
-            $pickupContact = collect($locations)->firstWhere('type', 'pickup');
-            $customerName = $pickupContact['contact_name'] ?? null;
-            $customerEmail = $pickupContact['contact_email'] ?? null;
-            $customerPhone = !empty($pickupContact['contact_phone'])
-                ? implode(',', $pickupContact['contact_phone'])
-                : null;
+            $customer_name = $request->customer_name ?? null;
+            $customer_email = $request->customer_email ?? null;
+            $customer_phone = $request->customer_phone ?? null;
 
-            // foreach ($validated['vehicles'] as $index => $vehicleData) {
-            //     dd($vehicleData);
-            // }
             // ✅ Create quote
             $quote = Quote::create([
                 'user_id'        => Auth::check() ? Auth::id() : 0,
@@ -240,9 +235,9 @@ class QuoteController extends Controller
                 'available_date' => $request->filled('available_date') ? date('Y-m-d', strtotime($request->available_date)) : null,
                 'expiration_date' => $request->filled('expiration_date') ? date('Y-m-d', strtotime($request->expiration_date)) : null,
 
-                'customer_name' => $customerName,
-                'customer_email' => $customerEmail,
-                'customer_phone' => $customerPhone,
+                'customer_name' => $customer_name,
+                'customer_email' => $customer_email,
+                'customer_phone' => $customer_phone,
 
                 'additional_info' => json_encode($validated['additional'] ?? []),
                 'load_id' => $validated['additional']['load_id'] ?? null,
@@ -299,6 +294,9 @@ class QuoteController extends Controller
                     'lot_number' => $vehicleData['lot_number'] ?? null,
                     'license_plate' => $vehicleData['license_plate'] ?? null,
                     'license_state' => $vehicleData['license_state'] ?? null,
+                    'buyer' => $vehicleData['buyer'] ?? null,
+                    'lot' => $vehicleData['lot'] ?? null,
+                    'gatepin' => $vehicleData['gatepin'] ?? null,
                     'condition' => $vehicleData['condition'] ?? null,
                     'trailer_type' => $vehicleData['trailer_type'] ?? null,
                     'length_ft' => $vehicleData['length_ft'] ?? $vehicleData['length'] ?? null,
