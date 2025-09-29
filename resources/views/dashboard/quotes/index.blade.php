@@ -103,10 +103,24 @@
                                     {{ $quote->id }}<br>
                                 </td>
                                 <td>
-                                    {{ $quote->customer_name ?? $quote->deliveryLocation->contact_name }}<br>
-                                    <small>{{ $quote->customer_email ?? $quote->deliveryLocation->contact_email }}</small><br>
-                                    <small>{{ $quote->customer_phone ?? optional($quote->deliveryPhones->first())->phone }}</small>
+                                    @if ($quote->customer_name == optional($quote->pickupLocation)->contact_name)
+                                        {{-- Case: Normal == Pickup → show Delivery --}}
+                                        {{ optional($quote->deliveryLocation)->contact_name }}<br>
+                                        <small>{{ optional($quote->deliveryLocation)->contact_email }}</small><br>
+                                        <small>{{ optional($quote->deliveryPhones->first())->phone }}</small>
+                                    @elseif ($quote->customer_name || $quote->customer_email || $quote->customer_phone)
+                                        {{-- Case: Normal (customer) exists → show Customer --}}
+                                        {{ $quote->customer_name ?? optional($quote->deliveryLocation)->contact_name }}<br>
+                                        <small>{{ $quote->customer_email ?? optional($quote->deliveryLocation)->contact_email }}</small><br>
+                                        <small>{{ $quote->customer_phone ?? optional($quote->deliveryPhones->first())->phone }}</small>
+                                    @else
+                                        {{-- Fallback → Delivery --}}
+                                        {{ optional($quote->deliveryLocation)->contact_name }}<br>
+                                        <small>{{ optional($quote->deliveryLocation)->contact_email }}</small><br>
+                                        <small>{{ optional($quote->deliveryPhones->first())->phone }}</small>
+                                    @endif
                                 </td>
+
                                 <td>
                                     @foreach ($quote->vehicles as $vehicle)
                                         <div class="mb-2 border-bottom pb-2">
