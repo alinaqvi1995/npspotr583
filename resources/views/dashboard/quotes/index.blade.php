@@ -60,7 +60,8 @@
                     <option value="order" {{ request('column', 'order') == 'order' ? 'selected' : 'selected' }}>Order#
                     </option>
                     <option value="customer" {{ request('column') == 'customer' ? 'selected' : '' }}>Customer</option>
-                    <option value="customer_phone" {{ request('column') == 'customer_phone' ? 'selected' : '' }}>Customer Phone</option>
+                    <option value="customer_phone" {{ request('column') == 'customer_phone' ? 'selected' : '' }}>Customer
+                        Phone</option>
                     <option value="vehicles" {{ request('column') == 'vehicles' ? 'selected' : '' }}>Vehicles</option>
                     <option value="pickup" {{ request('column') == 'pickup' ? 'selected' : '' }}>Pickup</option>
                     <option value="delivery" {{ request('column') == 'delivery' ? 'selected' : '' }}>Delivery</option>
@@ -102,9 +103,9 @@
                                     {{ $quote->id }}<br>
                                 </td>
                                 <td>
-                                    {{ $quote->customer_name }}<br>
-                                    <small>{{ $quote->customer_email }}</small><br>
-                                    <small>{{ $quote->customer_phone }}</small>
+                                    {{ $quote->customer_name ?? $quote->deliveryLocation->contact_name }}<br>
+                                    <small>{{ $quote->customer_email ?? $quote->deliveryLocation->contact_email }}</small><br>
+                                    <small>{{ $quote->customer_phone ?? optional($quote->deliveryPhones->first())->phone }}</small>
                                 </td>
                                 <td>
                                     @foreach ($quote->vehicles as $vehicle)
