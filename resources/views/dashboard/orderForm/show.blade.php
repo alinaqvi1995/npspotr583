@@ -23,6 +23,26 @@
                 </div>
             </div>
 
+            <!-- Summary -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Summary</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Pickup:</strong>
+                                {{ $orderForm->quote->pickupLocation?->full_location ?? '-' }}
+                            </p>
+                            <p class="mb-0"><strong>Delivery:</strong>
+                                {{ $orderForm->quote->deliveryLocation?->full_location ?? '-' }}</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <p class="mb-1"><strong>Amount:</strong> ${{ $orderForm->quote->amount_to_pay ?? 0 }}</p>
+                            {{-- <p class="mb-0"><strong>Balance:</strong> ${{ $quote->balance_amount ?? 0 }}</p> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Step 1 -->
             <h6 class="fw-bold mb-3"><span class="badge bg-primary me-2">1</span> Customer Information</h6>
             <div class="row g-3 mb-4">
