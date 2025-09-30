@@ -534,7 +534,7 @@
             // ✅ Generate years for dropdown
             function generateYearOptions($select) {
                 $select.empty().append('<option value="">-- Year --</option>');
-                for (let y = currentYear; y >= currentYear - 30; y--) {
+                for (let y = currentYear; y >= currentYear - 75; y--) {
                     $select.append('<option value="' + y + '">' + y + '</option>');
                 }
             }
@@ -569,7 +569,7 @@
                 // ✅ Generate years for the new vehicle
                 const currentYear = new Date().getFullYear();
                 $clone.find('.year-select').empty().append('<option value="">-- Year --</option>');
-                for (let y = currentYear; y >= currentYear - 30; y--) {
+                for (let y = currentYear; y >= currentYear - 75; y--) {
                     $clone.find('.year-select').append('<option value="' + y + '">' + y + '</option>');
                 }
             });
