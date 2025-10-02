@@ -8,7 +8,7 @@
     </td>
 </tr> --}}
 <tr>
-  <td align="center" style="background:#1a73e8; padding:20px;">
+  <td align="center" style="background:#062e39; padding:20px;">
     <!-- Logo -->
     <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" 
          alt="Logo"
