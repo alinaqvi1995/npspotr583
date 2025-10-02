@@ -96,16 +96,16 @@
 
 // Hero Slider One
 var slider1 = new Swiper(".sc-slider-1", {
-    speed: 800,
-    effect: "fade",
+    speed: 1000, // speed of transition (in ms)
+    effect: "slide", // use sliding instead of fade
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
     },
     loop: true,
     autoplay: {
-        delay: 4000, // har 4 second baad slide change
-        disableOnInteraction: false, // user click kare to bhi autoplay continue rahe
+        delay: 4000,
+        disableOnInteraction: false,
     },
 });
 
@@ -122,14 +122,16 @@ var thumb_slider2 = new Swiper(".thumb-slider2", {
     spaceBetween: 10,
     allowTouchMove: false,
     loop: true,
+    speed: 1000, // match speed with main slider
     autoplay: {
-        delay: 4000, // same delay rakhna taake sync rahe
+        delay: 4000,
         disableOnInteraction: false,
     },
     thumbs: {
         swiper: slider2,
     },
 });
+
 
 
     // Testimonial Slider One
