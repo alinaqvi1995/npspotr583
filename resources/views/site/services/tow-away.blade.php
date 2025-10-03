@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
                     <div class="about_image text-end">
-                        <img src="web-assets/images/about/tow.png" alt="Tow Away Service" />
+                        <img src="web-assets/images/about/sec.png" alt="Tow Away Service" />
                     </div>
                 </div>
             </div>

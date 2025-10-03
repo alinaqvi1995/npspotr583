@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
                     <div class="about_image text-end">
-                        <img src="web-assets/images/about/open.png" alt="Open Transport" />
+                        <img src="web-assets/images/about/sec.png" alt="Open Transport" />
                     </div>
                 </div>
             </div>
