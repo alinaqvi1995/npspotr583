@@ -148,7 +148,56 @@
             </div>
         </div>
     </section>
-    
+        <!--=========== Feature Section Start =========-->
+    <section class="tj-choose-us-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5" data-sal="slide-left" data-sal-duration="800">
+                    <div class="choose-us-content-1">
+                        <div class="tj-section-heading">
+                            <span class="sub-title active-shape2"> Why Choose Us</span>
+                            <h2 class="title">We are the Future of Auto Transport</h2>
+                            <p class="desc">
+                                Safe & Secure Shipping Your Shipment is handled with the utmost care from
+                                pick-up to delivery.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-6">
+                                <div class="tj-icon-box3 text-center">
+                                    <i class="flaticon flaticon-courier"></i>
+                                    <h6 class="title">Optimized Cost</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-6">
+                                <div class="tj-icon-box3 text-center">
+                                    <i class="flaticon flaticon-cargo"></i>
+                                    <h6 class="title">Delivery on Time</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-6">
+                                <div class="tj-icon-box3 text-center">
+                                    <i class="flaticon flaticon-agreement"></i>
+                                    <h6 class="title">Safety & Reliability</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-sal="slide-right" data-sal-duration="800">
+                    <div class="tj-input-form trq-1" data-bg-image="web-assets/images/banner/form-shape.png">
+                        <div id="make-options" class="d-none">
+                            @foreach ($makes as $make)
+                                <option value="{{ $make }}">{{ $make }}</option>
+                            @endforeach
+                        </div>
+                        @include('site.partials.multiform')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=========== Feature Section End =========-->
     <section class="tj-team-details pb-5">
         <div class="container">
             <div class="row">
