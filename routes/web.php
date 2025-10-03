@@ -36,7 +36,10 @@ Route::get('/service/{slug}', [FrontendServiceController::class, 'show'])->name(
 Route::get('/services/car', [FrontendServiceController::class, 'carservice'])->name('services.car-shipping');
 Route::get('/services/motorcycle', [FrontendServiceController::class, 'bikeservice'])->name('services.motorcycle-shipping');
 Route::get('/services/heavy', [FrontendServiceController::class, 'heavyservice'])->name('services.heavy-equipment-shipping');
-
+Route::get('/services/open-transport', [HomeController::class, 'openTransport'])->name('service.open');
+Route::get('/services/enclosed-transport', [HomeController::class, 'enclosedTransport'])->name('service.enclosed');
+Route::get('/services/tow-away', [HomeController::class, 'towAway'])->name('service.tow');
+Route::get('/services/driveaway', [HomeController::class, 'driveAway'])->name('service.drive');
 // 🔹 Quotes
 Route::get('/quote', [QuoteController::class, 'index'])->name('quote.index');
 Route::get('/car', [QuoteController::class, 'car'])->name('quote.car');

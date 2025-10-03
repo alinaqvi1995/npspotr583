@@ -529,34 +529,34 @@
         <div class="tj-project-content-area">
             <div class="project-item-three project-image">
                 <div class="project-image" data-bg-image="web-assets/images/project/1.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="{{ route('service.open') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Open Transport </a></h6>
+                    <h6><a class="title-link" href="{{ route('service.open') }}">Open Transport</a></h6>
                 </div>
             </div>
             <div class="project-item-three">
                 <div class="project-image" data-bg-image="web-assets/images/project/2.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="{{ route('service.enclosed') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Enclosed Transport </a></h6>
+                    <h6><a class="title-link" href="{{ route('service.enclosed') }}">Enclosed Transport</a></h6>
                 </div>
             </div>
             <div class="project-item-three">
                 <div class="project-image" data-bg-image="web-assets/images/project/3.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="{{ route('service.tow') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Tow Away Service</a></h6>
+                    <h6><a class="title-link" href="{{ route('service.tow') }}">Tow Away Service</a></h6>
                 </div>
             </div>
             <div class="project-item-three">
                 <div class="project-image" data-bg-image="web-assets/images/project/4.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="{{ route('service.drive') }}"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Driveaway Service</a></h6>
+                    <h6><a class="title-link" href="{{ route('service.drive') }}">Driveaway Service</a></h6>
                 </div>
             </div>
         </div>
