@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
                     <div class="about_image text-end">
-                        <img src="web-assets/images/about/driveaway.png" alt="Driveaway Service" />
+                        <img src="web-assets/images/about/sec.png" alt="Driveaway Service" />
                     </div>
                 </div>
             </div>
