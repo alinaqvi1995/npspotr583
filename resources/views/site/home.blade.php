@@ -228,20 +228,17 @@
                                 ></a>
                             </div>
                         </div>
-                        {{-- <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-air-freight"></i>
-                            </div>
-                            <h4>
-                                <a class="title" href="{{ route('services.show.detail', $row->slug) }}">
-                                    {{ $row->title }}
-                                </a>
-                            </h4>
-                            <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
-                        </div> --}}
                     </div>
                 </div>
             @endforeach
+            </div>
+                <!-- View All Button Row -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <a href="{{ route('all_services.index') }}" class="tj-primary-btn">
+                        View All Services <i class="flaticon-right-1"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>

@@ -146,6 +146,14 @@
                     </div>
                 @endforeach
             </div>
+            <!-- View All Button Row -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <a href="{{ route('all_services.index') }}" class="tj-primary-btn">
+                        View All Services <i class="flaticon-right-1"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
         <!--=========== Feature Section Start =========-->
