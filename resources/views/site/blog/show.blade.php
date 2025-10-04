@@ -250,7 +250,7 @@
                                 @if ($row->id != $blog->id)
                                     <div class="tj-post-content">
                                         <div class="tj-auother-img">
-                                            <a href="#">
+                                            <a href="{{ route('blog.show', $row->slug) }}">
                                                 <img src="{{ asset($row->image_one) }}" alt="Blog" /></a>
                                         </div>
                                         <div class="tj-details-text">
@@ -265,7 +265,7 @@
                                             </div>
                                             <div class="tj-details-header">
                                                 <h6>
-                                                    <a href="#">{{ $row->title }}</a>
+                                                    <a href="{{ route('blog.show', $row->slug) }}">{{ $row->title }}</a>
                                                 </h6>
                                             </div>
                                         </div>
