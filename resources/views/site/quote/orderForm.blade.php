@@ -341,7 +341,7 @@
 
                                                 <!-- Company Info -->
                                                 <div class="col text-md-end">
-                                                    <h1 class="h4 fw-bold text-primary mb-1">Bridgeway Logistics</h1>
+                                                    <h1 class="h4 fw-bold text-primary mb-1">Bridgeway Logistics LLC</h1>
                                                     <p class="mb-0 small text-muted">
                                                         5402 Renwick Dr Apt 902, Houston, TX 77081
                                                     </p>
@@ -576,7 +576,7 @@
 
                                             <!-- Footer -->
                                             <div class="border-top pt-3 mt-4 text-center small text-muted">
-                                                © {{ date('Y') }} Bridgeway Logistics. All rights reserved.
+                                                © {{ date('Y') }} Bridgeway Logistics LLC. All rights reserved.
                                             </div>
                                         </div>
                                     </div>

@@ -598,7 +598,7 @@
                 const selected = $select.data('selected');
                 $select.empty().append('<option value="">-- Year --</option>');
                 const currentYear = new Date().getFullYear();
-                for (let y = currentYear; y >= currentYear - 30; y--) {
+                for (let y = currentYear; y >= currentYear - 75; y--) {
                     $select.append(`<option value="${y}" ${selected == y ? 'selected' : ''}>${y}</option>`);
                 }
             }

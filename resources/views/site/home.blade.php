@@ -228,20 +228,17 @@
                                 ></a>
                             </div>
                         </div>
-                        {{-- <div class="service-content">
-                            <div class="service-icon">
-                                <i class="flaticon-air-freight"></i>
-                            </div>
-                            <h4>
-                                <a class="title" href="{{ route('services.show.detail', $row->slug) }}">
-                                    {{ $row->title }}
-                                </a>
-                            </h4>
-                            <p>{{ \Illuminate\Support\Str::words(strip_tags($row->description_one), 10, '...') }}</p>
-                        </div> --}}
                     </div>
                 </div>
             @endforeach
+            </div>
+                <!-- View All Button Row -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <a href="{{ route('all_services.index') }}" class="tj-primary-btn">
+                        View All Services <i class="flaticon-right-1"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -529,34 +526,34 @@
         <div class="tj-project-content-area">
             <div class="project-item-three project-image">
                 <div class="project-image" data-bg-image="web-assets/images/project/1.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="https://bridgewaylogisticsllc.com/blog/open-auto-transport-with-bridgeway-logistics-llc"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Open Transport </a></h6>
+                    <h6><a class="title-link" href="https://bridgewaylogisticsllc.com/blog/open-auto-transport-with-bridgeway-logistics-llc">Open Transport</a></h6>
                 </div>
             </div>
             <div class="project-item-three">
                 <div class="project-image" data-bg-image="web-assets/images/project/2.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="https://bridgewaylogisticsllc.com/blog/enclosed-car-transport-with-bridgeway-logistics-llc"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Enclosed Transport </a></h6>
+                    <h6><a class="title-link" href="https://bridgewaylogisticsllc.com/blog/enclosed-car-transport-with-bridgeway-logistics-llc">Enclosed Transport</a></h6>
                 </div>
             </div>
             <div class="project-item-three">
                 <div class="project-image" data-bg-image="web-assets/images/project/3.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="https://bridgewaylogisticsllc.com/blog/tow-away-transport-by-bridgeway-logistics-llc"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Tow Away Service</a></h6>
+                    <h6><a class="title-link" href="https://bridgewaylogisticsllc.com/blog/tow-away-transport-by-bridgeway-logistics-llc">Tow Away Service</a></h6>
                 </div>
             </div>
             <div class="project-item-three">
                 <div class="project-image" data-bg-image="web-assets/images/project/4.png"></div>
-                <a class="arrow-btn" href="{{ route('multiform') }}"> <i class="flaticon-right-1"></i> </a>
+                <a class="arrow-btn" href="https://bridgewaylogisticsllc.com/blog/drive-away-transportation-service-with-bridgeway-logistics-llc"> <i class="flaticon-right-1"></i> </a>
                 <div class="project-text">
                     <span class="sub-title">Service Type</span>
-                    <h6><a class="title-link" href="{{ route('multiform') }}">Driveaway Service</a></h6>
+                    <h6><a class="title-link" href="https://bridgewaylogisticsllc.com/blog/drive-away-transportation-service-with-bridgeway-logistics-llc">Driveaway Service</a></h6>
                 </div>
             </div>
         </div>

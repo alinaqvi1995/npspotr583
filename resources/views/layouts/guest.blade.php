@@ -228,7 +228,7 @@
         const currentYear = new Date().getFullYear();
         function generateYearOptions($select) {
             $select.empty().append('<option value="">-- Year --</option>');
-            for (let y = currentYear; y >= currentYear - 30; y--) {
+            for (let y = currentYear; y >= currentYear - 75; y--) {
                 $select.append('<option value="' + y + '">' + y + '</option>');
             }
         }

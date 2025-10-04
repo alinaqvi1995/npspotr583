@@ -1,8 +1,8 @@
 @extends('layouts.guest')
 
-@section('title', 'About Us - Service Site')
-@section('meta_description', 'Learn more about our SaaS team, vision, and what we offer.')
-@section('meta_keywords', 'about saas, our team, company info')
+@section('title', 'Enclosed Transport – Bridgeway Logistics LLC')
+@section('meta_description', 'Premium enclosed transport services by Bridgeway Logistics LLC for luxury, classic, and exotic cars.')
+@section('meta_keywords', 'enclosed transport, luxury car shipping, exotic car transport, vehicle shipping USA')
 
 @section('content')
 
@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-content">
-                        <h1 class="breadcrumb-title text-center">About Us</h1>
+                        <h1 class="breadcrumb-title text-center">Enclosed Transport</h1>
                         <div class="breadcrumb-link">
                             <span>
                                 <a href="{{ route('home') }}">
@@ -21,7 +21,7 @@
                             </span>
                             >
                             <span>
-                                <span> About</span>
+                                <span> Enclosed Transport</span>
                             </span>
                         </div>
                     </div>
@@ -32,59 +32,49 @@
     <!--========== breadcrumb End ==============-->
 
     <!--=========== About Section Start =========-->
-        <section class="tj-about-section-three">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
-                        <div class="about-content-three">
-                            <div class="tj-section-heading">
-                                <span class="sub-title active-shape">Explore the Benefits of Nationwide Transport</span>
-                                <h2 class="title">Delivering Fast, Reliable Transport Solutions</h2>
-                                <p class="desc">
-                                    We are the one stop solution in vehicle transport—specializing in shipping everything from cars and heavy equipment to ATVs, construction vehicles, trucks, and even boats.
-                                </p>
-                            </div>
-                            <div class="content-box d-flex align-items-center">
-                                <div class="tj-icon-box">
-                                    <div class="ab-text d-flex align-items-center">
-                                        <div class="ab-icon">
-                                            <img src="web-assets/images/icon/global.svg" alt="Our Mission Icon" />
-                                        </div>
-                                        <div class="ab-title">
-                                            <h5 class="title">Our Mission</h5>
-                                        </div>
-                                    </div>
-                                    <p class="desc">To provide safe, reliable, and hassle-free transport solutions and delivering every shipment on time, with care, and backed by exceptional customer service.</p>
+    <section class="tj-about-section-three">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6" data-sal="slide-left" data-sal-duration="800">
+                    <div class="about-content-three">
+                        <div class="tj-section-heading">
+                            <span class="sub-title active-shape">Premium Vehicle Protection</span>
+                            <h2 class="title">Enclosed Transport Service</h2>
+                            <p class="desc">
+                                Our enclosed transport is perfect for luxury, exotic, and classic cars. Vehicles remain fully protected from weather and road elements during transit.
+                            </p>
+                        </div>
+                        <div class="content-box d-flex align-items-center">
+                            <div class="tj-icon-box">
+                                <div class="ab-text d-flex align-items-center">
+                                    <div class="ab-icon"><img src="web-assets/images/icon/global.svg" alt="Full Protection" /></div>
+                                    <div class="ab-title"><h5 class="title">Full Protection</h5></div>
                                 </div>
-                                <div class="tj-icon-box">
-                                    <div class="ab-text d-flex align-items-center">
-                                        <div class="ab-icon">
-                                            <img src="web-assets/images/icon/winner.svg" alt="Our Vision Icon" />
-                                        </div>
-                                        <div class="ab-title">
-                                            <h5 class="title">Our Vision</h5>
-                                        </div>
-                                    </div>
-                                    <p class="desc">To be the nation’s most trusted transport company, setting the
-                                    standard for nationwide shipping , driven by innovation, transparency, and customer
-                                    care.</p>
-                                </div>
+                                <p class="desc">Your vehicle is enclosed and secured, keeping it in showroom condition.</p>
                             </div>
-                            <div class="tj-theme-button">
-                                <a class="tj-primary-btn" href="{{ route('contact') }}">
-                                    Learn More <i class="flaticon-right-1"></i>
-                                </a>
+                            <div class="tj-icon-box">
+                                <div class="ab-text d-flex align-items-center">
+                                    <div class="ab-icon"><img src="web-assets/images/icon/winner.svg" alt="Specialized Care" /></div>
+                                    <div class="ab-title"><h5 class="title">Specialized Care</h5></div>
+                                </div>
+                                <p class="desc">Handled by experienced drivers trained to move high-value cars safely.</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
-                        <div class="about_image text-end">
-                            <img src="web-assets/images/about/sec.png" alt="About Us Image" />
+                        <div class="tj-theme-button">
+                            <a class="tj-primary-btn" href="{{ route('contact') }}">
+                                Request Enclosed Quote <i class="flaticon-right-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-6" data-sal="slide-right" data-sal-duration="800">
+                    <div class="about_image text-end">
+                        <img src="web-assets/images/about/sec.png" alt="Enclosed Transport" />
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
     <!--=========== About Section End =========-->
 
     <!--=========== Cta Section Start =========-->
@@ -166,7 +156,56 @@
             </div>
         </div>
     </section>
-    
+        <!--=========== Feature Section Start =========-->
+    <section class="tj-choose-us-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5" data-sal="slide-left" data-sal-duration="800">
+                    <div class="choose-us-content-1">
+                        <div class="tj-section-heading">
+                            <span class="sub-title active-shape2"> Why Choose Us</span>
+                            <h2 class="title">We are the Future of Auto Transport</h2>
+                            <p class="desc">
+                                Safe & Secure Shipping Your Shipment is handled with the utmost care from
+                                pick-up to delivery.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-6">
+                                <div class="tj-icon-box3 text-center">
+                                    <i class="flaticon flaticon-courier"></i>
+                                    <h6 class="title">Optimized Cost</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-6">
+                                <div class="tj-icon-box3 text-center">
+                                    <i class="flaticon flaticon-cargo"></i>
+                                    <h6 class="title">Delivery on Time</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-6">
+                                <div class="tj-icon-box3 text-center">
+                                    <i class="flaticon flaticon-agreement"></i>
+                                    <h6 class="title">Safety & Reliability</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-sal="slide-right" data-sal-duration="800">
+                    <div class="tj-input-form trq-1" data-bg-image="web-assets/images/banner/form-shape.png">
+                        <div id="make-options" class="d-none">
+                            @foreach ($makes as $make)
+                                <option value="{{ $make }}">{{ $make }}</option>
+                            @endforeach
+                        </div>
+                        @include('site.partials.multiform')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=========== Feature Section End =========-->
     <section class="tj-team-details pb-5">
         <div class="container">
             <div class="row">

@@ -35,6 +35,42 @@ class HomeController extends Controller
 
         return view('site.about', compact('services','makes','blogs'));
     }
+    public function openTransport()
+    {
+        $services = Service::where('status', 1)->latest()->take(3)->get();
+        $blogs = Blog::latest()->take(3)->get();
+        $makes = VehicleMakeModel::select('make')->distinct()->orderBy('make')->pluck('make');
+
+        return view('site.services.open-transport', compact('services','makes','blogs'));
+    }
+
+    public function enclosedTransport()
+    {
+        $services = Service::where('status', 1)->latest()->take(3)->get();
+        $blogs = Blog::latest()->take(3)->get();
+        $makes = VehicleMakeModel::select('make')->distinct()->orderBy('make')->pluck('make');
+
+        return view('site.services.enclosed-transport', compact('services','makes','blogs'));
+    }
+
+    public function towAway()
+    {
+        $services = Service::where('status', 1)->latest()->take(3)->get();
+        $blogs = Blog::latest()->take(3)->get();
+        $makes = VehicleMakeModel::select('make')->distinct()->orderBy('make')->pluck('make');
+
+        return view('site.services.tow-away', compact('services','makes','blogs'));
+    }
+
+    public function driveAway()
+    {
+        $services = Service::where('status', 1)->latest()->take(3)->get();
+        $blogs = Blog::latest()->take(3)->get();
+        $makes = VehicleMakeModel::select('make')->distinct()->orderBy('make')->pluck('make');
+
+        return view('site.services.driveaway', compact('services','makes','blogs'));
+    }
+
     public function multiform()
     {
         $makes = VehicleMakeModel::select('make')
