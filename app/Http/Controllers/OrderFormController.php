@@ -9,6 +9,9 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrderForm;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Illuminate\Support\Facades\DB;
 
 class OrderFormController extends Controller
 {
@@ -151,23 +154,48 @@ class OrderFormController extends Controller
             'payment_option'         => 'required|string|in:now,later',
             'signature_name'         => 'required|string|max:255',
             'signature_date'         => 'required|date',
+            'stripeToken'            => 'nullable|string',
         ]);
 
         $validated['quote_id'] = $quote->id;
 
-        try {
-            OrderForm::create($validated);
+        // ✅ transaction so either everything succeeds or nothing is saved
+        DB::beginTransaction();
 
+        try {
             if ($validated['payment_option'] === 'later') {
+                // just create order without charging
+                $orderForm = OrderForm::create($validated);
                 $quote->status = 'Payment Missing';
             } else {
+                // Stripe payment first
+                \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+                $amount = round($quote->amount * 0.10 * 100);
+
+                $charge = \Stripe\Charge::create([
+                    'amount' => $amount,
+                    'currency' => 'usd',
+                    'source' => $validated['stripeToken'],
+                    'description' => '10% deposit for Quote #' . $quote->id,
+                    'receipt_email' => $validated['customer_email'],
+                ]);
+
+                // only create orderForm if charge succeeded
+                $orderForm = OrderForm::create($validated + [
+                    'stripe_charge_id' => $charge->id,
+                    'paid_amount'      => $amount / 100,
+                ]);
+
                 $quote->status = 'Booked';
             }
 
             $quote->save();
+            DB::commit(); // ✅ save everything
+
         } catch (\Exception $e) {
+            DB::rollBack(); // rollback if payment/db failed
             return back()->withErrors([
-                'db' => 'Could not save order form: ' . $e->getMessage()
+                'payment' => 'Something went wrong: ' . $e->getMessage()
             ])->withInput();
         }
 
@@ -175,4 +203,60 @@ class OrderFormController extends Controller
             ->route('home')
             ->with('success', 'Your order has been submitted successfully.');
     }
+
+    // public function submitOrderForm(Request $request, $encrypted)
+    // {
+    //     try {
+    //         $quoteId = decrypt($encrypted);
+    //         $quote   = Quote::findOrFail($quoteId);
+    //     } catch (\Exception $e) {
+    //         abort(404);
+    //     }
+
+    //     if ($quote->orderForm()->exists()) {
+    //         return redirect()
+    //             ->route('thankyou')
+    //             ->with('info', 'This order form has already been submitted.');
+    //     }
+
+    //     $validated = $request->validate([
+    //         'customer_name'          => 'required|string|max:255',
+    //         'customer_email'         => 'required|email',
+    //         'customer_phone'         => 'nullable|string|max:50',
+    //         'pickup_address1'        => 'required|string|max:255',
+    //         'pickup_contact_name'    => 'required|string|max:255',
+    //         'pickup_contact_email'   => 'nullable|email',
+    //         'pickup_date'            => 'required|date',
+    //         'delivery_address1'      => 'required|string|max:255',
+    //         'delivery_contact_name'  => 'required|string|max:255',
+    //         'delivery_contact_email' => 'nullable|email',
+    //         'delivery_date'          => 'required|date',
+    //         'special_instructions'   => 'nullable|string',
+    //         'payment_option'         => 'required|string|in:now,later',
+    //         'signature_name'         => 'required|string|max:255',
+    //         'signature_date'         => 'required|date',
+    //     ]);
+
+    //     $validated['quote_id'] = $quote->id;
+
+    //     try {
+    //         OrderForm::create($validated);
+
+    //         if ($validated['payment_option'] === 'later') {
+    //             $quote->status = 'Payment Missing';
+    //         } else {
+    //             $quote->status = 'Booked';
+    //         }
+
+    //         $quote->save();
+    //     } catch (\Exception $e) {
+    //         return back()->withErrors([
+    //             'db' => 'Could not save order form: ' . $e->getMessage()
+    //         ])->withInput();
+    //     }
+
+    //     return redirect()
+    //         ->route('home')
+    //         ->with('success', 'Your order has been submitted successfully.');
+    // }
 }
