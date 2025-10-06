@@ -902,11 +902,15 @@
     <div class="promo-content">
         <button class="close-btn" onclick="closePromoModal()">&times;</button>
         <div class="promo-body">
-        <img src="https://bridgewaylogisticsllc.com/assets/logo.png" alt="Bridgeway Logistics" class="promo-logo">
-        <h2>🚚 Special Discount Alert!</h2>
-        <p>Enjoy <strong>10% OFF</strong> on your first freight shipment with Bridgeway Logistics.  
-        Reliable, fast, and cost-effective shipping across the U.S.</p>
-        <a href="{{ route('multiform') }}" class="promo-btn">Get Quote</a>
+            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="promo-logo">
+            <h2>🚚 Special Discount Alert!</h2>
+            <p>Enjoy <strong>10% OFF</strong> on your first freight shipment with Bridgeway Logistics.  
+            Reliable, fast, and cost-effective shipping across the U.S.</p>
+            <div class="tj-theme-button">
+                <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                    Get Quote<i class="flaticon-right-1"></i>
+                </a>
+            </div>
         </div>
     </div>
     </div>
