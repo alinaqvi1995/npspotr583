@@ -5,35 +5,6 @@
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Make modal background transparent */
-        .modal-backdrop.show {
-            opacity: 0; /* remove dark background */
-        }
-
-        /* Transparent modal content */
-        .modal-content {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Center image and text */
-        .modal-body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        /* Adjust image size */
-        .modal-body img {
-            max-width: 180px;
-            margin-bottom: 15px;
-        }
-
-
-
         /* ✅ Default Desktop/Laptop */
         .fixed-form {
             position: absolute;
@@ -844,30 +815,38 @@
         </div>
     </section>
     <!--=========== Blog Section End =========-->
-    <!-- Modal -->
-    <div class="modal fade" id="promoModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
-            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics">
-            <h2>🚚 Special Discount Alert!</h2>
-            <p>Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.<br>
-            Reliable, fast, and cost-effective shipping across the U.S.</p>
-            <a href="{{ route('multiform') }}" class="btn btn-primary mt-2">Get Quote</a>
-        </div>
-        </div>
-    </div>
-    </div>
+<!-- Button to trigger modal (optional) -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#promoModal">
+  Open Promo Modal
+</button>
 
-    <script>
-    // Show modal after 3 seconds
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-        const promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
-        promoModal.show();
-        }, 3000);
-    });
-    </script>
+<!-- Promo Modal -->
+<div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content text-center p-3">
+      <button type="button" class="btn-close ms-auto me-1 mt-1" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-body">
+        <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="img-fluid mb-3" style="max-width:120px;">
+        <h2 class="h5 mb-2">🚚 Special Discount Alert!</h2>
+        <p class="mb-3">
+          Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.<br>
+          Reliable, fast, and cost-effective shipping across the U.S.
+        </p>
+        <a href="{{ route('multiform') }}" class="btn btn-primary btn-sm">Get Quote</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-show script -->
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
+      promoModal.show();
+    }, 3000); // show after 3 seconds
+  });
+</script>
+
 
 @endsection
