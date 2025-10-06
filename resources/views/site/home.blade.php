@@ -3,6 +3,9 @@
 @section('meta_description', 'Bridgeway Logistics LLC – Professional auto transport, freight services, and heavy equipment shipping across the USA.')
 @section('meta_keywords', 'auto shipping, car transport, logistics, freight, heavy equipment shipping, Bridgeway Logistics, USA transport, vehicle transport')
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .modal-content.promo-modal-content {
