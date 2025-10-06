@@ -5,12 +5,6 @@
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        :root {
-        --tj-primary-color: #fd5523;
-        --tj-secondary-color: #062e39;
-        --tj-white-color: #ffffff;
-        }
-
         .promo-modal-content {
         border-radius: 20px;
         background-color: var(--tj-white-color);
@@ -18,8 +12,20 @@
         animation: fadeInUp 0.6s ease;
         }
 
+        .promo-body {
+        text-align: center;
+        }
+
+        .promo-logo-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
         .promo-logo {
-        width: 90px;
+        width: 100px;
+        height: auto;
+        display: block;
         }
 
         .promo-btn {
@@ -36,15 +42,10 @@
         }
 
         @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        }
+
 
         /* ✅ Default Desktop/Laptop */
         .fixed-form {
@@ -856,40 +857,43 @@
         </div>
     </section>
     <!--=========== Blog Section End =========-->
-    <!-- Promo Modal -->
+    <!-- Promotion Modal -->
     <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content promo-modal-content text-center p-4 position-relative">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content promo-modal-content text-center p-4 position-relative">
 
-        <!-- Close Button -->
-        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Close Button -->
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
 
-        <!-- Body -->
-        <div class="promo-body">
-            <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics" class="promo-logo mb-3">
-            <h2 class="fw-bold text-dark mb-3">🚚 Special Discount Alert!</h2>
-            <p class="text-secondary mb-4">
-            Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.  
-            Reliable, fast, and cost-effective shipping across the U.S.
-            </p>
-            <div class="tj-theme-button">
-            <a class="btn promo-btn px-4 py-2" href="{{ route('multiform') }}">
-                Get Quote <i class="flaticon-right-1"></i>
-            </a>
+            <!-- Modal Body -->
+            <div class="promo-body d-flex flex-column align-items-center justify-content-center">
+                <div class="promo-logo-wrap mb-3">
+                <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics" class="promo-logo img-fluid">
+                </div>
+
+                <h2 class="fw-bold text-dark mb-2">🚚 Special Discount Alert!</h2>
+                <p class="text-secondary mb-4">
+                Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.  
+                Reliable, fast, and cost-effective shipping across the U.S.
+                </p>
+
+                <div class="tj-theme-button">
+                <a class="btn promo-btn px-4 py-2" href="{{ route('multiform') }}">
+                    Get Quote <i class="flaticon-right-1"></i>
+                </a>
+                </div>
+            </div>
             </div>
         </div>
-        </div>
     </div>
-    </div>
-
-    <!-- JS to Auto Show Modal -->
+    <!-- JS: Auto Show Modal After 3 Seconds -->
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(() => {
-        var promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
-        promoModal.show();
-    }, 2000); // Show after 3 seconds
-    });
+        document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(() => {
+            var promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
+            promoModal.show();
+        }, 3000); // Show after 3 seconds
+        });
     </script>
 
 @endsection
