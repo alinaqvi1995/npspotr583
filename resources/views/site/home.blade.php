@@ -5,46 +5,48 @@
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .promo-modal-content {
-        border-radius: 20px;
-        background-color: var(--tj-white-color);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        animation: fadeInUp 0.6s ease;
-        }
+        .modal-content.promo-modal-content {
+            background: rgba(0, 0, 0, 0.65); /* Transparent dark overlay */
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease;
+            }
 
-        .promo-body {
-        text-align: center;
-        }
+            .promo-body {
+            text-align: center;
+            }
 
-        .promo-logo-wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
+            .promo-logo-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
 
-        .promo-logo {
-        width: 100px;
-        height: auto;
-        display: block;
-        }
+            .promo-logo {
+            width: 100px;
+            height: auto;
+            display: block;
+            }
 
-        .promo-btn {
-        background-color: var(--tj-primary-color);
-        color: var(--tj-white-color);
-        border-radius: 50px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        }
+            .promo-btn {
+            background-color: var(--tj-primary-color);
+            color: var(--tj-white-color);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            }
 
-        .promo-btn:hover {
-        background-color: var(--tj-secondary-color);
-        color: var(--tj-white-color);
-        }
+            .promo-btn:hover {
+            background-color: var(--tj-secondary-color);
+            color: var(--tj-white-color);
+            }
 
-        @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-        }
+            @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+            }
 
 
         /* ✅ Default Desktop/Laptop */
@@ -407,7 +409,7 @@
                         </div>
                         <div class="tj-theme-button">
                             <a class="tj-transparent-btn" href="{{ route('multiform') }}">
-                                Get Quote<i class="flaticon-right-1"></i>
+                                Get Quote <i class="flaticon-right-1"></i>
                             </a>
                         </div>
                     </div>
@@ -863,7 +865,7 @@
             <div class="modal-content promo-modal-content text-center p-4 position-relative">
 
             <!-- Close Button -->
-            <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3 text-white" data-bs-dismiss="modal" aria-label="Close"></button>
 
             <!-- Modal Body -->
             <div class="promo-body d-flex flex-column align-items-center justify-content-center">
@@ -871,8 +873,8 @@
                 <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics" class="promo-logo img-fluid">
                 </div>
 
-                <h2 class="fw-bold text-dark mb-2">🚚 Special Discount Alert!</h2>
-                <p class="text-secondary mb-4">
+                <h2 class="fw-bold text-white mb-2">🚚 Special Discount Alert!</h2>
+                <p class="text-light mb-4">
                 Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.  
                 Reliable, fast, and cost-effective shipping across the U.S.
                 </p>
@@ -886,14 +888,16 @@
             </div>
         </div>
     </div>
+
     <!-- JS: Auto Show Modal After 3 Seconds -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
         setTimeout(() => {
             var promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
             promoModal.show();
-        }, 3000); // Show after 3 seconds
+        }, 3000);
         });
     </script>
+
 
 @endsection
