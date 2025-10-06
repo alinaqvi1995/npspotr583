@@ -3,53 +3,35 @@
 @section('meta_description', 'Bridgeway Logistics LLC – Professional auto transport, freight services, and heavy equipment shipping across the USA.')
 @section('meta_keywords', 'auto shipping, car transport, logistics, freight, heavy equipment shipping, Bridgeway Logistics, USA transport, vehicle transport')
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .modal-content.promo-modal-content {
-            background: rgba(0, 0, 0, 0.65); /* Transparent dark overlay */
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px); /* Frosted glass effect */
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.6s ease;
-            }
+        /* Make modal background transparent */
+        .modal-backdrop.show {
+            opacity: 0; /* remove dark background */
+        }
 
-            .promo-body {
-            text-align: center;
-            }
+        /* Transparent modal content */
+        .modal-content {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
 
-            .promo-logo-wrap {
+        /* Center image and text */
+        .modal-body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            }
+            justify-content: center;
+            text-align: center;
+        }
 
-            .promo-logo {
-            width: 100px;
-            height: auto;
-            display: block;
-            }
+        /* Adjust image size */
+        .modal-body img {
+            max-width: 180px;
+            margin-bottom: 15px;
+        }
 
-            .promo-btn {
-            background-color: var(--tj-primary-color);
-            color: var(--tj-white-color);
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            }
-
-            .promo-btn:hover {
-            background-color: var(--tj-secondary-color);
-            color: var(--tj-white-color);
-            }
-
-            @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-            }
 
 
         /* ✅ Default Desktop/Laptop */
@@ -862,45 +844,30 @@
         </div>
     </section>
     <!--=========== Blog Section End =========-->
-    <!-- Promotion Modal -->
-    <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content promo-modal-content text-center p-4 position-relative">
-
-            <!-- Close Button -->
-            <button type="button" class="btn-close position-absolute top-0 end-0 m-3 text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-
-            <!-- Modal Body -->
-            <div class="promo-body d-flex flex-column align-items-center justify-content-center">
-                <div class="promo-logo-wrap mb-3">
-                <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics" class="promo-logo img-fluid">
-                </div>
-
-                <h2 class="fw-bold text-white mb-2">🚚 Special Discount Alert!</h2>
-                <p class="text-light mb-4">
-                Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.  
-                Reliable, fast, and cost-effective shipping across the U.S.
-                </p>
-
-                <div class="tj-theme-button">
-                <a class="btn promo-btn px-4 py-2" href="{{ route('multiform') }}">
-                    Get Quote <i class="flaticon-right-1"></i>
-                </a>
-                </div>
-            </div>
-            </div>
+    <!-- Modal -->
+    <div class="modal fade" id="promoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics">
+            <h2>🚚 Special Discount Alert!</h2>
+            <p>Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.<br>
+            Reliable, fast, and cost-effective shipping across the U.S.</p>
+            <a href="{{ route('multiform') }}" class="btn btn-primary mt-2">Get Quote</a>
+        </div>
         </div>
     </div>
+    </div>
 
-    <!-- JS: Auto Show Modal After 3 Seconds -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+    // Show modal after 3 seconds
+    window.addEventListener('load', () => {
         setTimeout(() => {
-            var promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
-            promoModal.show();
+        const promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
+        promoModal.show();
         }, 3000);
-        });
+    });
     </script>
-
 
 @endsection
