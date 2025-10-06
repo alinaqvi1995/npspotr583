@@ -20,7 +20,7 @@
     <div class="card-header py-3">
         <div class="row align-items-center g-3">
         <div class="col-12 col-lg-6">
-            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="img-fluid mb-3" style="max-width: 120px;">
+            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="img-fluid" style="max-width: 120px;">
         </div>
         <div class="col-12 col-lg-6 text-md-end">
             <a href="javascript:;" class="btn btn-danger btn-sm me-2">
