@@ -337,7 +337,7 @@
                             </div>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-primary-btn" href="{{ route('contact') }}">
+                            <a class="tj-primary-btn" href="{{ route('about') }}">
                                 Learn More <i class="flaticon-right-1"></i>
                             </a>
                         </div>
