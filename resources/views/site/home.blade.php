@@ -5,7 +5,88 @@
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        .promo-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(2px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
 
+        .promo-content {
+            background: var(--tj-white-color);
+            border-radius: 15px;
+            text-align: center;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideIn 0.5s ease;
+        }
+
+        .promo-logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .promo-content h2 {
+            color: var(--tj-secondary-color);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .promo-content p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .promo-btn {
+            display: inline-block;
+            background: var(--tj-primary-color);
+            color: var(--tj-white-color);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .promo-btn:hover {
+            background: var(--tj-secondary-color);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+            color: var(--tj-secondary-color);
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--tj-primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
         /* ✅ Default Desktop/Laptop */
         .fixed-form {
             position: absolute;
@@ -816,4 +897,37 @@
         </div>
     </section>
     <!--=========== Blog Section End =========-->
+    <!-- Promotion Modal -->
+    <div id="promoModal" class="promo-modal">
+    <div class="promo-content">
+        <button class="close-btn" onclick="closePromoModal()">&times;</button>
+        <div class="promo-body">
+        <img src="https://bridgewaylogisticsllc.com/assets/logo.png" alt="Bridgeway Logistics" class="promo-logo">
+        <h2>🚚 Special Discount Alert!</h2>
+        <p>Enjoy <strong>10% OFF</strong> on your first freight shipment with Bridgeway Logistics.  
+        Reliable, fast, and cost-effective shipping across the U.S.</p>
+        <a href="{{ route('multiform') }}" class="promo-btn">Get Quote</a>
+        </div>
+    </div>
+    </div>
+    <script>
+    // Show modal after 3 seconds
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+        document.getElementById('promoModal').style.display = 'flex';
+        }, 3000);
+    });
+
+    // Close modal
+    function closePromoModal() {
+        document.getElementById('promoModal').style.display = 'none';
+    }
+
+    // Close on click outside
+    window.onclick = function(e) {
+        const modal = document.getElementById('promoModal');
+        if (e.target === modal) modal.style.display = 'none';
+    };
+    </script>
+
 @endsection
