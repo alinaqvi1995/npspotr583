@@ -5,88 +5,47 @@
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .promo-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            backdrop-filter: blur(2px);
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.4s ease;
+        :root {
+        --tj-primary-color: #fd5523;
+        --tj-secondary-color: #062e39;
+        --tj-white-color: #ffffff;
         }
 
-        .promo-content {
-            background: var(--tj-white-color);
-            border-radius: 15px;
-            text-align: center;
-            padding: 30px 25px;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-            animation: slideIn 0.5s ease;
+        .promo-modal-content {
+        border-radius: 20px;
+        background-color: var(--tj-white-color);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        animation: fadeInUp 0.6s ease;
         }
 
         .promo-logo {
-            width: 80px;
-            margin-bottom: 15px;
-        }
-
-        .promo-content h2 {
-            color: var(--tj-secondary-color);
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .promo-content p {
-            color: #555;
-            font-size: 16px;
-            margin-bottom: 20px;
-            line-height: 1.5;
+        width: 90px;
         }
 
         .promo-btn {
-            display: inline-block;
-            background: var(--tj-primary-color);
-            color: var(--tj-white-color);
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
+        background-color: var(--tj-primary-color);
+        color: var(--tj-white-color);
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
         }
 
         .promo-btn:hover {
-            background: var(--tj-secondary-color);
+        background-color: var(--tj-secondary-color);
+        color: var(--tj-white-color);
         }
 
-        .close-btn {
-            position: absolute;
-            top: 10px; right: 15px;
-            background: transparent;
-            border: none;
-            font-size: 26px;
-            cursor: pointer;
-            color: var(--tj-secondary-color);
-            transition: 0.3s;
+        @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
         }
 
-        .close-btn:hover {
-            color: var(--tj-primary-color);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
         /* ✅ Default Desktop/Laptop */
         .fixed-form {
             position: absolute;
@@ -897,41 +856,40 @@
         </div>
     </section>
     <!--=========== Blog Section End =========-->
-    <!-- Promotion Modal -->
-    <div id="promoModal" class="promo-modal">
-    <div class="promo-content">
-        <button class="close-btn" onclick="closePromoModal()">&times;</button>
+    <!-- Promo Modal -->
+    <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content promo-modal-content text-center p-4 position-relative">
+
+        <!-- Close Button -->
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        <!-- Body -->
         <div class="promo-body">
-            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="promo-logo">
-            <h2>🚚 Special Discount Alert!</h2>
-            <p>Enjoy <strong>10% OFF</strong> on your first freight shipment with Bridgeway Logistics.  
-            Reliable, fast, and cost-effective shipping across the U.S.</p>
+            <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics" class="promo-logo mb-3">
+            <h2 class="fw-bold text-dark mb-3">🚚 Special Discount Alert!</h2>
+            <p class="text-secondary mb-4">
+            Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.  
+            Reliable, fast, and cost-effective shipping across the U.S.
+            </p>
             <div class="tj-theme-button">
-                <a class="tj-transparent-btn" href="{{ route('multiform') }}">
-                    Get Quote<i class="flaticon-right-1"></i>
-                </a>
+            <a class="btn promo-btn px-4 py-2" href="{{ route('multiform') }}">
+                Get Quote <i class="flaticon-right-1"></i>
+            </a>
             </div>
+        </div>
         </div>
     </div>
     </div>
+
+    <!-- JS to Auto Show Modal -->
     <script>
-    // Show modal after 3 seconds
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-        document.getElementById('promoModal').style.display = 'flex';
-        }, 3000);
+    document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(() => {
+        var promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
+        promoModal.show();
+    }, 2000); // Show after 3 seconds
     });
-
-    // Close modal
-    function closePromoModal() {
-        document.getElementById('promoModal').style.display = 'none';
-    }
-
-    // Close on click outside
-    window.onclick = function(e) {
-        const modal = document.getElementById('promoModal');
-        if (e.target === modal) modal.style.display = 'none';
-    };
     </script>
 
 @endsection
