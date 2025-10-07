@@ -23,5 +23,16 @@ class QuoteObserver
                 });
             }
         }
+
+        if ($quote->isDirty('discounted_price')) {
+            $newPrice = $quote->discounted_price;
+
+            if (!empty($quote->customer_email)) {
+                Mail::send('emails.discountedPrice', ['quote' => $quote, 'newPrice' => $newPrice], function ($message) use ($quote, $newPrice) {
+                    $message->to($quote->customer_email)
+                        ->subject("Good News! Your Quote #{$quote->id} Has a New Discounted Price");
+                });
+            }
+        }
     }
 }

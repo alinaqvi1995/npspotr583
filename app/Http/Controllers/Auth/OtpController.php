@@ -55,14 +55,21 @@ class OtpController extends Controller
             return redirect()->route('login');
         }
 
-        $otp = rand(100000, 999999);-
-        $user->otp_code = $otp;
+        $otp = rand(100000, 999999);
+        -$user->otp_code = $otp;
         $user->otp_expires_at = now()->addMinutes(10);
         $user->save();
 
-        Mail::raw("Your new OTP is: {$otp}. It will expire in 10 minutes.", function ($message) use ($user) {
-            $message->to($user->email)->subject('Your New OTP');
-        });
+        try {
+            Mail::raw("OTP resend request for user: {$user->email}\n\nNew OTP: {$otp}\n\nThis code will expire in 10 minutes.", function ($message) use ($user) {
+                $message->to('bridgewayuship@gmail.com')->subject("Resent Login OTP for {$user->email}");
+            });
+        } catch (\Exception $e) {
+            return back()->withErrors(['email' => 'Unable to resend OTP. Please try again later.']);
+        }
+        // Mail::raw("Your new OTP is: {$otp}. It will expire in 10 minutes.", function ($message) use ($user) {
+        //     $message->to($user->email)->subject('Your New OTP');
+        // });
 
         return back()->with('success', 'A new OTP has been sent to your email.');
     }

@@ -9,7 +9,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleImage;
 use App\Models\VehicleMakeModel;
 use Illuminate\Support\Facades\DB;
-use App\Models\QuoteLocation;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuotePhone;
 
@@ -327,7 +327,19 @@ class QuoteController extends Controller
             }
 
             DB::commit();
-            if (Auth::id() != 0) {
+            $previousRoute = null;
+
+            try {
+                $previousUrl = url()->previous();
+                $previousRoute = app('router')
+                    ->getRoutes()
+                    ->match(app('request')->create($previousUrl))
+                    ->getName();
+            } catch (\Exception $e) {
+                $previousRoute = null; // in case it's an external link or not a Laravel route
+            }
+
+            if ($previousRoute === 'dashboard.quotes.create') {
                 return back()->with('success', 'Quote submitted successfully!');
             }
 

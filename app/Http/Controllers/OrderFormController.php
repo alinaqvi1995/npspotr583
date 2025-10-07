@@ -127,7 +127,7 @@ class OrderFormController extends Controller
     {
         try {
             $quoteId = decrypt($encrypted);
-            $quote   = Quote::findOrFail($quoteId);
+            $quote   = Quote::with(['pickupLocation', 'deliveryLocation'])->findOrFail($quoteId);
         } catch (\Exception $e) {
             abort(404);
         }
@@ -152,10 +152,14 @@ class OrderFormController extends Controller
             'delivery_date'          => 'required|date',
             'special_instructions'   => 'nullable|string',
             'payment_option'         => 'required|string|in:now,later',
-            'pay_amount_option'      => 'nullable|string|in:initial,full', // ✅ new
+            'pay_amount_option'      => 'nullable|string|in:initial,full',
             'signature_name'         => 'required|string|max:255',
             'signature_date'         => 'required|date',
             'stripeToken'            => 'nullable|string',
+            'pickup_phones'          => 'array',
+            'pickup_phones.*'        => 'nullable|string|max:50',
+            'delivery_phones'        => 'array',
+            'delivery_phones.*'      => 'nullable|string|max:50',
         ]);
 
         $validated['quote_id'] = $quote->id;
@@ -164,44 +168,70 @@ class OrderFormController extends Controller
 
         try {
             if ($validated['payment_option'] === 'later') {
-                // just create order without charging
                 $orderForm = OrderForm::create($validated);
                 $quote->status = 'Payment Missing';
             } else {
-                // ✅ decide amount based on option
-                if (($validated['pay_amount_option'] ?? 'full') === 'initial') {
-                    $amountToCharge = 30; // fixed initial deposit
-                } else {
-                    $amountToCharge = $quote->amount_to_pay; // full payment
-                }
+                $amountToCharge = ($validated['pay_amount_option'] ?? 'full') === 'initial'
+                    ? 30
+                    : $quote->amount_to_pay;
 
-                // Stripe payment first
                 \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
                 $charge = \Stripe\Charge::create([
-                    'amount'      => round($amountToCharge * 100), // cents
-                    'currency'    => 'usd',
-                    'source'      => $validated['stripeToken'],
-                    'description' => 'Payment for Quote #' . $quote->id,
+                    'amount'        => round($amountToCharge * 100),
+                    'currency'      => 'usd',
+                    'source'        => $validated['stripeToken'],
+                    'description'   => 'Payment for Quote #' . $quote->id,
                     'receipt_email' => $validated['customer_email'],
                 ]);
 
-                // only create orderForm if charge succeeded
                 $orderForm = OrderForm::create($validated + [
                     'stripe_charge_id' => $charge->id,
                     'paid_amount'      => $amountToCharge,
                 ]);
 
-                $quote->status = ($validated['pay_amount_option'] === 'initial')
+                $quote->status = ($validated['pay_amount_option'] ?? 'full') === 'initial'
                     ? 'Deposit Paid'
                     : 'Booked';
             }
 
-            // ✅ save addresses separately
-            $quote->pickupLocation->address1 = $validated['pickup_address1'];
-            $quote->pickupLocation->save();
+            if ($quote->pickupLocation) {
+                $quote->pickupLocation->update([
+                    'address1'      => $validated['pickup_address1'],
+                    'contact_name'  => $validated['pickup_contact_name'],
+                    'contact_email' => $validated['pickup_contact_email'],
+                ]);
 
-            $quote->deliveryLocation->address1 = $validated['delivery_address1'];
-            $quote->deliveryLocation->save();
+                $quote->pickupLocation->phones()->delete();
+                foreach ($request->pickup_phones ?? [] as $phone) {
+                    if (!empty($phone)) {
+                        $quote->pickupLocation->phones()->create([
+                            'type'  => 'pickup',
+                            'phone' => $phone,
+                        ]);
+                    }
+                }
+            }
+
+            if ($quote->deliveryLocation) {
+                $quote->deliveryLocation->update([
+                    'address1'      => $validated['delivery_address1'],
+                    'contact_name'  => $validated['delivery_contact_name'],
+                    'contact_email' => $validated['delivery_contact_email'],
+                ]);
+
+                $quote->deliveryLocation->phones()->delete();
+                foreach ($request->delivery_phones ?? [] as $phone) {
+                    if (!empty($phone)) {
+                        $quote->deliveryLocation->phones()->create([
+                            'type'  => 'delivery',
+                            'phone' => $phone,
+                        ]);
+                    }
+                }
+            }
+
+            $quote->pickup_date   = $validated['pickup_date'];
+            $quote->delivery_date = $validated['delivery_date'];
 
             $quote->save();
             DB::commit();
@@ -216,6 +246,7 @@ class OrderFormController extends Controller
             ->route('home')
             ->with('success', 'Your order has been submitted successfully.');
     }
+
 
     // public function submitOrderForm(Request $request, $encrypted)
     // {

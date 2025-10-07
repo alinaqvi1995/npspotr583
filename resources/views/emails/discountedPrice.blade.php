@@ -1,7 +1,7 @@
 @extends('emails.layouts.app')
 
-@section('title', "Quote Update - Quote #{$quote->id}")
-@section('header', 'Your Quote Has Been Updated')
+@section('title', "Discounted Price - Quote #{$quote->id}")
+@section('header', 'Your Quote Price Has Been Updated')
 
 @section('content')
     <!-- Greeting -->
@@ -9,37 +9,26 @@
         Hello <strong>{{ $quote->customer_name }}</strong>,
     </p>
 
-    <!-- Update Message -->
+    <!-- Discount Update -->
     <p style="font-size:15px; color:#555; line-height:22px; margin-bottom:20px;">
-        We wanted to let you know that your quote 
-        <strong style="color:#1a73e8;">#{{ $quote->id }}</strong> has been updated.
+        We’re excited to let you know that we’ve applied a
+        <strong style="color:#28a745;">new discounted price</strong>
+        to your quote <strong>#{{ $quote->id }}</strong>.
     </p>
 
-    <!-- Current Status Highlight -->
-    <p style="font-size:15px; margin:20px 0; padding:12px 18px; background:#f4f8ff; 
-              border-left:4px solid #1a73e8; color:#333; border-radius:4px;">
-        <strong>Current Status:</strong> 
-        <span style="font-weight:600; color:#1a73e8;">{{ $quote->status }}</span>
+    <!-- Highlight New Discounted Price -->
+    <p
+        style="font-size:15px; margin:20px 0; padding:14px 20px; background:#f0fff4; 
+              border-left:4px solid #28a745; color:#333; border-radius:4px;">
+        <strong>New Discounted Price:</strong>
+        <span style="font-size:18px; font-weight:700; color:#28a745;">
+            ${{ number_format($newPrice, 2) }}
+        </span>
     </p>
 
-    <!-- Conditional Messages -->
-    @if (in_array($quote->status, ['Booked', 'Dispatch', 'Pickup', 'Delivery']))
-        <p style="font-size:14px; color:#555; line-height:22px;">
-            Our team will keep you informed as your order progresses.
-        </p>
-    @elseif($quote->status === 'Completed')
-        <p style="font-size:14px; color:#555; line-height:22px;">
-            ✅ Thank you for choosing us! Your order has been successfully completed.
-        </p>
-    @elseif($quote->status === 'Cancelled')
-        <p style="font-size:14px; color:#b00020; line-height:22px;">
-            ❌ Your order has been cancelled. If this is unexpected, please contact us immediately.
-        </p>
-    @else
-        <p style="font-size:14px; color:#555; line-height:22px;">
-            We’ll keep you updated on the next steps.
-        </p>
-    @endif
+    <p style="font-size:14px; color:#555; line-height:22px; margin-bottom:20px;">
+        We hope this updated price makes your shipping experience even better. 🚚💨
+    </p>
 
     <hr style="border:none; border-top:1px solid #e5e5e5; margin:35px 0;">
 

@@ -130,10 +130,6 @@
         }
 
         /* pickup delivery suggestion end */
-
-        /* stripe card */
-
-        /* stripe card end */
     </style>
     <style>
         /* Container */
@@ -423,7 +419,6 @@
                                                         <div class="col-md-6 text-md-end">
                                                             <p class="mb-1"><strong>Amount:</strong>
                                                                 ${{ $quote->amount_to_pay ?? 0 }}</p>
-                                                            {{-- <p class="mb-0"><strong>Balance:</strong> ${{ $quote->balance_amount ?? 0 }}</p> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -469,7 +464,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="form-label">Phone</label>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control phone"
                                                                 name="customer_phone"
                                                                 value="{{ old('customer_phone', $quote->customer_phone) }}"
                                                                 required>
@@ -532,8 +527,6 @@
                                                                         value="{{ old('pickup_address1', $quote->pickupLocation->address1) }}"
                                                                         required>
                                                                     <label class="form-label">City, State, Zip</label>
-                                                                    {{-- <input type="text" class="form-control mb-2"
-                                                                        value="{{ optional($quote->pickupLocation)->full_location }}"> --}}
                                                                     <div class="input-form single-input-field">
                                                                         <input class="form-control" type="text"
                                                                             id="pickup-location" name=""
@@ -544,23 +537,34 @@
                                                                         <div id="pickup-suggestions"
                                                                             class="form-control suggestions-box"></div>
                                                                     </div>
-                                                                    <label class="form-label">Contact</label>
+                                                                    <label class="form-label">Name</label>
                                                                     <input type="text" class="form-control mb-2"
                                                                         name="pickup_contact_name"
                                                                         value="{{ old('pickup_contact_name', $quote->pickup_contact_name) }}">
+                                                                    <label class="form-label">Email</label>
                                                                     <input type="email" class="form-control mb-2"
                                                                         name="pickup_contact_email"
                                                                         value="{{ old('pickup_contact_email', $quote->pickup_contact_email) }}">
-                                                                    @if (optional($quote->pickupLocation)->phones->count())
-                                                                        @foreach ($quote->pickupLocation->phones as $phone)
-                                                                            <input type="text"
-                                                                                class="form-control mb-2"
-                                                                                value="{{ $phone->phone }}" readonly>
-                                                                        @endforeach
-                                                                    @endif
+                                                                    @php
+                                                                        $pickupPhones = $quote->pickupPhones;
+                                                                        $maxPhones = 2;
+                                                                    @endphp
+
+                                                                    <div class="row">
+                                                                        @for ($i = 0; $i < $maxPhones; $i++)
+                                                                            <div class="col-md-6 mb-3">
+                                                                                <label class="form-label">Pickup Phone
+                                                                                    {{ $i + 1 }}</label>
+                                                                                <input type="text"
+                                                                                    name="pickup_phones[]"
+                                                                                    class="form-control phone"
+                                                                                    value="{{ $pickupPhones[$i]->phone ?? '' }}">
+                                                                            </div>
+                                                                        @endfor
+                                                                    </div>
                                                                     <label class="form-label">Pickup Date</label>
                                                                     <input type="datetime-local" class="form-control"
-                                                                        name="pickup_date"
+                                                                        name="pickup_date" required
                                                                         value="{{ old('pickup_date', $quote->pickup_date ? $quote->pickup_date->format('Y-m-d\TH:i') : '') }}">
                                                                 </div>
                                                             </div>
@@ -576,8 +580,6 @@
                                                                         value="{{ old('delivery_address1', $quote->deliveryLocation->address1) }}"
                                                                         required>
                                                                     <label class="form-label">City, State, Zip</label>
-                                                                    {{-- <input type="text" class="form-control mb-2"
-                                                                        value="{{ optional($quote->deliveryLocation)->full_location }}"> --}}
                                                                     <div class="input-form single-input-field">
                                                                         <input class="form-control" type="text"
                                                                             id="delivery-location" name=""
@@ -588,23 +590,34 @@
                                                                         <div id="delivery-suggestions"
                                                                             class="form-control suggestions-box"></div>
                                                                     </div>
-                                                                    <label class="form-label">Contact</label>
+                                                                    <label class="form-label">Name</label>
                                                                     <input type="text" class="form-control mb-2"
                                                                         name="delivery_contact_name"
                                                                         value="{{ old('delivery_contact_name', $quote->delivery_contact_name) }}">
+                                                                    <label class="form-label">Email</label>
                                                                     <input type="email" class="form-control mb-2"
                                                                         name="delivery_contact_email"
                                                                         value="{{ old('delivery_contact_email', $quote->delivery_contact_email) }}">
-                                                                    @if (optional($quote->deliveryLocation)->phones->count())
-                                                                        @foreach ($quote->deliveryLocation->phones as $phone)
-                                                                            <input type="text"
-                                                                                class="form-control mb-2"
-                                                                                value="{{ $phone->phone }}" readonly>
-                                                                        @endforeach
-                                                                    @endif
+                                                                    @php
+                                                                        $deliveryPhones = $quote->deliveryPhones;
+                                                                        $maxPhones = 2;
+                                                                    @endphp
+
+                                                                    <div class="row">
+                                                                        @for ($i = 0; $i < $maxPhones; $i++)
+                                                                            <div class="col-md-6 mb-3">
+                                                                                <label class="form-label">Delivery
+                                                                                    Phone {{ $i + 1 }}</label>
+                                                                                <input type="text"
+                                                                                    name="delivery_phones[]"
+                                                                                    class="form-control phone"
+                                                                                    value="{{ $deliveryPhones[$i]->phone ?? '' }}">
+                                                                            </div>
+                                                                        @endfor
+                                                                    </div>
                                                                     <label class="form-label">Delivery Date</label>
                                                                     <input type="datetime-local" class="form-control"
-                                                                        name="delivery_date"
+                                                                        name="delivery_date" required
                                                                         value="{{ old('delivery_date', $quote->delivery_date ? $quote->delivery_date->format('Y-m-d\TH:i') : '') }}">
                                                                 </div>
                                                             </div>
@@ -653,12 +666,11 @@
                                                         <label class="form-label">Payment Option</label>
                                                         <select name="payment_option" id="payment_option"
                                                             class="form-select" required>
-                                                            <option value="">Select Payment Option</option>
                                                             <option value="now"
                                                                 {{ old('payment_option') === 'now' ? 'selected' : '' }}>
                                                                 Pay Now
                                                             </option>
-                                                            <option value="later"
+                                                            <option value="later" selected
                                                                 {{ old('payment_option') === 'later' ? 'selected' : '' }}>
                                                                 Pay Later
                                                             </option>
@@ -758,9 +770,10 @@
     <script src="{{ asset('web-assets/js/jquery.nice-select.min.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('web-assets/js/main.js') }}"></script>
-    <script src="{{ asset('web-assets/js/extra.js') }}"></script>
 
     <script src="https://js.stripe.com/v3/"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -801,32 +814,106 @@
                 }
             });
 
-            // Auto format card number (4242 4242 4242 4242)
-            $('#card_number').on('input', function() {
-                let value = $(this).val().replace(/\D/g, '');
-                value = value.substring(0, 16); // max 16 digits
-                let formatted = value.replace(/(.{4})/g, '$1 ').trim();
-                $(this).val(formatted);
-            });
-
-            // Expiry MM/YY auto-format (slash always visible)
-            $('#exp_month').on('input', function() {
-                let val = this.value.replace(/\D/g, '').substring(0, 2);
-                if (val.length === 2) {
-                    let month = parseInt(val, 10);
-                    if (month < 1) month = 1;
-                    if (month > 12) month = 12;
-                    val = month.toString().padStart(2, '0');
-                    $('#exp_year').focus(); // jump to year
+            $(document).on("focus", ".phone", function() {
+                if (!$(this).data("inputmask")) {
+                    $(this).inputmask({
+                        mask: "(999) 999-9999"
+                    });
                 }
-                this.value = val;
-            });
-
-            $('#cvc').on('input', function() {
-                this.value = this.value.replace(/\D/g, '').substring(0, 4);
             });
         });
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Custom phone rule
+            $.validator.addMethod("phoneUS", function(phone_number, element) {
+                return this.optional(element) || /^\(\d{3}\) \d{3}-\d{4}$/.test(phone_number);
+            }, "Please enter a valid phone number (e.g. (123) 456-7890)");
+
+            $("#order-form").validate({
+                errorClass: "is-invalid",
+                validClass: "is-valid",
+                errorElement: "div",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.parent(".input-group").length) {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function(element) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                },
+                rules: {
+                    customer_name: {
+                        required: true,
+                        minlength: 2
+                    },
+                    customer_email: {
+                        required: true,
+                        email: true
+                    },
+                    customer_phone: {
+                        required: true,
+                        phoneUS: true
+                    },
+
+                    pickup_address1: "required",
+                    pickup_contact_name: "required",
+                    pickup_contact_email: {
+                        email: true
+                    },
+
+                    delivery_address1: "required",
+                    delivery_contact_name: "required",
+                    delivery_contact_email: {
+                        email: true
+                    },
+
+                    "pickup_phones[]": {
+                        phoneUS: true
+                    },
+                    "delivery_phones[]": {
+                        phoneUS: true
+                    },
+
+                    confirm_terms: "required",
+                    payment_option: "required",
+                    signature_name: "required",
+                    signature_date: "required"
+                },
+                messages: {
+                    customer_name: "Please enter your name",
+                    customer_email: {
+                        required: "Please enter your email",
+                        email: "Enter a valid email"
+                    },
+                    customer_phone: "Enter a valid phone number",
+
+                    pickup_address1: "Pickup address is required",
+                    pickup_contact_name: "Pickup contact name is required",
+                    pickup_contact_email: "Enter a valid email for pickup contact",
+
+                    delivery_address1: "Delivery address is required",
+                    delivery_contact_name: "Delivery contact name is required",
+                    delivery_contact_email: "Enter a valid email for delivery contact",
+
+                    confirm_terms: "You must accept the Terms & Conditions",
+                    payment_option: "Please select a payment option",
+                    signature_name: "Signature name is required",
+                    signature_date: "Signature date is required"
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

@@ -78,7 +78,6 @@ class QuoteManagementController extends Controller
 
     public function quoteUpdate(Request $request, Quote $quote)
     {
-        // dd($request->toArray());
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
@@ -126,6 +125,9 @@ class QuoteManagementController extends Controller
             'vehicles.*.height' => 'nullable|integer',
             'vehicles.*.height_in' => 'nullable|integer',
             'vehicles.*.weight' => 'nullable|numeric',
+            'vehicles.*.buyer' => 'nullable',
+            'vehicles.*.lot' => 'nullable',
+            'vehicles.*.gatepin' => 'nullable',
             'vehicles.*.condition' => 'nullable|in:Running,Non-Running',
             'vehicles.*.modified' => 'nullable|boolean',
             'vehicles.*.modified_info' => 'nullable|string',
@@ -151,6 +153,7 @@ class QuoteManagementController extends Controller
             'pricing.cop_cod_amount' => 'nullable|numeric',
             'pricing.balance' => 'nullable|numeric',
             'pricing.balance_amount' => 'nullable|numeric',
+            'pricing.discounted_price' => 'nullable|numeric',
 
             // Additional Info
             'additional.load_id' => 'nullable|string|max:255',
@@ -186,6 +189,7 @@ class QuoteManagementController extends Controller
                 'transport_special_instructions' => $validated['additional']['special_instructions'] ?? null,
                 'load_specific_terms' => $validated['additional']['load_terms'] ?? null,
                 'amount_to_pay' => $validated['pricing']['amount_to_pay'] ?? null,
+                'discounted_price' => $validated['pricing']['discounted_price'] ?? null,
                 'cop_cod' => $validated['pricing']['cop_cod'] ?? null,
                 'cop_cod_amount' => $validated['pricing']['cop_cod_amount'] ?? null,
                 'balance' => $validated['pricing']['balance'] ?? null,
@@ -266,6 +270,9 @@ class QuoteManagementController extends Controller
                             'height_in' => $vehicleData['height_in'] ?? null,
                             'weight' => $vehicleData['weight'] ?? null,
                             'condition' => $vehicleData['condition'] ?? null,
+                            'buyer' => $vehicleData['buyer'] ?? null,
+                            'lot' => $vehicleData['lot'] ?? null,
+                            'gatepin' => $vehicleData['gatepin'] ?? null,
                             'modified' => isset($vehicleData['modified']) ? (int)$vehicleData['modified'] : 0,
                             'modified_info' => $vehicleData['modified_info'] ?? null,
                             'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int)$vehicleData['available_at_auction'] : 0,
@@ -294,6 +301,9 @@ class QuoteManagementController extends Controller
                         'height_ft' => $vehicleData['height_ft'] ?? $vehicleData['height'] ?? null,
                         'height_in' => $vehicleData['height_in'] ?? null,
                         'weight' => $vehicleData['weight'] ?? null,
+                        'buyer' => $vehicleData['buyer'] ?? null,
+                        'lot' => $vehicleData['lot'] ?? null,
+                        'gatepin' => $vehicleData['gatepin'] ?? null,
                         'condition' => $vehicleData['condition'] ?? null,
                         'modified' => isset($vehicleData['modified']) ? (int)$vehicleData['modified'] : 0,
                         'modified_info' => $vehicleData['modified_info'] ?? null,

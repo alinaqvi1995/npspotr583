@@ -56,6 +56,7 @@ class Quote extends Model
         'cop_cod_amount',
         'balance',
         'balance_amount',
+        'discounted_price',
 
         'load_id',
         'pre_dispatch_notes',
@@ -293,6 +294,8 @@ class Quote extends Model
     {
         return $this->belongsTo(User::class);
     }
+}
+
 
     // public function orderForms()
     // {
@@ -303,8 +306,6 @@ class Quote extends Model
     // {
     //     return $this->hasOne(OrderForm::class)->latestOfMany();
     // }
-}
-
 // 2️⃣ Full History Report
 
 // If you want all status changes, use the quote_histories table:

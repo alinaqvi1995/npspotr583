@@ -237,8 +237,6 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label class="form-label">Year</label>
-                                            {{-- <input type="text" class="form-control"
-                                                name="vehicles[{{ $vIndex + 1 }}][year]" value="{{ $vehicle->year }}"> --}}
                                             <select class="form-select year-select"
                                                 name="vehicles[{{ $vIndex + 1 }}][year]"
                                                 data-selected="{{ $vehicle->year }}">
@@ -299,7 +297,6 @@
                                         </div>
 
                                         <!-- Trailer Type only for heavy equipment and RV -->
-                                        {{-- @if (in_array($vehicle->type, ['Heavy-Equipment', 'RV-Transport'])) --}}
                                         <div class="col-md-3">
                                             <label class="form-label">Trailer Type</label>
                                             <select name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
@@ -313,7 +310,6 @@
                                                     Enclosed Trailer</option>
                                             </select>
                                         </div>
-                                        {{-- @endif --}}
 
                                         <!-- Booleans -->
                                         <div class="col-md-2">
@@ -335,15 +331,16 @@
                                             <input type="hidden"
                                                 name="vehicles[{{ $vIndex + 1 }}][available_at_auction]"
                                                 value="0">
-                                            <input type="checkbox" class="auction-toggle" data-target="#auctionFields-1"
+                                            <input type="checkbox" class="auction-toggle"
+                                                data-target="#auctionFields-{{ $vIndex + 1 }}"
                                                 name="vehicles[{{ $vIndex + 1 }}][available_at_auction]" value="1"
                                                 {{ $vehicle->available_at_auction ? 'checked' : '' }}>
                                         </div>
 
                                         <!-- Auction extra fields (hidden by default) -->
-                                        <div class="col-12 auction-fields" id="auctionFields-1"
-                                            @if ($vehicle->available_at_auction == 0) style="display: none;" @endif
-                                            style="">
+                                        <!-- Auction extra fields (hidden by default) -->
+                                        <div class="col-12 auction-fields" id="auctionFields-{{ $vIndex + 1 }}"
+                                            @if ($vehicle->available_at_auction == 0) style="display: none;" @endif>
                                             <div class="row g-3 mt-2">
                                                 <div class="col-md-4">
                                                     <label class="form-label">Auction Link</label>
@@ -371,22 +368,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {{-- <div class="col-md-2">
-                                            <label class="form-label">Auction</label><br>
-                                            <input type="hidden"
-                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]"
-                                                value="0">
-                                            <input type="checkbox"
-                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]" value="1"
-                                                {{ $vehicle->available_at_auction ? 'checked' : '' }}>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="form-label">Auction Link</label>
-                                            <input type="text" class="form-control"
-                                                name="vehicles[{{ $vIndex + 1 }}][available_link]"
-                                                value="{{ $vehicle->available_link }}">
-                                        </div> --}}
 
                                         <!-- Images -->
                                         <div class="col-md-12">
@@ -469,12 +450,6 @@
                                     value="{{ old('pricing.amount_to_pay', $quote->amount_to_pay) }}"
                                     placeholder="Enter amount to pay carrier">
                             </div>
-
-                            {{-- <div class="col-md-6">
-                                <label class="form-label">COP/COD</label>
-                                <input type="text" class="form-control" name="pricing[cop_cod]"
-                                    value="{{ old('pricing.cop_cod', $quote->cop_cod) }}" placeholder="COP/COD">
-                            </div> --}}
                             <div class="col-md-6">
                                 <label class="form-label">COP/COD Amount <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="pricing[cop_cod_amount]"
@@ -482,16 +457,17 @@
                                     placeholder="0.00">
                             </div>
 
-                            {{-- <div class="col-md-6">
-                                <label class="form-label">Balance</label>
-                                <input type="text" class="form-control" name="pricing[balance]"
-                                    value="{{ old('pricing.balance', $quote->balance) }}" placeholder="Balance Amount">
-                            </div> --}}
-
                             <div class="col-md-6">
                                 <label class="form-label">Balance Amount</label>
                                 <input type="text" class="form-control" name="pricing[balance_amount]"
                                     value="{{ old('pricing.balance_amount', $quote->balance_amount) }}"
+                                    placeholder="0.00">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Discounted Amount</label>
+                                <input type="text" class="form-control" name="pricing[discounted_price]"
+                                    value="{{ old('pricing.discounted_price', $quote->discounted_price) }}"
                                     placeholder="0.00">
                             </div>
                         </div>
@@ -505,12 +481,6 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">Additional Info</h5>
                         <div class="row g-3">
-                            {{-- <div class="col-md-6">
-                                <label class="form-label">Your Load ID</label>
-                                <input type="text" class="form-control" name="additional[load_id]" maxlength="50"
-                                    value="{{ old('additional.load_id', $quote->load_id) }}" placeholder="ID Number">
-                                <small class="text-muted">50 characters remaining</small>
-                            </div> --}}
 
                             <div class="col-md-12">
                                 <label class="form-label">Pre-dispatch Notes</label>
@@ -685,10 +655,29 @@
                     const newIndex = index + 1;
                     $(this).attr('data-index', newIndex);
                     $(this).find('h6').text('Vehicle #' + newIndex);
+
+                    // Fix input/select names
                     $(this).find('input, select').each(function() {
-                        const name = $(this).attr('name').replace(/\d+/, newIndex);
-                        $(this).attr('name', name);
+                        const oldName = $(this).attr('name');
+                        if (oldName) {
+                            const newName = oldName.replace(/\[\d+\]/, `[${newIndex}]`);
+                            $(this).attr('name', newName);
+                        }
                     });
+
+                    // Auction toggle & fields
+                    const $auctionToggle = $(this).find('.auction-toggle');
+                    const $auctionFields = $(this).find('.auction-fields');
+
+                    $auctionFields.attr('id', `auctionFields-${newIndex}`);
+                    $auctionToggle.attr('data-target', `#auctionFields-${newIndex}`);
+
+                    // Keep visibility consistent
+                    if ($auctionToggle.is(':checked')) {
+                        $auctionFields.show();
+                    } else {
+                        $auctionFields.hide();
+                    }
                 });
             }
 
@@ -751,6 +740,15 @@
                             $modelSelect.val(selectedModel);
                         }, 300);
                     }
+                }
+            });
+
+            $(document).on('change', '.auction-toggle', function() {
+                const target = $(this).data('target');
+                if ($(this).is(':checked')) {
+                    $(target).show();
+                } else {
+                    $(target).hide();
                 }
             });
 
