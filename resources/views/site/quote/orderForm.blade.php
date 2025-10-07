@@ -529,7 +529,7 @@
                                                                     <label class="form-label">Address</label>
                                                                     <input type="text" class="form-control mb-2"
                                                                         name="pickup_address1"
-                                                                        value="{{ old('pickup_address1', $quote->pickup_address1) }}"
+                                                                        value="{{ old('pickup_address1', $quote->pickupLocation->address1) }}"
                                                                         required>
                                                                     <label class="form-label">City, State, Zip</label>
                                                                     {{-- <input type="text" class="form-control mb-2"
@@ -573,7 +573,7 @@
                                                                     <label class="form-label">Address</label>
                                                                     <input type="text" class="form-control mb-2"
                                                                         name="delivery_address1"
-                                                                        value="{{ old('delivery_address1', $quote->delivery_address1) }}"
+                                                                        value="{{ old('delivery_address1', $quote->deliveryLocation->address1) }}"
                                                                         required>
                                                                     <label class="form-label">City, State, Zip</label>
                                                                     {{-- <input type="text" class="form-control mb-2"

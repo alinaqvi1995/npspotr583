@@ -188,12 +188,15 @@ class OrderFormController extends Controller
 
                 $quote->status = 'Booked';
             }
+
+            $quote->pickupLocation->address1 = $validated['pickup_address1'];
+            $quote->pickupLocation->save();
+
+            $quote->deliveryLocation->address1 = $validated['delivery_address1'];
+            $quote->deliveryLocation->save();
             
-            $quote->pickup_address1 = $validated['pickup_address1'];
-            $quote->delivery_address1 = $validated['delivery_address1'];
             $quote->save();
             DB::commit();
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors([
