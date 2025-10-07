@@ -536,8 +536,8 @@
                                                                         value="{{ optional($quote->pickupLocation)->full_location }}"> --}}
                                                                     <div class="input-form single-input-field">
                                                                         <input class="form-control" type="text"
-                                                                            id="pickup-location"
-                                                                            name="pickup_address1"
+                                                                            id="pickup-location" name=""
+                                                                            readonly
                                                                             placeholder="Enter City or ZipCode"
                                                                             value="{{ optional($quote->pickupLocation)->full_location }}"
                                                                             required>
@@ -581,7 +581,7 @@
                                                                     <div class="input-form single-input-field">
                                                                         <input class="form-control" type="text"
                                                                             id="delivery-location"
-                                                                            name="delivery_address1"
+                                                                            name="" readonly
                                                                             placeholder="Enter City or ZipCode"
                                                                             value="{{ optional($quote->deliveryLocation)->full_location }}"
                                                                             required>
