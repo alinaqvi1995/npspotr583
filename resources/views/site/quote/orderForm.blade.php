@@ -580,8 +580,8 @@
                                                                         value="{{ optional($quote->deliveryLocation)->full_location }}"> --}}
                                                                     <div class="input-form single-input-field">
                                                                         <input class="form-control" type="text"
-                                                                            id="delivery-location"
-                                                                            name="" readonly
+                                                                            id="delivery-location" name=""
+                                                                            readonly
                                                                             placeholder="Enter City or ZipCode"
                                                                             value="{{ optional($quote->deliveryLocation)->full_location }}"
                                                                             required>
@@ -663,6 +663,17 @@
                                                                 Pay Later
                                                             </option>
                                                         </select>
+                                                        <div id="pay-now-options" style="display: none;"
+                                                            class="mb-3">
+                                                            <label class="form-label">Choose Amount</label>
+                                                            <select name="pay_amount_option" id="pay_amount_option"
+                                                                class="form-select">
+                                                                <option value="full">Pay Full
+                                                                    (${{ $quote->amount_to_pay ?? 0 }})</option>
+                                                                <option value="initial">Pay Initial ($30)</option>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
 
                                                     <div id="custom-card-fields" style="display: none;">
@@ -762,8 +773,10 @@
             $('#payment_option').on('change', function() {
                 if ($(this).val() === 'now') {
                     $('#custom-card-fields').show();
+                    $('#pay-now-options').show();
                 } else {
                     $('#custom-card-fields').hide();
+                    $('#pay-now-options').hide();
                 }
             });
 
@@ -812,75 +825,6 @@
             $('#cvc').on('input', function() {
                 this.value = this.value.replace(/\D/g, '').substring(0, 4);
             });
-
-            function bindSearch(inputId, suggestionBoxId, cityId, stateId, zipId) {
-                let selected = false;
-
-                $(inputId).on('keyup', function() {
-                    let query = $(this).val();
-                    selected = false;
-
-                    $(inputId).removeClass('is-invalid');
-                    $(inputId).siblings('.invalid-feedback').remove();
-
-                    if (query.length < 2) {
-                        $(suggestionBoxId).slideUp(200);
-                        return;
-                    }
-
-                    $.ajax({
-                        url: "{{ route('zipcode.searchByLocation') }}",
-                        data: {
-                            q: query
-                        },
-                        success: function(data) {
-                            let html = '';
-                            if (data.length > 0) {
-                                data.forEach(item => {
-                                    // pass structured data with dataset
-                                    html += `<div class="suggestion-item" 
-                                    data-city="${item.city}" 
-                                    data-state="${item.state}" 
-                                    data-zip="${item.zip}">
-                                    ${item.label}
-                                 </div>`;
-                                });
-                            } else {
-                                html = '<div class="p-2 text-muted">No results found</div>';
-                            }
-
-                            $(suggestionBoxId).html(html).stop(true, true).slideDown(200);
-                        }
-                    });
-                });
-
-                // On selecting suggestion
-                $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
-                    let city = $(this).data('city');
-                    let state = $(this).data('state');
-                    let zip = $(this).data('zip');
-
-                    $(inputId).val($(this).text()); // show full label in search box
-                    $(cityId).val(city);
-                    $(stateId).val(state);
-                    $(zipId).val(zip);
-
-                    $(suggestionBoxId).slideUp(200);
-                    selected = true;
-                });
-
-                // Close dropdown if clicked outside
-                $(document).on('click', function(e) {
-                    if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId)
-                        .length) {
-                        $(suggestionBoxId).slideUp(200);
-                    }
-                });
-            }
-
-            bindSearch('#pickup-location', '#pickup-suggestions', '#pickup_city', '#pickup_state', '#pickup_zip');
-            bindSearch('#delivery-location', '#delivery-suggestions', '#delivery_city', '#delivery_state',
-                '#delivery_zip');
         });
     </script>
 </body>
