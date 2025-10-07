@@ -615,10 +615,10 @@
                                                                             </div>
                                                                         @endfor
                                                                     </div>
-                                                                    <label class="form-label">Delivery Date</label>
+                                                                    {{-- <label class="form-label">Delivery Date</label>
                                                                     <input type="datetime-local" class="form-control"
                                                                         name="delivery_date" required
-                                                                        value="{{ old('delivery_date', $quote->delivery_date ? $quote->delivery_date->format('Y-m-d\TH:i') : '') }}">
+                                                                        value="{{ old('delivery_date', $quote->delivery_date ? $quote->delivery_date->format('Y-m-d\TH:i') : '') }}"> --}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -681,8 +681,8 @@
                                                             <select name="pay_amount_option" id="pay_amount_option"
                                                                 class="form-select">
                                                                 <option value="full">Pay Full
-                                                                    (${{ $quote->amount_to_pay ?? 0 }})</option>
-                                                                <option value="initial">Pay Initial ($30)</option>
+                                                                    (${{ $quote->amount_to_pay ?? 0 }} + $4)</option>
+                                                                <option value="initial">Pay Initial ($100 + $4)</option>
                                                             </select>
                                                         </div>
 

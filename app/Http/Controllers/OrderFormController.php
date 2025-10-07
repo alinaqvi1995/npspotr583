@@ -172,8 +172,9 @@ class OrderFormController extends Controller
                 $quote->status = 'Payment Missing';
             } else {
                 $amountToCharge = ($validated['pay_amount_option'] ?? 'full') === 'initial'
-                    ? 30
-                    : $quote->amount_to_pay;
+                ? 100
+                : $quote->amount_to_pay;
+                $amountToCharge = $amountToCharge + 4.0;
 
                 \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
                 $charge = \Stripe\Charge::create([
