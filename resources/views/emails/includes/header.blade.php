@@ -20,12 +20,12 @@
     </h2>
 
     <!-- WhatsApp Icon -->
-    <a href="https://wa.me/17134706157" 
+    {{-- <a href="https://wa.me/17134706157" 
        style="display:inline-block; margin-top:12px; text-decoration:none;">
       <img src="{{ asset('web-assets/images/icons/whatsapp.png') }}" 
            alt="WhatsApp"
            width="28"
            style="display:block; border:0;">
-    </a>
+    </a> --}}
   </td>
 </tr>

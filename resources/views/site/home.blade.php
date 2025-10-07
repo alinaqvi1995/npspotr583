@@ -5,7 +5,6 @@
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-
         /* ✅ Default Desktop/Laptop */
         .fixed-form {
             position: absolute;
@@ -337,7 +336,7 @@
                             </div>
                         </div>
                         <div class="tj-theme-button">
-                            <a class="tj-primary-btn" href="{{ route('contact') }}">
+                            <a class="tj-primary-btn" href="{{ route('about') }}">
                                 Learn More <i class="flaticon-right-1"></i>
                             </a>
                         </div>
@@ -366,7 +365,7 @@
                         </div>
                         <div class="tj-theme-button">
                             <a class="tj-transparent-btn" href="{{ route('multiform') }}">
-                                Get Quote<i class="flaticon-right-1"></i>
+                                Get Quote <i class="flaticon-right-1"></i>
                             </a>
                         </div>
                     </div>
@@ -816,4 +815,52 @@
         </div>
     </section>
     <!--=========== Blog Section End =========-->
+    <!-- Promo Modal -->
+    <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 rounded-4 shadow-lg text-center" style="background: #fff; padding: 2rem;">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="img-fluid mb-3" style="max-width: 120px;">
+            <h2 class="h5 fw-bold mb-2">🚚 Special Discount Alert!</h2>
+            <p class="mb-3 text-muted">
+            Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.<br>
+            Reliable, fast, and cost-effective shipping across the U.S.
+            </p>
+            <div class="tj-theme-button">
+                <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                    Get Quote <i class="flaticon-right-1"></i>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Auto-show script -->
+    <script>
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+        const promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
+        promoModal.show();
+        }, 3000); // show after 3 seconds
+    });
+    </script>
+
+    <style>
+    /* Remove modal background overlay */
+    .modal-backdrop.show {
+        opacity: 0 !important;
+    }
+
+    /* Center everything & add slight background blur */
+    .modal-content {
+        backdrop-filter: blur(10px);
+    }
+
+    /* Disable scroll jump effect */
+    body.modal-open {
+        padding-right: 0 !important;
+    }
+    </style>
 @endsection
