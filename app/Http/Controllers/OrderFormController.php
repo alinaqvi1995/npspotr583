@@ -149,7 +149,7 @@ class OrderFormController extends Controller
             'delivery_address1'      => 'required|string|max:255',
             'delivery_contact_name'  => 'required|string|max:255',
             'delivery_contact_email' => 'nullable|email',
-            'delivery_date'          => 'required|date',
+            'delivery_date'          => 'nullable|date',
             'special_instructions'   => 'nullable|string',
             'payment_option'         => 'required|string|in:now,later',
             'pay_amount_option'      => 'nullable|string|in:initial,full',
