@@ -427,12 +427,12 @@
                             </div>
 
                             <!-- Desired Delivery Date -->
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <label class="form-label">Desired Delivery Date</label>
                                 <input type="date" class="form-control" name="dates[delivery_date]"
                                     value="{{ old('dates.delivery_date', optional($quote->delivery_date)->format('Y-m-d')) }}">
                                 <small class="text-muted">Optional field</small>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
