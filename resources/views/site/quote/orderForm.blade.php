@@ -540,11 +540,11 @@
                                                                     <label class="form-label">Name</label>
                                                                     <input type="text" class="form-control mb-2"
                                                                         name="pickup_contact_name"
-                                                                        value="{{ old('pickup_contact_name', $quote->pickup_contact_name) }}">
+                                                                        value="{{ old('pickup_contact_name', $quote->pickupLocation->contact_name) }}">
                                                                     <label class="form-label">Email</label>
                                                                     <input type="email" class="form-control mb-2"
                                                                         name="pickup_contact_email"
-                                                                        value="{{ old('pickup_contact_email', $quote->pickup_contact_email) }}">
+                                                                        value="{{ old('pickup_contact_email', $quote->pickupLocation->contact_email) }}">
                                                                     @php
                                                                         $pickupPhones = $quote->pickupPhones;
                                                                         $maxPhones = 2;
@@ -562,8 +562,8 @@
                                                                             </div>
                                                                         @endfor
                                                                     </div>
-                                                                    <label class="form-label">Pickup Date</label>
-                                                                    <input type="datetime-local" class="form-control"
+                                                                    <label class="form-label">Pickup Date Available</label>
+                                                                    <input type="date" class="form-control"
                                                                         name="pickup_date" required
                                                                         value="{{ old('pickup_date', $quote->pickup_date ? $quote->pickup_date->format('Y-m-d\TH:i') : '') }}">
                                                                 </div>
@@ -593,11 +593,11 @@
                                                                     <label class="form-label">Name</label>
                                                                     <input type="text" class="form-control mb-2"
                                                                         name="delivery_contact_name"
-                                                                        value="{{ old('delivery_contact_name', $quote->delivery_contact_name) }}">
+                                                                        value="{{ old('delivery_contact_name', $quote->deliveryLocation->contact_name) }}">
                                                                     <label class="form-label">Email</label>
                                                                     <input type="email" class="form-control mb-2"
                                                                         name="delivery_contact_email"
-                                                                        value="{{ old('delivery_contact_email', $quote->delivery_contact_email) }}">
+                                                                        value="{{ old('delivery_contact_email', $quote->deliveryLocation->contact_email) }}">
                                                                     @php
                                                                         $deliveryPhones = $quote->deliveryPhones;
                                                                         $maxPhones = 2;
