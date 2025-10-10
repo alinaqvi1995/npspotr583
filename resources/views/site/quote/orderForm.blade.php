@@ -496,6 +496,29 @@
                                                                     <div class="col-md-3"><strong>Trailer:</strong>
                                                                         {{ $vehicle->trailer_type ?? '-' }}</div>
                                                                 </div>
+                                                                @if ($vehicle->auctionavailable_at_auction)
+                                                                    @if ($vehicle->available_link)
+                                                                        <div class="col-md-3 mt-2"><strong>Auction
+                                                                                Auction Link:</strong>
+                                                                            {{ $vehicle->available_link }}
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($vehicle->buyer)
+                                                                        <div class="col-md-3 mt-2"><strong>Buyer:</strong>
+                                                                            {{ $vehicle->buyer }}
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($vehicle->lot)
+                                                                        <div class="col-md-3 mt-2"><strong>Lot:</strong>
+                                                                            {{ $vehicle->lot }}
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($vehicle->gatepin)
+                                                                        <div class="col-md-3 mt-2"><strong>Gatepin:</strong>
+                                                                            {{ $vehicle->gatepin }}
+                                                                        </div>
+                                                                    @endif
+                                                                @endif
                                                                 @if ($vehicle->images->count())
                                                                     <div class="d-flex flex-wrap mt-3">
                                                                         @foreach ($vehicle->images as $img)
