@@ -91,7 +91,7 @@
                                                 <select name="locations[{{ $index }}][location_type]"
                                                     class="form-select">
                                                     <option value="">Select</option>
-                                                    @foreach (['Warehouse', 'Business', 'Residential'] as $locType)
+                                                    @foreach (['Warehouse', 'Business', 'Residential', 'Auction', 'Port'] as $locType)
                                                         <option value="{{ $locType }}" @selected(($location->location_type ?? '') === $locType)>
                                                             {{ $locType }}</option>
                                                     @endforeach
