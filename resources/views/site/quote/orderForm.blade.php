@@ -496,26 +496,28 @@
                                                                     <div class="col-md-3"><strong>Trailer:</strong>
                                                                         {{ $vehicle->trailer_type ?? '-' }}</div>
                                                                 </div>
-                                                                {{ dd($vehicle->auctionavailable_at_auction) }}
-                                                                @if ($vehicle->auctionavailable_at_auction)
+                                                                @if ($vehicle->available_at_auction)
                                                                     @if ($vehicle->available_link)
-                                                                        <div class="col-md-3 mt-2"><strong>Auction
+                                                                        <div class="col-md-3 mt-2"><strong>
                                                                                 Auction Link:</strong>
                                                                             {{ $vehicle->available_link }}
                                                                         </div>
                                                                     @endif
                                                                     @if ($vehicle->buyer)
-                                                                        <div class="col-md-3 mt-2"><strong>Buyer:</strong>
+                                                                        <div class="col-md-3 mt-2">
+                                                                            <strong>Buyer:</strong>
                                                                             {{ $vehicle->buyer }}
                                                                         </div>
                                                                     @endif
                                                                     @if ($vehicle->lot)
-                                                                        <div class="col-md-3 mt-2"><strong>Lot:</strong>
+                                                                        <div class="col-md-3 mt-2">
+                                                                            <strong>Lot:</strong>
                                                                             {{ $vehicle->lot }}
                                                                         </div>
                                                                     @endif
                                                                     @if ($vehicle->gatepin)
-                                                                        <div class="col-md-3 mt-2"><strong>Gatepin:</strong>
+                                                                        <div class="col-md-3 mt-2">
+                                                                            <strong>Gatepin:</strong>
                                                                             {{ $vehicle->gatepin }}
                                                                         </div>
                                                                     @endif
@@ -586,7 +588,8 @@
                                                                             </div>
                                                                         @endfor
                                                                     </div>
-                                                                    <label class="form-label">Pickup Date Available</label>
+                                                                    <label class="form-label">Pickup Date
+                                                                        Available</label>
                                                                     <input type="date" class="form-control"
                                                                         name="pickup_date" required
                                                                         value="{{ old('pickup_date', $quote->pickup_date ? $quote->pickup_date->format('Y-m-d\TH:i') : '') }}">
@@ -706,7 +709,8 @@
                                                                 class="form-select">
                                                                 <option value="full">Pay Full
                                                                     (${{ $quote->amount_to_pay ?? 0 }} + $4)</option>
-                                                                <option value="initial">Pay Initial ($100 + $4)</option>
+                                                                <option value="initial">Pay Initial ($100 + $4)
+                                                                </option>
                                                             </select>
                                                         </div>
 
