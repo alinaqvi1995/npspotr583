@@ -339,6 +339,7 @@
 
                                         <!-- Auction extra fields (hidden by default) -->
                                         <!-- Auction extra fields (hidden by default) -->
+                                        {{-- {{ dd($vehicle->available_at_auction) }} --}}
                                         <div class="col-12 auction-fields" id="auctionFields-{{ $vIndex + 1 }}"
                                             @if ($vehicle->available_at_auction == 0) style="display: none;" @endif>
                                             <div class="row g-3 mt-2">
