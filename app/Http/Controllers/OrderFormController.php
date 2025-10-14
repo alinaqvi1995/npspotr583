@@ -172,8 +172,8 @@ class OrderFormController extends Controller
                 $quote->status = 'Payment Missing';
             } else {
                 $amountToCharge = ($validated['pay_amount_option'] ?? 'full') === 'initial'
-                ? 100
-                : $quote->amount_to_pay;
+                    ? 100
+                    : $quote->amount_to_pay;
                 $amountToCharge = $amountToCharge + 4.0;
 
                 \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
@@ -231,8 +231,8 @@ class OrderFormController extends Controller
                 }
             }
 
-            $quote->pickup_date   = $validated['pickup_date'];
-            $quote->delivery_date = $validated['delivery_date'];
+            $quote->pickup_date   = $validated['pickup_date'] ?? null;
+            $quote->delivery_date = $validated['delivery_date'] ?? null;
 
             $quote->save();
             DB::commit();
@@ -247,91 +247,4 @@ class OrderFormController extends Controller
             ->route('home')
             ->with('success', 'Your order has been submitted successfully.');
     }
-
-
-    // public function submitOrderForm(Request $request, $encrypted)
-    // {
-    //     try {
-    //         $quoteId = decrypt($encrypted);
-    //         $quote   = Quote::findOrFail($quoteId);
-    //     } catch (\Exception $e) {
-    //         abort(404);
-    //     }
-
-    //     if ($quote->orderForm()->exists()) {
-    //         return redirect()
-    //             ->route('thankyou')
-    //             ->with('info', 'This order form has already been submitted.');
-    //     }
-
-    //     $validated = $request->validate([
-    //         'customer_name'          => 'required|string|max:255',
-    //         'customer_email'         => 'required|email',
-    //         'customer_phone'         => 'nullable|string|max:50',
-    //         'pickup_address1'        => 'required|string|max:255',
-    //         'pickup_contact_name'    => 'required|string|max:255',
-    //         'pickup_contact_email'   => 'nullable|email',
-    //         'pickup_date'            => 'required|date',
-    //         'delivery_address1'      => 'required|string|max:255',
-    //         'delivery_contact_name'  => 'required|string|max:255',
-    //         'delivery_contact_email' => 'nullable|email',
-    //         'delivery_date'          => 'required|date',
-    //         'special_instructions'   => 'nullable|string',
-    //         'payment_option'         => 'required|string|in:now,later',
-    //         'signature_name'         => 'required|string|max:255',
-    //         'signature_date'         => 'required|date',
-    //         'stripeToken'            => 'nullable|string',
-    //     ]);
-
-    //     $validated['quote_id'] = $quote->id;
-
-    //     // ✅ transaction so either everything succeeds or nothing is saved
-    //     DB::beginTransaction();
-
-    //     try {
-    //         if ($validated['payment_option'] === 'later') {
-    //             // just create order without charging
-    //             $orderForm = OrderForm::create($validated);
-    //             $quote->status = 'Payment Missing';
-    //         } else {
-    //             // Stripe payment first
-    //             \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
-    //             $amount = round($quote->amount * 0.10 * 100);
-
-    //             $charge = \Stripe\Charge::create([
-    //                 'amount' => $amount,
-    //                 'currency' => 'usd',
-    //                 'source' => $validated['stripeToken'],
-    //                 'description' => '10% deposit for Quote #' . $quote->id,
-    //                 'receipt_email' => $validated['customer_email'],
-    //             ]);
-
-    //             // only create orderForm if charge succeeded
-    //             $orderForm = OrderForm::create($validated + [
-    //                 'stripe_charge_id' => $charge->id,
-    //                 'paid_amount'      => $amount / 100,
-    //             ]);
-
-    //             $quote->status = 'Booked';
-    //         }
-
-    //         $quote->pickupLocation->address1 = $validated['pickup_address1'];
-    //         $quote->pickupLocation->save();
-
-    //         $quote->deliveryLocation->address1 = $validated['delivery_address1'];
-    //         $quote->deliveryLocation->save();
-
-    //         $quote->save();
-    //         DB::commit();
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         return back()->withErrors([
-    //             'payment' => 'Something went wrong: ' . $e->getMessage()
-    //         ])->withInput();
-    //     }
-
-    //     return redirect()
-    //         ->route('home')
-    //         ->with('success', 'Your order has been submitted successfully.');
-    // }
 }
