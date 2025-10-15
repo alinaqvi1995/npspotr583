@@ -208,6 +208,13 @@
                         <div class="menu-title">Trusted IPs</div>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('reports.quotes.histories') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">security</i></div>
+                        <div class="menu-title">Report</div>
+                    </a>
+                </li>
             @endif
         </ul>
     </div>

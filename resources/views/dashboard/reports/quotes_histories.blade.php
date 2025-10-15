@@ -148,8 +148,6 @@
                 }, function(data) {
                     // Update status counts
                     if (data.statusCounts) {
-                        console.log('yes innn');
-                        console.log(data.statusCounts);
                         $.each(data.statusCounts, function(status, count) {
                             let key = status.toLowerCase().replace(/\s+/g, '-');
                             $('.status-box[data-status="' + key + '"] span').text(count);
