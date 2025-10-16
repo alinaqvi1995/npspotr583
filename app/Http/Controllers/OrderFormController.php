@@ -174,7 +174,7 @@ class OrderFormController extends Controller
                 $amountToCharge = ($validated['pay_amount_option'] ?? 'full') === 'initial'
                     ? 100
                     : $quote->amount_to_pay;
-                $amountToCharge = $amountToCharge + 4.0;
+                $amountToCharge = $amountToCharge + ($amountToCharge * 0.04);
 
                 \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
                 $charge = \Stripe\Charge::create([

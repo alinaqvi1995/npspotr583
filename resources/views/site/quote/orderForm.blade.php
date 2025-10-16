@@ -705,11 +705,22 @@
                                                         <div id="pay-now-options" style="display: none;"
                                                             class="mb-3">
                                                             <label class="form-label">Choose Amount</label>
-                                                            <select name="pay_amount_option" id="pay_amount_option"
+                                                            {{-- <select name="pay_amount_option" id="pay_amount_option"
                                                                 class="form-select">
                                                                 <option value="full">Pay Full
                                                                     (${{ $quote->amount_to_pay ?? 0 }} + $4)</option>
                                                                 <option value="initial">Pay Initial ($100 + $4)
+                                                                </option>
+                                                            </select> --}}
+                                                            <select name="pay_amount_option" id="pay_amount_option"
+                                                                class="form-select">
+                                                                <option value="full">
+                                                                    Pay Full
+                                                                    (${{ number_format($quote->amount_to_pay ?? 0, 2) }}
+                                                                    + 4%)
+                                                                </option>
+                                                                <option value="initial">
+                                                                    Pay Initial ($100 + 4%)
                                                                 </option>
                                                             </select>
                                                         </div>
