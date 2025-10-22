@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $state->state_name }}</h5>
                     <p class="text-muted mb-2">{{ $state->short_title ?? '—' }}</p>
-                    <a href="{{ route('site.states.show', $state->slug) }}" class="btn btn-primary btn-sm">View Details</a>
+                    <a href="{{ route('states.show', $state->slug) }}" class="btn btn-primary btn-sm">View Details</a>
                 </div>
             </div>
         </div>
