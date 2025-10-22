@@ -3650,6 +3650,36 @@ div .tj-service-icon-box2 ul li:hover .service-item::before {
 /* ----------------------------------
     14. Feature CSS
 ------------------------------------ */
+.tj-choose-us-section-state {
+    /* background-image: url(../images/banner/feature-bg.jpg); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 120px;
+    padding-top: 110px;
+    position: relative;
+}
+
+.tj-choose-us-section-state::before {
+    width: 100%;
+    position: absolute;
+    content: "";
+    height: 100%;
+    transition: 0.6s;
+    left: 0;
+    top: 0;
+    background: rgba(6, 46, 57, 0.7);
+}
+
+.tj-choose-us-section-state .tj-section-heading .title {
+    margin-bottom: 25px;
+}
+
+.tj-choose-us-section-state .choose-us-content-1 {
+    position: relative;
+    z-index: 3;
+}
+
 .tj-choose-us-section {
     background-image: url(../images/banner/feature-bg.jpg);
     background-position: center;

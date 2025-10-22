@@ -817,24 +817,24 @@
     <!--=========== Blog Section End =========-->
     <!-- Promo Modal -->
     <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true" data-bs-backdrop="false">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content border-0 rounded-4 shadow-lg text-center" style="background: #fff; padding: 2rem;">
-        <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="modal-body d-flex flex-column align-items-center justify-content-center">
-            <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="img-fluid mb-3" style="max-width: 120px;">
-            <h2 class="h5 fw-bold mb-2">🚚 Special Discount Alert!</h2>
-            <p class="mb-3 text-muted">
-            Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.<br>
-            Reliable, fast, and cost-effective shipping across the U.S.
-            </p>
-            <div class="tj-theme-button">
-                <a class="tj-transparent-btn" href="{{ route('multiform') }}">
-                    Get Quote <i class="flaticon-right-1"></i>
-                </a>
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 rounded-4 shadow-lg text-center" style="background: #fff; padding: 2rem;">
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics" class="img-fluid mb-3" style="max-width: 120px;">
+                <h2 class="h5 fw-bold mb-2">🚚 Special Discount Alert!</h2>
+                <p class="mb-3 text-muted">
+                Enjoy <strong>UP TO 30% OFF</strong> on your first shipment with Bridgeway Logistics LLC.<br>
+                Reliable, fast, and cost-effective shipping across the U.S.
+                </p>
+                <div class="tj-theme-button">
+                    <a class="tj-transparent-btn" href="{{ route('multiform') }}">
+                        Get Quote <i class="flaticon-right-1"></i>
+                    </a>
+                </div>
+            </div>
             </div>
         </div>
-        </div>
-    </div>
     </div>
 
     <!-- Auto-show script -->

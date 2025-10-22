@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\VehicleMakeModel;
 use App\Models\Blog;
 use App\Models\Service;
+use App\Models\State;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,28 @@ class HomeController extends Controller
 
         return view('site.home', compact('services','makes','blogs'));
     }
+
+    public function state($slug)
+    {
+        $services = Service::where('status', 1)
+            ->whereRaw('id % 2 = 1')
+            ->latest()
+            ->get();
+
+        $blogs = Blog::latest()->take(3)->get();
+
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+
+        // Fetch the state record dynamically
+        $state = State::where('slug', $slug)->firstOrFail();
+
+        return view('site.state', compact('services', 'makes', 'blogs', 'state'));
+    }
+
+
     public function about()
     {
         $services = Service::where('status', 1)->latest()->take(3)->get();
