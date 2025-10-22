@@ -28,7 +28,7 @@ use App\Http\Controllers\Frontend\StateFrontendController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
-Route::get('/state-to-state', [StateFrontendController::class, 'index'])->name('states.index');
+Route::get('/states_index', [StateFrontendController::class, 'index'])->name('states.index');
 Route::get('/states/{slug}', [StateFrontendController::class, 'show'])->name('states.show');
 
 Route::get('/quote-form', [HomeController::class, 'multiform'])->name('multiform');
