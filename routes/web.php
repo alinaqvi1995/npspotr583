@@ -116,6 +116,7 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
 
 
     Route::middleware(['admin'])->group(function () {
+        Route::resource('add-states', BackendStateController::class);
         Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
         Route::get('/users/create', [UserManagementController::class, 'userCreate'])->name('dashboard.users.create');
         Route::post('/users', [UserManagementController::class, 'userStore'])->name('dashboard.users.store');
@@ -134,7 +135,7 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('dashboard.users.update');
 
     Route::resource('blogs', BackendBlogController::class);
-    Route::resource('states', BackendStateController::class);
+
 
     Route::resource('services', BackendServiceController::class);
 

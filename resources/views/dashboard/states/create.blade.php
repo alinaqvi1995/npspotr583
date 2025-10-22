@@ -10,14 +10,14 @@
                     <li class="breadcrumb-item">
                         <a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item"><a href="{{ route('states.index') }}">States</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('add-states.index') }}">States</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Create State</li>
                 </ol>
             </nav>
         </div>
     </div>
 
-    <form action="{{ route('states.store') }}" method="POST" enctype="multipart/form-data" id="stateForm">
+    <form action="{{ route('add-states.store') }}" method="POST" enctype="multipart/form-data" id="stateForm">
         @csrf
         <div class="row">
 

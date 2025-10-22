@@ -12,7 +12,7 @@
                 <div>
                     <h5 class="mb-0">All States</h5>
                 </div>
-                <a href="{{ route('states.create') }}" class="btn btn-grd btn-grd-primary">
+                <a href="{{ route('add-states.create') }}" class="btn btn-grd btn-grd-primary">
                     <i class="material-icons-outlined">add</i> Add New State
                 </a>
             </div>
@@ -105,10 +105,10 @@
 
                                 <td>{{ $state->created_at->format('d M, Y') }}</td>
                                 <td>
-                                    <a href="{{ route('states.edit', $state->id) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('add-states.edit', $state->id) }}" class="btn btn-sm btn-info">
                                         <i class="material-icons-outlined">edit</i>
                                     </a>
-                                    <form action="{{ route('states.destroy', $state->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('add-states.destroy', $state->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">

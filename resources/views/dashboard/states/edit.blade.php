@@ -10,14 +10,14 @@
                     <li class="breadcrumb-item">
                         <a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item"><a href="{{ route('states.index') }}">States</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('add-states.index') }}">States</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit State</li>
                 </ol>
             </nav>
         </div>
     </div>
 
-    <form action="{{ route('states.update', $state->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('add-states.update', $state->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -196,7 +196,7 @@
                 <div class="card">
                     <div class="card-body text-end">
                         <button type="submit" class="btn btn-primary px-4">Update State</button>
-                        <a href="{{ route('states.index') }}" class="btn btn-secondary px-4">Back</a>
+                        <a href="{{ route('add-states.index') }}" class="btn btn-secondary px-4">Back</a>
                     </div>
                 </div>
             </div>
