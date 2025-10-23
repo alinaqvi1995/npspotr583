@@ -27,7 +27,7 @@
     <div class="tj-offcanvas-area">
         <div class="tj-offcanvas-header d-flex align-items-center justify-content-between">
             <div class="logo-area text-center">
-                <a href="{{ route('home') }}"><img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics LLC" /></a>
+                <a href="{{ route('home') }}"><img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics LLC" /></a>
             </div>
             <div class="offcanvas-icon">
                 <a id="canva_close" href="#">
@@ -112,7 +112,7 @@
                         <div class="search_top d-flex justify-content-between align-items-center">
                             <div class="search_logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="web-assets/images/logo/1-logo.png" alt="Bridgeway Logistics LLC" />
+                                    <img src="{{ asset('web-assets/images/logo/1-logo.png') }}" alt="Bridgeway Logistics LLC" />
                                 </a>
                             </div>
                         </div>

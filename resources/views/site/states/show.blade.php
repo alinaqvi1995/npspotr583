@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="col-lg-7" data-sal="slide-right" data-sal-duration="800">
-                    <div class="tj-input-form trq-1" data-bg-image="web-assets/images/banner/form-shape.png">
+                    <div class="tj-input-form trq-1" data-bg-image="{{ asset('web-assets/images/banner/form-shape.png') }}">
                         @include('site.partials.multiform')
                     </div>
                 </div>

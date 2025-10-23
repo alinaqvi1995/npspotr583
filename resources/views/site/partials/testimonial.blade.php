@@ -13,7 +13,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/testimonial/reviews.png') }}" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -35,7 +35,7 @@
                                         <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
-                                        <img src="web-assets/images/icon/comment.svg" alt="Icon" />
+                                        <img src="{{ asset('web-assets/images/icon/comment.svg') }}" alt="Icon" />
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/testimonial/reviews.png') }}" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -67,7 +67,7 @@
                                         <span class="sub-title"> Customer</span>
                                     </div>  
                                     <div class="testimonial-comment">
-                                        <img src="web-assets/images/icon/comment.svg" alt="Icon" />
+                                        <img src="{{ asset('web-assets/images/icon/comment.svg') }}" alt="Icon" />
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/testimonial/reviews.png') }}" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -99,7 +99,7 @@
                                         <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
-                                        <img src="web-assets/images/icon/comment.svg" alt="Icon" />
+                                        <img src="{{ asset('web-assets/images/icon/comment.svg') }}" alt="Icon" />
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="web-assets/images/testimonial/reviews.png" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/testimonial/reviews.png') }}" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -131,7 +131,7 @@
                                         <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
-                                        <img src="web-assets/images/icon/comment.svg" alt="Icon" />
+                                        <img src="{{ asset('web-assets/images/icon/comment.svg') }}" alt="Icon" />
                                     </div>
                                 </div>
                             </div>
