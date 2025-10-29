@@ -72,6 +72,27 @@
                     </a>
                 </li>
             @endcan
+            @can('view-states')
+                <li class="menu-label">States</li>
+
+                <li>
+                    <a href="{{ route('add-states.index') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">map</i></div>
+                        <div class="menu-title">
+                            All States
+                            <span class="badge bg-primary float-end">{{ $statesCount ?? 0 }}</span>
+                        </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('add-states.create') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">add_location_alt</i></div>
+                        <div class="menu-title">Add State</div>
+                    </a>
+                </li>
+            @endcan
+
 
             @can('view-services')
                 <li class="menu-label">Services</li>

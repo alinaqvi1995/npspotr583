@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController
 use App\Http\Controllers\Frontend\QuoteController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\Backend\BlogController as BackendBlogController;
+use App\Http\Controllers\Backend\StateController as BackendStateController;
 use App\Http\Controllers\Backend\ServiceController as BackendServiceController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RoleController;
@@ -20,10 +21,16 @@ use App\Http\Controllers\ZipcodeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\OrderFormController;
 use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\Frontend\StateFrontendController;
+
 
 // 🔹 Static pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+Route::get('/states_index', [StateFrontendController::class, 'index'])->name('states.index');
+Route::get('/states/{slug}', [StateFrontendController::class, 'show'])->name('states.show');
+
 Route::get('/quote-form', [HomeController::class, 'multiform'])->name('multiform');
 Route::view('/contact', 'site.contact')->name('contact');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
@@ -109,6 +116,7 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
 
 
     Route::middleware(['admin'])->group(function () {
+        Route::resource('add-states', BackendStateController::class);
         Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');
         Route::get('/users/create', [UserManagementController::class, 'userCreate'])->name('dashboard.users.create');
         Route::post('/users', [UserManagementController::class, 'userStore'])->name('dashboard.users.store');
@@ -127,6 +135,7 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('dashboard.users.update');
 
     Route::resource('blogs', BackendBlogController::class);
+
 
     Route::resource('services', BackendServiceController::class);
 
