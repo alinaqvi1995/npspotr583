@@ -50,11 +50,6 @@ class QuoteService
             return;
         }
 
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query, $isAdmin, $requestedStatus);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        }
-
         $allowedPermissions = $user->allPermissions()
             ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
             ->pluck('slug')
@@ -75,6 +70,11 @@ class QuoteService
             $query->where('status', $requestedStatus);
         } else {
             $query->whereRaw('0=1');
+        }
+
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($query->get()->toArray(), $isAdmin, $requestedStatus);
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
         // dd($allowedPermissions, $allowedStatuses);
