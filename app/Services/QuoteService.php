@@ -56,7 +56,7 @@ class QuoteService
             ->toArray();
 
         $allowedStatuses = collect($allowedPermissions)
-            ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
+            ->map(fn($slug) => Str::title(str_replace('view-quotes-', '-', '', $slug)))
             ->toArray();
 
         if (empty($allowedStatuses)) {
