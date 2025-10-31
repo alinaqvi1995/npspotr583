@@ -76,10 +76,10 @@ class QuoteService
             $query->whereRaw('0=1');
         }
 
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query->get()->toArray(), $allowedPermissions, $allowedStatuses, $requestedStatus);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        }
+        // if (Auth::user()->email == 'Huzaifa@gmail.com') {
+        //     dd($query->get()->toArray(), $allowedPermissions, $allowedStatuses, $requestedStatus);
+        //     // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        // }
 
         // dd($allowedPermissions, $allowedStatuses);
     }
