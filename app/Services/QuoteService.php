@@ -18,11 +18,6 @@ class QuoteService
         $query = Quote::with(['vehicles.images', 'pickupLocation', 'deliveryLocation'])
             ->orderBy('created_at', 'desc');
 
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($requestedStatus);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        }
-
         if ($user->isAdmin() && !$search) {
             // apply status filtering
             $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
@@ -36,6 +31,11 @@ class QuoteService
         // apply search
         if ($search) {
             $this->applySearchFilter($query, $search, $column);
+        }
+
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($query->toArray());
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
         $quotes = $query->paginate(20)->withQueryString();
