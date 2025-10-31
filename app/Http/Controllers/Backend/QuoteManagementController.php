@@ -40,6 +40,10 @@ class QuoteManagementController extends Controller
             $request->input('column')
         );
 
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($data);
+        }
+
         return view('dashboard.quotes.index', $data);
     }
 
@@ -165,9 +169,9 @@ class QuoteManagementController extends Controller
         DB::beginTransaction();
 
 
-            $customer_name = $request->customer_name ?? null;
-            $customer_email = $request->customer_email ?? null;
-            $customer_phone = $request->customer_phone ?? null;
+        $customer_name = $request->customer_name ?? null;
+        $customer_email = $request->customer_email ?? null;
+        $customer_phone = $request->customer_phone ?? null;
 
         try {
             // --- Update main quote ---

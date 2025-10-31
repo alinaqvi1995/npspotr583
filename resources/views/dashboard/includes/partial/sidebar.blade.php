@@ -130,10 +130,6 @@
                         ->map(fn($slug) => Str::after($slug, 'view-quotes-'))
                         ->map(fn($s) => Str::title(str_replace('-', ' ', $s)))
                         ->toArray();
-
-                if ($user->email == 'Huzaifa@gmail.com') {
-                    // dd($currentStatus, $statusPermissionMap, $allowedStatuses);
-                }
             @endphp
 
             @can('view-quotes')
