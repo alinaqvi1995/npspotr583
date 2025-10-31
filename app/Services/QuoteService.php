@@ -19,8 +19,8 @@ class QuoteService
             ->orderBy('created_at', 'desc');
 
         if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd('ok');
-            dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+            dd($query->get()->toArray());
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
         if ($user->isAdmin() && !$search) {
