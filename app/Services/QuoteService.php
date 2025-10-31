@@ -73,6 +73,8 @@ class QuoteService
         } else {
             $query->whereRaw('0=1');
         }
+
+        dd($allowedPermissions, $allowedStatuses);
     }
 
     private function applySearchFilter(Builder $query, string $search, ?string $column): void
