@@ -55,8 +55,12 @@ class QuoteService
             ->pluck('slug')
             ->toArray();
 
+        // $allowedStatuses = collect($allowedPermissions)
+        //     ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
+        //     ->toArray();
+
         $allowedStatuses = collect($allowedPermissions)
-            ->map(fn($slug) => Str::title(str_replace('view-quotes-', '-', '', $slug)))
+            ->map(fn($slug) => Str::title(str_replace('-', ' ', str_replace('view-quotes-', '', $slug))))
             ->toArray();
 
         if (empty($allowedStatuses)) {
