@@ -25,17 +25,18 @@ class QuoteService
 
         if (!$user->isAdmin()) {
             // apply status filtering
+
+            if (Auth::user()->email == 'Huzaifa@gmail.com') {
+                dd($query->get()->toArray());
+                // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+            }
+
             $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
         }
 
         // apply search
         if ($search) {
             $this->applySearchFilter($query, $search, $column);
-        }
-
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query->get()->toArray());
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
         $quotes = $query->paginate(20)->withQueryString();
