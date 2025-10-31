@@ -19,7 +19,7 @@ class QuoteService
             ->orderBy('created_at', 'desc');
 
         if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($requestedStatus, $query->get()->toArray());
+            dd($requestedStatus);
             // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
