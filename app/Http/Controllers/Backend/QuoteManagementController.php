@@ -40,9 +40,9 @@ class QuoteManagementController extends Controller
             $request->input('column')
         );
 
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($data);
-        }
+        // if (Auth::user()->email == 'Huzaifa@gmail.com') {
+        //     dd($data);
+        // }
 
         return view('dashboard.quotes.index', $data);
     }

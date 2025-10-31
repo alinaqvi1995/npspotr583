@@ -18,7 +18,7 @@ class QuoteService
         $query = Quote::with(['vehicles.images', 'pickupLocation', 'deliveryLocation'])
             ->orderBy('created_at', 'desc');
 
-        // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
 
         if ($user->isAdmin() && !$search) {
             // apply status filtering
