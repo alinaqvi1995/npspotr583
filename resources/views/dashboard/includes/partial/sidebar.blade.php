@@ -132,7 +132,7 @@
                         ->toArray();
 
                 if ($user->email === 'huzaifa@gmail.com') {
-                    {{ dd($currentStatus, $statusPermissionMap, $allowedStatuses) }}
+                    dd($currentStatus, $statusPermissionMap, $allowedStatuses)
                 }
             @endphp
 
