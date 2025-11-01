@@ -30,6 +30,7 @@
             /* Hide buttons and navigation elements */
             .no-print,
             .btn,
+            .histories,
             a[href]:not([href="#"]) {
                 display: none !important;
             }
@@ -378,8 +379,7 @@
                     </div>
                 @endif
 
-                {{-- HISTORIES (3 columns) --}}
-                <div class="col-md-4">
+                <div class="col-md-4 histories">
                     {{-- QUOTE HISTORY --}}
                     @php
                         $statusHistories = $quote->histories->filter(fn($h) => $h->status !== $h->old_status);
