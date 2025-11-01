@@ -369,7 +369,7 @@
 
         @if ($quote->OrderForm)
             <div class="card mb-3">
-                <div class="card-header bg-primary text-white"><strong>Order Form</strong></div>
+                <div class="card-header bg-secondary text-white"><strong>Order Form</strong></div>
                 <div class="card-body row">
                     <div class="col-md-6">
                         <p><strong>Customer Name:</strong> {{ $quote->OrderForm->customer_name }}</p>
