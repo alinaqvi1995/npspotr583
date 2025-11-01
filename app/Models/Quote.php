@@ -190,7 +190,7 @@ class Quote extends Model
 
     public function histories()
     {
-        return $this->hasMany(QuoteHistory::class);
+        return $this->hasMany(QuoteHistory::class)->orderBy('created_at');
     }
 
     public function category()

@@ -279,85 +279,140 @@
             </div>
         @endif
 
-        {{-- =========================== VEHICLES ============================ --}}
-        @if ($quote->vehicles->count())
-            <div class="card mb-3">
-                <div class="card-header bg-secondary text-white"><strong>Vehicles ({{ $quote->vehicles->count() }})</strong>
-                </div>
-                <div class="card-body">
-                    <div class="accordion" id="vehicleAccordion">
-                        @foreach ($quote->vehicles as $i => $v)
-                            <div class="card mb-3">
-                                <div class="card-header bg-secondary text-white">
-                                    <strong>{{ $v->year }} {{ $v->make }} {{ $v->model }}</strong>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-md-3"><strong>Type:</strong> {{ $v->type ?? '—' }}</div>
-                                        <div class="col-md-3"><strong>Condition:</strong> {!! $v->condition_label !!}</div>
-                                        <div class="col-md-3"><strong>Trailer Type:</strong> {!! $v->trailer_type_label !!}
-                                        </div>
-                                        <div class="col-md-3"><strong>Modified:</strong>
-                                            {{ $v->modified ? 'Yes' : 'No' }}</div>
-                                    </div>
+        {{-- =========================== VEHICLES + HISTORIES (ROW 9-3) =========================== --}}
+        @if ($quote->vehicles->count() || $quote->histories->count())
+            <div class="row mb-3">
 
-                                    @if ($v->modified_info)
-                                        <p><strong>Modified Info:</strong> {{ $v->modified_info }}</p>
-                                    @endif
-
-                                    {{-- Dimensions for specific transport types --}}
-                                    @if (in_array($v->type, ['Boat-Transport', 'Heavy-Equipment', 'RV-Transport']))
-                                        <hr>
-                                        <div class="row">
-                                            @foreach (['length_ft' => 'Length (ft)', 'width_ft' => 'Width (ft)', 'height_ft' => 'Height (ft)', 'weight' => 'Weight (lbs)'] as $field => $label)
-                                                @if ($v->$field)
-                                                    <div class="col-md-3"><strong>{{ $label }}:</strong>
-                                                        {{ $v->$field }}</div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    @endif
-
-                                    {{-- Auction details --}}
-                                    <hr>
-                                    <div class="row mb-2">
-                                        <div class="col-md-3"><strong>At Auction:</strong>
-                                            {{ $v->available_at_auction ? 'Yes' : 'No' }}</div>
-                                        @if ($v->available_at_auction)
-                                            @if ($v->available_link)
-                                                <div class="col-md-4"><strong>Auction Link:</strong> <a
-                                                        href="{{ $v->available_link }}"
-                                                        target="_blank">{{ $v->available_link }}</a></div>
-                                            @endif
-                                            @if ($v->buyer)
-                                                <div class="col-md-2"><strong>Buyer:</strong> {{ $v->buyer }}</div>
-                                            @endif
-                                            @if ($v->lot)
-                                                <div class="col-md-2"><strong>Lot:</strong> {{ $v->lot }}</div>
-                                            @endif
-                                            @if ($v->gatepin)
-                                                <div class="col-md-2"><strong>Gate PIN:</strong> {{ $v->gatepin }}
+                {{-- VEHICLES (9 columns) --}}
+                @if ($quote->vehicles->count())
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-header bg-secondary text-white py-2">
+                                <strong>Vehicles ({{ $quote->vehicles->count() }})</strong>
+                            </div>
+                            <div class="card-body p-2">
+                                <div class="accordion" id="vehicleAccordion">
+                                    @foreach ($quote->vehicles as $i => $v)
+                                        <div class="card mb-2 border shadow-sm">
+                                            <div class="card-header py-2 bg-light">
+                                                <strong>{{ $v->year }} {{ $v->make }}
+                                                    {{ $v->model }}</strong>
+                                            </div>
+                                            <div class="card-body py-2 px-3">
+                                                <div class="row small mb-1">
+                                                    <div class="col-md-3"><strong>Type:</strong> {{ $v->type ?? '—' }}
+                                                    </div>
+                                                    <div class="col-md-3"><strong>Condition:</strong>
+                                                        {!! $v->condition_label !!}</div>
+                                                    <div class="col-md-3"><strong>Trailer:</strong>
+                                                        {!! $v->trailer_type_label !!}</div>
+                                                    <div class="col-md-3"><strong>Modified:</strong>
+                                                        {{ $v->modified ? 'Yes' : 'No' }}</div>
                                                 </div>
-                                            @endif
-                                        @endif
-                                    </div>
 
-                                    {{-- Vehicle Images --}}
-                                    @if ($v->images->count())
-                                        <hr>
-                                        <div class="d-flex flex-wrap">
-                                            @foreach ($v->images as $img)
-                                                <img src="{{ asset($img->image_path) }}"
-                                                    class="veh-img rounded border me-2 mb-2" width="100"
-                                                    height="100" style="object-fit:cover;">
-                                            @endforeach
+                                                @if ($v->modified_info)
+                                                    <div class="small mb-2"><strong>Modified Info:</strong>
+                                                        {{ $v->modified_info }}</div>
+                                                @endif
+
+                                                {{-- Dimensions --}}
+                                                @if (in_array($v->type, ['Boat-Transport', 'Heavy-Equipment', 'RV-Transport']))
+                                                    <div class="row small mb-1 border-top pt-1 mt-1">
+                                                        @foreach (['length_ft' => 'Length (ft)', 'width_ft' => 'Width (ft)', 'height_ft' => 'Height (ft)', 'weight' => 'Weight (lbs)'] as $field => $label)
+                                                            @if ($v->$field)
+                                                                <div class="col-md-3">
+                                                                    <strong>{{ $label }}:</strong>
+                                                                    {{ $v->$field }}</div>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+
+                                                {{-- Auction --}}
+                                                <div class="row small border-top pt-1 mt-1">
+                                                    <div class="col-md-3"><strong>At Auction:</strong>
+                                                        {{ $v->available_at_auction ? 'Yes' : 'No' }}</div>
+                                                    @if ($v->available_at_auction)
+                                                        @if ($v->available_link)
+                                                            <div class="col-md-5 text-truncate">
+                                                                <strong>Link:</strong>
+                                                                <a href="{{ $v->available_link }}"
+                                                                    target="_blank">{{ $v->available_link }}</a>
+                                                            </div>
+                                                        @endif
+                                                        @if ($v->buyer)
+                                                            <div class="col-md-2"><strong>Buyer:</strong>
+                                                                {{ $v->buyer }}</div>
+                                                        @endif
+                                                        @if ($v->lot)
+                                                            <div class="col-md-2"><strong>Lot:</strong>
+                                                                {{ $v->lot }}</div>
+                                                        @endif
+                                                        @if ($v->gatepin)
+                                                            <div class="col-md-2"><strong>Gate PIN:</strong>
+                                                                {{ $v->gatepin }}</div>
+                                                        @endif
+                                                    @endif
+                                                </div>
+
+                                                {{-- Images --}}
+                                                @if ($v->images->count())
+                                                    <div class="border-top pt-2 mt-2">
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            @foreach ($v->images as $img)
+                                                                <img src="{{ asset($img->image_path) }}"
+                                                                    class="rounded border" width="80" height="80"
+                                                                    style="object-fit:cover;">
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
-                                    @endif
+                                    @endforeach
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
+
+                {{-- HISTORIES (3 columns) --}}
+                @if ($quote->histories->count())
+                    <div class="col-md-4">
+                        <div class="card mb-3 h-100">
+                            <div class="card-header bg-secondary text-white py-2">
+                                <strong>Quote History ({{ $quote->histories->count() }})</strong>
+                            </div>
+                            <div class="card-body p-2">
+                                <div class="table-responsive" style="max-height:600px; overflow-y:auto;">
+                                    <table class="table table-bordered table-striped table-sm align-middle mb-0">
+                                        <thead class="table-light text-center small">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Status</th>
+                                                <th>Old</th>
+                                                <th>By</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($quote->histories as $index => $h)
+                                                <tr class="small text-center">
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{!! $h->status ? '<span class="badge bg-primary">' . e($h->status) . '</span>' : '—' !!}</td>
+                                                    <td>{!! $h->old_status ? '<span class="badge bg-secondary">' . e($h->old_status) . '</span>' : '—' !!}</td>
+                                                    <td>{{ $h->user->name ?? 'System' }}</td>
+                                                    <td>{{ $h->created_at?->format('M d, Y h:ia') ?? '—' }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
         @endif
 
