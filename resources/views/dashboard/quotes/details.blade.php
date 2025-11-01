@@ -92,7 +92,7 @@
             {{-- Customer Info --}}
             <div class="col-md-4">
                 <div class="card mb-3">
-                    <div class="card-header bg-primary text-white"><strong>Customer</strong></div>
+                    <div class="card-header bg-secondary text-white"><strong>Customer</strong></div>
                     <div class="card-body">
                         @foreach (['customer_name' => 'Name', 'customer_email' => 'Email', 'customer_phone' => 'Phone'] as $field => $label)
                             @if ($quote->$field)
@@ -139,7 +139,6 @@
                                 <p><strong>Delivery Date:</strong> {{ $quote->delivery_date_formatted }}</p>
                             @endif
                             <p><strong>Created At:</strong> {{ $quote->created_at_formatted }}</p>
-                            <p><strong>Updated At:</strong> {{ $quote->updated_at_formatted }}</p>
                         </div>
                     </div>
                 </div>
@@ -149,7 +148,7 @@
         {{-- =========================== PRICING ============================ --}}
         @if ($quote->amount_to_pay || $quote->cop_cod || $quote->balance)
             <div class="card mb-3">
-                <div class="card-header bg-info text-white"><strong>Pricing</strong></div>
+                <div class="card-header bg-secondary text-white"><strong>Pricing</strong></div>
                 <div class="card-body">
                     @if ($quote->amount_to_pay)
                         <p><strong>Amount to Pay:</strong> ${{ number_format($quote->amount_to_pay, 2) }}</p>
@@ -179,7 +178,7 @@
             @if ($quote->pickupLocation)
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header bg-success text-white"><strong>Pickup Details</strong></div>
+                        <div class="card-header bg-secondary text-white"><strong>Pickup Details</strong></div>
                         <div class="card-body">
                             @php $pickup = $quote->pickupLocation; @endphp
 
@@ -224,7 +223,7 @@
             @if ($quote->deliveryLocation)
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header bg-warning text-white"><strong>Delivery Details</strong></div>
+                        <div class="card-header bg-secondary text-white"><strong>Delivery Details</strong></div>
                         <div class="card-body">
                             @php $delivery = $quote->deliveryLocation; @endphp
 
@@ -289,13 +288,13 @@
         {{-- =========================== VEHICLES ============================ --}}
         @if ($quote->vehicles->count())
             <div class="card mb-3">
-                <div class="card-header bg-dark text-white"><strong>Vehicles ({{ $quote->vehicles->count() }})</strong>
+                <div class="card-header bg-secondary text-white"><strong>Vehicles ({{ $quote->vehicles->count() }})</strong>
                 </div>
                 <div class="card-body">
                     <div class="accordion" id="vehicleAccordion">
                         @foreach ($quote->vehicles as $i => $v)
                             <div class="card mb-3">
-                                <div class="card-header bg-dark text-white">
+                                <div class="card-header bg-secondary text-white">
                                     <strong>{{ $v->year }} {{ $v->make }} {{ $v->model }}</strong>
                                 </div>
                                 <div class="card-body">
