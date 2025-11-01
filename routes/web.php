@@ -107,7 +107,7 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::get('/invoice', [QuoteManagementController::class, 'invoice'])->name('dashboard.invoice.index');
     Route::get('/quotes/view-all/{status}', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     // Route::get('/quotes', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
-    Route::get('/quotes/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
+    Route::get('/view-order/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
     Route::get('/add_new_quote', [QuoteManagementController::class, 'quoteCreate'])->name('dashboard.quotes.create');
     Route::get('/edit_quote/{id}', [QuoteManagementController::class, 'quoteEdit'])->name('dashboard.quotes.edit');
     Route::put('/quotes/{quote}', [QuoteManagementController::class, 'quoteUpdate'])->name('dashboard.quotes.update');

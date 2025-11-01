@@ -221,6 +221,14 @@
                                                     Status
                                                 </a>
                                             </li>
+                                            @if (1 + 1 == 2)
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('dashboard.quotes.details', $quote->id) }}">
+                                                        <i class="material-icons-outlined fs-6 me-1">edit</i> View Order
+                                                    </a>
+                                                </li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </td>
