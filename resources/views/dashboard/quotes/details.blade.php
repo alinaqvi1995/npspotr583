@@ -203,10 +203,7 @@
                                 <p><strong>Phone(s):</strong></p>
                                 <ul class="mb-0">
                                     @foreach ($quote->pickupPhones as $phone)
-                                        <li>{{ $phone->phone }} @if ($phone->type)
-                                                <small>({{ ucfirst($phone->type) }})</small>
-                                            @endif
-                                        </li>
+                                        <li>{{ $phone->phone }}</li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -248,10 +245,7 @@
                                 <p><strong>Phone(s):</strong></p>
                                 <ul class="mb-0">
                                     @foreach ($quote->deliveryPhones as $phone)
-                                        <li>{{ $phone->phone }} @if ($phone->type)
-                                                <small>({{ ucfirst($phone->type) }})</small>
-                                            @endif
-                                        </li>
+                                        <li>{{ $phone->phone }}</li>
                                     @endforeach
                                 </ul>
                             @endif
