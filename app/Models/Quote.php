@@ -287,7 +287,7 @@ class Quote extends Model
 
     public function agentHistories()
     {
-        return $this->hasMany(QuoteAgentHistory::class);
+        return $this->hasMany(QuoteAgentHistory::class)->orderBy('created_at', 'desc');
     }
 
     public function user()

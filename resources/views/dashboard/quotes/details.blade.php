@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Details - Order #{{ $quote->id }}</title>
+    <link rel="icon" href="{{ asset('web-assets/images/logo/1-logo.png') }}" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap 5 -->
@@ -322,7 +323,8 @@
                                                             @if ($v->$field)
                                                                 <div class="col-md-3">
                                                                     <strong>{{ $label }}:</strong>
-                                                                    {{ $v->$field }}</div>
+                                                                    {{ $v->$field }}
+                                                                </div>
                                                             @endif
                                                         @endforeach
                                                     </div>
@@ -377,14 +379,19 @@
                 @endif
 
                 {{-- HISTORIES (3 columns) --}}
-                @if ($quote->histories->count())
-                    <div class="col-md-4">
-                        <div class="card mb-3 h-100">
+                <div class="col-md-4">
+                    {{-- QUOTE HISTORY --}}
+                    @php
+                        $statusHistories = $quote->histories->filter(fn($h) => $h->status !== $h->old_status);
+                    @endphp
+
+                    @if ($statusHistories->count())
+                        <div class="card mb-3">
                             <div class="card-header bg-secondary text-white py-2">
-                                <strong>Quote History ({{ $quote->histories->count() }})</strong>
+                                <strong>Quote History ({{ $statusHistories->count() }})</strong>
                             </div>
                             <div class="card-body p-2">
-                                <div class="table-responsive" style="max-height:600px; overflow-y:auto;">
+                                <div class="table-responsive" style="max-height:300px; overflow-y:auto;">
                                     <table class="table table-bordered table-striped table-sm align-middle mb-0">
                                         <thead class="table-light text-center small">
                                             <tr>
@@ -396,7 +403,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($quote->histories as $index => $h)
+                                            @foreach ($statusHistories as $index => $h)
                                                 <tr class="small text-center">
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>{!! $h->status ? '<span class="badge bg-primary">' . e($h->status) . '</span>' : '—' !!}</td>
@@ -410,9 +417,43 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
+                    {{-- AGENT HISTORY --}}
+                    @if ($quote->agentHistories->count())
+                        <div class="card mb-3">
+                            <div class="card-header bg-secondary text-white py-2">
+                                <strong>Agent History ({{ $quote->agentHistories->count() }})</strong>
+                            </div>
+                            <div class="card-body p-2">
+                                <div class="table-responsive" style="max-height:300px; overflow-y:auto;">
+                                    <table class="table table-bordered table-striped table-sm align-middle mb-0">
+                                        <thead class="table-light text-center small">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>By</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($quote->agentHistories as $index => $a)
+                                                <tr class="small text-center">
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $a->title ?? '—' }}</td>
+                                                    <td>{{ $a->description ?? '—' }}</td>
+                                                    <td>{{ $a->user->name ?? 'System' }}</td>
+                                                    <td>{{ $a->created_at?->format('M d, Y h:ia') ?? '—' }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
         @endif
 
