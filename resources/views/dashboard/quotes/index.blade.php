@@ -228,6 +228,20 @@
                                                         <i class="material-icons-outlined fs-6 me-1">edit</i> View Order
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <a class="dropdown-item payment" href="javascript:;"
+                                                        data-id="{{ $quote->id }}"
+                                                        data-order-id="{{ $quote->id }}"
+                                                        data-vehicle="{{ $quote->vehicles->first()->year ?? '' }} {{ $quote->vehicles->first()->make ?? '' }} {{ $quote->vehicles->first()->model ?? '' }}"
+                                                        data-pickup-zip="{{ $quote->pickupLocation->full_location }}"
+                                                        data-delivery-zip="{{ $quote->deliveryLocation->full_location }}"
+                                                        data-book-price="{{ $quote->amount_to_pay }}"
+                                                        data-listed-price="{{ $quote->amount_to_pay }}"
+                                                        data-profit="{{ $quote->amount_to_pay - $quote->amount_to_pay }}"
+                                                        data-status="{{ $quote->status }}">
+                                                        <i class="material-icons-outlined fs-6 me-1">wallet</i> Payment
+                                                    </a>
+                                                </li>
                                             @endif
                                         </ul>
                                     </div>
@@ -251,7 +265,8 @@
     </div>
 
     <!-- Send Order Form Modal -->
-    <div class="modal fade" id="sendOrderFormModal" tabindex="-1" aria-labelledby="sendOrderFormLabel" aria-hidden="true">
+    <div class="modal fade" id="sendOrderFormModal" tabindex="-1" aria-labelledby="sendOrderFormLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content shadow-lg border-0 rounded-3">
                 <div class="modal-header bg-primary text-white">
@@ -294,6 +309,96 @@
         </div>
     </div>
 
+    {{-- paymentModal --}}
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content shadow-lg border-0 rounded-3">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title d-flex align-items-center" id="paymentModalLabel">
+                        <i class="material-icons-outlined me-2">payments</i> Payment Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <form method="POST" action="">
+                    @csrf
+                    <input type="hidden" name="quote_id" id="paymentQuoteId">
+
+                    <div class="modal-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Order ID</label>
+                                <input type="text" id="paymentOrderId" name="order_id"
+                                    class="form-control form-control-sm rounded-3" readonly>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label fw-semibold">Vehicle</label>
+                                <input type="text" id="paymentVehicle" name="vehicle"
+                                    class="form-control form-control-sm rounded-3" readonly>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Pickup ZIP</label>
+                                <input type="text" id="paymentPickupZip" name="pickup_zip"
+                                    class="form-control form-control-sm rounded-3" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Delivery ZIP</label>
+                                <input type="text" id="paymentDeliveryZip" name="delivery_zip"
+                                    class="form-control form-control-sm rounded-3" readonly>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold text-success">Book Price ($)</label>
+                                <input type="text" id="paymentBookPrice" name="book_price"
+                                    class="form-control form-control-sm rounded-3 text-success fw-bold" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold text-danger">Listed Price ($)</label>
+                                <input type="text" id="paymentListedPrice" name="listed_price"
+                                    class="form-control form-control-sm rounded-3 text-danger fw-bold" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold text-primary">Profit ($)</label>
+                                <input type="text" id="paymentProfit" name="profit"
+                                    class="form-control form-control-sm rounded-3 text-primary fw-bold" readonly>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Status</label>
+                                <input type="text" id="paymentStatus" name="status"
+                                    class="form-control form-control-sm rounded-3" readonly>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Pay From</label>
+                                <select id="paymentFrom" name="pay_from" class="form-select form-select-sm rounded-3"
+                                    required>
+                                    <option value="">-- Select Payment Method --</option>
+                                    <option value="Credit Card">Credit Card</option>
+                                    <option value="Zelle">Zelle</option>
+                                    <option value="Cash App">Cash App</option>
+                                    <option value="Venmo">Venmo</option>
+                                    <option value="Paypal">Paypal</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-sm btn-secondary rounded-3 px-4" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-success rounded-3 px-4">
+                            <i class="material-icons-outlined me-1 fs-6">check_circle</i> Confirm Payment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Log Modal -->
     <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -323,7 +428,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Agent History Modal -->
     <div class="modal fade" id="agentHistoryModal" tabindex="-1" aria-hidden="true">
@@ -457,6 +561,27 @@
                 let quoteId = $(this).data('id');
                 $('#historyModal').modal('show'); // correct modal ID
                 loadHistories(quoteId); // call loader
+            });
+
+            $(document).on('click', '.payment', function() {
+                let q = $(this).data();
+
+                $('#paymentQuoteId').val(q.id);
+                $('#paymentOrderId').val(q.orderId || '');
+                $('#paymentVehicle').val(q.vehicle || '');
+                $('#paymentPickupZip').val(q.pickupZip || '');
+                $('#paymentDeliveryZip').val(q.deliveryZip || '');
+                $('#paymentBookPrice').val(q.bookPrice || '');
+                $('#paymentListedPrice').val(q.listedPrice || '');
+
+                // Calculate profit dynamically just in case
+                let profit = parseFloat(q.bookPrice || 0) - parseFloat(q.listedPrice || 0);
+                $('#paymentProfit').val(profit.toFixed(2));
+
+                $('#paymentStatus').val(q.status || '');
+                $('#paymentFrom').val(''); // reset pay from selection
+
+                $('#paymentModal').modal('show');
             });
 
             // ✅ Agent History (custom notes per agent)
