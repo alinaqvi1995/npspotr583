@@ -77,7 +77,7 @@ Route::get('/zipcodes/search', [ZipcodeController::class, 'search'])->name('zipc
 Route::get('/vehicles/models', [QuoteController::class, 'getModels'])->name('vehicles.models');
 
 // locations search
-Route::get('/search-location', [App\Http\Controllers\ZipcodeController::class, 'searchByLocation'])
+Route::get('/search-location', [ZipcodeController::class, 'searchByLocation'])
     ->name('zipcode.searchByLocation');
 
 Route::get('/verify-otp', [OtpController::class, 'showVerifyForm'])->name('verify.otp');
