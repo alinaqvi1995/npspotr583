@@ -230,9 +230,8 @@
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item payment" href="javascript:;"
-                                                        data-id="{{ $quote->id }}"
-                                                        data-order-id="{{ $quote->id }}"
-                                                        data-vehicle="{{ $quote->vehicles->first()->year ?? '' }} {{ $quote->vehicles->first()->make ?? '' }} {{ $quote->vehicles->first()->model ?? '' }}"
+                                                        data-id="{{ $quote->id }}" data-order-id="{{ $quote->id }}"
+                                                        data-vehicles="{{ $quote->vehicles->map(fn($v) => $v->year . ' ' . $v->make . ' ' . $v->model)->implode(' | ') }}"
                                                         data-pickup-zip="{{ $quote->pickupLocation->full_location }}"
                                                         data-delivery-zip="{{ $quote->deliveryLocation->full_location }}"
                                                         data-book-price="{{ $quote->amount_to_pay }}"
@@ -327,50 +326,51 @@
 
                     <div class="modal-body p-4">
                         <div class="row g-3">
+                            {{-- Order & Vehicle --}}
                             <div class="col-md-4">
                                 <label class="form-label fw-semibold">Order ID</label>
-                                <input type="text" id="paymentOrderId" name="order_id"
-                                    class="form-control form-control-sm rounded-3" readonly>
+                                <div class="form-control form-control-sm bg-light" id="paymentOrderId"></div>
                             </div>
                             <div class="col-md-8">
-                                <label class="form-label fw-semibold">Vehicle</label>
-                                <input type="text" id="paymentVehicle" name="vehicle"
-                                    class="form-control form-control-sm rounded-3" readonly>
+                                <label class="form-label fw-semibold">Vehicles</label>
+                                <div id="paymentVehiclesList" class="border rounded-3 p-2 bg-light"
+                                    style="min-height: 38px; max-height: 90px; overflow-y: auto;">
+                                    <span class="text-muted fst-italic">No vehicles</span>
+                                </div>
                             </div>
 
+                            {{-- ZIPs --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Pickup ZIP</label>
-                                <input type="text" id="paymentPickupZip" name="pickup_zip"
-                                    class="form-control form-control-sm rounded-3" readonly>
+                                <div class="form-control form-control-sm bg-light" id="paymentPickupZip"></div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Delivery ZIP</label>
-                                <input type="text" id="paymentDeliveryZip" name="delivery_zip"
-                                    class="form-control form-control-sm rounded-3" readonly>
+                                <div class="form-control form-control-sm bg-light" id="paymentDeliveryZip"></div>
                             </div>
 
+                            {{-- Prices --}}
                             <div class="col-md-4">
                                 <label class="form-label fw-semibold text-success">Book Price ($)</label>
-                                <input type="text" id="paymentBookPrice" name="book_price"
-                                    class="form-control form-control-sm rounded-3 text-success fw-bold" readonly>
+                                <div class="form-control form-control-sm bg-light text-success fw-bold"
+                                    id="paymentBookPrice"></div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label fw-semibold text-danger">Listed Price ($)</label>
-                                <input type="text" id="paymentListedPrice" name="listed_price"
-                                    class="form-control form-control-sm rounded-3 text-danger fw-bold" readonly>
+                                <div class="form-control form-control-sm bg-light text-danger fw-bold"
+                                    id="paymentListedPrice"></div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label fw-semibold text-primary">Profit ($)</label>
-                                <input type="text" id="paymentProfit" name="profit"
-                                    class="form-control form-control-sm rounded-3 text-primary fw-bold" readonly>
+                                <div class="form-control form-control-sm bg-light text-primary fw-bold"
+                                    id="paymentProfit"></div>
                             </div>
 
+                            {{-- Status & Pay From --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Status</label>
-                                <input type="text" id="paymentStatus" name="status"
-                                    class="form-control form-control-sm rounded-3" readonly>
+                                <div class="form-control form-control-sm bg-light" id="paymentStatus"></div>
                             </div>
-
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Pay From</label>
                                 <select id="paymentFrom" name="pay_from" class="form-select form-select-sm rounded-3"
@@ -567,19 +567,30 @@
                 let q = $(this).data();
 
                 $('#paymentQuoteId').val(q.id);
-                $('#paymentOrderId').val(q.orderId || '');
-                $('#paymentVehicle').val(q.vehicle || '');
-                $('#paymentPickupZip').val(q.pickupZip || '');
-                $('#paymentDeliveryZip').val(q.deliveryZip || '');
-                $('#paymentBookPrice').val(q.bookPrice || '');
-                $('#paymentListedPrice').val(q.listedPrice || '');
+                $('#paymentOrderId').text(q.orderId || '—');
 
-                // Calculate profit dynamically just in case
+                let vehiclesData = q.vehicles;
+                if (vehiclesData && vehiclesData.length > 0) {
+                    let vehicleList = vehiclesData.split('|');
+                    $('#paymentVehiclesList').html(
+                        vehicleList.map(v =>
+                            `<span class="badge bg-secondary me-1 mb-1">${v.trim()}</span>`).join('')
+                    );
+                } else {
+                    $('#paymentVehiclesList').html(
+                    '<span class="text-muted fst-italic">No vehicles</span>');
+                }
+
+                $('#paymentPickupZip').text(q.pickupZip || '—');
+                $('#paymentDeliveryZip').text(q.deliveryZip || '—');
+                $('#paymentBookPrice').text(q.bookPrice || '—');
+                $('#paymentListedPrice').text(q.listedPrice || '—');
+
                 let profit = parseFloat(q.bookPrice || 0) - parseFloat(q.listedPrice || 0);
-                $('#paymentProfit').val(profit.toFixed(2));
+                $('#paymentProfit').text(profit.toFixed(2));
 
-                $('#paymentStatus').val(q.status || '');
-                $('#paymentFrom').val(''); // reset pay from selection
+                $('#paymentStatus').text(q.status || '—');
+                $('#paymentFrom').val('');
 
                 $('#paymentModal').modal('show');
             });
