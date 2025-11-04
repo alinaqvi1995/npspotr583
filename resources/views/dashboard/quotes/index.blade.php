@@ -221,7 +221,7 @@
                                                     Status
                                                 </a>
                                             </li>
-                                            @if ($quote->listed_price)
+                                            @if ($quote->listed_price && in_array($quote->status, ['Listed', 'Completed']))
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="{{ route('dashboard.quotes.details', $quote->id) }}">
@@ -314,6 +314,112 @@
             <div class="modal-content shadow-lg border-0 rounded-3">
                 <div class="modal-header bg-success text-white">
                     <h5 class="modal-title d-flex align-items-center" id="paymentModalLabel">
+                        <i class="material-icons-outlined me-2">payments</i> Payment Summary
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <form method="POST" action="">
+                    @csrf
+                    <input type="hidden" name="quote_id" id="paymentQuoteId">
+
+                    <div class="modal-body p-4">
+
+                        {{-- SUMMARY SECTION --}}
+                        <div class="bg-light border rounded-4 p-3 mb-4">
+                            <div class="row g-3">
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold text-muted">Order ID</label>
+                                    <div class="fw-bold fs-6" id="paymentOrderId"></div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label class="fw-semibold text-muted">Vehicles</label>
+                                    <div id="paymentVehiclesList" class="fw-bold text-dark"
+                                        style="max-height: 90px; overflow-y: auto;">
+                                        <span class="text-muted fst-italic">No vehicles</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="fw-semibold text-muted">Pickup ZIP</label>
+                                    <div class="fw-bold text-dark" id="paymentPickupZip"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="fw-semibold text-muted">Delivery ZIP</label>
+                                    <div class="fw-bold text-dark" id="paymentDeliveryZip"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold text-success">Book Price</label>
+                                    <div class="fw-bold text-success fs-6" id="paymentBookPrice"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold text-danger">Listed Price</label>
+                                    <div class="fw-bold text-danger fs-6" id="paymentListedPrice"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold text-primary">Profit</label>
+                                    <div class="fw-bold text-primary fs-6" id="paymentProfit"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="fw-semibold text-muted">Status</label>
+                                    <div class="fw-bold text-dark" id="paymentStatus"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- ACTION SECTION --}}
+                        <div class="border-top pt-3">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Pay From</label>
+                                    <select id="paymentFrom" name="pay_from" class="form-select form-select-sm rounded-3"
+                                        required>
+                                        <option value="">-- Select Payment Method --</option>
+                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="Zelle">Zelle</option>
+                                        <option value="Cash App">Cash App</option>
+                                        <option value="Venmo">Venmo</option>
+                                        <option value="Paypal">Paypal</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Description / Notes</label>
+                                    <textarea name="payment_Description" id="paymentDescription" class="form-control form-control-sm rounded-3"
+                                        placeholder="Enter payment notes..." rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer bg-light border-top">
+                        <button type="button" class="btn btn-sm btn-secondary rounded-3 px-4" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-success rounded-3 px-4">
+                            <i class="material-icons-outlined me-1 fs-6">check_circle</i> Confirm Payment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content shadow-lg border-0 rounded-3">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title d-flex align-items-center" id="paymentModalLabel">
                         <i class="material-icons-outlined me-2">payments</i> Payment Details
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
@@ -326,7 +432,6 @@
 
                     <div class="modal-body p-4">
                         <div class="row g-3">
-                            {{-- Order & Vehicle --}}
                             <div class="col-md-4">
                                 <label class="form-label fw-semibold">Order ID</label>
                                 <div class="form-control form-control-sm bg-light" id="paymentOrderId"></div>
@@ -339,7 +444,6 @@
                                 </div>
                             </div>
 
-                            {{-- ZIPs --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Pickup ZIP</label>
                                 <div class="form-control form-control-sm bg-light" id="paymentPickupZip"></div>
@@ -349,7 +453,6 @@
                                 <div class="form-control form-control-sm bg-light" id="paymentDeliveryZip"></div>
                             </div>
 
-                            {{-- Prices --}}
                             <div class="col-md-4">
                                 <label class="form-label fw-semibold text-success">Book Price ($)</label>
                                 <div class="form-control form-control-sm bg-light text-success fw-bold"
@@ -366,7 +469,6 @@
                                     id="paymentProfit"></div>
                             </div>
 
-                            {{-- Status & Pay From --}}
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold">Status</label>
                                 <div class="form-control form-control-sm bg-light" id="paymentStatus"></div>
@@ -397,7 +499,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Log Modal -->
     <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
