@@ -221,7 +221,7 @@
                                                     Status
                                                 </a>
                                             </li>
-                                            @if (1 + 1 == 2)
+                                            @if ($quote->listed_price)
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="{{ route('dashboard.quotes.details', $quote->id) }}">
@@ -235,8 +235,8 @@
                                                         data-pickup-zip="{{ $quote->pickupLocation->full_location }}"
                                                         data-delivery-zip="{{ $quote->deliveryLocation->full_location }}"
                                                         data-book-price="{{ $quote->amount_to_pay }}"
-                                                        data-listed-price="{{ $quote->amount_to_pay }}"
-                                                        data-profit="{{ $quote->amount_to_pay - $quote->amount_to_pay }}"
+                                                        data-listed-price="{{ $quote->listed_price }}"
+                                                        data-profit="{{ $quote->amount_to_pay - $quote->listed_price }}"
                                                         data-status="{{ $quote->status }}">
                                                         <i class="material-icons-outlined fs-6 me-1">wallet</i> Payment
                                                     </a>
@@ -492,11 +492,16 @@
                     <div class="modal-body">
                         <select name="status" id="statusSelect" class="form-select">
                             @foreach ($statusToChange as $status => $details)
-                                <option value="{{ $status }}">
+                                <option value="{{ $details }}">
                                     {{ $details }}
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="modal-body" id="listedPriceContainer" style="display: none;">
+                        <label class="form-label fw-semibold">Listed Price ($)</label>
+                        <input type="number" step="0.01" name="listed_price" id="listedPrice"
+                            class="form-control rounded-3" placeholder="Enter listed price">
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -578,7 +583,7 @@
                     );
                 } else {
                     $('#paymentVehiclesList').html(
-                    '<span class="text-muted fst-italic">No vehicles</span>');
+                        '<span class="text-muted fst-italic">No vehicles</span>');
                 }
 
                 $('#paymentPickupZip').text(q.pickupZip || '—');
@@ -662,6 +667,14 @@
                 $('#statusSelect').val(current);
                 $('#statusModal').modal('show');
             });
+        });
+        $(document).on('change', '#statusSelect', function() {
+            let selectedStatus = $(this).val();
+            if (selectedStatus === 'Listed') {
+                $('#listedPriceContainer').show();
+            } else {
+                $('#listedPriceContainer').hide();
+            }
         });
     </script>
 @endsection

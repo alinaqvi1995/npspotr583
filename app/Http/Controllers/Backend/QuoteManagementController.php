@@ -158,6 +158,7 @@ class QuoteManagementController extends Controller
             'pricing.balance' => 'nullable|numeric',
             'pricing.balance_amount' => 'nullable|numeric',
             'pricing.discounted_price' => 'nullable|numeric',
+            'pricing.listed_price' => 'nullable|numeric',
 
             // Additional Info
             'additional.load_id' => 'nullable|string|max:255',
@@ -194,6 +195,7 @@ class QuoteManagementController extends Controller
                 'load_specific_terms' => $validated['additional']['load_terms'] ?? null,
                 'amount_to_pay' => $validated['pricing']['amount_to_pay'] ?? null,
                 'discounted_price' => $validated['pricing']['discounted_price'] ?? null,
+                'listed_price' => $validated['pricing']['listed_price'] ?? null,
                 'cop_cod' => $validated['pricing']['cop_cod'] ?? null,
                 'cop_cod_amount' => $validated['pricing']['cop_cod_amount'] ?? null,
                 'balance' => $validated['pricing']['balance'] ?? null,
@@ -436,12 +438,36 @@ class QuoteManagementController extends Controller
 
     public function updateStatus(Request $request, Quote $quote)
     {
-        $request->validate([
-            'status' => 'required|string'
-        ]);
+        $rules = [
+            'status' => 'required|string',
+        ];
 
-        $quote->update(['status' => $request->status]);
+        if ($request->status === 'Listed') {
+            $rules['listed_price'] = 'required|numeric|min:0';
+        }
 
-        return redirect()->back()->with('success', 'Status updated.');
+        $validated = $request->validate($rules);
+
+        $quote->status = $validated['status'];
+
+        if ($validated['status'] === 'Listed') {
+            $quote->listed_price = $validated['listed_price'];
+        }
+
+        $quote->save();
+
+        return redirect()->back()->with('success', 'Status updated successfully.');
     }
+
+    // public function updateStatus(Request $request, Quote $quote)
+    // {
+    //     $request->validate([
+    //         'status' => 'required|string'
+    //     ]);
+
+    //     listed_price
+    //     $quote->update(['status' => $request->status]);
+
+    //     return redirect()->back()->with('success', 'Status updated.');
+    // }
 }

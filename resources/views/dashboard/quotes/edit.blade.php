@@ -521,16 +521,23 @@
                                 <small class="text-muted">500 characters remaining</small>
                             </div>
 
-                            <div class="col-12">
-                                <label class="form-label">Status</label>
-                                <select name="status" class="form-select">
+                            <div class="modal-body">
+                                <label class="form-label fw-semibold">Select Status</label>
+                                <select name="status" id="statusSelect" class="form-select">
                                     @foreach ($quote->allowedStatuses($quote->status) as $status => $details)
+                                        {{-- <option value="{{ $details }}">{{ $details }}</option> --}}
                                         <option value="{{ $status }}"
                                             {{ old('status', $quote->status) == $status ? 'selected' : '' }}>
                                             {{ $status }}
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="modal-body" id="listedPriceContainer" style="display: none;">
+                                <label class="form-label fw-semibold">Listed Price ($)</label>
+                                <input type="number" step="0.01" name="listed_price" id="listedPrice"
+                                    class="form-control rounded-3" placeholder="Enter listed price">
                             </div>
 
                             <div class="col-12">
@@ -556,6 +563,7 @@
             </div>
         </form>
     </div>
+
 @endsection
 
 @section('extra_js')
@@ -750,6 +758,18 @@
                     $(target).show();
                 } else {
                     $(target).hide();
+                }
+            });
+
+            $(document).on('change', '#statusSelect', function() {
+                const selectedStatus = $(this).val();
+
+                if (selectedStatus === 'Listed') {
+                    $('#listedPriceContainer').slideDown(200);
+                    $('#listedPrice').attr('required', true);
+                } else {
+                    $('#listedPriceContainer').slideUp(200);
+                    $('#listedPrice').removeAttr('required').val('');
                 }
             });
 
