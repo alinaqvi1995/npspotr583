@@ -155,6 +155,9 @@
                     @if ($quote->amount_to_pay)
                         <p><strong>Amount to Pay:</strong> ${{ number_format($quote->amount_to_pay, 2) }}</p>
                     @endif
+                    @if ($quote->listed_price)
+                        <p><strong>Listed Price:</strong> ${{ number_format($quote->listed_price, 2) }}</p>
+                    @endif
                     @if ($quote->cop_cod)
                         <p><strong>COD:</strong> {{ $quote->cop_cod }}</p>
                     @endif

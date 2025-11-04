@@ -490,14 +490,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
+                        <label class="form-label fw-semibold">Status</label>
                         <select name="status" id="statusSelect" class="form-select">
                             @foreach ($statusToChange as $status => $details)
-                                <option value="{{ $details }}">
-                                    {{ $details }}
-                                </option>
+                                <option value="{{ $details }}">{{ $details }}</option>
                             @endforeach
                         </select>
                     </div>
+
                     <div class="modal-body" id="listedPriceContainer" style="display: none;">
                         <label class="form-label fw-semibold">Listed Price ($)</label>
                         <input type="number" step="0.01" name="listed_price" id="listedPrice"
@@ -667,14 +667,20 @@
                 $('#statusSelect').val(current);
                 $('#statusModal').modal('show');
             });
-        });
-        $(document).on('change', '#statusSelect', function() {
-            let selectedStatus = $(this).val();
-            if (selectedStatus === 'Listed') {
-                $('#listedPriceContainer').show();
-            } else {
-                $('#listedPriceContainer').hide();
-            }
+
+            //listed price
+            $(document).on('change', '#statusSelect', function() {
+                let selectedStatus = $(this).val();
+
+                if (selectedStatus === 'Listed') {
+                    $('#listedPriceContainer').show();
+                    $('#listedPrice').attr('required', true);
+                } else {
+                    $('#listedPriceContainer').hide();
+                    $('#listedPrice').removeAttr('required');
+                    $('#listedPrice').val('');
+                }
+            });
         });
     </script>
 @endsection
