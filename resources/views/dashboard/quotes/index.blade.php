@@ -747,7 +747,7 @@
                                 <td>${i+1}</td>
                                 <td>${h.change_type}</td>
                                 <td>${changes}</td>
-                                <td>${h.user?.name ?? 'System'}</td>
+                                <td>${h.changed_by}</td>
                                 <td>${h.created_at}</td>
                             </tr>`;
                         });
