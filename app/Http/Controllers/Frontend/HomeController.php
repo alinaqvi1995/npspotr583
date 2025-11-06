@@ -133,6 +133,61 @@ class HomeController extends Controller
         return response()->json($makes);
     }
 
+    public function trackOrder(Request $request)
+    {
+        $query = DB::table('quotes');
+
+        if ($request->filled('orderNumber')) {
+            $orderNumber = trim($request->get('orderNumber'));
+
+            $quote = DB::table('quotes')
+                ->where('id', $orderNumber)
+                ->orWhere('customer_name', 'like', "%{$orderNumber}%")
+                ->orWhere('customer_email', 'like', "%{$orderNumber}%")
+                ->orWhere('customer_phone', 'like', "%{$orderNumber}%")
+                ->first();
+
+            if ($quote) {
+                return view('site.track-order', compact('quote'));
+            } else {
+                return back()->with('status', 'No order found for the provided information.');
+            }
+        }
+
+        return view('site.track-order');
+    }
+    public function fetchOrder(Request $request)
+    {
+        $orderNumber = trim($request->get('orderNumber'));
+
+        $quote = DB::table('quotes')
+            ->where('id', $orderNumber)
+            ->orWhere('customer_name', 'like', "%{$orderNumber}%")
+            ->orWhere('customer_email', 'like', "%{$orderNumber}%")
+            ->orWhere('customer_phone', 'like', "%{$orderNumber}%")
+            ->first();
+
+        if ($quote) {
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'order_id' => $quote->id,
+                    'name' => $quote->customer_name,
+                    'email' => $quote->customer_email,
+                    'phone' => $quote->customer_phone,
+                    'status' => $quote->status,
+                    'pickup_date' => $quote->pickup_date,
+                    'delivery_date' => $quote->delivery_date,
+                    'created_at' => date('d M Y', strtotime($quote->created_at)),
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No order found. Please check your details and try again.'
+            ]);
+        }
+    }
 
     public function privacy()
     {

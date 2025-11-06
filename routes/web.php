@@ -33,6 +33,10 @@ Route::get('/states/{slug}', [StateFrontendController::class, 'show'])->name('st
 
 Route::get('/quote-form', [HomeController::class, 'multiform'])->name('multiform');
 Route::view('/contact', 'site.contact')->name('contact');
+Route::get('/track-order', [HomeController::class, 'trackOrder'])->name('track.order');
+Route::post('/track-order/fetch', [HomeController::class, 'fetchOrder'])->name('track.order.fetch');
+
+
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/trems&conditions', [HomeController::class, 'trems'])->name('trems');

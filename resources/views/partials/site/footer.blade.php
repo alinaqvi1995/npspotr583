@@ -40,6 +40,8 @@
                                             Quote</a></li>
                                     <li><a class="text-white" href="{{ route('contact') }}"><i class="flaticon-right-chevron-1"></i>
                                             Contact Us</a></li>
+                                    <li><a class="text-white" href="{{ route('track.order') }}"><i class="flaticon-right-chevron-1"></i>
+                                            Track Order</a></li>
                                     <li><a class="text-white" href="{{ route('trems') }}"><i class="flaticon-right-chevron-1"></i> Terms &
                                             Conditions</a></li>
                                     <li><a class="text-white" href="{{ route('faq') }}"><i class="flaticon-right-chevron-1"></i> FAQs</a>
