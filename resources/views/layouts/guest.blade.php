@@ -93,11 +93,7 @@
 
     {{-- Footer --}}
     @include('partials.site.footer')
-    <!-- AnyChart + Proj4 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.12.1/js/anychart-base.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.12.1/js/anychart-map.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.12.1/geodata/countries/united_states_of_america/united_states_of_america.js"></script>
+
     <!-- Modernizr.JS -->
     <script src="{{ asset('web-assets/js/modernizr-2.8.3.min.js') }}"></script>
     <!-- jQuery.min JS -->

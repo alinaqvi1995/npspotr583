@@ -23,12 +23,12 @@
     </script>
 
     <!-- Add this BEFORE your AnyChart map script -->
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
 
     <!-- Then your AnyChart scripts -->
-    {{-- <script src="https://cdn.anychart.com/releases/8.12.1/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.12.1/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.12.1/js/anychart-map.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.12.1/geodata/countries/united_states_of_america/united_states_of_america.js"></script> --}}
+    <script src="https://cdn.anychart.com/releases/8.12.1/geodata/countries/united_states_of_america/united_states_of_america.js"></script>
 
     <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet">
 
