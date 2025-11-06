@@ -20,7 +20,8 @@
         font-family: var(--tj-ff-body);
         color: var(--tj-body-color);
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 5px;
+        margin-top: 5px;
     }
 
     #states-map {
