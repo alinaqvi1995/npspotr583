@@ -374,6 +374,8 @@
         </div>
     </section>
 
+    @include('site.partials.stateservice')
+    
     <!--========== FAQ Section Start ==============-->
     <section class="tj-faq-section pt-5">
         <div class="container">

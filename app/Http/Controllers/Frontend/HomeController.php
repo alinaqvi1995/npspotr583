@@ -13,17 +13,24 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // Get states with only the fields needed for the map and listing
+        $states = State::select('id', 'state_name', 'slug', 'short_title', 'banner_image', 'description_one')
+            ->latest()
+            ->get();
+
         $services = Service::where('status', 1)
             ->whereRaw('id % 2 = 1') 
             ->latest()
             ->get();
+
         $blogs = Blog::latest()->take(3)->get();
+
         $makes = VehicleMakeModel::select('make')
             ->distinct()
             ->orderBy('make')
             ->pluck('make');
 
-        return view('site.home', compact('services','makes','blogs'));
+        return view('site.home', compact('services','makes','blogs','states'));
     }
 
     public function state($slug)
