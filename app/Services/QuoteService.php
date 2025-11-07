@@ -22,15 +22,15 @@ class QuoteService
             // apply status filtering
             $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
         }
+        
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($query->get()->toArray(), $requestedStatus, $search, $column);
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        }
 
         if (!$user->isAdmin()) {
             // apply status filtering
             $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
-        }
-        
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            // dd($query->get()->toArray(), $requestedStatus, $search, $column);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
         // apply search
