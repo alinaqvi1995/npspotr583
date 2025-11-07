@@ -27,6 +27,11 @@ class QuoteService
             // apply status filtering
             $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
         }
+        
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($query, $requestedStatus);
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        }
 
         // apply search
         if ($search) {
@@ -69,11 +74,6 @@ class QuoteService
         }
 
         $query->whereIn('status', $allowedStatuses);
-        
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query, $allowedPermissions, $allowedStatuses, $requestedStatus);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        }
 
         if (in_array($requestedStatus, $allowedStatuses)) {
             $query->where('status', $requestedStatus);
