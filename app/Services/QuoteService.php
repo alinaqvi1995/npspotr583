@@ -71,7 +71,7 @@ class QuoteService
         $query->whereIn('status', $allowedStatuses);
         
         if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($allowedPermissions, $allowedStatuses, $requestedStatus);
+            dd($query, $allowedPermissions, $allowedStatuses, $requestedStatus);
             // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
