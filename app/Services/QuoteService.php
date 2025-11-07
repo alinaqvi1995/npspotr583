@@ -33,11 +33,6 @@ class QuoteService
             $this->applySearchFilter($query, $search, $column);
         }
         
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query->get()->toArray(), $requestedStatus, $search, $column);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        }
-        
         $quotes = $query->paginate(20)->withQueryString();
         $statusToChange = Quote::changeStatus($requestedStatus);
 
@@ -86,6 +81,12 @@ class QuoteService
 
     private function applySearchFilter(Builder $query, string $search, ?string $column): void
     {
+        
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($query->get()->toArray(), $search, $column);
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        }
+
         $query->where(function ($q) use ($search, $column) {
             switch ($column) {
                 case 'order':
