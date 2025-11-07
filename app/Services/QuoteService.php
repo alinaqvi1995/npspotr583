@@ -69,17 +69,17 @@ class QuoteService
         }
 
         $query->whereIn('status', $allowedStatuses);
+        
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($query->get()->toArray(), $allowedPermissions, $allowedStatuses, $requestedStatus);
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        }
 
         if (in_array($requestedStatus, $allowedStatuses)) {
             $query->where('status', $requestedStatus);
         } else {
             $query->whereRaw('0=1');
         }
-
-        // if (Auth::user()->email == 'Huzaifa@gmail.com') {
-        //     dd($query->get()->toArray(), $allowedPermissions, $allowedStatuses, $requestedStatus);
-        //     // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        // }
 
         // dd($allowedPermissions, $allowedStatuses);
     }
