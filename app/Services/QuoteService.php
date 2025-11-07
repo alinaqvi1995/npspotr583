@@ -18,14 +18,24 @@ class QuoteService
         $query = Quote::with(['vehicles.images', 'pickupLocation', 'deliveryLocation'])
             ->orderBy('created_at', 'desc');
 
-        if ($user->isAdmin() && !$search) {
-            // apply status filtering
-            $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
-        }
+        // if ($user->isAdmin() && !$search) {
+        //     // apply status filtering
+        //     $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
+        // }
 
-        if (!$user->isAdmin()) {
-            // apply status filtering
-            $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
+        // if (!$user->isAdmin()) {
+        //     // apply status filtering
+        //     $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
+        // }
+
+        if (!($search && $column === 'order')) {
+            if ($user->isAdmin() && !$search) {
+                $this->applyStatusFilter($query, true, $requestedStatus);
+            }
+
+            if (!$user->isAdmin()) {
+                $this->applyStatusFilter($query, false, $requestedStatus);
+            }
         }
         
         // apply search
@@ -83,14 +93,14 @@ class QuoteService
     {
         $query->where(function ($q) use ($search, $column) {
             switch ($column) {
-                // case 'order':
-                //     $q->where('id', 'like', "%{$search}%");
-                //     break;
+                case 'order':
+                    $q->where('id', 'like', "%{$search}%");
+                    break;
 
-                // case 'customer':
-                //     $q->where('customer_name', 'like', "%{$search}%")
-                //         ->orWhere('customer_email', 'like', "%{$search}%");
-                //     break;
+                case 'customer':
+                    $q->where('customer_name', 'like', "%{$search}%")
+                        ->orWhere('customer_email', 'like', "%{$search}%");
+                    break;
 
                 case 'customer_phone':
                     $normalizedSearch = preg_replace('/\D+/', '', $search);
