@@ -744,7 +744,7 @@
 
                             rows += `
                             <tr>
-                                <td>${i+1}</td>
+                            <td>${i+1}</td>
                                 <td>${h.change_type}</td>
                                 <td>${changes}</td>
                                 <td>${h.changed_by}</td>

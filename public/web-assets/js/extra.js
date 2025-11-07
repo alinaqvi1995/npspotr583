@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function () {
     let vehicleIndex = 0;
     function getVehicleFields(type, index) {
-    const yearField = `
+        const yearField = `
         <div class="col-md-4">
             <label class="text-white">Year</label>
             <select name="vehicles[${index}][year]" class="form-select year-select" required>
@@ -54,7 +54,7 @@ $(document).ready(function () {
             </select>
         </div>
     `;
-    const makeModelSelect = `
+        const makeModelSelect = `
         <div class="col-md-4">
             <label class="text-white">Make</label>
             <select name="vehicles[${index}][make]" class="form-select make-select" required>
@@ -69,7 +69,7 @@ $(document).ready(function () {
             </select>
         </div>
     `;
-    const makeModelText = `
+        const makeModelText = `
         <div class="col-md-4">
             <label class="text-white">Make</label>
             <input type="text" name="vehicles[${index}][make]" class="form-control" placeholder="Enter Make" required>
@@ -79,7 +79,7 @@ $(document).ready(function () {
             <input type="text" name="vehicles[${index}][model]" class="form-control" placeholder="Enter Model" required>
         </div>
     `;
-    const sizeFields = `
+        const sizeFields = `
     <div class="row mt-2">
         <!-- Length -->
         <div class="col-md-6">
@@ -146,29 +146,29 @@ $(document).ready(function () {
 `;
 
 
-    // Trailer type options based on vehicle type
-    let trailerOptions = `
+        // Trailer type options based on vehicle type
+        let trailerOptions = `
         <option value="Open Trailer">Open Trailer</option>
         <option value="Enclosed Trailer">Enclosed Trailer</option>
     `;
 
-    if (type === "RV-Transport") {
-        trailerOptions = `
+        if (type === "RV-Transport") {
+            trailerOptions = `
             <option value="Drive away">Drive away</option>
             <option value="Tow away">Tow away</option>
             <option value="Flatbed trailer">Flatbed trailer</option>
         `;
-    } else if (type === "Heavy-Equipment" || type === "Boat-Transport") {
-        trailerOptions = `
+        } else if (type === "Heavy-Equipment" || type === "Boat-Transport") {
+            trailerOptions = `
             <option value="Flatbed trailers">Flatbed trailers</option>
             <option value="Drop Deck Trailers">Drop Deck Trailers</option>
             <option value="Extendable trailers">Extendable trailers</option>
             <option value="Lowboy Trailers">Lowboy Trailers</option>
             <option value="RGN">RGN</option>
         `;
-    }
+        }
 
-    const trailerAndCondition = `
+        const trailerAndCondition = `
         <div class="row mt-2">
             <div class="col-md-6">
             <label class="text-white">Trailer Type</label>
@@ -186,25 +186,25 @@ $(document).ready(function () {
         </div>
     `;
 
-    const imageUpload = `
+        const imageUpload = `
         <div class="input-form mt-4">
             <input class="form-control image_input pt-0" name="images[${index}][]" type="file" accept="image/*" multiple onchange="previewImages(event, ${index})">
             <div class="image-preview-container" id="imagePreviewContainer${index}"></div>
         </div>
     `;
 
-    let fields = `<div class="row mt-2">${yearField}`;
-    if (type === "Car") {
-        fields += makeModelSelect;
-    } else {
-        fields += makeModelText;
+        let fields = `<div class="row mt-2">${yearField}`;
+        if (type === "Car") {
+            fields += makeModelSelect;
+        } else {
+            fields += makeModelText;
+        }
+        fields += `</div>`;
+        if (type === "Boat-Transport" || type === "Heavy-Equipment" || type === "RV-Transport") {
+            fields += sizeFields;
+        }
+        return fields + trailerAndCondition + imageUpload;
     }
-    fields += `</div>`;
-    if (type === "Boat-Transport" || type === "Heavy-Equipment" || type === "RV-Transport") {
-        fields += sizeFields;
-    }
-    return fields + trailerAndCondition + imageUpload;
-}
 
     $("#tabSelector").change(function () {
         const selected = $(this).val();
@@ -283,51 +283,52 @@ function generateYearOptions($select) {
     }
 }
 $(document).ready(function () {
-    $("#phone").inputmask({"mask": "(999) 999-9999"});
+    $("#phone").inputmask({ "mask": "(999) 999-9999" });
     $("form").on("submit", function (e) {
-        let rawPhone = $("#phone").inputmask("unmaskedvalue"); 
+        // let rawPhone = $("#phone").inputmask("unmaskedvalue");
+        let rawPhone = $("#phone").inputmask("unmaskedvalue") || "";
         if (rawPhone.length !== 10) {
             e.preventDefault();
         }
     });
 });
 document.querySelectorAll(".no_move").forEach(btn => {
-    btn.addEventListener("click", function(e) {
-        e.preventDefault(); 
-        e.stopPropagation(); 
-        this.blur(); 
+    btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.blur();
         console.log("Next button clicked");
     });
 });
 
-    // Allow only digits & limit max length
-    function limitDigits(element, maxDigits) {
-        if (element.value.length > maxDigits) {
-            element.value = element.value.slice(0, maxDigits);
-        }
+// Allow only digits & limit max length
+function limitDigits(element, maxDigits) {
+    if (element.value.length > maxDigits) {
+        element.value = element.value.slice(0, maxDigits);
     }
+}
 
-    $(document).ready(function () {
-        // General number-only check
-        $(document).on('input', 'input[type="number"]', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-
-        // Limit Inches (example if you add inches field later)
-        $(document).on('input', '.inches-input', function () {
-            if (this.value > 11) {
-                this.value = 11;
-            } else if (this.value < 0) {
-                this.value = 0;
-            }
-        });
-
-        // Example for max length restriction
-        $(document).on('input', 'input[name*="[length]"], input[name*="[width]"], input[name*="[height]"]', function () {
-            limitDigits(this, 3); // max 3 digits
-        });
-
-        $(document).on('input', 'input[name*="[weight]"]', function () {
-            limitDigits(this, 6); // max 6 digits
-        });
+$(document).ready(function () {
+    // General number-only check
+    $(document).on('input', 'input[type="number"]', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
+
+    // Limit Inches (example if you add inches field later)
+    $(document).on('input', '.inches-input', function () {
+        if (this.value > 11) {
+            this.value = 11;
+        } else if (this.value < 0) {
+            this.value = 0;
+        }
+    });
+
+    // Example for max length restriction
+    $(document).on('input', 'input[name*="[length]"], input[name*="[width]"], input[name*="[height]"]', function () {
+        limitDigits(this, 3); // max 3 digits
+    });
+
+    $(document).on('input', 'input[name*="[weight]"]', function () {
+        limitDigits(this, 6); // max 6 digits
+    });
+});
