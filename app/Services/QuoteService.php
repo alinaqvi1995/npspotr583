@@ -81,12 +81,6 @@ class QuoteService
 
     private function applySearchFilter(Builder $query, string $search, ?string $column): void
     {
-        
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query->get()->toArray(), $search, $column);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        }
-
         $query->where(function ($q) use ($search, $column) {
             switch ($column) {
                 case 'order':
@@ -127,27 +121,32 @@ class QuoteService
                     });
                     break;
 
-                default:
-                    $q->where('id', 'like', "%{$search}%")
-                        ->orWhere('customer_name', 'like', "%{$search}%")
-                        ->orWhere('customer_email', 'like', "%{$search}%")
-                        ->orWhere('customer_phone', 'like', "%{$search}%")
-                        ->orWhereHas('vehicles', function ($v) use ($search) {
-                            $v->where('make', 'like', "%{$search}%")
-                                ->orWhere('model', 'like', "%{$search}%")
-                                ->orWhere('year', 'like', "%{$search}%");
-                        })
-                        ->orWhereHas('pickupLocation', function ($loc) use ($search) {
-                            $loc->where('city', 'like', "%{$search}%")
-                                ->orWhere('state', 'like', "%{$search}%")
-                                ->orWhere('zip', 'like', "%{$search}%");
-                        })
-                        ->orWhereHas('deliveryLocation', function ($loc) use ($search) {
-                            $loc->where('city', 'like', "%{$search}%")
-                                ->orWhere('state', 'like', "%{$search}%")
-                                ->orWhere('zip', 'like', "%{$search}%");
-                        });
+                // default:
+                //     $q->where('id', 'like', "%{$search}%")
+                //         ->orWhere('customer_name', 'like', "%{$search}%")
+                //         ->orWhere('customer_email', 'like', "%{$search}%")
+                //         ->orWhere('customer_phone', 'like', "%{$search}%")
+                //         ->orWhereHas('vehicles', function ($v) use ($search) {
+                //             $v->where('make', 'like', "%{$search}%")
+                //                 ->orWhere('model', 'like', "%{$search}%")
+                //                 ->orWhere('year', 'like', "%{$search}%");
+                //         })
+                //         ->orWhereHas('pickupLocation', function ($loc) use ($search) {
+                //             $loc->where('city', 'like', "%{$search}%")
+                //                 ->orWhere('state', 'like', "%{$search}%")
+                //                 ->orWhere('zip', 'like', "%{$search}%");
+                //         })
+                //         ->orWhereHas('deliveryLocation', function ($loc) use ($search) {
+                //             $loc->where('city', 'like', "%{$search}%")
+                //                 ->orWhere('state', 'like', "%{$search}%")
+                //                 ->orWhere('zip', 'like', "%{$search}%");
+                //         });
             }
         });
+        
+        if (Auth::user()->email == 'Huzaifa@gmail.com') {
+            dd($query->get()->toArray(), $search, $column, 'sass');
+            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        }
     }
 }
