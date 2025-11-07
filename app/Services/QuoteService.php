@@ -24,7 +24,7 @@ class QuoteService
         }
         
         if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query->get()->toArray(), $requestedStatus, $search, $column);
+            // dd($query->get()->toArray(), $requestedStatus, $search, $column);
             // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         }
 
