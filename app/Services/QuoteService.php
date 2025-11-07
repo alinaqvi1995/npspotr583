@@ -43,6 +43,11 @@ class QuoteService
             $this->applySearchFilter($query, $search, $column);
         }
         
+        // if (Auth::user()->email == 'Huzaifa@gmail.com') {
+        //     dd($query->get()->toArray(), $search, $column);
+        //     // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
+        // }
+        
         $quotes = $query->paginate(20)->withQueryString();
         $statusToChange = Quote::changeStatus($requestedStatus);
 
@@ -153,10 +158,5 @@ class QuoteService
                         });
             }
         });
-        
-        if (Auth::user()->email == 'Huzaifa@gmail.com') {
-            dd($query->get()->toArray(), $search, $column);
-            // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        }
     }
 }
