@@ -45,6 +45,10 @@ class ReportController extends Controller
             $countQuery->whereBetween('quote_histories.created_at', [$start, $end]);
         }
 
+        if ($request->filled('user_id')) {
+            $countQuery->where('quote_histories.changed_by', $request->user_id);
+        }
+
         $dbCounts = $countQuery->groupBy('quote_histories.status')->pluck('count', 'status')->toArray();
 
         // Ensure all statuses exist in response (even if count = 0)
@@ -83,6 +87,10 @@ class ReportController extends Controller
             if ($status) {
                 $tableQuery->where('quote_histories.status', $status);
             }
+        }
+
+        if ($request->filled('user_id')) {
+            $tableQuery->where('quote_histories.changed_by', $request->user_id);
         }
 
         $histories = $tableQuery->paginate(5);

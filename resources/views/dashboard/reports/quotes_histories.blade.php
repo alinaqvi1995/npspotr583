@@ -34,6 +34,18 @@
                     <input type="hidden" name="status" id="selectedStatus" value="{{ request('status') }}">
                 </div>
 
+                <div class="col-md-3">
+                    <label class="form-label">Changed By (User)</label>
+                    <select name="user_id" id="user_id" class="form-select">
+                        <option value="">All Users</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="col-md-auto">
                     <button type="submit" class="btn btn-primary">Filter</button>
                     <a href="{{ route('reports.quotes.histories') }}" class="btn btn-secondary">Reset</a>
@@ -126,11 +138,11 @@
                 loadQuotes("{{ route('reports.quotes.histories') }}", {
                     status: selectedStatus,
                     date_from: $('#dateFrom').val(),
-                    date_to: $('#dateTo').val()
+                    date_to: $('#dateTo').val(),
+                    user_id: $('#user_id').val()
                 }, true); // <-- true = load table
             });
 
-            // --- Date filter submit ---
             // --- Date filter submit ---
             $('form[action="{{ route('reports.quotes.histories') }}"]').on('submit', function(e) {
                 e.preventDefault(); // prevent page reload
@@ -144,7 +156,8 @@
                 $.get("{{ route('reports.quotes.histories') }}", {
                     date_from: dateFrom,
                     date_to: dateTo,
-                    status: status
+                    status: status,
+                    user_id: $('#user_id').val()
                 }, function(data) {
                     // Update status counts
                     if (data.statusCounts) {
@@ -174,7 +187,8 @@
                 loadQuotes(url, {
                     status: selectedStatus,
                     date_from: $('#dateFrom').val(),
-                    date_to: $('#dateTo').val()
+                    date_to: $('#dateTo').val(),
+                    user_id: $('#user_id').val()
                 }, true);
             });
 
