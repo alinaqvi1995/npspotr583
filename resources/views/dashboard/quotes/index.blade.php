@@ -221,7 +221,7 @@
                                                     Status
                                                 </a>
                                             </li>
-                                            @if ($quote->listed_price && in_array($quote->status, ['Listed', 'Completed']))
+                                            {{-- @if ($quote->listed_price && in_array($quote->status, ['Listed', 'Completed'])) --}}
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="{{ route('dashboard.quotes.details', $quote->id) }}">
@@ -241,7 +241,7 @@
                                                         <i class="material-icons-outlined fs-6 me-1">wallet</i> Payment
                                                     </a>
                                                 </li>
-                                            @endif
+                                            {{-- @endif --}}
                                         </ul>
                                     </div>
                                 </td>
