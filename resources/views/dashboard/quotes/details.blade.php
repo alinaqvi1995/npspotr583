@@ -81,7 +81,7 @@
         <div class="header-bar d-flex justify-content-between align-items-center mb-4 flex-wrap">
             <div class="d-flex align-items-center">
                 <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Logo" class="company-logo me-3">
-                <h4 class="mb-0 text-uppercase fw-bold">Order Details</h4>
+                <h4 class="mb-0 text-uppercase fw-bold">Order Details - Order #{{ $quote->id }}</h4>
             </div>
             <button class="btn btn-outline-primary no-print" onclick="window.print()">
                 🖨️ Print Quote
@@ -216,6 +216,23 @@
                             @if (!is_null($pickup->twic))
                                 <p><strong>TWIC:</strong> {{ $pickup->twic ? 'Yes' : 'No' }}</p>
                             @endif
+
+                            @if (!is_null($pickup->location_type))
+                                <p><strong>Location Type:</strong> {{ $pickup->location_type }}</p>
+                            @endif
+
+                            @if (!is_null($pickup->buyer_ref))
+                                <p><strong>Buyer Ref:</strong> {{ $pickup->buyer_ref }}</p>
+                            @endif
+
+                            @if (!is_null($pickup->name))
+                                <p><strong>Name:</strong> {{ $pickup->name }}</p>
+                            @endif
+
+                            @if (!is_null($pickup->save_to_address_book))
+                                <p><strong>Save to Address Book:</strong>
+                                    {{ $pickup->save_to_address_book ? 'Yes' : 'No' }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -257,6 +274,23 @@
 
                             @if (!is_null($delivery->twic))
                                 <p><strong>TWIC:</strong> {{ $delivery->twic ? 'Yes' : 'No' }}</p>
+                            @endif
+
+                            @if (!is_null($delivery->location_type))
+                                <p><strong>Location Type:</strong> {{ $delivery->location_type }}</p>
+                            @endif
+
+                            @if (!is_null($delivery->buyer_ref))
+                                <p><strong>Buyer Ref:</strong> {{ $delivery->buyer_ref }}</p>
+                            @endif
+
+                            @if (!is_null($delivery->name))
+                                <p><strong>Name:</strong> {{ $delivery->name }}</p>
+                            @endif
+
+                            @if (!is_null($delivery->save_to_address_book))
+                                <p><strong>Save to Address Book:</strong>
+                                    {{ $delivery->save_to_address_book ? 'Yes' : 'No' }}</p>
                             @endif
                         </div>
                     </div>
