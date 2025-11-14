@@ -21,7 +21,7 @@
 
         <!-- Dynamic State Info -->
         <div id="stateContent" class="mt-5 text-center">
-            <h3 id="stateName" class="mb-3 text-primary">Select a state on the map</h3>
+            {{-- <h3 id="stateName" class="mb-3 text-primary">Select a state on the map</h3> --}}
             <img id="stateBanner" src="" class="img-fluid my-3 d-none rounded shadow-sm" alt="State Banner">
             <div id="stateDescription" class="fs-5"></div>
         </div>
@@ -36,6 +36,7 @@
     // Get all available state slugs from the backend
     const availableStates = @json($states->pluck('slug'));
 </script>
+
 <script>
     am5.ready(function() {
         var root = am5.Root.new("stateMap");
@@ -64,25 +65,30 @@
             strokeWidth: 1
         });
 
-        // ✅ Style & click based on availability
+        // ⭐ FIXED: Match DB slugs like "florida-car-transport"
         polygonSeries.events.on("datavalidated", function() {
             polygonSeries.mapPolygons.each(function(polygon) {
-                let stateName = polygon.dataItem.dataContext.name;
-                let stateSlug = stateName.toLowerCase().replace(/\s+/g, '-');
 
-                if (availableStates.includes(stateSlug)) {
-                    // ✅ Clickable state
+                let stateName = polygon.dataItem.dataContext.name;
+                let basicSlug = stateName.toLowerCase().replace(/\s+/g, '-');
+
+                // Find DB slug that starts with basic state slug
+                let matchedSlug = availableStates.find(s => s.startsWith(basicSlug));
+
+                if (matchedSlug) {
+                    // Enabled clickable state
                     polygon.setAll({
-                        fill: am5.color(0x74b9ff),
+                        fill: am5.color("#062e39"),
                         cursorOverStyle: "pointer",
                         tooltipText: stateName
                     });
 
                     polygon.events.on("click", function() {
-                        window.location.href = `/states/${stateSlug}`;
+                        window.location.href = `/states/${matchedSlug}`;
                     });
+
                 } else {
-                    // 🚫 Disabled (no page)
+                    // Disabled state
                     polygon.setAll({
                         fill: am5.color(0xdfe6e9),
                         interactive: false,
@@ -92,8 +98,11 @@
             });
         });
 
+
+        // Hover color (slightly lighter version of #062e39)
         polygonSeries.mapPolygons.template.states.create("hover", {
-            fill: am5.color(0x0984e3)
+            fill: am5.color("#09414f")  // ✔ darker teal hover
         });
     });
 </script>
+
