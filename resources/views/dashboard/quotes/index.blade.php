@@ -286,9 +286,14 @@
                                 placeholder="Enter recipient email" required>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label fw-semibold">Initial Amount</label>
+                            <input type="number" step="0.01" name="initial_amount" id="initialAmount"
+                                class="form-control rounded-3" placeholder="" required>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label fw-semibold">Amount to Pay</label>
                             <input type="number" step="0.01" name="amount_to_pay" id="orderFormQuoteAmount"
-                                class="form-control rounded-3" placeholder="Enter recipient name" required>
+                                class="form-control rounded-3" placeholder="" required>
                         </div>
                         {{-- <div class="mb-3">
                             <label class="form-label fw-semibold">Description</label>

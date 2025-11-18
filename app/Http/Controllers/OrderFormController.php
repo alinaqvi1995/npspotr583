@@ -45,12 +45,14 @@ class OrderFormController extends Controller
             'quote_id' => 'required|exists:quotes,id',
             'email'    => 'required|email',
             'amount_to_pay'    => 'required',
+            'initial_amount'    => 'nullable',
         ]);
 
         try {
             // ✅ Fetch the quote safely
             $quote = Quote::findOrFail($validated['quote_id']);
             $quote->amount_to_pay = $validated['amount_to_pay'];
+            $quote->initial_amount = $validated['initial_amount'];
             $quote->save();
 
             // ✅ Send mail (with catch for failures)
@@ -172,8 +174,9 @@ class OrderFormController extends Controller
                 $quote->status = 'Payment Missing';
             } else {
                 $amountToCharge = ($validated['pay_amount_option'] ?? 'full') === 'initial'
-                    ? 100
+                    ? ($quote->initial_amount ?? 100)
                     : $quote->amount_to_pay;
+
                 $amountToCharge = $amountToCharge + ($amountToCharge * 0.04);
 
                 \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
