@@ -288,7 +288,7 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Initial Amount</label>
                             <input type="number" step="0.01" name="initial_amount" id="initialAmount"
-                                class="form-control rounded-3" placeholder="" required>
+                                class="form-control rounded-3" placeholder="">
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Amount to Pay</label>

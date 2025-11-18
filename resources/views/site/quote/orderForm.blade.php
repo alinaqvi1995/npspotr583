@@ -720,7 +720,7 @@
                                                                     + 4%)
                                                                 </option>
                                                                 <option value="initial">
-                                                                    Pay Initial (${{ $quote->initial_amount }} + 4%)
+                                                                    Pay Initial (${{ $quote->initial_amount ?? 100 }} + 4%)
                                                                 </option>
                                                             </select>
                                                         </div>
