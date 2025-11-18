@@ -22,7 +22,7 @@ class QuoteManagementController extends Controller
 
         $permissions = [
             'allQuotes'   => 'view-quotes',
-            'quoteDetail'   => 'view-quoteDetail',
+            // 'quoteDetail'   => 'view-quoteDetail',
             'quoteCreate'   => 'create-quotes',
             'quoteUpdate'   => 'edit-quotes',
         ];
