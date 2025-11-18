@@ -133,6 +133,14 @@
                     </tbody>
                 </table>
             </div>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="small text-muted">
+                    {{-- Showing {{ $quotes->firstItem() }} to {{ $quotes->lastItem() }} of {{ $quotes->total() }} entries --}}
+                </div>
+                <div>
+                    {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
+                </div>
+            </div>
         </div>
     </div>
 @endsection
