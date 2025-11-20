@@ -22,9 +22,24 @@ class AdminController extends Controller
         }
     }
 
-    public function activityLogs()
+    public function activityLogs(Request $request)
     {
-        $logs = Activity::latest()->paginate(20);
-        return view('dashboard.pages.activity_logs', compact('logs'));
+        $search = $request->input('search');
+
+        $logs = Activity::when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('log_name', 'LIKE', "%{$search}%")
+                    ->orWhere('description', 'LIKE', "%{$search}%")
+                    ->orWhere('causer_type', 'LIKE', "%{$search}%")
+                    ->orWhere('subject_type', 'LIKE', "%{$search}%")
+                    ->orWhere('properties', 'LIKE', "%{$search}%")
+                    ->orWhere('created_at', 'LIKE', "%{$search}%");
+            });
+        })
+            ->latest()
+            ->paginate(20)
+            ->appends(['search' => $search]);
+
+        return view('dashboard.pages.activity_logs', compact('logs', 'search'));
     }
 }

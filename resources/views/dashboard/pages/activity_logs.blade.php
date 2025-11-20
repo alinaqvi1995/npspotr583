@@ -14,10 +14,14 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="order-search position-relative my-3">
-                <input class="form-control rounded-5 px-5" type="text" placeholder="Search Logs" id="searchLogs">
-                <span class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
-            </div>
+            <form method="GET" action="{{ route('view.activity_logs') }}">
+                <div class="order-search position-relative my-3">
+                    <input class="form-control rounded-5 px-5" type="text" name="search" value="{{ request('search') }}"
+                        placeholder="Search Logs">
+                    <span
+                        class="material-icons-outlined position-absolute ms-3 translate-middle-y start-0 top-50">search</span>
+                </div>
+            </form>
 
             <div class="table-responsive">
                 <table class="table align-middle" id="logsTable">
