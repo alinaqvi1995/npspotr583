@@ -147,7 +147,10 @@ class Quote extends Model
         }
 
         // Return with details (icons and class) from self::$statuses
-        return array_intersect_key(self::$statuses, array_flip($allowed));
+        return collect(self::$statuses)
+            ->mapWithKeys(fn($v, $k) => [trim($k) => $v])
+            ->filter(fn($v, $k) => in_array($k, array_map('trim', $allowed)))
+            ->toArray();
     }
 
     protected static function booted()
