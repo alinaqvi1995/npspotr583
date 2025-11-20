@@ -137,9 +137,6 @@
                     orderDetails.innerHTML = `
                         <div class="text-center">
                             <h5 class="mb-3">Order #${order.order_id}</h5>
-                            <p><strong>Name:</strong> ${order.name ?? 'N/A'}</p>
-                            <p><strong>Email:</strong> ${order.email ?? 'N/A'}</p>
-                            <p><strong>Phone:</strong> ${order.phone ?? 'N/A'}</p>
                             <p><strong>Status:</strong> 
                                 <span class="badge bg-${order.status === 'New' ? 'primary' : 'success'}">${order.status}</span>
                             </p>
