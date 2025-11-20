@@ -20,7 +20,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table align-middle" id="logsTable">
+                <table class="table align-middle datatable" id="logsTable">
                     <thead>
                         <tr>
                             <th>Sr#.</th>
@@ -68,14 +68,13 @@
                 </table>
 
             </div>
-            <div class="d-flex justify-content-between align-items-center mt-3">
+            {{-- <div class="d-flex justify-content-between align-items-center mt-3">
                 <div class="small text-muted">
-                    {{-- Showing {{ $quotes->firstItem() }} to {{ $quotes->lastItem() }} of {{ $quotes->total() }} entries --}}
                 </div>
                 <div>
                     {{ $logs->onEachSide(1)->links('pagination::bootstrap-5') }}
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

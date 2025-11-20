@@ -24,7 +24,7 @@ class AdminController extends Controller
 
     public function activityLogs()
     {
-        $logs = Activity::latest()->paginate(20);
+        $logs = Activity::latest()->get();
         return view('dashboard.pages.activity_logs', compact('logs'));
     }
 }
