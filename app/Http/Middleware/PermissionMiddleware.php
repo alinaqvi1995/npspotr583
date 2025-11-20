@@ -22,7 +22,11 @@ class PermissionMiddleware
                 $allowedStatuses = $user->allPermissions()
                     ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
                     ->pluck('slug')
-                    ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
+                    // ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
+                    ->map(function ($slug) {
+                        $clean = preg_replace('/[^a-z0-9\-]/i', '', str_replace('view-quotes-', '', $slug));
+                        return Str::title(str_replace('-', ' ', $clean));
+                    })
                     ->toArray();
 
                 if (!in_array($status, $allowedStatuses)) {
