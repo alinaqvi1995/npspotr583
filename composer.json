@@ -11,6 +11,7 @@
         "laravel/tinker": "^2.10.1",
         "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-permission": "^6.21",
+        "stichoza/google-translate-php": "*",
         "stripe/stripe-php": "^18.0",
         "yajra/laravel-datatables-oracle": "^12.4"
     },
