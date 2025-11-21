@@ -58,6 +58,7 @@ class Quote extends Model
         'balance_amount',
         'discounted_price',
         'listed_price',
+        'initial_amount',
 
         'load_id',
         'pre_dispatch_notes',
