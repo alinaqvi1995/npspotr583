@@ -23,11 +23,6 @@ class QuoteService
         //     $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
         // }
 
-        // if (!$user->isAdmin()) {
-        //     // apply status filtering
-        //     $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
-        // }
-
         if (!($search && $column === 'order')) {
             if ($user->isAdmin() && !$search) {
                 $this->applyStatusFilter($query, true, $requestedStatus);
@@ -37,17 +32,22 @@ class QuoteService
                 $this->applyStatusFilter($query, false, $requestedStatus);
             }
         }
-        
+        $normalizedSearch = preg_replace('/\D+/', '', $search);
+        $query->whereRaw("REPLACE(REPLACE(REPLACE(REPLACE(customer_phone, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ?", ["%$normalizedSearch%"]);
+
+        // dd($search, $column, $query->get()->toArray());
+
         // apply search
         if ($search) {
             $this->applySearchFilter($query, $search, $column);
         }
-        
+
+
         // if (Auth::user()->email == 'Huzaifa@gmail.com') {
         //     dd($query->get()->toArray(), $search, $column);
         //     // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
         // }
-        
+
         $quotes = $query->paginate(20)->withQueryString();
         $statusToChange = Quote::changeStatus($requestedStatus);
 
@@ -70,6 +70,7 @@ class QuoteService
             ->pluck('slug')
             ->toArray();
 
+
         // $allowedStatuses = collect($allowedPermissions)
         //     ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
         //     ->toArray();
@@ -78,6 +79,7 @@ class QuoteService
             ->map(fn($slug) => Str::title(str_replace('-', ' ', str_replace('view-quotes-', '', $slug))))
             ->toArray();
 
+
         if (empty($allowedStatuses)) {
             $query->whereRaw('0=1');
             return;
@@ -85,13 +87,18 @@ class QuoteService
 
         $query->whereIn('status', $allowedStatuses);
 
-        if (in_array($requestedStatus, $allowedStatuses)) {
-            $query->where('status', $requestedStatus);
-        } else {
-            $query->whereRaw('0=1');
-        }
+        // if (in_array($requestedStatus, $allowedStatuses)) {
 
-        // dd($allowedPermissions, $allowedStatuses);
+        //     $query->where('status', $requestedStatus);
+        // } else {
+        //     $query->whereRaw('0=1');
+        // }
+        // $normalizedSearch = preg_replace('/\D+/', '', '5038777941');
+        // $query->whereRaw("REPLACE(REPLACE(REPLACE(REPLACE(customer_phone, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ?", ["%$normalizedSearch%"]);
+
+        // dd('5038777941', 'customer_phone', $query->get()->toArray());
+
+        // dd($allowedPermissions, $allowedStatuses, $requestedStatus);
     }
 
     private function applySearchFilter(Builder $query, string $search, ?string $column): void
