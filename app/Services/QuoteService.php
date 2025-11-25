@@ -28,7 +28,7 @@ class QuoteService
                 $this->applyStatusFilter($query, true, $requestedStatus);
             }
 
-            if (!$user->isAdmin() || !$search) {
+            if (!$user->isAdmin()) {
                 $this->applyStatusFilter($query, false, $requestedStatus);
             }
         }
@@ -38,9 +38,10 @@ class QuoteService
         // dd($search, $column, $query->get()->toArray());
 
         // apply search
-        if ($search) {
-            $this->applySearchFilter($query, $search, $column);
-        }
+        // 11/25/2025
+        // if ($search) {
+        //     $this->applySearchFilter($query, $search, $column);
+        // }
 
 
         // if (Auth::user()->email == 'Huzaifa@gmail.com') {
