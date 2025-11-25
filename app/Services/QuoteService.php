@@ -18,93 +18,128 @@ class QuoteService
         $query = Quote::with(['vehicles.images', 'pickupLocation', 'deliveryLocation'])
             ->orderBy('created_at', 'desc');
 
-        // if ($user->isAdmin() && !$search) {
-        //     // apply status filtering
-        //     $this->applyStatusFilter($query, $user->isAdmin(), $requestedStatus);
-        // }
+        // -------------------------------------------------------
+        // ADMIN LOGIC
+        // -------------------------------------------------------
+        if ($user->isAdmin()) {
 
-        if (!($search && $column === 'order')) {
-            if ($user->isAdmin() && !$search) {
-                $this->applyStatusFilter($query, true, $requestedStatus);
+            // Admin = no restrictions except the "status page" when not searching
+            if (!$search) {
+                $query->where('status', $requestedStatus);
             }
 
-            if (!$user->isAdmin() && !$search) {
-                $this->applyStatusFilter($query, false, $requestedStatus);
+        } else {
+
+            // ---------------------------------------------------
+            // NON-ADMIN LOGIC
+            // ---------------------------------------------------
+
+            if ($search) {
+
+                // On search: allow ALL statuses the user is permitted to see
+                $allowedStatuses = $this->getAllowedStatuses($user);
+
+                // Debug: What statuses user can access
+                logger()->info("User allowed statuses (search mode):", $allowedStatuses);
+
+                if (empty($allowedStatuses)) {
+                    $query->whereRaw('0=1');
+                } else {
+                    $query->whereIn('status', $allowedStatuses);
+                }
+
+            } else {
+
+                // No search: strictly follow page status (e.g. /quotes/in-progress)
+                $this->applyStatusFilter($query, $requestedStatus);
             }
         }
-        $normalizedSearch = preg_replace('/\D+/', '', $search);
-        $query->whereRaw("REPLACE(REPLACE(REPLACE(REPLACE(customer_phone, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ?", ["%$normalizedSearch%"]);
 
-        // dd($search, $column, $query->get()->toArray());
-
-        // apply search
+        // -------------------------------------------------------
+        // SEARCH FILTER
+        // -------------------------------------------------------
         if ($search) {
             $this->applySearchFilter($query, $search, $column);
         }
 
-
-        // if (Auth::user()->email == 'Huzaifa@gmail.com') {
-        //     dd($query->get()->toArray(), $search, $column);
-        //     // dd($query->where('id', 'like', "%{$search}%")->get()->toArray());
-        // }
-
+        // -------------------------------------------------------
+        // FINAL RESULTS
+        // -------------------------------------------------------
         $quotes = $query->paginate(20)->withQueryString();
         $statusToChange = Quote::changeStatus($requestedStatus);
 
         return compact('quotes', 'statusToChange');
     }
 
-    private function applyStatusFilter(Builder $query, bool $isAdmin, string $requestedStatus): void
+
+    // ===============================================================
+    // STATUS FILTER FOR NON-ADMIN NORMAL PAGE VIEW (NO SEARCH)
+    // ===============================================================
+    private function applyStatusFilter(Builder $query, string $requestedStatus): void
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
 
-        if ($isAdmin) {
-            // dd($query->where('id', 'like', "%74038%")->get()->toArray());
-            $query->where('status', $requestedStatus);
-            return;
-        }
+        $allowedStatuses = $this->getAllowedStatuses($user);
 
-        $allowedPermissions = $user->allPermissions()
-            ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
-            ->pluck('slug')
-            ->toArray();
+        // Debug logs:
+        logger()->info("Allowed statuses for user:", $allowedStatuses);
+        logger()->info("Requested status:", [$requestedStatus]);
 
-
-        // $allowedStatuses = collect($allowedPermissions)
-        //     ->map(fn($slug) => Str::title(str_replace('view-quotes-', '', $slug)))
-        //     ->toArray();
-
-        $allowedStatuses = collect($allowedPermissions)
-            ->map(fn($slug) => Str::title(str_replace('-', ' ', str_replace('view-quotes-', '', $slug))))
-            ->toArray();
-
-
+        // No permissions → empty result
         if (empty($allowedStatuses)) {
             $query->whereRaw('0=1');
             return;
         }
 
-        $query->whereIn('status', $allowedStatuses);
-
-        if (in_array($requestedStatus, $allowedStatuses)) {
-
-            $query->where('status', $requestedStatus);
-        } else {
+        // User trying to access a status page they are NOT allowed to see
+        if (!in_array($requestedStatus, $allowedStatuses)) {
             $query->whereRaw('0=1');
+            return;
         }
-        // $normalizedSearch = preg_replace('/\D+/', '', '5038777941');
-        // $query->whereRaw("REPLACE(REPLACE(REPLACE(REPLACE(customer_phone, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ?", ["%$normalizedSearch%"]);
 
-        // dd('5038777941', 'customer_phone', $query->get()->toArray());
-
-        // dd($allowedPermissions, $allowedStatuses, $requestedStatus);
+        // OK → Apply page status
+        $query->where('status', $requestedStatus);
     }
 
+
+    // ===============================================================
+    // GET ALLOWED STATUSES FROM PERMISSIONS
+    // ===============================================================
+    private function getAllowedStatuses($user): array
+    {
+        $allowedPermissions = $user->allPermissions()
+            ->filter(fn($perm) => str_starts_with($perm->slug, 'view-quotes-'))
+            ->pluck('slug')
+            ->toArray();
+
+        // Debug: show raw permission slugs
+        logger()->info("User permission slugs:", $allowedPermissions);
+
+        $statuses = collect($allowedPermissions)
+            ->map(function ($slug) {
+                $clean = str_replace('view-quotes-', '', $slug);
+                $clean = str_replace('-', ' ', $clean);
+                return Str::title($clean);
+            })
+            ->toArray();
+
+        // Debug: converted statuses
+        logger()->info("Converted allowed quote statuses:", $statuses);
+
+        return $statuses;
+    }
+
+
+    // ===============================================================
+    // SEARCH FILTER
+    // ===============================================================
     private function applySearchFilter(Builder $query, string $search, ?string $column): void
     {
         $query->where(function ($q) use ($search, $column) {
+
             switch ($column) {
+
                 case 'order':
                     $q->where('id', 'like', "%{$search}%");
                     break;
@@ -115,8 +150,11 @@ class QuoteService
                     break;
 
                 case 'customer_phone':
-                    $normalizedSearch = preg_replace('/\D+/', '', $search);
-                    $q->whereRaw("REPLACE(REPLACE(REPLACE(REPLACE(customer_phone, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ?", ["%$normalizedSearch%"]);
+                    $normalized = preg_replace('/\D+/', '', $search);
+                    $q->whereRaw(
+                        "REPLACE(REPLACE(REPLACE(REPLACE(customer_phone,' ',''),'-',''),'(',''),')','') LIKE ?",
+                        ["%$normalized%"]
+                    );
                     break;
 
                 case 'vehicles':
@@ -144,10 +182,15 @@ class QuoteService
                     break;
 
                 default:
+                    $normalized = preg_replace('/\D+/', '', $search);
+
                     $q->where('id', 'like', "%{$search}%")
                         ->orWhere('customer_name', 'like', "%{$search}%")
                         ->orWhere('customer_email', 'like', "%{$search}%")
-                        ->orWhere('customer_phone', 'like', "%{$search}%")
+                        ->orWhereRaw(
+                            "REPLACE(REPLACE(REPLACE(REPLACE(customer_phone,' ',''),'-',''),'(',''),')','') LIKE ?",
+                            ["%$normalized%"]
+                        )
                         ->orWhereHas('vehicles', function ($v) use ($search) {
                             $v->where('make', 'like', "%{$search}%")
                                 ->orWhere('model', 'like', "%{$search}%")
