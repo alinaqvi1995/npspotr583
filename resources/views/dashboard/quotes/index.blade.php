@@ -3,6 +3,8 @@
 @section('title', 'Quotes')
 
 @section('content')
+<link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+
     <style>
         .pagination {
             margin: 0;
@@ -120,7 +122,6 @@
                                         <small>{{ optional($quote->deliveryPhones->first())->phone }}</small>
                                     @endif
                                 </td>
-
                                 <td>
                                     @foreach ($quote->vehicles as $vehicle)
                                         <div class="mb-2 border-bottom pb-2">
@@ -145,12 +146,26 @@
 
                                             {{-- Vehicle images --}}
                                             @if ($vehicle->images->count())
-                                                <div class="d-flex flex-wrap justify-content-center mt-1">
+                                                {{-- <div class="d-flex flex-wrap justify-content-center mt-1">
                                                     @foreach ($vehicle->images as $img)
                                                         <img src="{{ asset($img->image_path) }}"
                                                             alt="{{ $vehicle->make }} {{ $vehicle->model }}"
                                                             width="50" height="50"
                                                             class="rounded-circle me-1 mb-1 border">
+                                                    @endforeach
+                                                </div> --}}
+                                                <div class="d-flex flex-wrap justify-content-center mt-1" id="vehicle-gallery">
+                                                    @foreach ($vehicle->images as $img)
+                                                        <a href="{{ asset($img->image_path) }}"
+                                                        data-pswp-width="1200"
+                                                        data-pswp-height="800"
+                                                        target="_blank"
+                                                        class="me-1 mb-1">
+                                                            <img src="{{ asset($img->image_path) }}"
+                                                                alt="{{ $vehicle->make }} {{ $vehicle->model }}"
+                                                                width="50" height="50"
+                                                                class="rounded-circle border">
+                                                        </a>
                                                     @endforeach
                                                 </div>
                                             @endif
@@ -621,6 +636,8 @@
 @endsection
 
 @section('extra_js')
+<script src="https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js" type="module"></script>
+
     <script>
         $(document).ready(function() {
             $(document).ready(function() {
@@ -789,5 +806,15 @@
                 }
             });
         });
+    </script>
+    <script type="module">
+        import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '#vehicle-gallery',
+            children: 'a',
+            pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js')
+        });
+        lightbox.init();
     </script>
 @endsection
