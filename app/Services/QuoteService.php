@@ -25,11 +25,11 @@ class QuoteService
 
         if (!($search && $column === 'order')) {
             if ($user->isAdmin() && !$search) {
-                $this->applyStatusFilter($query, true, $requestedStatus, false);
+                $this->applyStatusFilter($query, true, $requestedStatus);
             }
 
-            if (!$user->isAdmin()) {
-                $this->applyStatusFilter($query, false, $requestedStatus, false);
+            if (!$user->isAdmin() && !$search) {
+                $this->applyStatusFilter($query, false, $requestedStatus);
             }
         }
         $normalizedSearch = preg_replace('/\D+/', '', $search);
@@ -39,7 +39,7 @@ class QuoteService
 
         // apply search
         if ($search) {
-            $this->applySearchFilter($query, $search, $column, true);
+            $this->applySearchFilter($query, $search, $column);
         }
 
 
@@ -54,7 +54,7 @@ class QuoteService
         return compact('quotes', 'statusToChange');
     }
 
-    private function applyStatusFilter(Builder $query, bool $isAdmin, string $requestedStatus, bool $searchQuery): void
+    private function applyStatusFilter(Builder $query, bool $isAdmin, string $requestedStatus): void
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
@@ -87,7 +87,7 @@ class QuoteService
 
         $query->whereIn('status', $allowedStatuses);
 
-        if (in_array($requestedStatus, $allowedStatuses) && !$searchQuery) {
+        if (in_array($requestedStatus, $allowedStatuses)) {
 
             $query->where('status', $requestedStatus);
         } else {
