@@ -38,10 +38,9 @@ class QuoteService
         // dd($search, $column, $query->get()->toArray());
 
         // apply search
-        // 11/25/2025
-        // if ($search) {
-        //     $this->applySearchFilter($query, $search, $column);
-        // }
+        if ($search) {
+            $this->applySearchFilter($query, $search, $column);
+        }
 
 
         // if (Auth::user()->email == 'Huzaifa@gmail.com') {
@@ -88,12 +87,12 @@ class QuoteService
 
         $query->whereIn('status', $allowedStatuses);
 
-        // if (in_array($requestedStatus, $allowedStatuses)) {
+        if (in_array($requestedStatus, $allowedStatuses)) {
 
-        //     $query->where('status', $requestedStatus);
-        // } else {
-        //     $query->whereRaw('0=1');
-        // }
+            $query->where('status', $requestedStatus);
+        } else {
+            $query->whereRaw('0=1');
+        }
         // $normalizedSearch = preg_replace('/\D+/', '', '5038777941');
         // $query->whereRaw("REPLACE(REPLACE(REPLACE(REPLACE(customer_phone, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ?", ["%$normalizedSearch%"]);
 
