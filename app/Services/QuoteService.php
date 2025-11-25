@@ -28,7 +28,7 @@ class QuoteService
                 $this->applyStatusFilter($query, true, $requestedStatus);
             }
 
-            if (!$user->isAdmin()) {
+            if (!$user->isAdmin() || !$search) {
                 $this->applyStatusFilter($query, false, $requestedStatus);
             }
         }
