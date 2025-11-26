@@ -163,6 +163,9 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         Route::post('agentHistory/store', [QuoteManagementController::class, 'storeAgentHistory'])->name('agentHistory.store');
         Route::get('{id}/histories', [QuoteManagementController::class, 'histories'])->name('histories');
     });
+
+    Route::get('/quotes/{id}/allowed-statuses', [QuoteManagementController::class, 'getAllowedStatuses'])
+    ->name('dashboard.quotes.allowedStatuses');
 });
 
 require __DIR__ . '/auth.php';

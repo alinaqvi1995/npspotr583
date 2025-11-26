@@ -3,7 +3,7 @@
 @section('title', 'Quotes')
 
 @section('content')
-<link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
 
     <style>
         .pagination {
@@ -154,17 +154,14 @@
                                                             class="rounded-circle me-1 mb-1 border">
                                                     @endforeach
                                                 </div> --}}
-                                                <div class="d-flex flex-wrap justify-content-center mt-1" id="vehicle-gallery">
+                                                <div class="d-flex flex-wrap justify-content-center mt-1"
+                                                    id="vehicle-gallery">
                                                     @foreach ($vehicle->images as $img)
-                                                        <a href="{{ asset($img->image_path) }}"
-                                                        data-pswp-width="1200"
-                                                        data-pswp-height="800"
-                                                        target="_blank"
-                                                        class="me-1 mb-1">
+                                                        <a href="{{ asset($img->image_path) }}" data-pswp-width="1200"
+                                                            data-pswp-height="800" target="_blank" class="me-1 mb-1">
                                                             <img src="{{ asset($img->image_path) }}"
                                                                 alt="{{ $vehicle->make }} {{ $vehicle->model }}"
-                                                                width="50" height="50"
-                                                                class="rounded-circle border">
+                                                                width="50" height="50" class="rounded-circle border">
                                                         </a>
                                                     @endforeach
                                                 </div>
@@ -237,25 +234,25 @@
                                                 </a>
                                             </li>
                                             {{-- @if ($quote->listed_price && in_array($quote->status, ['Listed', 'Completed'])) --}}
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('dashboard.quotes.details', $quote->id) }}">
-                                                        <i class="material-icons-outlined fs-6 me-1">edit</i> View Order
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item payment" href="javascript:;"
-                                                        data-id="{{ $quote->id }}" data-order-id="{{ $quote->id }}"
-                                                        data-vehicles="{{ $quote->vehicles->map(fn($v) => $v->year . ' ' . $v->make . ' ' . $v->model)->implode(' | ') }}"
-                                                        data-pickup-zip="{{ $quote->pickupLocation->full_location }}"
-                                                        data-delivery-zip="{{ $quote->deliveryLocation->full_location }}"
-                                                        data-book-price="{{ $quote->amount_to_pay }}"
-                                                        data-listed-price="{{ $quote->listed_price }}"
-                                                        data-profit="{{ $quote->amount_to_pay - $quote->listed_price }}"
-                                                        data-status="{{ $quote->status }}">
-                                                        <i class="material-icons-outlined fs-6 me-1">wallet</i> Payment
-                                                    </a>
-                                                </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('dashboard.quotes.details', $quote->id) }}">
+                                                    <i class="material-icons-outlined fs-6 me-1">edit</i> View Order
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item payment" href="javascript:;"
+                                                    data-id="{{ $quote->id }}" data-order-id="{{ $quote->id }}"
+                                                    data-vehicles="{{ $quote->vehicles->map(fn($v) => $v->year . ' ' . $v->make . ' ' . $v->model)->implode(' | ') }}"
+                                                    data-pickup-zip="{{ $quote->pickupLocation->full_location }}"
+                                                    data-delivery-zip="{{ $quote->deliveryLocation->full_location }}"
+                                                    data-book-price="{{ $quote->amount_to_pay }}"
+                                                    data-listed-price="{{ $quote->listed_price }}"
+                                                    data-profit="{{ $quote->amount_to_pay - $quote->listed_price }}"
+                                                    data-status="{{ $quote->status }}">
+                                                    <i class="material-icons-outlined fs-6 me-1">wallet</i> Payment
+                                                </a>
+                                            </li>
                                             {{-- @endif --}}
                                         </ul>
                                     </div>
@@ -636,7 +633,7 @@
 @endsection
 
 @section('extra_js')
-<script src="https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js" type="module"></script>
+    <script src="https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js" type="module"></script>
 
     <script>
         $(document).ready(function() {
@@ -781,14 +778,25 @@
             $(document).on('click', '.change-status', function() {
                 let id = $(this).data('id');
                 let current = $(this).data('status');
+                console.log(current);
 
-                // build route with ID
-                let url = "{{ route('dashboard.quotes.updateStatus', ':id') }}";
-                url = url.replace(':id', id);
+                let updateUrl = "{{ route('dashboard.quotes.updateStatus', ':id') }}".replace(':id', id);
+                let allowedUrl = "{{ route('dashboard.quotes.allowedStatuses', ':id') }}".replace(':id',
+                    id);
 
-                $('#statusForm').attr('action', url);
+                $.get(allowedUrl, {
+                    quoteID: id
+                }, function(response) {
+                    let options = '';
+                    Object.keys(response.allowed).forEach(function(status) {
+                        options += `<option value="${status}">${status}</option>`;
+                    });
+                    $('#statusSelect').html(options);
+                    $('#statusSelect').val(response.current);
+                });
+
+                $('#statusForm').attr('action', updateUrl);
                 $('#statusQuoteId').val(id);
-                $('#statusSelect').val(current);
                 $('#statusModal').modal('show');
             });
 

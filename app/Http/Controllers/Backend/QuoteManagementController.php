@@ -21,10 +21,10 @@ class QuoteManagementController extends Controller
         $this->quoteService = $quoteService;
 
         $permissions = [
-            'allQuotes'   => 'view-quotes',
+            'allQuotes' => 'view-quotes',
             // 'quoteDetail'   => 'view-quoteDetail',
-            'quoteCreate'   => 'create-quotes',
-            'quoteUpdate'   => 'edit-quotes',
+            'quoteCreate' => 'create-quotes',
+            'quoteUpdate' => 'edit-quotes',
         ];
 
         foreach ($permissions as $method => $permission) {
@@ -279,9 +279,9 @@ class QuoteManagementController extends Controller
                             'buyer' => $vehicleData['buyer'] ?? null,
                             'lot' => $vehicleData['lot'] ?? null,
                             'gatepin' => $vehicleData['gatepin'] ?? null,
-                            'modified' => isset($vehicleData['modified']) ? (int)$vehicleData['modified'] : 0,
+                            'modified' => isset($vehicleData['modified']) ? (int) $vehicleData['modified'] : 0,
                             'modified_info' => $vehicleData['modified_info'] ?? null,
-                            'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int)$vehicleData['available_at_auction'] : 0,
+                            'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int) $vehicleData['available_at_auction'] : 0,
                             'available_link' => $vehicleData['available_link'] ?? null,
                             'trailer_type' => $vehicleData['trailer_type'] ?? null,
                             'load_method' => $vehicleData['load_method'] ?? null,
@@ -311,9 +311,9 @@ class QuoteManagementController extends Controller
                         'lot' => $vehicleData['lot'] ?? null,
                         'gatepin' => $vehicleData['gatepin'] ?? null,
                         'condition' => $vehicleData['condition'] ?? null,
-                        'modified' => isset($vehicleData['modified']) ? (int)$vehicleData['modified'] : 0,
+                        'modified' => isset($vehicleData['modified']) ? (int) $vehicleData['modified'] : 0,
                         'modified_info' => $vehicleData['modified_info'] ?? null,
-                        'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int)$vehicleData['available_at_auction'] : 0,
+                        'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int) $vehicleData['available_at_auction'] : 0,
                         'available_link' => $vehicleData['available_link'] ?? null,
                         'trailer_type' => $vehicleData['trailer_type'] ?? null,
                         'load_method' => $vehicleData['load_method'] ?? null,
@@ -407,8 +407,8 @@ class QuoteManagementController extends Controller
 
         QuoteAgentHistory::create([
             'quote_id' => $request->quote_id,
-            'user_id'  => Auth::id(),
-            'title'    => $request->title,
+            'user_id' => Auth::id(),
+            'title' => $request->title,
             'description' => $request->description,
         ]);
 
@@ -424,12 +424,12 @@ class QuoteManagementController extends Controller
             ->get()
             ->map(function ($history) {
                 return [
-                    'id'          => $history->id,
+                    'id' => $history->id,
                     'change_type' => ucfirst($history->change_type),
-                    'old_status'  => $history->old_status ?: '-',
-                    'new_status'  => $history->status ?: '-',
-                    'changed_by'  => $history->user?->name ?: 'System',
-                    'created_at'  => $history->created_at->format('M d, Y h:i A'),
+                    'old_status' => $history->old_status ?: '-',
+                    'new_status' => $history->status ?: '-',
+                    'changed_by' => $history->user?->name ?: 'System',
+                    'created_at' => $history->created_at->format('M d, Y h:i A'),
                 ];
             });
 
@@ -459,15 +459,13 @@ class QuoteManagementController extends Controller
         return redirect()->back()->with('success', 'Status updated successfully.');
     }
 
-    // public function updateStatus(Request $request, Quote $quote)
-    // {
-    //     $request->validate([
-    //         'status' => 'required|string'
-    //     ]);
-
-    //     listed_price
-    //     $quote->update(['status' => $request->status]);
-
-    //     return redirect()->back()->with('success', 'Status updated.');
-    // }
+    public function getAllowedStatuses($id)
+    {
+        // dd($id);
+        $quote = Quote::findOrFail($id);
+        return response()->json([
+            'current' => $quote->status,
+            'allowed' => $quote->allowedStatuses($quote->status)
+        ]);
+    }
 }
