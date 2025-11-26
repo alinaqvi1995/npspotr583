@@ -30,7 +30,7 @@ class PermissionMiddleware
                     ->toArray();
 
                 if (!in_array($status, $allowedStatuses)) {
-                    abort(403, 'Forbidden');
+                    abort(403, 'Forbidden - No permission for this status');
                 }
             }
         }
