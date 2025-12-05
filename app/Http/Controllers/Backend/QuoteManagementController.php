@@ -75,9 +75,10 @@ class QuoteManagementController extends Controller
         return view('dashboard.quotes.edit', compact('makes', 'quote'));
     }
 
-    public function invoice()
+    public function invoice($id)
     {
-        return view('dashboard.invoice.index');
+        $quote = Quote::findOrFail($id);
+        return view('dashboard.invoice.index', compact('quote'));
     }
 
     public function quoteUpdate(Request $request, Quote $quote)

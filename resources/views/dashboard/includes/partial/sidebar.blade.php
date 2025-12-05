@@ -187,14 +187,14 @@
                 </a>
             </li>
 
-            <li>
+            {{-- <li>
                 <a href="{{ route('dashboard.invoice.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
                     <div class="menu-title">
                         Invoice
                     </div>
                 </a>
-            </li>
+            </li> --}}
 
             <!-- Users & Roles -->
             @if (auth()->user()->isAdmin())

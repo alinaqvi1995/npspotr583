@@ -215,6 +215,14 @@
                                                 @endif
                                             </li>
                                             <li>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('dashboard.invoice.index', $quote->id) }}"
+                                                    target="_blank">
+                                                    <i class="material-icons-outlined fs-6 me-1">receipt_long</i> View
+                                                    Invoice
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a class="dropdown-item view-logs" href="javascript:;"
                                                     data-id="{{ $quote->id }}">
                                                     <i class="material-icons-outlined fs-6 me-1">receipt_long</i> View Logs

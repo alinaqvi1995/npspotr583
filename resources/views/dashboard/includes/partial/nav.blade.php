@@ -74,10 +74,10 @@
                                         <span>Create Quote</span>
                                         <i class="material-icons-outlined fs-6">inventory_2</i>
                                     </a>
-                                    <a href="{{ route('dashboard.invoice.index') }}" class="kewords">
+                                    {{-- <a href="{{ route('dashboard.invoice.index') }}" class="kewords">
                                         <span>Invoices</span>
                                         <i class="material-icons-outlined fs-6">receipt_long</i>
-                                    </a>
+                                    </a> --}}
                                 @endcan
 
                                 @can('view-users')
