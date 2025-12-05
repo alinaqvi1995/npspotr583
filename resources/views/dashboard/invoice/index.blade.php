@@ -1,25 +1,8 @@
-@extends('dashboard.includes.partial.base')
-@section('title', 'Home')
-@section('meta_description', 'Explore our SaaS solutions tailored to your business.')
-@section('meta_keywords', 'SaaS, services, business software')
+
 <!-- Bootstrap -->
 <link rel="stylesheet" href="{{ asset('invoice-assets/css/bootstrap.min.css') }}">
 <!-- Theme Custom CSS -->
 <link rel="stylesheet" href="{{ asset('invoice-assets/css/style.css') }}">
-@section('content')
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Dashboard</div>
-        <div class="ps-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0 p-0">
-                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Invoice</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!--end breadcrumb-->
     <div class="card radius-10">
         <div class="invoice-container-wrap">
             <div class="invoice-container">
@@ -206,4 +189,3 @@
     <script src="{{ asset('invoice-assets/js/html2canvas.min.js') }}"></script>
     <!-- Main Js File -->
     <script src="{{ asset('invoice-assets/js/main.js') }}"></script>
-@endsection
