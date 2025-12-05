@@ -227,13 +227,13 @@
                                         <label class="form-label">Type *</label>
                                         <select name="vehicles[1][type]" class="form-select" required>
                                             <option value="">Select</option>
-                                            <option>Car</option>
-                                            <option>Motorcycle</option>
-                                            <option>Golf Cart</option>
-                                            <option>ATV</option>
-                                            <option>Heavy Equipment</option>
-                                            <option>RV Transport</option>
-                                            <option>Boat Transport</option>
+                                            <option value="Car">Car</option>
+                                            <option value="Motorcycle">Motorcycle</option>
+                                            <option value="Golf Cart">Golf Cart</option>
+                                            <option value="ATV">ATV</option>
+                                            <option value="Heavy Equipment">Heavy Equipment</option>
+                                            <option value="RV Transport">RV Transport</option>
+                                            <option value="Boat Transport">Boat Transport</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">

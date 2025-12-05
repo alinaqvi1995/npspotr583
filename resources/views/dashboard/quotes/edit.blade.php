@@ -256,7 +256,7 @@
                                         </div>
 
                                         <!-- CONDITIONAL: Show size fields for boats, heavy equipment, RV -->
-                                        @if (in_array($vehicle->type, ['Boat-Transport', 'Heavy-Equipment', 'RV-Transport']))
+                                        {{-- @if (in_array($vehicle->type, ['Boat-Transport', 'Heavy-Equipment', 'RV-Transport'])) --}}
                                             <div class="col-md-2">
                                                 <label class="form-label">Length (ft)</label>
                                                 <input type="number" class="form-control"
@@ -281,7 +281,7 @@
                                                     name="vehicles[{{ $vIndex + 1 }}][weight]"
                                                     value="{{ $vehicle->weight }}">
                                             </div>
-                                        @endif
+                                        {{-- @endif --}}
 
                                         <!-- Condition & Trailer -->
                                         <div class="col-md-3">
@@ -338,8 +338,6 @@
                                         </div>
 
                                         <!-- Auction extra fields (hidden by default) -->
-                                        <!-- Auction extra fields (hidden by default) -->
-                                        {{-- {{ dd($vehicle->available_at_auction) }} --}}
                                         <div class="col-12 auction-fields" id="auctionFields-{{ $vIndex + 1 }}"
                                             @if ($vehicle->available_at_auction == 0) style="display: none;" @endif>
                                             <div class="row g-3 mt-2">
@@ -593,19 +591,33 @@
                 const $clone = $('.vehicle-item').first().clone();
 
                 $clone.attr('data-index', vehicleIndex);
+
                 $clone.find('input, select').each(function() {
                     const name = $(this).attr('name').replace(/\d+/, vehicleIndex);
                     $(this).attr('name', name).val('');
                 });
 
                 $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
+
                 $clone.find('h6').text('Vehicle #' + vehicleIndex);
+
                 $clone.find('.image-preview').html('');
+
+                const auctionToggle = $clone.find('.auction-toggle');
+                const auctionFields = $clone.find('.auction-fields');
+
+                auctionFields.attr('id', 'auctionFields-' + vehicleIndex);
+                auctionToggle.attr('data-target', '#auctionFields-' + vehicleIndex);
+
+                auctionToggle.prop('checked', false);
+                auctionFields.hide();
+
                 $clone.find('.text-end').html(
                     '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
                 );
 
                 $('#vehiclesContainer').append($clone);
+
                 generateYearOptions($clone.find('.year-select'));
             });
 
@@ -754,11 +766,7 @@
 
             $(document).on('change', '.auction-toggle', function() {
                 const target = $(this).data('target');
-                if ($(this).is(':checked')) {
-                    $(target).show();
-                } else {
-                    $(target).hide();
-                }
+                $(target).toggle($(this).is(':checked'));
             });
 
             $(document).on('change', '#statusSelect', function() {
