@@ -379,10 +379,23 @@ class QuoteManagementController extends Controller
             DB::commit();
 
             return redirect()->route('dashboard.quotes.index', ['status' => $quote->status])->with('success', 'Quote updated successfully');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->withErrors(['error' => 'Failed to update quote: ' . $e->getMessage()])->withInput();
-        }
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                // Check for SQL integrity constraint violation (like NOT NULL)
+                if ($e instanceof \Illuminate\Database\QueryException && $e->getCode() === '23000') {
+                    $friendlyMessage = 'Please fill in all required vehicle fields (e.g., Make, Model, Year).';
+                } else {
+                    $friendlyMessage = 'Something went wrong while updating the quote. Please try again.';
+                }
+
+                return redirect()->back()->withErrors(['error' => $friendlyMessage])->withInput();
+            }
+
+            // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withErrors(['error' => 'Failed to update quote: ' . $e->getMessage()])->withInput();
+        // }
     }
 
     public function logs(Quote $quote)
