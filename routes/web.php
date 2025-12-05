@@ -1,28 +1,27 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SubcategoryController;
-use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController;
-use App\Http\Controllers\Frontend\QuoteController;
-use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
-use App\Http\Controllers\Backend\BlogController as BackendBlogController;
-use App\Http\Controllers\Backend\StateController as BackendStateController;
-use App\Http\Controllers\Backend\ServiceController as BackendServiceController;
+use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Backend\AdminController;
-use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\UserManagementController;
+use App\Http\Controllers\Backend\BlogController as BackendBlogController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\QuoteManagementController;
+use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\ServiceController as BackendServiceController;
+use App\Http\Controllers\Backend\StateController as BackendStateController;
+use App\Http\Controllers\Backend\UserManagementController;
 use App\Http\Controllers\Backend\UserTrustedIpController;
-use App\Http\Controllers\ZipcodeController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\OrderFormController;
-use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\QuoteController;
+use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController;
 use App\Http\Controllers\Frontend\StateFrontendController;
-
+use App\Http\Controllers\OrderFormController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\ZipcodeController;
+use Illuminate\Support\Facades\Route;
 
 // 🔹 Static pages
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -35,7 +34,6 @@ Route::get('/quote-form', [HomeController::class, 'multiform'])->name('multiform
 Route::view('/contact', 'site.contact')->name('contact');
 Route::get('/track-order', [HomeController::class, 'trackOrder'])->name('track.order');
 Route::post('/track-order/fetch', [HomeController::class, 'fetchOrder'])->name('track.order.fetch');
-
 
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
@@ -57,7 +55,6 @@ Route::get('/car', [QuoteController::class, 'car'])->name('quote.car');
 
 Route::get('/get-makes', [HomeController::class, 'getMakes'])->name('get.makes');
 
-
 Route::get('/get-models', [HomeController::class, 'getModels'])->name('get.models');
 // Route::get('/vehicles/models', [HomeController::class, 'getModels'])->name('vehicles.models');
 Route::get('/atv-utv', [QuoteController::class, 'atv_utv'])->name('quote.atv_utv');
@@ -68,7 +65,6 @@ Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('fro
 Route::get('/thank-you', function () {
     return view('frontend.thankyou');
 })->name('frontend.thankyou');
-
 
 // 🔹 Blog
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('blog.index');
@@ -94,6 +90,9 @@ Route::get('/order-form/{encrypted}', [OrderFormController::class, 'orderForm'])
 Route::post('/quote/{encrypted}/submit-order-form', [OrderFormController::class, 'submitOrderForm'])
     ->name('site.quote.submitOrderForm');
 
+// order invoice
+Route::get('/invoice/{id}', [QuoteManagementController::class, 'invoice'])->name('dashboard.invoice.index');
+
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::get('/dashboard', fn() => view('dashboard.index'))->middleware('verified')->name('dashboard');
@@ -108,7 +107,6 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::resource('subcategories', SubcategoryController::class);
     Route::get('/get_subcategories_by_category/{category_id}', [SubcategoryController::class, 'getSubcategories'])->name('subcategories.by.category');
 
-    Route::get('/invoice/{id}', [QuoteManagementController::class, 'invoice'])->name('dashboard.invoice.index');
     Route::get('/quotes/view-all/{status}', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     // Route::get('/quotes', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     Route::get('/view-order/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
@@ -117,7 +115,6 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::put('/quotes/{quote}', [QuoteManagementController::class, 'quoteUpdate'])->name('dashboard.quotes.update');
     Route::patch('/quotes/{quote}/status', [QuoteManagementController::class, 'updateStatus'])
         ->name('dashboard.quotes.updateStatus');
-
 
     Route::middleware(['admin'])->group(function () {
         Route::resource('add-states', BackendStateController::class);
@@ -139,7 +136,6 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::put('/users/{id}', [UserManagementController::class, 'userUpdate'])->name('dashboard.users.update');
 
     Route::resource('blogs', BackendBlogController::class);
-
 
     Route::resource('services', BackendServiceController::class);
 
@@ -165,19 +161,16 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     });
 
     Route::get('/quotes/{id}/allowed-statuses', [QuoteManagementController::class, 'getAllowedStatuses'])
-    ->name('dashboard.quotes.allowedStatuses');
+        ->name('dashboard.quotes.allowedStatuses');
 });
 
 require __DIR__ . '/auth.php';
 
-
 // Route::get('/categories', [CategoryController::class, 'index'])
 //     ->middleware('permission:view-categories');
 
-
 //     Route::get('/dashboard', fn() => view('dashboard'))
 //     ->middleware('role:admin|editor');
-    
 
 //     Route::get('/categories', [CategoryController::class, 'index'])
 //     ->middleware('role_or_permission:admin|editor,view_categories|edit_categories');
