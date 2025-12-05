@@ -75,10 +75,80 @@ class QuoteManagementController extends Controller
         return view('dashboard.quotes.edit', compact('makes', 'quote'));
     }
 
-    public function invoice($id)
+    public function invoice(Request $request, $id)
     {
         $quote = Quote::findOrFail($id);
         return view('dashboard.invoice.index', compact('quote'));
+
+        // $validated = $request->validate([
+        //     'email'    => 'required|email',
+        // ]);
+
+        // try {
+        //     // ✅ Fetch the quote safely
+        //     $quote = Quote::findOrFail($id);
+
+        //     // ✅ Send mail (with catch for failures)
+        //     try {
+        //         Mail::send('emails.orderForm', ['quote' => $quote], function ($message) use ($validated, $quote) {
+        //             $message->to($validated['email'])
+        //                 ->subject('Order Form for Quote #' . $quote->id);
+
+        //             // Attach/embed logo if exists
+        //             $logoPath = public_path('web-assets/images/logo/1-logo.png');
+        //             if (file_exists($logoPath)) {
+        //                 $message->embed($logoPath, 'logo');
+        //             }
+        //         });
+
+        //         $mailStatus = 'success';
+        //         $mailError  = null;
+        //     } catch (\Exception $e) {
+        //         // If email sending fails, don’t crash
+        //         $mailStatus = 'failed';
+        //         $mailError  = $e->getMessage();
+        //     }
+
+        //     // ✅ Log the attempt regardless of outcome
+        //     Activity::create([
+        //         'log_name'     => 'Send_Invoice',
+        //         'description'  => "Order invoice for Quote #{$quote->id} sent to {$validated['email']} ({$mailStatus})",
+        //         'causer_type'  => Auth::check() ? get_class(Auth::user()) : null,
+        //         'causer_id'    => Auth::id(),
+        //         'subject_type' => Quote::class,
+        //         'subject_id'   => $quote->id,
+        //         'properties'   => [
+        //             'to_email'   => $validated['email'],
+        //             'sender_ip'  => $request->ip(),
+        //             'user_agent' => $request->userAgent(),
+        //             'status'     => $mailStatus,
+        //             'error'      => $mailError,
+        //         ],
+        //     ]);
+
+        //     // ✅ User feedback
+        //     if ($mailStatus === 'success') {
+        //         return back()->with('success', 'Order invoice email sent successfully.');
+        //     }
+
+        //     return back()->withErrors(['email' => 'Could not send order invoice email. Please try again later.']);
+        // } catch (\Exception $e) {
+        //     return back()->withErrors([
+        //         'general' => 'Something went wrong while processing your request. Please try again later.'
+        //     ]);
+        // }
+    }
+
+    public function orderInvoice($encrypted)
+    {
+        try {
+            $quoteId = decrypt($encrypted);
+            $quote = Quote::findOrFail($quoteId);
+        } catch (\Exception $e) {
+            abort(404);
+        }
+
+        return view('dashboard.invoice.index', compact('quote', 'encrypted'));
     }
 
     public function quoteUpdate(Request $request, Quote $quote)
