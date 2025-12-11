@@ -63,6 +63,16 @@ class QuoteManagementController extends Controller
         return view('dashboard.quotes.create', compact('makes'));
     }
 
+    public function authForm()
+    {
+        $makes = VehicleMakeModel::select('make')
+            ->distinct()
+            ->orderBy('make')
+            ->pluck('make');
+
+        return view('dashboard.quotes.authForm', compact('makes'));
+    }
+
     public function quoteEdit($id)
     {
         $makes = VehicleMakeModel::select('make')

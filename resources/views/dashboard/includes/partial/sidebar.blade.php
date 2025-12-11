@@ -141,6 +141,12 @@
                         <div class="menu-title">Create Quote</div>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('dashboard.quotes.authForm') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">contact_page</i></div>
+                        <div class="menu-title">Authorization Form</div>
+                    </a>
+                </li>
 
                 <li>
                     <a class="d-flex align-items-center" href="#quoteStatusMenu" data-bs-toggle="collapse"
