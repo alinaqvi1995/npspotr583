@@ -608,6 +608,7 @@
                 const $modelSelect = $(this).find('.model-select');
                 const selectedMake = $makeSelect.data('selected');
                 const selectedModel = $modelSelect.data('selected');
+                console.log(selectedModel, 'vehicle-item');
 
                 if (selectedMake) {
                     $makeSelect.val(selectedMake).trigger('change');
