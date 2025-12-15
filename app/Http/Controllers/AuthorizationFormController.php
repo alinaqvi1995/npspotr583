@@ -57,8 +57,11 @@ class AuthorizationFormController extends Controller
             abort(404);
         }
 
-        // Check if already filled? - Optional
-        // if ($quote->authorizationForm()->exists()) { ... }
+        if ($quote->authorizationForm()->exists()) {
+            return redirect()
+                ->route('home')
+                ->with('success', 'An authorization form has already been submitted.');
+        }
 
         return view('dashboard.quotes.authForm', compact('quote', 'encrypted'));
     }
@@ -70,6 +73,12 @@ class AuthorizationFormController extends Controller
             $quote = Quote::findOrFail($quoteId);
         } catch (\Exception $e) {
             abort(404);
+        }
+
+        if ($quote->authorizationForm()->exists()) {
+            return redirect()
+                ->route('home')
+                ->with('success', 'An authorization form has already been submitted.');
         }
 
         $validated = $request->validate([
@@ -95,13 +104,6 @@ class AuthorizationFormController extends Controller
         ]);
 
         try {
-            $attachments = [];
-            // if ($request->hasFile('attachments')) {
-            //     foreach ($request->file('attachments') as $file) {
-            //         $path = $file->store('authorization_attachments', 'public');
-            //         $attachments[] = $path;
-            //     }
-            // }
             $attachments = [];
 
             if ($request->hasFile('attachments')) {

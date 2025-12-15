@@ -56,7 +56,7 @@
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Date</label>
                             <input type="date" name="auth_date" class="form-control" value="{{ date('Y-m-d') }}"
-                                required>
+                                min="{{ date('Y-m-d') }}" required>
                         </div>
 
                         <div class="col-md-12">
