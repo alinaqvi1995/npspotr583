@@ -209,192 +209,19 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">Vehicles</h5>
                         <div id="vehiclesContainer">
-                            @foreach ($quote->vehicles as $vIndex => $vehicle)
-                                <div class="vehicle-item mb-4 border p-3 rounded" data-index="{{ $vIndex + 1 }}">
-                                    <h6 class="mb-3">Vehicle #{{ $vIndex + 1 }}</h6>
-                                    <div class="row g-3">
-                                        <input type="hidden" name="vehicles[{{ $vIndex + 1 }}][id]"
-                                            value="{{ $vehicle->id }}">
-
-                                        <!-- Basic Info -->
-                                        <div class="col-md-3">
-                                            <label class="form-label">Type *</label>
-                                            <select name="vehicles[{{ $vIndex + 1 }}][type]" class="form-select"
-                                                required>
-                                                <option value="">Select</option>
-                                                <option @if ($vehicle->type == 'Car') selected @endif>Car</option>
-                                                <option @if ($vehicle->type == 'Motorcycle') selected @endif>Motorcycle
-                                                </option>
-                                                <option @if ($vehicle->type == 'Golf Cart') selected @endif>Golf Cart</option>
-                                                <option @if ($vehicle->type == 'ATV') selected @endif>ATV</option>
-                                                <option @if ($vehicle->type == 'Heavy Equipment') selected @endif>Heavy Equipment
-                                                </option>
-                                                <option @if ($vehicle->type == 'RV Transport') selected @endif>RV Transport
-                                                </option>
-                                                <option @if ($vehicle->type == 'Boat Transport') selected @endif>Boat Transport
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label">Year</label>
-                                            <select class="form-select year-select"
-                                                name="vehicles[{{ $vIndex + 1 }}][year]"
-                                                data-selected="{{ $vehicle->year }}">
-                                                <option value="">-- Year --</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label">Make *</label>
-                                            <input type="text" class="form-control"
-                                                name="vehicles[{{ $vIndex + 1 }}][make]" value="{{ $vehicle->make }}">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label">Model *</label>
-                                            <input type="text" class="form-control"
-                                                name="vehicles[{{ $vIndex + 1 }}][model]"
-                                                value="{{ $vehicle->model }}">
-                                        </div>
-
-                                        <!-- CONDITIONAL: Show size fields for boats, heavy equipment, RV -->
-                                        {{-- @if (in_array($vehicle->type, ['Boat-Transport', 'Heavy-Equipment', 'RV-Transport'])) --}}
-                                            <div class="col-md-2">
-                                                <label class="form-label">Length (ft)</label>
-                                                <input type="number" class="form-control"
-                                                    name="vehicles[{{ $vIndex + 1 }}][length_ft]"
-                                                    value="{{ $vehicle->length_ft }}">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label class="form-label">Width (ft)</label>
-                                                <input type="number" class="form-control"
-                                                    name="vehicles[{{ $vIndex + 1 }}][width_ft]"
-                                                    value="{{ $vehicle->width_ft }}">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label class="form-label">Height (ft)</label>
-                                                <input type="number" class="form-control"
-                                                    name="vehicles[{{ $vIndex + 1 }}][height_ft]"
-                                                    value="{{ $vehicle->height_ft }}">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label class="form-label">Weight (lbs)</label>
-                                                <input type="number" class="form-control"
-                                                    name="vehicles[{{ $vIndex + 1 }}][weight]"
-                                                    value="{{ $vehicle->weight }}">
-                                            </div>
-                                        {{-- @endif --}}
-
-                                        <!-- Condition & Trailer -->
-                                        <div class="col-md-3">
-                                            <label class="form-label">Condition</label>
-                                            <select name="vehicles[{{ $vIndex + 1 }}][condition]" class="form-select">
-                                                <option value="Running"
-                                                    {{ $vehicle->condition == 'Running' ? 'selected' : '' }}>Running
-                                                </option>
-                                                <option value="Non-Running"
-                                                    {{ $vehicle->condition == 'Non-Running' ? 'selected' : '' }}>
-                                                    Non-Running</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- Trailer Type only for heavy equipment and RV -->
-                                        <div class="col-md-3">
-                                            <label class="form-label">Trailer Type</label>
-                                            <select name="vehicles[{{ $vIndex + 1 }}][trailer_type]"
-                                                class="form-select">
-                                                <option value="Open Trailer"
-                                                    {{ $vehicle->trailer_type == 'Open Trailer' ? 'selected' : '' }}>
-                                                    Open Trailer
-                                                </option>
-                                                <option value="Enclosed Trailer"
-                                                    {{ $vehicle->trailer_type == 'Enclosed Trailer' ? 'selected' : '' }}>
-                                                    Enclosed Trailer</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- Booleans -->
-                                        <div class="col-md-2">
-                                            <label class="form-label">Modified</label><br>
-                                            <input type="hidden" name="vehicles[{{ $vIndex + 1 }}][modified]"
-                                                value="0">
-                                            <input type="checkbox" name="vehicles[{{ $vIndex + 1 }}][modified]"
-                                                value="1" {{ $vehicle->modified ? 'checked' : '' }}>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="form-label">Modified Info</label>
-                                            <input type="text" class="form-control"
-                                                name="vehicles[{{ $vIndex + 1 }}][modified_info]"
-                                                value="{{ $vehicle->modified_info }}">
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <label class="form-label">Auction</label><br>
-                                            <input type="hidden"
-                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]"
-                                                value="0">
-                                            <input type="checkbox" class="auction-toggle"
-                                                data-target="#auctionFields-{{ $vIndex + 1 }}"
-                                                name="vehicles[{{ $vIndex + 1 }}][available_at_auction]" value="1"
-                                                {{ $vehicle->available_at_auction ? 'checked' : '' }}>
-                                        </div>
-
-                                        <!-- Auction extra fields (hidden by default) -->
-                                        <div class="col-12 auction-fields" id="auctionFields-{{ $vIndex + 1 }}"
-                                            @if ($vehicle->available_at_auction == 0) style="display: none;" @endif>
-                                            <div class="row g-3 mt-2">
-                                                <div class="col-md-4">
-                                                    <label class="form-label">Auction Link</label>
-                                                    <input type="text" class="form-control"
-                                                        name="vehicles[{{ $vIndex + 1 }}][available_link]"
-                                                        value="{{ $vehicle->available_link }}">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="form-label">Buyer</label>
-                                                    <input type="text" class="form-control"
-                                                        name="vehicles[{{ $vIndex + 1 }}][buyer]"
-                                                        value="{{ $vehicle->buyer }}">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="form-label">Lot</label>
-                                                    <input type="text" class="form-control"
-                                                        name="vehicles[{{ $vIndex + 1 }}][lot]"
-                                                        value="{{ $vehicle->lot }}">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="form-label">Gate PIN</label>
-                                                    <input type="text" class="form-control"
-                                                        name="vehicles[{{ $vIndex + 1 }}][gatepin]"
-                                                        value="{{ $vehicle->gatepin }}">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Images -->
-                                        <div class="col-md-12">
-                                            <label class="form-label">Images</label>
-                                            <input type="file" name="vehicles[{{ $vIndex + 1 }}][images][]"
-                                                class="form-control image-input" multiple>
-                                            <div class="image-preview mt-2 d-flex flex-wrap gap-2">
-                                                @foreach ($vehicle->images as $img)
-                                                    <div class="position-relative d-inline-block"
-                                                        style="width:80px;height:80px;">
-                                                        <img src="{{ asset($img->image_path) }}" class="img-thumbnail"
-                                                            style="width:100%;height:100%;object-fit:cover;">
-                                                        <input type="checkbox"
-                                                            name="vehicles[{{ $vIndex + 1 }}][delete_images][]"
-                                                            value="{{ $img->id }}"
-                                                            class="position-absolute top-0 end-0">
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-end mt-3">
-                                        <button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete
-                                            Vehicle</button>
-                                    </div>
-                                </div>
-                            @endforeach
+                            @if ($quote->vehicles->isEmpty())
+                                @include('dashboard.quotes.partials.edit-vehicle-item', [
+                                    'vehicle' => new \App\Models\Vehicle(),
+                                    'index' => 1,
+                                ])
+                            @else
+                                @foreach ($quote->vehicles as $vIndex => $vehicle)
+                                    @include('dashboard.quotes.partials.edit-vehicle-item', [
+                                        'vehicle' => $vehicle,
+                                        'index' => $vIndex + 1,
+                                    ])
+                                @endforeach
+                            @endif
                         </div>
                         <button type="button" id="addVehicleBtn" class="btn btn-outline-primary mt-3">+ Add
                             Vehicle</button>
@@ -592,11 +419,38 @@
 
                 $clone.attr('data-index', vehicleIndex);
 
+                // Reset inputs and selects to defaults
                 $clone.find('input, select').each(function() {
                     const name = $(this).attr('name').replace(/\d+/, vehicleIndex);
-                    $(this).attr('name', name).val('');
+                    $(this).attr('name', name);
+
+                    if ($(this).is('select')) {
+                        // Set defaults for specific selects
+                        if (name.includes('[condition]')) {
+                            $(this).val('Running');
+                        } else if (name.includes('[trailer_type]')) {
+                            $(this).val('Open Trailer');
+                        } else if (name.includes('[type]') || name.includes('[make]') || name
+                            .includes(
+                                '[model]') || name.includes('[year]')) {
+                            $(this).val(''); // These should be empty to force user selection
+                        } else {
+                            $(this).val('');
+                        }
+                    } else if ($(this).attr('type') === 'checkbox') {
+                        // Uncheck checkboxes
+                        $(this).prop('checked', false);
+                        // Be careful with hidden inputs that might be associated with checkboxes
+                        if (name.includes('[available_at_auction]')) {
+                            // Ensure the hidden input for auction exists and is 0
+                        }
+                    } else {
+                        // Clear text/number inputs
+                        $(this).val('');
+                    }
                 });
 
+                // Clear model options
                 $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
 
                 $clone.find('h6').text('Vehicle #' + vehicleIndex);
@@ -609,6 +463,7 @@
                 auctionFields.attr('id', 'auctionFields-' + vehicleIndex);
                 auctionToggle.attr('data-target', '#auctionFields-' + vehicleIndex);
 
+                // Explicitly uncheck and hide auction fields
                 auctionToggle.prop('checked', false);
                 auctionFields.hide();
 
