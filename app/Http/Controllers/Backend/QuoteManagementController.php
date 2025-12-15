@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Quote;
-use App\Models\VehicleMakeModel;
-use App\Models\Vehicle;
-use App\Models\QuoteLocation;
 use App\Models\QuoteAgentHistory;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use App\Models\QuoteLocation;
+use App\Models\Vehicle;
+use App\Models\VehicleMakeModel;
 use App\Services\QuoteService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class QuoteManagementController extends Controller
 {
     private QuoteService $quoteService;
+
     public function __construct(QuoteService $quoteService)
     {
         $this->quoteService = $quoteService;
@@ -50,6 +51,7 @@ class QuoteManagementController extends Controller
     public function quoteDetail($id)
     {
         $quote = Quote::with('vehicles.images')->findOrFail($id);
+
         return view('dashboard.quotes.details', compact('quote'));
     }
 
@@ -65,12 +67,7 @@ class QuoteManagementController extends Controller
 
     public function authForm()
     {
-        $makes = VehicleMakeModel::select('make')
-            ->distinct()
-            ->orderBy('make')
-            ->pluck('make');
-
-        return view('dashboard.quotes.authForm', compact('makes'));
+        return redirect()->route('dashboard.quotes.index', ['status' => 'New'])->with('info', 'Please select a quote to send the Authorization Form.');
     }
 
     public function quoteEdit($id)
@@ -88,6 +85,7 @@ class QuoteManagementController extends Controller
     public function invoice(Request $request, $id)
     {
         $quote = Quote::findOrFail($id);
+
         return view('dashboard.invoice.index', compact('quote'));
 
         // $validated = $request->validate([
@@ -250,7 +248,6 @@ class QuoteManagementController extends Controller
 
         DB::beginTransaction();
 
-
         $customer_name = $request->customer_name ?? null;
         $customer_email = $request->customer_email ?? null;
         $customer_phone = $request->customer_phone ?? null;
@@ -312,9 +309,9 @@ class QuoteManagementController extends Controller
 
                 // Update phones
                 $location->phones()->delete();
-                if (!empty($locationData['contact_phone'])) {
+                if (! empty($locationData['contact_phone'])) {
                     foreach ($locationData['contact_phone'] as $phone) {
-                        if (!empty($phone)) {
+                        if (! empty($phone)) {
                             $location->phones()->create([
                                 'phone' => $phone,
                                 'type' => 'contact',
@@ -335,7 +332,7 @@ class QuoteManagementController extends Controller
             $submittedVehicleIds = [];
 
             foreach ($validated['vehicles'] as $index => $vehicleData) {
-                if (!empty($vehicleData['id'])) {
+                if (! empty($vehicleData['id'])) {
                     // Update existing
                     $vehicle = Vehicle::find($vehicleData['id']);
                     if ($vehicle) {
@@ -406,21 +403,21 @@ class QuoteManagementController extends Controller
                 if ($request->hasFile("vehicles.images.$index")) {
                     foreach ($request->file("vehicles.images.$index") as $imageFile) {
                         $destinationPath = public_path('quote/vehicle_images');
-                        if (!file_exists($destinationPath)) {
+                        if (! file_exists($destinationPath)) {
                             mkdir($destinationPath, 0777, true);
                         }
 
-                        $fileName = uniqid() . '_' . time() . '.' . $imageFile->getClientOriginalExtension();
+                        $fileName = uniqid().'_'.time().'.'.$imageFile->getClientOriginalExtension();
                         $imageFile->move($destinationPath, $fileName);
 
                         $vehicle->images()->create([
                             'quote_id' => $quote->id,
-                            'image_path' => 'quote/vehicle_images/' . $fileName,
+                            'image_path' => 'quote/vehicle_images/'.$fileName,
                         ]);
                     }
                 }
 
-                if (!empty($vehicleData['delete_images'])) {
+                if (! empty($vehicleData['delete_images'])) {
                     // dd('ys inn');
                     foreach ($vehicleData['delete_images'] as $imageId) {
                         $image = $vehicle->images()->where('id', $imageId)->first();
@@ -461,20 +458,20 @@ class QuoteManagementController extends Controller
             DB::commit();
 
             return redirect()->route('dashboard.quotes.index', ['status' => $quote->status])->with('success', 'Quote updated successfully');
-            } catch (\Exception $e) {
-                DB::rollBack();
+        } catch (\Exception $e) {
+            DB::rollBack();
 
-                // Check for SQL integrity constraint violation (like NOT NULL)
-                if ($e instanceof \Illuminate\Database\QueryException && $e->getCode() === '23000') {
-                    $friendlyMessage = 'Please fill in all required vehicle fields (e.g., Make, Model, Year).';
-                } else {
-                    $friendlyMessage = 'Something went wrong while updating the quote. Please try again.';
-                }
-
-                return redirect()->back()->withErrors(['error' => $friendlyMessage])->withInput();
+            // Check for SQL integrity constraint violation (like NOT NULL)
+            if ($e instanceof \Illuminate\Database\QueryException && $e->getCode() === '23000') {
+                $friendlyMessage = 'Please fill in all required vehicle fields (e.g., Make, Model, Year).';
+            } else {
+                $friendlyMessage = 'Something went wrong while updating the quote. Please try again.';
             }
 
-            // } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $friendlyMessage])->withInput();
+        }
+
+        // } catch (\Exception $e) {
         //     DB::rollBack();
         //     return redirect()->back()->withErrors(['error' => 'Failed to update quote: ' . $e->getMessage()])->withInput();
         // }
@@ -483,12 +480,14 @@ class QuoteManagementController extends Controller
     public function logs(Quote $quote)
     {
         $logs = $quote->activities()->latest()->get(); // adjust based on logging package
+
         return view('dashboard.quotes.partials.logs', compact('logs'));
     }
 
     public function agentHistory(Quote $quote)
     {
         $histories = $quote->agentHistories()->with('user')->latest()->get();
+
         return view('dashboard.quotes.partials.agent_history', compact('histories'));
     }
 
@@ -558,9 +557,10 @@ class QuoteManagementController extends Controller
     {
         // dd($id);
         $quote = Quote::findOrFail($id);
+
         return response()->json([
             'current' => $quote->status,
-            'allowed' => $quote->allowedStatuses($quote->status)
+            'allowed' => $quote->allowedStatuses($quote->status),
         ]);
     }
 }

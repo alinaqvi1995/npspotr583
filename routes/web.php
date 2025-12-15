@@ -90,12 +90,18 @@ Route::get('/order-form/{encrypted}', [OrderFormController::class, 'orderForm'])
 Route::post('/quote/{encrypted}/submit-order-form', [OrderFormController::class, 'submitOrderForm'])
     ->name('site.quote.submitOrderForm');
 
+// authorization form for customer
+Route::get('/authorization-form/{encrypted}', [App\Http\Controllers\AuthorizationFormController::class, 'show'])
+    ->name('authorization.show');
+Route::post('/authorization-form/{encrypted}', [App\Http\Controllers\AuthorizationFormController::class, 'store'])
+    ->name('authorization.store');
+
 // order invoice
 Route::get('/invoice/{id}', [QuoteManagementController::class, 'invoice'])->name('dashboard.invoice.index');
 
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
-    Route::get('/dashboard', fn() => view('dashboard.index'))->middleware('verified')->name('dashboard');
+    Route::get('/dashboard', fn () => view('dashboard.index'))->middleware('verified')->name('dashboard');
 
     Route::resource('trusted-ips', UserTrustedIpController::class)->except(['show']);
 
@@ -145,8 +151,16 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         ->name('reports.quotes.histories');
 
     // send order
+    // send order
     Route::post('/dashboard/quotes/send-order-form', [OrderFormController::class, 'sendOrderForm'])
         ->name('dashboard.quotes.sendOrderForm');
+
+    // send auth form
+    Route::post('/dashboard/quotes/send-auth-form', [App\Http\Controllers\AuthorizationFormController::class, 'sendAuthForm'])
+        ->name('dashboard.quotes.sendAuthForm');
+    
+    Route::get('/dashboard/quotes/authorization-form/{id}', [App\Http\Controllers\AuthorizationFormController::class, 'view'])
+        ->name('dashboard.authorization.view');
 
     Route::prefix('/order-forms')->name('dashboard.orderForms.')->middleware(['auth'])->group(function () {
         Route::get('/', [OrderFormController::class, 'index'])->name('index');
@@ -165,7 +179,7 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         ->name('dashboard.quotes.allowedStatuses');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
 
 // Route::get('/categories', [CategoryController::class, 'index'])
 //     ->middleware('permission:view-categories');

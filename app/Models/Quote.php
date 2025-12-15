@@ -290,6 +290,11 @@ class Quote extends Model
         return $this->hasOne(OrderForm::class);
     }
 
+    public function authorizationForm()
+    {
+        return $this->hasOne(AuthorizationForm::class);
+    }
+
     public function agentHistories()
     {
         return $this->hasMany(QuoteAgentHistory::class)->orderBy('created_at', 'desc');

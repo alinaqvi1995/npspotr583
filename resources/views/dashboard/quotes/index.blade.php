@@ -215,6 +215,23 @@
                                                 @endif
                                             </li>
                                             <li>
+                                                @if ($quote->authorizationForm()->exists())
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('dashboard.authorization.view', $quote->authorizationForm->id) }}"
+                                                        target="_blank">
+                                                        <i class="material-icons-outlined fs-6 me-1">visibility</i> View
+                                                        Auth Form
+                                                    </a>
+                                                @else
+                                                    <a class="dropdown-item send-auth-form" href="javascript:;"
+                                                        data-id="{{ $quote->id }}"
+                                                        data-email="{{ $quote->customer_email }}">
+                                                        <i class="material-icons-outlined fs-6 me-1">email</i> Send Auth
+                                                        Form
+                                                    </a>
+                                                @endif
+                                            </li>
+                                            <li>
                                                 <a class="dropdown-item"
                                                     href="{{ route('dashboard.invoice.index', $quote->id) }}"
                                                     target="_blank">
@@ -319,6 +336,42 @@
                             <label class="form-label fw-semibold">Description</label>
                             <textarea name="description" class="form-control rounded-3" rows="4" placeholder="Write your message..." required></textarea>
                         </div> --}}
+                    </div>
+
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-sm btn-secondary rounded-3 px-4"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary rounded-3 px-4">
+                            <i class="material-icons-outlined me-1 fs-6">send</i> Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Auth Form Modal -->
+    <div class="modal fade" id="sendAuthFormModal" tabindex="-1" aria-labelledby="sendAuthFormLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg border-0 rounded-3">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title d-flex align-items-center" id="sendAuthFormLabel">
+                        <i class="material-icons-outlined me-2">email</i> Send Authorization Form
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form method="POST" action="{{ route('dashboard.quotes.sendAuthForm') }}">
+                    @csrf
+                    <input type="hidden" name="quote_id" id="authFormQuoteId">
+
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Recipient Email</label>
+                            <input type="email" name="email" id="authFormEmail" class="form-control rounded-3"
+                                placeholder="Enter recipient email" required>
+                        </div>
                     </div>
 
                     <div class="modal-footer bg-light">
@@ -688,6 +741,15 @@
                 $('#orderFormQuoteId').val(quoteId);
                 $('#orderFormQuoteAmount').val(quoteAmount);
                 $('#sendOrderFormModal').modal('show');
+            });
+
+            // ✅ Send Auth Form
+            $(document).on('click', '.send-auth-form', function() {
+                let quoteId = $(this).data('id');
+                let email = $(this).data('email');
+                $('#authFormQuoteId').val(quoteId);
+                $('#authFormEmail').val(email);
+                $('#sendAuthFormModal').modal('show');
             });
 
             // ✅ View Logs (Quote History Log)
