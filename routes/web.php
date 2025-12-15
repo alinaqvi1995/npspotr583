@@ -107,6 +107,7 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::resource('subcategories', SubcategoryController::class);
     Route::get('/get_subcategories_by_category/{category_id}', [SubcategoryController::class, 'getSubcategories'])->name('subcategories.by.category');
 
+    Route::get('/authorization', [QuoteManagementController::class, 'authForm'])->name('dashboard.quotes.authForm');
     Route::get('/quotes/view-all/{status}', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     // Route::get('/quotes', [QuoteManagementController::class, 'allQuotes'])->name('dashboard.quotes.index');
     Route::get('/view-order/{id}', [QuoteManagementController::class, 'quoteDetail'])->name('dashboard.quotes.details');
