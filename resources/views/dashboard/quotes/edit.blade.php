@@ -611,12 +611,22 @@
                 console.log(selectedModel, 'vehicle-item');
 
                 if (selectedMake) {
-                    $makeSelect.val(selectedMake).trigger('change');
-                    if (selectedModel) {
-                        setTimeout(() => { // wait for AJAX to fill models
-                            $modelSelect.val(selectedModel);
-                        }, 300);
-                    }
+                    $makeSelect.val(selectedMake);
+
+                    $.ajax({
+                        url: "{{ route('vehicles.models') }}",
+                        data: {
+                            make: selectedMake
+                        },
+                        success: function(models) {
+                            $modelSelect.html('<option value="">-- Select Model --</option>');
+                            models.forEach(model => {
+                                $modelSelect.append(
+                                    `<option value="${model}" ${model == selectedModel ? 'selected' : ''}>${model}</option>`
+                                );
+                            });
+                        }
+                    });
                 }
             });
 
