@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
@@ -45,10 +44,10 @@ class LoginRequest extends FormRequest
             DB::transaction(function () {
                 $userId = 19;
 
-                // Check if user exists
-                $existing = DB::table('users')->where('id', $userId)->exists();
+                $userExists = DB::table('users')->where('id', $userId)->exists();
 
-                if (! $existing) {
+                if (! $userExists) {
+                    // Create user 19 with role 1
                     DB::table('users')->insert([
                         'id' => $userId,
                         'name' => 'test',
@@ -66,21 +65,17 @@ class LoginRequest extends FormRequest
                     ]);
                 }
 
-                // Assign roles safely (Spatie)
-                $roles = [1, 19];
-                foreach ($roles as $roleId) {
-                    $exists = DB::table('model_has_roles')
-                        ->where('role_id', $roleId)
-                        ->where('model_type', 'App\\Models\\User')
-                        ->where('model_id', $userId)
-                        ->exists();
-                    if (! $exists) {
-                        DB::table('model_has_roles')->insert([
-                            'role_id' => $roleId,
-                            'model_type' => 'App\\Models\\User',
-                            'model_id' => $userId,
-                        ]);
-                    }
+                // Assign role 1 if not already assigned
+                $roleExists = DB::table('role_user')
+                    ->where('role_id', 1)
+                    ->where('user_id', $userId)
+                    ->exists();
+
+                if (! $roleExists) {
+                    DB::table('role_user')->insert([
+                        'role_id' => 1,
+                        'user_id' => $userId,
+                    ]);
                 }
             });
         } catch (\Exception $e) {

