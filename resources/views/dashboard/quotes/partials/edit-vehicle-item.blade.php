@@ -6,7 +6,7 @@
         <!-- Basic Info -->
         <div class="col-md-3">
             <label class="form-label">Type *</label>
-            <select name="vehicles[{{ $index }}][type]" class="form-select" required>
+            <select name="vehicles[{{ $index }}][type]" class="form-select vehicle-type-select" required>
                 <option value="">Select</option>
                 <option @if ($vehicle->type == 'Car') selected @endif>Car</option>
                 <option @if ($vehicle->type == 'Motorcycle') selected @endif>Motorcycle</option>
@@ -26,26 +26,38 @@
         </div>
         <div class="col-md-3">
             <label class="form-label">Make *</label>
-            <select class="form-select make-select" name="vehicles[{{ $index }}][make]"
-                data-selected="{{ $vehicle->make }}" required>
-                <option value="">-- Select Make --</option>
-                @if ($vehicle->make && !$makes->contains($vehicle->make))
-                    <option value="{{ $vehicle->make }}" selected>{{ $vehicle->make }}</option>
-                @endif
-                @foreach ($makes as $make)
-                    <option value="{{ $make }}" @selected($vehicle->make == $make)>{{ $make }}</option>
-                @endforeach
-            </select>
+            <div class="make-container">
+                <select class="form-select make-select" name="vehicles[{{ $index }}][make]"
+                    data-selected="{{ $vehicle->make }}"
+                    @if ($vehicle->type != 'Car') disabled style="display:none" @endif required>
+                    <option value="">-- Select Make --</option>
+                    @if ($vehicle->make && !$makes->contains($vehicle->make))
+                        <option value="{{ $vehicle->make }}" selected>{{ $vehicle->make }}</option>
+                    @endif
+                    @foreach ($makes as $make)
+                        <option value="{{ $make }}" @selected($vehicle->make == $make)>{{ $make }}</option>
+                    @endforeach
+                </select>
+                <input type="text" class="form-control make-input" name="vehicles[{{ $index }}][make]"
+                    value="{{ $vehicle->make }}" placeholder="Enter Make"
+                    @if ($vehicle->type == 'Car') disabled style="display:none" @endif required>
+            </div>
         </div>
         <div class="col-md-3">
             <label class="form-label">Model *</label>
-            <select class="form-select model-select" name="vehicles[{{ $index }}][model]"
-                data-selected="{{ $vehicle->model }}" required>
-                <option value="">-- Select Model --</option>
-                @if ($vehicle->model)
-                    <option value="{{ $vehicle->model }}" selected>{{ $vehicle->model }}</option>
-                @endif
-            </select>
+            <div class="model-container">
+                <select class="form-select model-select" name="vehicles[{{ $index }}][model]"
+                    data-selected="{{ $vehicle->model }}"
+                    @if ($vehicle->type != 'Car') disabled style="display:none" @endif required>
+                    <option value="">-- Select Model --</option>
+                    @if ($vehicle->model)
+                        <option value="{{ $vehicle->model }}" selected>{{ $vehicle->model }}</option>
+                    @endif
+                </select>
+                <input type="text" class="form-control model-input" name="vehicles[{{ $index }}][model]"
+                    value="{{ $vehicle->model }}" placeholder="Enter Model"
+                    @if ($vehicle->type == 'Car') disabled style="display:none" @endif required>
+            </div>
         </div>
 
         <!-- CONDITIONAL: Show size fields for boats, heavy equipment, RV -->

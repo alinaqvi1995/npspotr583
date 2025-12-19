@@ -473,6 +473,9 @@
 
                 $('#vehiclesContainer').append($clone);
 
+                // Initialize visibility state for the new row
+                $clone.find('.vehicle-type-select').trigger('change');
+
                 generateYearOptions($clone.find('.year-select'));
             });
 
@@ -644,6 +647,32 @@
                 } else {
                     $('#listedPriceContainer').slideUp(200);
                     $('#listedPrice').removeAttr('required').val('');
+                }
+            });
+
+            // ✅ Toggle Make/Model Input vs Select based on Type
+            $(document).on('change', '.vehicle-type-select', function() {
+                const type = $(this).val();
+                const $vehicleItem = $(this).closest('.vehicle-item');
+                const $makeSelect = $vehicleItem.find('.make-select');
+                const $makeInput = $vehicleItem.find('.make-input');
+                const $modelSelect = $vehicleItem.find('.model-select');
+                const $modelInput = $vehicleItem.find('.model-input');
+
+                if (type === 'Car') {
+                    // Show Selects, Hide Inputs
+                    $makeSelect.removeAttr('disabled').show();
+                    $makeInput.attr('disabled', 'disabled').hide();
+
+                    $modelSelect.removeAttr('disabled').show();
+                    $modelInput.attr('disabled', 'disabled').hide();
+                } else {
+                    // Show Inputs, Hide Selects
+                    $makeSelect.attr('disabled', 'disabled').hide();
+                    $makeInput.removeAttr('disabled').show();
+
+                    $modelSelect.attr('disabled', 'disabled').hide();
+                    $modelInput.removeAttr('disabled').show();
                 }
             });
 
