@@ -234,6 +234,7 @@
                                             <option value="Heavy Equipment">Heavy Equipment</option>
                                             <option value="RV Transport">RV Transport</option>
                                             <option value="Boat Transport">Boat Transport</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">

@@ -124,7 +124,7 @@ class AuthorizationFormController extends Controller
 
             AuthorizationForm::create([
                 'quote_id' => $quote->id,
-                'auth_date' => $validated['auth_date'],
+                'auth_date' => now()->toDateString(),
                 'purchase_for' => $validated['purchase_for'],
                 'company_name' => $validated['company_name'],
                 'cardholder_name' => $validated['cardholder_name'],

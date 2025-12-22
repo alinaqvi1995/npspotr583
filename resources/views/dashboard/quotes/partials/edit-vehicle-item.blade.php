@@ -15,6 +15,7 @@
                 <option @if ($vehicle->type == 'Heavy Equipment') selected @endif>Heavy Equipment</option>
                 <option @if ($vehicle->type == 'RV Transport') selected @endif>RV Transport</option>
                 <option @if ($vehicle->type == 'Boat Transport') selected @endif>Boat Transport</option>
+                <option @if ($vehicle->type == 'Other') selected @endif>Other</option>
             </select>
         </div>
         <div class="col-md-3">
@@ -58,6 +59,16 @@
                     value="{{ $vehicle->model }}" placeholder="Enter Model"
                     @if ($vehicle->type == 'Car') disabled style="display:none" @endif required>
             </div>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Color</label>
+            <input type="text" name="vehicles[{{ $index }}][color]" class="form-control"
+                value="{{ $vehicle->color }}" placeholder="Enter Color">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">VIN</label>
+            <input type="text" name="vehicles[{{ $index }}][vin]" class="form-control"
+                value="{{ $vehicle->vin }}" placeholder="Enter VIN">
         </div>
 
         <!-- CONDITIONAL: Show size fields for boats, heavy equipment, RV -->
