@@ -92,9 +92,11 @@ class DashboardController extends Controller
         $recentQuotes = Quote::latest()->take(10)->get();
 
         // 7. Top Pickup States
-        $topStates = Quote::select('pickup_state', DB::raw('count(*) as total'))
-            ->whereNotNull('pickup_state')
-            ->groupBy('pickup_state')
+        $topStates = DB::table('quote_locations')
+            ->select('state', DB::raw('count(*) as total'))
+            ->where('type', 'pickup')
+            ->whereNotNull('state')
+            ->groupBy('state')
             ->orderByDesc('total')
             ->take(5)
             ->get();

@@ -83,8 +83,7 @@
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Cardholder's Name (As on Card)</label>
-                            <input type="text" name="cardholder_name" class="form-control"
-                                value="{{ old('cardholder_name', $quote->customer_name) }}" required>
+                            <input type="text" name="cardholder_name" class="form-control" required>
                         </div>
 
                         <div class="col-md-12">
