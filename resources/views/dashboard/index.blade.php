@@ -353,7 +353,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between mb-3">
                         <h5 class="mb-0">Recent Activity</h5>
-                        <a href="{{ route('dashboard.quotes.index') }}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ route('dashboard.quotes.index', 'New') }}" class="btn btn-sm btn-outline-primary">
                             View All Quotes
                         </a>
                     </div>
