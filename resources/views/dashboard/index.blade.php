@@ -392,8 +392,8 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <strong>P:</strong> {{ $quote->pickup_location }}<br>
-                                            <strong>D:</strong> {{ $quote->delivery_location }}
+                                            <strong>P:</strong> {{ $quote->pickupLocation?->full_location ?? '-' }}<br>
+                                            <strong>D:</strong> {{ $quote->deliveryLocation?->full_location ?? '-' }}
                                         </td>
                                         <td>
                                             {!! $quote->status_label !!}
