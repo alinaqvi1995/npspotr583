@@ -27,7 +27,7 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    Timely and professional. Good customer service and making sure from beginning to end we are satisfied with the service provided.
+                                    Timely and professional. Good customer service and making sure from beginning to en....
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
@@ -59,7 +59,7 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    I've used this company to transport several vehicles in the last month alone and they've delivered everytime. My dispatcher Mark Gib......
+                                    I've used this company to transport several vehicles in the last month alone and they've del.....
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
@@ -125,7 +125,7 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    Very satisfied with the service provided by Bridgeway Logistics LLC. From the very beginning, Ahmed offered me excellent customer service.....
+                                    Very satisfied with the service provided by Bridgeway Logistics LLC. From the very beginn.....
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
