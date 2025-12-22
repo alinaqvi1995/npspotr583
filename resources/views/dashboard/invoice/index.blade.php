@@ -1,8 +1,7 @@
-
-<!-- Bootstrap -->
-<link rel="stylesheet" href="{{ asset('invoice-assets/css/bootstrap.min.css') }}">
-<!-- Theme Custom CSS -->
-<link rel="stylesheet" href="{{ asset('invoice-assets/css/style.css') }}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('invoice-assets/css/bootstrap.min.css') }}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('invoice-assets/css/style.css') }}">
     <div class="card radius-10">
         <div class="invoice-container-wrap">
             <div class="invoice-container">

@@ -13,7 +13,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="{{ asset('web-assets/images/testimonial/reviews.png') }}" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/testimonial/1.png') }}" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -27,11 +27,11 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    Shipped half a Sprinter van frame to me, even picked it up 2 days earlier than scheduled. Easy to deal with Ahmed by phone and text. Overall Great service.
+                                    Timely and professional. Good customer service and making sure from beginning to end we are satisfied with the service provided.
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
-                                        <h5 class="title">Scott Vlastnik</h5>
+                                        <h5 class="title">Review fromJohnny N</h5>
                                         <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
@@ -77,7 +77,7 @@
                         <div class="tj-testimonial-item">
                             <div class="testimonial-rating d-flex justify-content-between">
                                 <div class="testimoniasl-image">
-                                    <img src="{{ asset('web-assets/images/testimonial/reviews.png') }}" alt="Image" />
+                                    <img src="{{ asset('web-assets/images/testimonial/1.png') }}" alt="Image" />
                                 </div>
                                 <div class="rating-icon">
                                     <ul class="list-gap">
@@ -91,11 +91,13 @@
                             </div>
                             <div class="content-area">
                                 <p>
-                                    First time shipping a vehicle and I spoke with Mathew Wall,he explained all the details very well and made me feel comfortable with the whole process.
+                                    Good guys and best prices for shipping
+                                    10/10
+                                    I used them to bring my vehicles all the time
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
-                                        <h5 class="title">Brandon Bethard</h5>
+                                        <h5 class="title">Jesus F</h5>
                                         <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
