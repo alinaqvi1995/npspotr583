@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\ServiceController as BackendServiceController;
 use App\Http\Controllers\Backend\StateController as BackendStateController;
 use App\Http\Controllers\Backend\UserManagementController;
 use App\Http\Controllers\Backend\UserTrustedIpController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -101,7 +102,7 @@ Route::get('/invoice/{id}', [QuoteManagementController::class, 'invoice'])->name
 
 // 🔐 Auth & Profile
 Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
-    Route::get('/dashboard', fn () => view('dashboard.index'))->middleware('verified')->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
 
     Route::resource('trusted-ips', UserTrustedIpController::class)->except(['show']);
 
