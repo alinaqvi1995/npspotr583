@@ -31,7 +31,7 @@
                                 </p>
                                 <div class="testimonial-content d-flex justify-content-between">
                                     <div class="testimonial-auother">
-                                        <h5 class="title">Review fromJohnny N</h5>
+                                        <h5 class="title">Johnny N</h5>
                                         <span class="sub-title"> Customer</span>
                                     </div>
                                     <div class="testimonial-comment">
