@@ -304,7 +304,7 @@
                                         <span class="material-icons-outlined text-white">location_on</span>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h6 class="mb-0">{{ $state->pickup_state }}</h6>
+                                        <h6 class="mb-0">{{ $state->state }}</h6>
                                     </div>
                                     <div class="d-flex align-items-center gap-3">
                                         <p class="mb-0">{{ $state->total }}</p>
@@ -420,7 +420,7 @@
             activeUsers: {{ $activeUsers }},
             totalUsers: {{ $totalUsers }},
             topStatesValue: @json($topStates->pluck('total')),
-            topStatesName: @json($topStates->pluck('pickup_state')),
+            topStatesName: @json($topStates->pluck('state')),
             topMakesValue: @json($topMakes->pluck('total')),
             topMakesName: @json($topMakes->pluck('make')),
             revenueByCategory: @json($revenueByCategory->pluck('total')),
