@@ -16,14 +16,16 @@ class AuthorizationFormController extends Controller
         $validated = $request->validate([
             'quote_id' => 'required|exists:quotes,id',
             'email' => 'required|email',
+            'invoice_amount' => 'nullable|numeric|min:0',
         ]);
 
         try {
             $quote = Quote::findOrFail($validated['quote_id']);
             $email = $validated['email'];
+            $invoiceAmount = $validated['invoice_amount'] ?? $quote->amount_to_pay;
 
             // Send Email
-            Mail::send('emails.authForm', ['quote' => $quote], function ($message) use ($email, $quote) {
+            Mail::send('emails.authForm', ['quote' => $quote, 'invoiceAmount' => $invoiceAmount], function ($message) use ($email, $quote) {
                 $message->to($email)
                     ->subject('Authorization Form for Quote #'.$quote->id);
             });
@@ -38,6 +40,7 @@ class AuthorizationFormController extends Controller
                 'subject_id' => $quote->id,
                 'properties' => [
                     'to_email' => $email,
+                    'invoice_amount' => $validated['invoice_amount'] ?? null,
                 ],
             ]);
 
@@ -51,8 +54,23 @@ class AuthorizationFormController extends Controller
     public function show($encrypted)
     {
         try {
-            $quoteId = decrypt($encrypted);
+            $decrypted = decrypt($encrypted);
+
+            if (is_array($decrypted)) {
+                $quoteId = $decrypted['id'];
+                $amount = $decrypted['amount'] ?? null;
+            } else {
+                $quoteId = $decrypted; // Old links support
+                $amount = null;
+            }
+
             $quote = Quote::findOrFail($quoteId);
+
+            // Override amount_to_pay locally if passed in payload
+            if ($amount !== null) {
+                $quote->amount_to_pay = $amount;
+            }
+
         } catch (\Exception $e) {
             abort(404);
         }
@@ -69,7 +87,14 @@ class AuthorizationFormController extends Controller
     public function store(Request $request, $encrypted)
     {
         try {
-            $quoteId = decrypt($encrypted);
+            $decrypted = decrypt($encrypted);
+
+            if (is_array($decrypted)) {
+                $quoteId = $decrypted['id'];
+            } else {
+                $quoteId = $decrypted;
+            }
+
             $quote = Quote::findOrFail($quoteId);
         } catch (\Exception $e) {
             abort(404);

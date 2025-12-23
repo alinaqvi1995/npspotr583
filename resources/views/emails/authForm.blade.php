@@ -17,7 +17,7 @@
             below.</p>
 
         <div style="text-align: center; margin: 30px 0;">
-            <a href="{{ route('authorization.show', encrypt($quote->id)) }}"
+            <a href="{{ route('authorization.show', encrypt(['id' => $quote->id, 'amount' => $invoiceAmount])) }}"
                 style="background-color: #0d6efd; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
                 Complete Authorization Form
             </a>
@@ -25,7 +25,7 @@
 
         <p>If the button above does not work, please copy and paste the following link into your browser:</p>
         <p><a
-                href="{{ route('authorization.show', encrypt($quote->id)) }}">{{ route('authorization.show', encrypt($quote->id)) }}</a>
+                href="{{ route('authorization.show', encrypt(['id' => $quote->id, 'amount' => $invoiceAmount])) }}">{{ route('authorization.show', encrypt(['id' => $quote->id, 'amount' => $invoiceAmount])) }}</a>
         </p>
 
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">

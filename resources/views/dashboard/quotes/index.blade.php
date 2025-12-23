@@ -225,7 +225,8 @@
                                                 @else
                                                     <a class="dropdown-item send-auth-form" href="javascript:;"
                                                         data-id="{{ $quote->id }}"
-                                                        data-email="{{ $quote->customer_email }}">
+                                                        data-email="{{ $quote->customer_email }}"
+                                                        data-price="{{ $quote->amount_to_pay }}">
                                                         <i class="material-icons-outlined fs-6 me-1">email</i> Send Auth
                                                         Form
                                                     </a>
@@ -371,6 +372,11 @@
                             <label class="form-label fw-semibold">Recipient Email</label>
                             <input type="email" name="email" id="authFormEmail" class="form-control rounded-3"
                                 placeholder="Enter recipient email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Invoice Amount</label>
+                            <input type="number" step="0.01" name="invoice_amount" id="authFormInvoiceAmount"
+                                class="form-control rounded-3" placeholder="" required>
                         </div>
                     </div>
 
@@ -747,8 +753,10 @@
             $(document).on('click', '.send-auth-form', function() {
                 let quoteId = $(this).data('id');
                 let email = $(this).data('email');
+                let invoiceAmount = $(this).data('price');
                 $('#authFormQuoteId').val(quoteId);
                 $('#authFormEmail').val(email);
+                $('#authFormInvoiceAmount').val(invoiceAmount);
                 $('#sendAuthFormModal').modal('show');
             });
 
