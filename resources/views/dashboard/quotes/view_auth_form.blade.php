@@ -181,6 +181,15 @@
         <p class="text-center text-muted mt-3 small">&copy; {{ date('Y') }} Bridgeway Logistics LLC. All rights
             reserved.</p>
     </div>
+        <!-- Jquery -->
+        <script src="{{ asset('invoice-assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ asset('invoice-assets/js/bootstrap.min.js') }}"></script>
+        <!-- PDF Generator -->
+        <script src="{{ asset('invoice-assets/js/jspdf.min.js') }}"></script>
+        <script src="{{ asset('invoice-assets/js/html2canvas.min.js') }}"></script>
+        <!-- Main Js File -->
+        <script src="{{ asset('invoice-assets/js/main.js') }}"></script>
 </body>
 
 </html>

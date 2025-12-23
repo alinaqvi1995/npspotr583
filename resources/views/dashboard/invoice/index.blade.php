@@ -7,12 +7,12 @@
             <div class="invoice-container">
                 <main>
                     <div class="th-invoice invoice_style2">
-                        <div class="download-inner" id="download_section">
+                        <div class="download-inner py-4" id="download_section">
                             <header class="th-header header-layout2">
                                 <div class="row align-items-center justify-content-end">
                                     <div class="col-auto">
                                         <div class="header-logo">
-                                            <a href="index.html"><img
+                                            <a href="index.html"><img style="width: 200px;"
                                                     src="{{ asset('web-assets/images/logo/logo_001.png') }}"
                                                     alt="Invar"></a>
                                         </div>
