@@ -68,7 +68,8 @@
                                     @foreach ($quote->vehicles as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->type }} Transport ({{ $quote->pickupLocation?->state ?? '-' }}
+                                            <td>{{ $item->type }} Transport
+                                                ({{ $quote->pickupLocation?->state ?? '-' }}
                                                 to {{ $quote->deliveryLocation?->state ?? '-' }})<br><small>Safe and
                                                     insured door-to-door
                                                     vehicle shipping.</small></td>
@@ -83,8 +84,8 @@
                                 <div class="col-auto">
                                     <div class="invoice-left mb-40">
                                         <b>Payment Info:</b>
-                                        <p class="mb-0">Account : 1234 5678 9012<br>
-                                            A/C Name : Alex Farnandes<br>
+                                        <p class="mb-0">Name : {{ $quote->customer_name ?? '-' }}<br>
+                                            Phone : {{ $quote->customer_phone ?? '-' }}<br>
                                     </div>
                                     <div class="invoice-left">
                                         <b>Terms & Conditions</b>
@@ -108,7 +109,8 @@
                                         </tr>
                                     </table>
                                     <div class="invoice-note2 mt-25">
-                                        <p class="mb-0"><b>NOTE:</b> This is computer generated receipt and <br> does not
+                                        <p class="mb-0"><b>NOTE:</b> This is computer generated receipt and <br> does
+                                            not
                                             require physical signature.</p>
                                     </div>
                                 </div>
