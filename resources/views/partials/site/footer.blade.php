@@ -97,8 +97,21 @@
                                 </div>
                             @endforeach
                         </div>
+                        <div class="footer-widget footer2_col_3 widget_recent_post">
+                            <div class="footer-title">
+                                <h5 class="title">Review & Rating</h5>
+                            </div>
+                            <div class="widget-post">
+                                <div class="post-img">
+                                    <img src="{{ asset('web-assets/images/blog/3.png') }}" alt="Image" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                    {{-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        
+                    </div> --}}
 
                 </div>
             </div>
