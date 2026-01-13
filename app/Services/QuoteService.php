@@ -36,17 +36,14 @@ class QuoteService
 
             if ($search) {
 
-                // On search: allow ALL statuses the user is permitted to see
-                $allowedStatuses = $this->getAllowedStatuses($user);
-
-                // Debug: What statuses user can access
-                logger()->info("User allowed statuses (search mode):", $allowedStatuses);
-
-                if (empty($allowedStatuses)) {
-                    $query->whereRaw('0=1');
-                } else {
-                    $query->whereIn('status', $allowedStatuses);
-                }
+                // On search: allow ALL statuses (user request: "user shud be able to sear any quote(any status)")
+                // We do NOT filter by allowedStatuses here anymore.
+                // $allowedStatuses = $this->getAllowedStatuses($user);
+                // if (empty($allowedStatuses)) {
+                //    $query->whereRaw('0=1');
+                // } else {
+                //    $query->whereIn('status', $allowedStatuses);
+                // }
 
             } else {
 
