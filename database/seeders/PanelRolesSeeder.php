@@ -84,7 +84,6 @@ class PanelRolesSeeder extends Seeder
             // Quotes (dashboard)
             ['name' => 'View Quotes', 'slug' => 'view-quotes'],
             ['name' => 'Create Quotes', 'slug' => 'create-quotes'],
-            ['name' => 'Edit Quotes', 'slug' => 'edit-quotes'],
             ['name' => 'Delete Quotes', 'slug' => 'delete-quotes'],
 
             // Quote statuses
