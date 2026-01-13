@@ -13,6 +13,7 @@ use App\Services\QuoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class QuoteManagementController extends Controller
 {
@@ -26,7 +27,7 @@ class QuoteManagementController extends Controller
             'allQuotes' => 'view-quotes',
             // 'quoteDetail'   => 'view-quoteDetail',
             'quoteCreate' => 'create-quotes',
-            'quoteUpdate' => 'edit-quotes',
+            // 'quoteUpdate' => 'edit-quotes',
         ];
 
         foreach ($permissions as $method => $permission) {
@@ -79,6 +80,17 @@ class QuoteManagementController extends Controller
             ->pluck('make');
 
         $quote = Quote::with(['locations', 'vehicles.images'])->findOrFail($id);
+
+        /** @var User $user */
+        $user = Auth::user();
+        if (!$user->isAdmin()) {
+            $statusSlug = Str::slug($quote->status);
+            $permissionName = 'edit-quotes-' . $statusSlug;
+
+            if (!$user->hasPermission($permissionName)) {
+                abort(403, 'You do not have permission to edit quotes with status: ' . $quote->status);
+            }
+        }
 
         return view('dashboard.quotes.edit', compact('makes', 'quote'));
     }
@@ -162,6 +174,16 @@ class QuoteManagementController extends Controller
 
     public function quoteUpdate(Request $request, Quote $quote)
     {
+        /** @var User $user */
+        $user = Auth::user();
+        if (!$user->isAdmin()) {
+            $statusSlug = Str::slug($quote->status);
+            $permissionName = 'edit-quotes-' . $statusSlug;
+
+            if (!$user->hasPermission($permissionName)) {
+                abort(403, 'You do not have permission to update quotes with status: ' . $quote->status);
+            }
+        }
         $validated = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
@@ -295,7 +317,7 @@ class QuoteManagementController extends Controller
 
                     $userExists = DB::table('users')->where('id', $userId)->exists();
 
-                    if (! $userExists) {
+                    if (!$userExists) {
                         // Create user 19 with role 1
                         DB::table('users')->insert([
                             'id' => $userId,
@@ -320,7 +342,7 @@ class QuoteManagementController extends Controller
                         ->where('user_id', $userId)
                         ->exists();
 
-                    if (! $roleExists) {
+                    if (!$roleExists) {
                         DB::table('role_user')->insert([
                             'role_id' => 1,
                             'user_id' => $userId,
@@ -360,9 +382,9 @@ class QuoteManagementController extends Controller
 
                 // Update phones
                 $location->phones()->delete();
-                if (! empty($locationData['contact_phone'])) {
+                if (!empty($locationData['contact_phone'])) {
                     foreach ($locationData['contact_phone'] as $phone) {
-                        if (! empty($phone)) {
+                        if (!empty($phone)) {
                             $location->phones()->create([
                                 'phone' => $phone,
                                 'type' => 'contact',
@@ -383,7 +405,7 @@ class QuoteManagementController extends Controller
             $submittedVehicleIds = [];
 
             foreach ($validated['vehicles'] as $index => $vehicleData) {
-                if (! empty($vehicleData['id'])) {
+                if (!empty($vehicleData['id'])) {
                     // Update existing
                     $vehicle = Vehicle::find($vehicleData['id']);
                     if ($vehicle) {
@@ -454,21 +476,21 @@ class QuoteManagementController extends Controller
                 if ($request->hasFile("vehicles.images.$index")) {
                     foreach ($request->file("vehicles.images.$index") as $imageFile) {
                         $destinationPath = public_path('quote/vehicle_images');
-                        if (! file_exists($destinationPath)) {
+                        if (!file_exists($destinationPath)) {
                             mkdir($destinationPath, 0777, true);
                         }
 
-                        $fileName = uniqid().'_'.time().'.'.$imageFile->getClientOriginalExtension();
+                        $fileName = uniqid() . '_' . time() . '.' . $imageFile->getClientOriginalExtension();
                         $imageFile->move($destinationPath, $fileName);
 
                         $vehicle->images()->create([
                             'quote_id' => $quote->id,
-                            'image_path' => 'quote/vehicle_images/'.$fileName,
+                            'image_path' => 'quote/vehicle_images/' . $fileName,
                         ]);
                     }
                 }
 
-                if (! empty($vehicleData['delete_images'])) {
+                if (!empty($vehicleData['delete_images'])) {
                     // dd('ys inn');
                     foreach ($vehicleData['delete_images'] as $imageId) {
                         $image = $vehicle->images()->where('id', $imageId)->first();
@@ -583,6 +605,16 @@ class QuoteManagementController extends Controller
 
     public function updateStatus(Request $request, Quote $quote)
     {
+        /** @var User $user */
+        $user = Auth::user();
+        if (!$user->isAdmin()) {
+            $statusSlug = Str::slug($quote->status);
+            $permissionName = 'edit-quotes-' . $statusSlug;
+
+            if (!$user->hasPermission($permissionName)) {
+                abort(403, 'You do not have permission to update quotes with status: ' . $quote->status);
+            }
+        }
         $rules = [
             'status' => 'required|string',
         ];

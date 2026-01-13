@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\PanelType;
 use App\Models\Permission;
+use App\Models\QuoteHistory;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserDetail;
@@ -74,7 +75,7 @@ class UserManagementController extends Controller
 
             /** ✅ File Upload Handling (store in public/userDocs) */
             $uploadPath = public_path('userDocs');
-            if (! file_exists($uploadPath)) {
+            if (!file_exists($uploadPath)) {
                 mkdir($uploadPath, 0777, true);
             }
 
@@ -177,9 +178,9 @@ class UserManagementController extends Controller
                 }
             }
 
-            Log::error('User creation failed: '.$e->getMessage());
+            Log::error('User creation failed: ' . $e->getMessage());
 
-            return back()->with('error', 'Failed to create user. '.$e->getMessage());
+            return back()->with('error', 'Failed to create user. ' . $e->getMessage());
         }
     }
 
@@ -188,17 +189,17 @@ class UserManagementController extends Controller
      */
     private function moveFile($file, $destinationPath, &$uploadedFiles)
     {
-        if (! $file) {
+        if (!$file) {
             return null;
         }
 
-        $fileName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+        $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
         $file->move($destinationPath, $fileName);
 
-        $fullPath = $destinationPath.'/'.$fileName;
+        $fullPath = $destinationPath . '/' . $fileName;
         $uploadedFiles[] = $fullPath;
 
-        return 'userDocs/'.$fileName;
+        return 'userDocs/' . $fileName;
     }
 
     public function userEdit($id)
@@ -219,12 +220,12 @@ class UserManagementController extends Controller
         // Validate input
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6',
             // 'roles' => 'required|array',
             'panel_types' => 'nullable|array',
             'permissions' => 'nullable|array',
-            'referral_code' => 'nullable|string|unique:user_details,referral_code,'.($user->detail->id ?? 'NULL'),
+            'referral_code' => 'nullable|string|unique:user_details,referral_code,' . ($user->detail->id ?? 'NULL'),
         ]);
 
         if ($validator->fails()) {
@@ -251,7 +252,7 @@ class UserManagementController extends Controller
 
             // Ensure upload path exists
             $uploadPath = public_path('userDocs');
-            if (! file_exists($uploadPath)) {
+            if (!file_exists($uploadPath)) {
                 mkdir($uploadPath, 0777, true);
             }
 
@@ -291,7 +292,7 @@ class UserManagementController extends Controller
             $detail->save();
 
             // Sync roles, panels, permissions
-            if ($request->has('roles') && ! empty($request->roles)) {
+            if ($request->has('roles') && !empty($request->roles)) {
                 $user->roles()->sync($request->roles);
             }
             $user->panelTypes()->sync($request->panel_types ?? []);
@@ -301,7 +302,7 @@ class UserManagementController extends Controller
                 ->with('success', 'User updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()
-                ->withErrors(['error' => 'An error occurred: '.$e->getMessage()])
+                ->withErrors(['error' => 'An error occurred: ' . $e->getMessage()])
                 ->withInput();
         }
     }
@@ -396,7 +397,7 @@ class UserManagementController extends Controller
 
     public function toggleActive(User $user)
     {
-        $user->is_active = ! $user->is_active;
+        $user->is_active = !$user->is_active;
         if ($user->is_active) {
             $user->force_logout = false;
         }

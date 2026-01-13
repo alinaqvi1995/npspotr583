@@ -105,6 +105,24 @@ class PanelRolesSeeder extends Seeder
             ['name' => 'View Quotes: Delivery', 'slug' => 'view-quotes-delivery'],
             ['name' => 'View Quotes: Deleted', 'slug' => 'view-quotes-deleted'],
 
+            // Quote statuses (Edit)
+            ['name' => 'Edit Quotes: New', 'slug' => 'edit-quotes-new'],
+            ['name' => 'Edit Quotes: In Progress', 'slug' => 'edit-quotes-in-progress'],
+            ['name' => 'Edit Quotes: Completed', 'slug' => 'edit-quotes-completed'],
+            ['name' => 'Edit Quotes: Cancelled', 'slug' => 'edit-quotes-cancelled'],
+            ['name' => 'Edit Quotes: Asking Low', 'slug' => 'edit-quotes-asking-low'],
+            ['name' => 'Edit Quotes: Interested', 'slug' => 'edit-quotes-interested'],
+            ['name' => 'Edit Quotes: Follow Up', 'slug' => 'edit-quotes-follow-up'],
+            ['name' => 'Edit Quotes: Not Interested', 'slug' => 'edit-quotes-not-interested'],
+            ['name' => 'Edit Quotes: No Response', 'slug' => 'edit-quotes-no-response'],
+            ['name' => 'Edit Quotes: Booked', 'slug' => 'edit-quotes-booked'],
+            ['name' => 'Edit Quotes: Payment Missing', 'slug' => 'edit-quotes-payment-missing'],
+            ['name' => 'Edit Quotes: Listed', 'slug' => 'edit-quotes-listed'],
+            ['name' => 'Edit Quotes: Dispatch', 'slug' => 'edit-quotes-dispatch'],
+            ['name' => 'Edit Quotes: Pickup', 'slug' => 'edit-quotes-pickup'],
+            ['name' => 'Edit Quotes: Delivery', 'slug' => 'edit-quotes-delivery'],
+            ['name' => 'Edit Quotes: Deleted', 'slug' => 'edit-quotes-deleted'],
+
             // Blogs
             ['name' => 'View Blogs', 'slug' => 'view-blogs'],
             ['name' => 'Create Blogs', 'slug' => 'create-blogs'],
