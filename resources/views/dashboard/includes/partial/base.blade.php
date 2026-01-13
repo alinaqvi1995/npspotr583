@@ -79,7 +79,30 @@
         select option {
             white-space: nowrap;
         }
-    </style>
+        select option {
+            white-space: nowrap;
+        }
+
+        /* Customize Select2 Multiple to look like a dropdown with checkboxes */
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice {
+            display: none !important; /* Hide the tags */
+        }
+        
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered {
+            color: #333;
+            font-weight: 400;
+            padding-top: 4px;
+        }
+        
+        /* Dark theme support for the text */
+        [data-bs-theme="dark"] .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered {
+            color: #eee;
+        }
+
+        .select2-results__option input[type="checkbox"] {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
 
     @section('navbar')
         @include('dashboard.includes.partial.nav')
@@ -175,11 +198,95 @@
                 }
             }
 
-            $('.select2').select2({
-                theme: 'bootstrap-5',
-                width: '100%',
-                allowClear: true,
+            // Generic Select2 init for both .select2 and .select2-checkbox
+            $('.select2, .select2-checkbox').each(function() {
+                var $this = $(this);
+                var isMultiple = $this.prop('multiple');
+                
+                var configs = {
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    allowClear: true,
+                    placeholder: $this.data('placeholder') || "Select options",
+                };
+
+                if ($this.data('dropdown-parent')) {
+                    configs.dropdownParent = $($this.data('dropdown-parent'));
+                }
+
+                if (isMultiple) {
+                    configs.closeOnSelect = false;
+                    configs.placeholder = $this.data('placeholder') || "Select options";
+                    
+                    // Add Checkbox to dropdown items
+                    configs.templateResult = function(data) {
+                        if (!data.id) { return data.text; }
+                        var $element = $(data.element);
+                        var isSelected = $element.prop('selected'); // or check data.selected
+                        
+                        // We rely on select2's internal state for 'selected' but sometimes data.selected is reliable
+                         var $wrapper = $('<span><input type="checkbox" class="form-check-input" style="pointer-events:none;"> <span style="margin-left:5px;">' + data.text + '</span></span>');
+                         return $wrapper;
+                        // Note: The checkbox state is handled by Select2's highlighting usually, 
+                        // but to visually show it checked we need to condition it.
+                        // However, Select2 re-renders templateResult on open.
+                    };
+                    
+                    // Fix checkbox checked state in templateResult
+                    configs.templateResult = function(data) {
+                        if (!data.id) { 
+                             return data.text; 
+                        }
+                        var $custom = $('<span><input type="checkbox" class="form-check-input align-middle" style="margin-right:8px; pointer-events:none;"> ' + data.text + '</span>');
+                        if (data.selected) {
+                            $custom.find('input').prop('checked', true);
+                        }
+                        return $custom;
+                    };
+
+                    // Handler to show "X Selected"
+                    $this.on('select2:select select2:unselect select2:open', function(e) {
+                         updateSelectedCount($this);
+                    });
+                }
+
+                $this.select2(configs);
+                
+                if(isMultiple) {
+                    updateSelectedCount($this);
+                }
             });
+
+            function updateSelectedCount($el) {
+                var count = $el.select2('data').length;
+                var placeholder = $el.data('placeholder') || "Select options";
+                var text = count > 0 ? count + " Selected" : placeholder;
+                
+                // Find the rendered container
+                var $rendered = $el.siblings('.select2').find('.select2-selection__rendered');
+                // Temporarily unbinding potential conflicts? No. 
+                // We just replace its content. Select2 might fight us if we completely clobber, 
+                // but since we hid the choices, we can inject text node.
+                // Actually select2 clears this when it renders choices.
+                // Best way: use the placeholder slot? 
+                
+                // Hack: Prepend/Update a custom span and ensure children (choices) are hidden.
+                // Using .html() might clear the choice elements which select2 needs for events? 
+                // No, choices are DOM elements.
+                
+                // Safer: Set the "placeholder" text style
+                // Or just replace text content if it's purely visual.
+                
+                // Let's try injecting a span if not exists
+                var $customLabel = $rendered.find('.custom-status-label');
+                if ($customLabel.length === 0) {
+                     $rendered.prepend('<span class="custom-status-label"></span>');
+                     $customLabel = $rendered.find('.custom-status-label');
+                }
+                $customLabel.text(text);
+                
+                // Ensure placeholder is hidden if we have content, handled by select2 usually
+            }
 
             function bindSearch(inputId, suggestionBoxId, cityId, stateId, zipId) {
                 let selected = false;

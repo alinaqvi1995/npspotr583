@@ -360,25 +360,6 @@
 
 @section('extra_js')
     <script>
-        $(function() {
-            $('.select2').select2({
-                theme: 'bootstrap-5',
-                width: '100%',
-                allowClear: true,
-                placeholder: function() {
-                    $(this).data('placeholder');
-                }
-            });
-
-            $('.select2-checkbox').select2({
-                theme: 'bootstrap-5',
-                width: '100%',
-                placeholder: "Select options",
-                allowClear: true,
-                closeOnSelect: false, // keep dropdown open for multiple selection
-                maximumSelectionLength: 50, // optional limit
-                dropdownCssClass: "bigdrop", // add custom height via CSS
-            });
-        });
+        // Select2 init handled globally in base.blade.php
     </script>
 @endsection
