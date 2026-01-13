@@ -38,7 +38,7 @@
     </style>
     <h6 class="mb-0 text-uppercase">All Quotes</h6>
     <hr>
-    <div class="card">
+    <div class="card" style="min-height: 80vh;">
         <div class="card-body">
 
             <div class="d-flex align-items-start justify-content-between mb-3">
