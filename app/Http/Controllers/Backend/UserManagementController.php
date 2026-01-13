@@ -30,9 +30,35 @@ class UserManagementController extends Controller
         }
     }
 
-    public function allUsers()
+    public function allUsers(Request $request)
     {
-        $users = User::with('detail')->where('id', '!=', 19)->orderBy('created_at', 'desc')->paginate(10);
+        $query = User::with('detail')->where('id', '!=', 19);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $column = $request->column;
+
+            if ($column !== null && $column !== '') {
+                // Search in specific column
+                if ($column == '0') { // Name
+                    $query->where('name', 'like', "%{$search}%");
+                } elseif ($column == '1') { // Email
+                    $query->where('email', 'like', "%{$search}%");
+                }
+            } else {
+                // Search all columns
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            }
+        }
+
+        $users = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        if ($request->ajax()) {
+            return view('dashboard.users.partials.table', compact('users'))->render();
+        }
 
         return view('dashboard.users.index', compact('users'));
     }
