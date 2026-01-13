@@ -87,8 +87,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="rolePermissions" class="form-label">Permissions</label>
-                            <select name="permissions[]" id="rolePermissions" class="select2 form-control" multiple
-                                data-dropdown-parent="#roleModal">
+                            <select name="permissions[]" id="rolePermissions" class="select2 form-control" multiple>
                                 @foreach (\App\Models\Permission::all() as $permission)
                                     <option value="{{ $permission->id }}">{{ $permission->name }}</option>
                                 @endforeach
@@ -109,7 +108,12 @@
 @section('extra_js')
     <script>
         $(document).ready(function () {
-            // Select2 init handled globally in base.blade.php
+            $('#rolePermissions').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                allowClear: true,
+                dropdownParent: $('#roleModal')
+            });
 
             // Add Role
             $('#addRoleBtn').click(function () {
