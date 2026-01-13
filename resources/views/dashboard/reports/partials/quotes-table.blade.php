@@ -92,7 +92,7 @@
                                 Actions
                             </button>
                             <ul class="dropdown-menu">
-                                @can('edit-quotes')
+                                @can('edit-quotes-' . \Illuminate\Support\Str::slug($history->quote->status))
                                     <li>
                                         <a class="dropdown-item" href="{{ route('dashboard.quotes.edit', $history->quote->id) }}">
                                             <i class="material-icons-outlined fs-6 me-1">edit</i> Edit Quote
