@@ -31,8 +31,8 @@
                 </div>
             </div>
 
-            <div class="table-responsive">
-                <table class="table align-middle datatable" id="usersTable">
+            <div>
+                <table class="table align-middle" id="usersTable">
                     <thead>
                         <tr>
                             <th>Sr#.</th>
@@ -79,16 +79,14 @@
                                             <ul class="dropdown-menu">
                                                 @can('edit-users')
                                                     <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('dashboard.users.edit', $user->id) }}">
+                                                        <a class="dropdown-item" href="{{ route('dashboard.users.edit', $user->id) }}">
                                                             <i class="material-icons-outlined me-1">edit</i> Edit
                                                         </a>
                                                     </li>
                                                 @endcan
                                                 @can('delete-users')
                                                     <li>
-                                                        <form action="{{ route('dashboard.users.destroy', $user->id) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item"
@@ -99,8 +97,7 @@
                                                     </li>
                                                 @endcan
                                                 <li>
-                                                    <form action="{{ route('users.toggleActive', $user->id) }}"
-                                                        method="POST">
+                                                    <form action="{{ route('users.toggleActive', $user->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit" class="dropdown-item">
                                                             <i
@@ -110,8 +107,7 @@
                                                     </form>
                                                 </li>
                                                 <li>
-                                                    <form action="{{ route('users.forceLogout', $user->id) }}"
-                                                        method="POST">
+                                                    <form action="{{ route('users.forceLogout', $user->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="material-icons-outlined me-1">logout</i> Force Logout
@@ -135,7 +131,8 @@
             </div>
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div class="small text-muted">
-                    {{-- Showing {{ $quotes->firstItem() }} to {{ $quotes->lastItem() }} of {{ $quotes->total() }} entries --}}
+                    {{-- Showing {{ $quotes->firstItem() }} to {{ $quotes->lastItem() }} of {{ $quotes->total() }} entries
+                    --}}
                 </div>
                 <div>
                     {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
@@ -147,9 +144,17 @@
 
 @section('extra_js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
+            var table = $('#usersTable').DataTable({
+                paging: false,
+                info: false,
+                searching: true,
+                ordering: true,
+                autoWidth: false
+            });
+
             // Column-specific search
-            $('#columnSearchInput').on('keyup', function() {
+            $('#columnSearchInput').on('keyup', function () {
                 var colIndex = $('#columnSearchSelect').val();
                 var searchTerm = this.value;
                 if (colIndex === "") {
@@ -159,7 +164,7 @@
                 }
             });
 
-            $('#columnSearchSelect').on('change', function() {
+            $('#columnSearchSelect').on('change', function () {
                 $('#columnSearchInput').trigger('keyup');
             });
         });
