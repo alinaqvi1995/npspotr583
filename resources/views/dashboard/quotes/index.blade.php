@@ -38,8 +38,8 @@
     </style>
     <h6 class="mb-0 text-uppercase">All Quotes</h6>
     <hr>
-    <div class="card">
-        <div class="card-body">
+    <div class="card flex-grow-1 mb-0">
+        <div class="card-body d-flex flex-column">
 
             <div class="d-flex align-items-start justify-content-between mb-3">
                 <div>
@@ -83,7 +83,7 @@
                 </button>
             </div>
 
-            <div class="table-responsive">
+            <div class="table-responsive flex-grow-1">
                 <table class="table table-bordered table-striped align-middle text-center" id="quoteTable">
                     <thead>
                         <tr>

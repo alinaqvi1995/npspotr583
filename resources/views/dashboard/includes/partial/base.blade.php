@@ -97,6 +97,8 @@
         .main-content {
             flex: 1;
             /* Ensure content inside wrapper also expands if needed */
+            display: flex;
+            flex-direction: column;
         }
     </style>
 
