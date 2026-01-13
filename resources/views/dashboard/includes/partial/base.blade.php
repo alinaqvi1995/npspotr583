@@ -79,14 +79,33 @@
         select option {
             white-space: nowrap;
         }
+
+        /* Sticky Footer Implementation */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            /* Ensure it takes up remaining space */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            /* Ensure content inside wrapper also expands if needed */
+        }
     </style>
 
     @section('navbar')
-        @include('dashboard.includes.partial.nav')
+    @include('dashboard.includes.partial.nav')
     @show
 
     @section('sidebar')
-        @include('dashboard.includes.partial.sidebar')
+    @include('dashboard.includes.partial.sidebar')
     @show
 
     <!--================= Wrapper Start Here =================-->
@@ -121,15 +140,15 @@
     <!--end overlay-->
 
     @section('footer')
-        @include('dashboard.includes.partial.footer')
+    @include('dashboard.includes.partial.footer')
     @show
 
     @section('cart')
-        @include('dashboard.includes.partial.cart')
+    @include('dashboard.includes.partial.cart')
     @show
 
     @section('switcher')
-        @include('dashboard.includes.partial.switcher')
+    @include('dashboard.includes.partial.switcher')
     @show
 
     <!--end main wrapper-->
@@ -171,7 +190,7 @@
             if ($.fn.modal) {
                 // Patch enforceFocus only if Constructor exists (Bootstrap 4.x)
                 if ($.fn.modal.Constructor) {
-                    $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+                    $.fn.modal.Constructor.prototype.enforceFocus = function () { };
                 }
             }
 
@@ -184,7 +203,7 @@
             function bindSearch(inputId, suggestionBoxId, cityId, stateId, zipId) {
                 let selected = false;
 
-                $(inputId).on('keyup', function() {
+                $(inputId).on('keyup', function () {
                     let query = $(this).val();
                     selected = false;
 
@@ -201,17 +220,17 @@
                         data: {
                             q: query
                         },
-                        success: function(data) {
+                        success: function (data) {
                             let html = '';
                             if (data.length > 0) {
                                 data.forEach(item => {
                                     // pass structured data with dataset
                                     html += `<div class="suggestion-item" 
-                                    data-city="${item.city}" 
-                                    data-state="${item.state}" 
-                                    data-zip="${item.zip}">
-                                    ${item.label}
-                                 </div>`;
+                                        data-city="${item.city}" 
+                                        data-state="${item.state}" 
+                                        data-zip="${item.zip}">
+                                        ${item.label}
+                                     </div>`;
                                 });
                             } else {
                                 html = '<div class="p-2 text-muted">No results found</div>';
@@ -223,7 +242,7 @@
                 });
 
                 // On selecting suggestion
-                $(document).on('click', suggestionBoxId + ' .suggestion-item', function() {
+                $(document).on('click', suggestionBoxId + ' .suggestion-item', function () {
                     let city = $(this).data('city');
                     let state = $(this).data('state');
                     let zip = $(this).data('zip');
@@ -238,7 +257,7 @@
                 });
 
                 // Close dropdown if clicked outside
-                $(document).on('click', function(e) {
+                $(document).on('click', function (e) {
                     if (!$(e.target).closest(inputId).length && !$(e.target).closest(suggestionBoxId).length) {
                         $(suggestionBoxId).slideUp(200);
                     }
