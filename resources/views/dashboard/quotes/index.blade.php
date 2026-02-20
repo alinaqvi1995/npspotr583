@@ -404,7 +404,7 @@
                         aria-label="Close"></button>
                 </div>
 
-                <form method="POST" action="">
+                <form id="paymentForm">
                     @csrf
                     <input type="hidden" name="quote_id" id="paymentQuoteId">
 
@@ -460,26 +460,38 @@
                             </div>
                         </div>
 
+                        {{-- HISTORY SECTION --}}
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3"><i class="material-icons-outlined me-1 fs-6">history</i> Payment History</h6>
+                            <div id="paymentHistoryList" class="border rounded p-2 bg-white" style="max-height: 200px; overflow-y: auto;">
+                                <div class="text-center text-muted p-3">Loading history...</div>
+                            </div>
+                        </div>
+
                         {{-- ACTION SECTION --}}
                         <div class="border-top pt-3">
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label fw-semibold">Pay From</label>
-                                    <select id="paymentFrom" name="pay_from" class="form-select form-select-sm rounded-3"
+                                    <select id="paymentFrom" name="channel" class="form-select form-select-sm rounded-3"
                                         required>
-                                        <option value="">-- Select Payment Method --</option>
-                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="">-- Select --</option>
                                         <option value="Zelle">Zelle</option>
                                         <option value="Cash App">Cash App</option>
                                         <option value="Venmo">Venmo</option>
                                         <option value="Paypal">Paypal</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Description / Notes</label>
-                                    <textarea name="payment_Description" id="paymentDescription" class="form-control form-control-sm rounded-3"
-                                        placeholder="Enter payment notes..." rows="2"></textarea>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Amount ($)</label>
+                                    <input type="number" step="0.01" name="amount" id="paymentAmount" class="form-control form-control-sm rounded-3" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Notes</label>
+                                    <input type="text" name="notes" id="paymentDescription" class="form-control form-control-sm rounded-3" placeholder="Notes...">
                                 </div>
                             </div>
                         </div>
@@ -795,8 +807,55 @@
 
                 $('#paymentStatus').text(q.status || '—');
                 $('#paymentFrom').val('');
+                $('#paymentAmount').val('');
+                $('#paymentDescription').val('');
+
+                // Fetch existing payments
+                let payUrl = "{{ route('dashboard.quotes.getPayments', ':id') }}".replace(':id', q.id);
+                $('#paymentHistoryList').html('<div class="text-center text-muted p-3">Loading history...</div>');
+                $.get(payUrl, function(res) {
+                    let html = '';
+                    if (res.payments && res.payments.length > 0) {
+                        res.payments.forEach(p => {
+                            let date = new Date(p.created_at).toLocaleString();
+                            html += `<div class="p-2 border-bottom">
+                                <span class="badge bg-info text-dark">${p.channel}</span> 
+                                <span class="fw-bold">$${p.amount}</span> 
+                                <span class="badge bg-secondary">${p.status}</span>
+                                <div class="small text-muted">${date}</div>
+                                ${p.notes ? '<div class="small fst-italic">' + p.notes + '</div>' : ''}
+                            </div>`;
+                        });
+                    } else {
+                        html = '<div class="text-center text-muted p-3">No payment history.</div>';
+                    }
+                    $('#paymentHistoryList').html(html);
+                });
 
                 $('#paymentModal').modal('show');
+            });
+
+            $(document).on('submit', '#paymentForm', function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+                let btn = $(this).find('button[type="submit"]');
+                btn.prop('disabled', true).html('Saving...');
+
+                $.post("{{ route('dashboard.quotes.storePayment') }}", formData, function(res) {
+                    if (res.success) {
+                        // Refresh history
+                        $('.payment[data-id="' + $('#paymentQuoteId').val() + '"]').click();
+                        $('#paymentFrom').val('');
+                        $('#paymentDescription').val('');
+                        $('#paymentAmount').val('');
+                    } else {
+                        alert('Error: ' + res.message);
+                    }
+                }).fail(function(xhr) {
+                    alert('Error: ' + (xhr.responseJSON?.message || 'Something went wrong'));
+                }).always(function() {
+                    btn.prop('disabled', false).html('<i class="material-icons-outlined me-1 fs-6">check_circle</i> Confirm Payment');
+                });
             });
 
             // ✅ Agent History (custom notes per agent)

@@ -12,6 +12,7 @@ use App\Models\OrderForm;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Illuminate\Support\Facades\DB;
+use App\Models\QuotePayment;
 
 class OrderFormController extends Controller
 {
@@ -191,6 +192,14 @@ class OrderFormController extends Controller
                 $orderForm = OrderForm::create($validated + [
                     'stripe_charge_id' => $charge->id,
                     'paid_amount'      => $amountToCharge,
+                ]);
+
+                QuotePayment::create([
+                    'quote_id' => $quote->id,
+                    'amount'   => $amountToCharge,
+                    'channel'  => 'Stripe',
+                    'status'   => 'Paid',
+                    'notes'    => 'Automated payment via Order Form (Stripe ID: ' . $charge->id . ')',
                 ]);
 
                 $quote->status = ($validated['pay_amount_option'] ?? 'full') === 'initial'

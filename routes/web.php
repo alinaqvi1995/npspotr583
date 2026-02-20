@@ -124,6 +124,11 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
     Route::patch('/quotes/{quote}/status', [QuoteManagementController::class, 'updateStatus'])
         ->name('dashboard.quotes.updateStatus');
 
+    Route::get('/quotes/{quote}/payments', [QuoteManagementController::class, 'getPayments'])
+        ->name('dashboard.quotes.getPayments');
+    Route::post('/quotes/payments', [QuoteManagementController::class, 'storePayment'])
+        ->name('dashboard.quotes.storePayment');
+
     Route::middleware(['admin'])->group(function () {
         Route::resource('add-states', BackendStateController::class);
         Route::get('/users', [UserManagementController::class, 'allUsers'])->name('dashboard.users.index');

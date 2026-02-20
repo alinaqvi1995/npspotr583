@@ -8,6 +8,7 @@ use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\QuotePayment;
 
 class AuthorizationFormController extends Controller
 {
@@ -168,6 +169,14 @@ class AuthorizationFormController extends Controller
                 'signature_image' => $validated['signature_image'],
                 'attachments' => $attachments,
                 'ip_address' => $request->ip(),
+            ]);
+
+            QuotePayment::create([
+                'quote_id' => $quote->id,
+                'amount'   => $validated['invoice_amount'],
+                'channel'  => 'Card Authorization',
+                'status'   => 'Authorized',
+                'notes'    => 'Automated entry from Authorization Form',
             ]);
 
             return redirect()->route('frontend.thankyou')->with('success', 'Authorization form submitted successfully.');

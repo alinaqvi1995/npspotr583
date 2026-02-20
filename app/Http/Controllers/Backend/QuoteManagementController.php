@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\QuotePayment;
 
 class QuoteManagementController extends Controller
 {
@@ -644,6 +645,32 @@ class QuoteManagementController extends Controller
         return response()->json([
             'current' => $quote->status,
             'allowed' => $quote->allowedStatuses($quote->status),
+        ]);
+    }
+
+    public function getPayments(Quote $quote)
+    {
+        $payments = $quote->payments()->latest()->get();
+        return response()->json([
+            'payments' => $payments
+        ]);
+    }
+
+    public function storePayment(Request $request)
+    {
+        $validated = $request->validate([
+            'quote_id' => 'required|exists:quotes,id',
+            'amount'   => 'required|numeric|min:0',
+            'channel'  => 'required|string|max:255',
+            'notes'    => 'nullable|string',
+        ]);
+
+        $payment = QuotePayment::create($validated + ['status' => 'Paid']);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Payment recorded successfully.',
+            'payment' => $payment
         ]);
     }
 }
