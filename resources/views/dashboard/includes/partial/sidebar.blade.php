@@ -173,8 +173,7 @@
                                             </i>
                                             {{ $status }}
                                         </span>
-                                        <span
-                                            class="badge {{ $details['class'] }}">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
+                                        <span class="badge {{ $details['class'] }}">{{ $quoteStatusCounts[$status] ?? 0 }}</span>
                                     </a>
                                 </li>
                             @endif
@@ -183,15 +182,17 @@
                 </li>
             @endcan
 
-            <li>
-                <a href="{{ route('dashboard.orderForms.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
-                    <div class="menu-title">
-                        Order Forms
-                        <span class="badge bg-primary float-end">{{ $orderFormsCount ?? 0 }}</span>
-                    </div>
-                </a>
-            </li>
+            @can('view-order-forms')
+                <li>
+                    <a href="{{ route('dashboard.orderForms.index') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+                        <div class="menu-title">
+                            Order Forms
+                            <span class="badge bg-primary float-end">{{ $orderFormsCount ?? 0 }}</span>
+                        </div>
+                    </a>
+                </li>
+            @endcan
 
             {{-- <li>
                 <a href="{{ route('dashboard.invoice.index') }}">
