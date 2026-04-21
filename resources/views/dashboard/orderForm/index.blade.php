@@ -13,7 +13,8 @@
                     <h5 class="mb-0">Recent Order Forms</h5>
                 </div>
                 <div class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle" data-bs-toggle="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle"
+                        data-bs-toggle="dropdown">
                         <span class="material-icons-outlined fs-5">more_vert</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -113,6 +114,16 @@
                                         </ul>
                                     </div>
                                 </td>
+                                <td>
+                                    <div class="mt-4">
+                                        <h5 class="fw-semibold mb-3">Load-Specific Terms</h5>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="termsCheck">
+                                                {{ $form->quote->load_specific_terms }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         @empty
                             <tr>
@@ -129,7 +140,7 @@
 
 @section('extra_js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // DataTable
             var table = $('#orderFormTable').DataTable({
                 pageLength: 10,
@@ -144,7 +155,7 @@
             });
 
             // Column filter
-            $('#orderFormSearch').on('keyup', function() {
+            $('#orderFormSearch').on('keyup', function () {
                 var colIndex = $('#columnFilter').val();
                 if (colIndex === '') {
                     table.search(this.value).draw();
