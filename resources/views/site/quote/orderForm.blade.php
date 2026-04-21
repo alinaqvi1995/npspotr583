@@ -756,6 +756,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!-- Load-Specific Terms -->
+                                                <div class="mt-4">
+                                                    <h5 class="fw-semibold mb-3">Load-Specific Terms</h5>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" for="termsCheck">
+                                                            {{ $quote->load_specific_terms }}
+                                                        </label>
+                                                    </div>
+                                                </div>  
+
                                                 <!-- Submit -->
                                                 <div class="tj-theme-button text-center mt-3">
                                                     <button type="submit" class="tj-primary-btn">Submit Order Form <i
