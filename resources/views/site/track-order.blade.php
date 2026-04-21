@@ -140,8 +140,8 @@
                             <p><strong>Status:</strong> 
                                 <span class="badge bg-${order.status === 'New' ? 'primary' : 'success'}">${order.status}</span>
                             </p>
-                            ${order.pickup_date ? `<p><strong>Pickup Date:</strong> ${order.pickup_date}</p>` : ''}
-                            ${order.delivery_date ? `<p><strong>Delivery Date:</strong> ${order.delivery_date}</p>` : ''}
+                            <!-- ${order.pickup_date ? `<p><strong>Pickup Date:</strong> ${order.pickup_date}</p>` : ''} -->
+                            <!-- ${order.delivery_date ? `<p><strong>Delivery Date:</strong> ${order.delivery_date}</p>` : ''} -->
                             <p><strong>Order Created:</strong> ${order.created_at}</p>
                         </div>
                     `;
