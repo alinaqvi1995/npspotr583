@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://bridgewaylogisticsllc.com'),
+    'url' => env('APP_URL', 'https://www.bridgewaylogisticsllc.com'),
 
     /*
     |--------------------------------------------------------------------------
