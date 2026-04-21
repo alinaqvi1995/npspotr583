@@ -245,7 +245,7 @@
                             </div>
 
                             <!-- Expiration Date -->
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="display: none;">
                                 <label class="form-label">Expiration Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" name="dates[expiration_date]"
                                     value="{{ old('dates.expiration_date', optional($quote->expiration_date)->format('Y-m-d') ?? now()->addDays(30)->format('Y-m-d')) }}">

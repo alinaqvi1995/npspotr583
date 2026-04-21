@@ -70,7 +70,7 @@
                         <div class="col-md-12">
                             <label class="form-label fw-semibold">This form is for the purchase of</label>
                             <input type="text" name="purchase_for" class="form-control"
-                                value="{{ $quote->vehicles->map(fn($v) => $v->year . ' ' . $v->make . ' ' . $v->model)->implode(', ') }}"
+                                value="{{ $quote->vehicles->map(fn($v) => $v->year . ' ' . $v->make . ' ' . $v->model . ' ' . $v->vin)->implode(', ') }}"
                                 readonly required>
                             <small class="text-muted">Vehicle information from Quote #{{ $quote->id }}</small>
                         </div>
