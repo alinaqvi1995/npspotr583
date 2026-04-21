@@ -136,7 +136,7 @@
                                 readonly>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="display: none;">
                             <label class="form-label fw-semibold">Bank Phone Number</label>
                             <input type="text" class="form-control" value="{{ $authForm->bank_number ?? '-' }}"
                                 readonly>
