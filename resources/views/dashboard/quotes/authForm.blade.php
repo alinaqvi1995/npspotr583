@@ -155,7 +155,7 @@
                                 value="{{ old('issuing_bank') }}">
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="display: none;">
                             <label class="form-label fw-semibold">Bank Phone Number</label>
                             <input type="text" name="bank_number" class="form-control"
                                 value="{{ old('bank_number') }}">
