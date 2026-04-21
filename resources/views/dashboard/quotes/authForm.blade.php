@@ -163,8 +163,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Invoice Amount ($)</label>
-                            <input type="number" step="0.01" name="invoice_amount" class="form-control"
-                                value="{{ old('invoice_amount', $quote->amount_to_pay) }}" required>
+                            <input type="number" step="0.01" name="invoice_amount" class="form-control bg-light"
+                                value="{{ old('invoice_amount', $quote->amount_to_pay) }}" readonly required style="cursor: not-allowed;">
                         </div>
 
                         <div class="col-md-12">

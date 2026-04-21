@@ -145,7 +145,7 @@
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Invoice Amount ($)</label>
                             <input type="text" class="form-control fw-bold text-success fs-5"
-                                value="${{ number_format($authForm->invoice_amount, 2) }}" readonly>
+                                value="${{ number_format($authForm->invoice_amount, 2) }}" disabled style="cursor: not-allowed;">
                         </div>
 
                         <div class="col-md-12">
