@@ -2,7 +2,7 @@
   <td align="center" style="background:#062e39; padding:20px;">
     
     <!-- Logo - FIXED -->
-    <img src="{{ config('app.url') }}/web-assets/images/logo/1-logo.png" 
+    <img src="https://bridgewaylogisticsllc.com/web-assets/images/logo/1-logo.png" 
          alt="Bridgeway Logistics LLC"
          style="max-height:60px; display:block; margin:0 auto 12px auto;">
 
