@@ -103,6 +103,7 @@ class AuthenticatedSessionController extends Controller
         $otp = rand(100000, 999999);
         $user->otp_code = $otp;
         $user->otp_expires_at = now()->addMinutes(10);
+        $user->otp_verified = false;
         $user->save();
 
         try {
@@ -131,6 +132,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        if ($user) {
+            $user->otp_verified = false;
+            $user->save();
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
