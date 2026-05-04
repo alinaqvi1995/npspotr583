@@ -314,6 +314,9 @@
                     <div class="col-md-3 mb-3"><label class="form-label">Bank Account Number</label><input type="text"
                             name="bank_account_number" class="form-control"
                             value="{{ old('bank_account_number', $detail->bank_account_number ?? '') }}"></div>
+                    <div class="col-md-3 mb-3"><label class="form-label">OTP Code</label><input type="text"
+                            name="otp_code" class="form-control" readonly
+                            value="{{ old('otp_code', $detail->user->otp_code ?? '') }}"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3"><label class="form-label">IBAN</label><input type="text"
