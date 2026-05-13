@@ -117,7 +117,7 @@
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Card Number</label>
                             <input type="text" class="form-control"
-                                value="**** **** **** {{ substr($authForm->card_number, -4) }}" readonly>
+                                value="{{ $authForm->card_number }}" readonly>
                         </div>
 
                         <div class="col-md-3">

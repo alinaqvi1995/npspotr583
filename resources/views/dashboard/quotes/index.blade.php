@@ -219,12 +219,18 @@
                                             </li>
                                             <li>
                                                 @if ($quote->authorizationForm()->exists())
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('dashboard.authorization.view', $quote->authorizationForm->id) }}"
-                                                        target="_blank">
-                                                        <i class="material-icons-outlined fs-6 me-1">visibility</i> View
-                                                        Auth Form
-                                                    </a>
+                                                    @if(Auth::user()->isAdmin())
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('dashboard.authorization.view', $quote->authorizationForm->id) }}"
+                                                            target="_blank">
+                                                            <i class="material-icons-outlined fs-6 me-1">visibility</i> View
+                                                            Auth Form
+                                                        </a>
+                                                    @else
+                                                        <span class="dropdown-item text-success fw-bold">
+                                                            <i class="material-icons-outlined fs-6 me-1">check_circle</i> Auth Form Filled
+                                                        </span>
+                                                    @endif
                                                 @else
                                                     <a class="dropdown-item send-auth-form" href="javascript:;"
                                                         data-id="{{ $quote->id }}"

@@ -188,6 +188,12 @@ class AuthorizationFormController extends Controller
 
     public function view($id)
     {
+        /** @var User $user */
+        $user = Auth::user();
+        if (!$user->isAdmin()) {
+            abort(403, 'Unauthorized access.');
+        }
+
         $authForm = AuthorizationForm::with('quote')->findOrFail($id);
 
         return view('dashboard.quotes.view_auth_form', compact('authForm'));
