@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('invoice-assets/css/bootstrap.min.css') }}">
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="{{ asset('invoice-assets/css/style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -116,8 +117,16 @@
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Card Number</label>
-                            <input type="text" class="form-control"
-                                value="{{ $authForm->card_number }}" readonly>
+                            <div class="input-group">
+                                <input type="text" id="cardNumberField" class="form-control"
+                                    value="**** **** **** {{ substr($authForm->card_number, -4) }}" 
+                                    data-full="{{ $authForm->card_number }}"
+                                    data-masked="**** **** **** {{ substr($authForm->card_number, -4) }}"
+                                    readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="toggleCardNumber">
+                                    <i class="material-icons-outlined align-middle fs-6">visibility</i>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="col-md-3">
@@ -127,7 +136,16 @@
 
                         <div class="col-md-3">
                             <label class="form-label fw-semibold">Security Code (CVV)</label>
-                            <input type="text" class="form-control" value="{{ $authForm->cvv }}" readonly>
+                            <div class="input-group">
+                                <input type="text" id="cvvField" class="form-control" 
+                                    value="***" 
+                                    data-full="{{ $authForm->cvv }}"
+                                    data-masked="***"
+                                    readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="toggleCvv">
+                                    <i class="material-icons-outlined align-middle fs-6">visibility</i>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="col-md-6">
@@ -190,6 +208,33 @@
         <script src="{{ asset('invoice-assets/js/html2canvas.min.js') }}"></script>
         <!-- Main Js File -->
         <script src="{{ asset('invoice-assets/js/main.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('#toggleCardNumber').on('click', function() {
+                    const field = $('#cardNumberField');
+                    const icon = $(this).find('i');
+                    if (field.val() === field.data('masked')) {
+                        field.val(field.data('full'));
+                        icon.text('visibility_off');
+                    } else {
+                        field.val(field.data('masked'));
+                        icon.text('visibility');
+                    }
+                });
+
+                $('#toggleCvv').on('click', function() {
+                    const field = $('#cvvField');
+                    const icon = $(this).find('i');
+                    if (field.val() === field.data('masked')) {
+                        field.val(field.data('full'));
+                        icon.text('visibility_off');
+                    } else {
+                        field.val(field.data('masked'));
+                        icon.text('visibility');
+                    }
+                });
+            });
+        </script>
 </body>
 
 </html>
