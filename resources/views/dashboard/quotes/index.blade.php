@@ -93,7 +93,7 @@
                             <th>Vehicles</th>
                             <th>Pickup / Delivery</th>
                             {{-- <th>Status</th> --}}
-                            <th>Created At</th>
+                            <th>Created</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -180,7 +180,10 @@
                                     <span>{{ $quote->delivery_date_formatted }}</span>
                                 </td>
                                 {{-- <td>{!! $quote->status_label !!}</td> --}}
-                                <td>{{ $quote->created_at_formatted }}</td>
+                                <td>
+                                    {{ $quote->created_by_name }}<br>
+                                    <small class="text-muted">{{ $quote->created_at_formatted }}</small>
+                                </td>
                                 <td>
                                     {!! $quote->status_label !!}
                                     <div class="dropdown">
@@ -612,13 +615,12 @@
                                 <th>#</th>
                                 <th>Change Type</th>
                                 <th>Old → New</th>
-                                <th>Changed By</th>
-                                <th>When</th>
+                                <th>Created</th>
                             </tr>
                         </thead>
                         <tbody id="historyTableBody">
                             <tr>
-                                <td colspan="5" class="text-center">Loading...</td>
+                                <td colspan="4" class="text-center">Loading...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -876,7 +878,7 @@
 
             // ✅ AJAX loader for Quote History Log
             function loadHistories(quoteId) {
-                $('#historyTableBody').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
+                $('#historyTableBody').html('<tr><td colspan="4" class="text-center">Loading...</td></tr>');
 
                 let url = "{{ route('dashboard.quotes.histories', ':id') }}";
                 url = url.replace(':id', quoteId);
@@ -884,7 +886,7 @@
                 $.get(url, function(response) {
                     let rows = '';
                     if (response.histories.length === 0) {
-                        rows = '<tr><td colspan="5" class="text-center">No history found.</td></tr>';
+                        rows = '<tr><td colspan="4" class="text-center">No history found.</td></tr>';
                     } else {
                         response.histories.forEach((h, i) => {
                             let changes = '';
@@ -903,8 +905,10 @@
                             <td>${i+1}</td>
                                 <td>${h.change_type}</td>
                                 <td>${changes}</td>
-                                <td>${h.changed_by}</td>
-                                <td>${h.created_at}</td>
+                                <td>
+                                    ${h.changed_by}<br>
+                                    <small class="text-muted">${h.created_at}</small>
+                                </td>
                             </tr>`;
                         });
                     }

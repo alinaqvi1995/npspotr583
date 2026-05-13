@@ -209,16 +209,25 @@
                     <div class="card-body p-4">
                         <h5 class="mb-4">Vehicles</h5>
                         <div id="vehiclesContainer">
-                            @if ($quote->vehicles->isEmpty())
+                            @php
+                                $vehicles = $quote->vehicles;
+                                if (old('vehicles')) {
+                                    $vehicles = collect(old('vehicles'))->map(function($vData) use ($quote) {
+                                        return $quote->vehicles->where('id', $vData['id'] ?? null)->first() ?? new \App\Models\Vehicle();
+                                    });
+                                }
+                            @endphp
+
+                            @if ($vehicles->isEmpty())
                                 @include('dashboard.quotes.partials.edit-vehicle-item', [
                                     'vehicle' => new \App\Models\Vehicle(),
                                     'index' => 1,
                                 ])
                             @else
-                                @foreach ($quote->vehicles as $vIndex => $vehicle)
+                                @foreach ($vehicles as $vIndex => $vehicle)
                                     @include('dashboard.quotes.partials.edit-vehicle-item', [
                                         'vehicle' => $vehicle,
-                                        'index' => $vIndex + 1,
+                                        'index' => $loop->iteration,
                                     ])
                                 @endforeach
                             @endif
@@ -414,68 +423,65 @@
 
             // ✅ Add Vehicle
             $('#addVehicleBtn').click(function() {
-                vehicleIndex++;
-                const $clone = $('.vehicle-item').first().clone();
-
+                const $container = $('#vehiclesContainer');
+                const $firstVehicle = $container.find('.vehicle-item').first();
+                const $clone = $firstVehicle.clone();
+                
+                // Important: re-initialize vehicleIndex based on current count
+                vehicleIndex = $('.vehicle-item').length + 1;
                 $clone.attr('data-index', vehicleIndex);
 
                 // Reset inputs and selects to defaults
-                $clone.find('input, select').each(function() {
-                    const name = $(this).attr('name').replace(/\d+/, vehicleIndex);
-                    $(this).attr('name', name);
+                $clone.find('input, select, textarea').each(function() {
+                    const oldName = $(this).attr('name');
+                    if (oldName) {
+                        const newName = oldName.replace(/\[\d+\]/, `[${vehicleIndex}]`);
+                        $(this).attr('name', newName);
+                    }
 
                     if ($(this).is('select')) {
-                        // Set defaults for specific selects
-                        if (name.includes('[condition]')) {
+                        if (newName && newName.includes('[condition]')) {
                             $(this).val('Running');
-                        } else if (name.includes('[trailer_type]')) {
+                        } else if (newName && newName.includes('[trailer_type]')) {
                             $(this).val('Open Trailer');
-                        } else if (name.includes('[type]') || name.includes('[make]') || name
-                            .includes(
-                                '[model]') || name.includes('[year]')) {
-                            $(this).val(''); // These should be empty to force user selection
                         } else {
                             $(this).val('');
                         }
                     } else if ($(this).attr('type') === 'checkbox') {
-                        // Uncheck checkboxes
                         $(this).prop('checked', false);
-                        // Be careful with hidden inputs that might be associated with checkboxes
-                        if (name.includes('[available_at_auction]')) {
-                            // Ensure the hidden input for auction exists and is 0
+                    } else if ($(this).attr('type') === 'hidden') {
+                        // Keep 'modified' and 'available_at_auction' hidden inputs as 0
+                        if (newName && (newName.includes('[modified]') || newName.includes('[available_at_auction]'))) {
+                            $(this).val('0');
+                        } else {
+                            $(this).val('');
                         }
                     } else {
-                        // Clear text/number inputs
                         $(this).val('');
                     }
+                    
+                    $(this).removeAttr('disabled').show();
                 });
 
-                // Clear model options
+                // Reset specific elements
                 $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
-
                 $clone.find('h6').text('Vehicle #' + vehicleIndex);
-
-                $clone.find('.image-preview').html('');
-
+                $clone.find('.existing-images-container').html('<p class="text-muted small">No existing images.</p>');
+                $clone.find('.new-images-preview').html('');
+                
                 const auctionToggle = $clone.find('.auction-toggle');
                 const auctionFields = $clone.find('.auction-fields');
-
-                auctionFields.attr('id', 'auctionFields-' + vehicleIndex);
-                auctionToggle.attr('data-target', '#auctionFields-' + vehicleIndex);
-
-                // Explicitly uncheck and hide auction fields
-                auctionToggle.prop('checked', false);
-                auctionFields.hide();
+                auctionFields.attr('id', 'auctionFields-' + vehicleIndex).hide();
+                auctionToggle.attr('data-target', '#auctionFields-' + vehicleIndex).prop('checked', false);
 
                 $clone.find('.text-end').html(
                     '<button type="button" class="btn btn-outline-danger deleteVehicleBtn">Delete Vehicle</button>'
                 );
 
-                $('#vehiclesContainer').append($clone);
+                $container.append($clone);
 
                 // Initialize visibility state for the new row
                 $clone.find('.vehicle-type-select').trigger('change');
-
                 generateYearOptions($clone.find('.year-select'));
             });
 
@@ -489,22 +495,30 @@
                 }
             });
 
-            // ✅ Image Preview with Remove Option
+            // ✅ Image Preview for New Images
             $(document).on('change', '.image-input', function() {
-                const previewContainer = $(this).siblings('.image-preview');
+                const $previewContainer = $(this).siblings().find('.new-images-preview');
+                if ($previewContainer.length === 0) {
+                    // Fallback to siblings search if layout differs
+                    $(this).closest('.col-md-12').find('.new-images-preview').html('');
+                } else {
+                    $previewContainer.html('');
+                }
+                
+                const previewContainer = $(this).closest('.col-md-12').find('.new-images-preview');
                 previewContainer.html('');
+                
                 const files = this.files;
-
                 if (files) {
                     Array.from(files).forEach((file, index) => {
                         const reader = new FileReader();
                         reader.onload = function(e) {
                             const img = `
-                        <div class="position-relative d-inline-block" style="width:80px;height:80px;">
-                            <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
-                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
-                        </div>
-                    `;
+                                <div class="position-relative d-inline-block" style="width:100px;height:100px;">
+                                    <img src="${e.target.result}" class="img-thumbnail w-100 h-100 object-fit-cover">
+                                    <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-new-image" data-index="${index}">&times;</button>
+                                </div>
+                            `;
                             previewContainer.append(img);
                         };
                         reader.readAsDataURL(file);
@@ -512,10 +526,10 @@
                 }
             });
 
-            // ✅ Remove image from preview (and input)
-            $(document).on('click', '.remove-image', function() {
+            // ✅ Remove New Image selection
+            $(document).on('click', '.remove-new-image', function() {
                 const index = $(this).data('index');
-                const $input = $(this).closest('.image-preview').siblings('.image-input');
+                const $input = $(this).closest('.col-md-12').find('.image-input');
                 const dt = new DataTransfer();
 
                 const files = $input[0].files;
@@ -525,7 +539,25 @@
                     }
                 }
                 $input[0].files = dt.files;
-                $(this).parent().remove();
+                
+                // Refresh preview
+                $input.trigger('change');
+            });
+
+            // ✅ Handle Existing Image deletion toggle
+            $(document).on('click', '.remove-existing-image', function() {
+                const $wrapper = $(this).closest('.existing-image-wrapper');
+                const $checkbox = $wrapper.find('.delete-image-checkbox');
+                
+                if ($checkbox.is(':checked')) {
+                    $checkbox.prop('checked', false);
+                    $wrapper.css('opacity', '1');
+                    $(this).html('<i class="bx bx-x"></i>').removeClass('btn-success').addClass('btn-danger');
+                } else {
+                    $checkbox.prop('checked', true);
+                    $wrapper.css('opacity', '0.3');
+                    $(this).html('<i class="bx bx-undo"></i>').removeClass('btn-danger').addClass('btn-success');
+                }
             });
 
             // ✅ Renumber Vehicles

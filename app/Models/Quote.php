@@ -223,6 +223,11 @@ class Quote extends Model
         return $this->delivery_date ? $this->delivery_date->format('Md, Y h:ia') : '-';
     }
 
+    public function getCreatedByNameAttribute()
+    {
+        return $this->user ? $this->user->name : '-';
+    }
+
     public function getCreatedAtFormattedAttribute()
     {
         return $this->created_at ? $this->created_at->format('Md, Y h:ia') : '-';

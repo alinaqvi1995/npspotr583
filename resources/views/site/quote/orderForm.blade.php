@@ -758,7 +758,7 @@
                                                 </div>
 
                                                 <!-- Load-Specific Terms -->
-                                                <div class="mt-4">
+                                                <div class="mt-4 d-none">
                                                     <h5 class="fw-semibold mb-3">Load-Specific Terms</h5>
                                                     <div class="form-check">
                                                         <label class="form-check-label" for="termsCheck">

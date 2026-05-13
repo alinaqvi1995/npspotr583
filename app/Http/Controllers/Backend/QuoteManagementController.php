@@ -369,11 +369,10 @@ class QuoteManagementController extends Controller
                             'height_ft' => $vehicleData['height_ft'] ?? $vehicleData['height'] ?? null,
                             'height_in' => $vehicleData['height_in'] ?? null,
                             'weight' => $vehicleData['weight'] ?? null,
-                            'condition' => $vehicleData['condition'] ?? null,
+                            'condition' => $vehicleData['condition'] ?? 'Running',
                             'buyer' => $vehicleData['buyer'] ?? null,
                             'lot' => $vehicleData['lot'] ?? null,
                             'gatepin' => $vehicleData['gatepin'] ?? null,
-                            'condition' => $vehicleData['condition'] ?? 'Running',
                             'modified' => isset($vehicleData['modified']) ? (int) $vehicleData['modified'] : 0,
                             'modified_info' => $vehicleData['modified_info'] ?? null,
                             'available_at_auction' => isset($vehicleData['available_at_auction']) ? (int) $vehicleData['available_at_auction'] : 0,
@@ -527,10 +526,12 @@ class QuoteManagementController extends Controller
 
     public function histories($quoteId)
     {
+        $quote = Quote::with('user')->findOrFail($quoteId);
+
         $logs = \App\Models\QuoteHistory::with('user')
             ->where('quote_id', $quoteId)
             ->whereColumn('old_status', '!=', 'status')
-            ->orderByDesc('created_at')
+            ->orderBy('created_at', 'asc')
             ->get()
             ->map(function ($history) {
                 return [
@@ -541,7 +542,17 @@ class QuoteManagementController extends Controller
                     'changed_by' => $history->user?->name ?: 'System',
                     'created_at' => $history->created_at->format('M d, Y h:i A'),
                 ];
-            });
+            })->toArray();
+
+        // Prepend the creation event
+        array_unshift($logs, [
+            'id' => 0,
+            'change_type' => 'Created',
+            'old_status' => '-',
+            'new_status' => $quote->status . ' (Initial)',
+            'changed_by' => $quote->user?->name ?: 'System',
+            'created_at' => $quote->created_at->format('M d, Y h:i A'),
+        ]);
 
         return response()->json(['histories' => $logs]);
     }

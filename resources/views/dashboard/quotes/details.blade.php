@@ -124,7 +124,7 @@
                                 <p><strong>Status:</strong> {!! $quote->status_label !!}</p>
                             @endif
                             @if ($quote->user)
-                                <p><strong>Created By:</strong> {{ $quote->user->name }}</p>
+                                <p class="no-print"><strong>Created By:</strong> {{ $quote->user->name }}</p>
                             @endif
                         </div>
                         <div class="col-sm-6">

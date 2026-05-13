@@ -81,4 +81,9 @@ class Vehicle extends Model
 
         return '<span class="badge bg-' . $class . '">' . e($this->trailer_type) . '</span>';
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->year . ' ' . $this->make . ' ' . $this->model;
+    }
 }

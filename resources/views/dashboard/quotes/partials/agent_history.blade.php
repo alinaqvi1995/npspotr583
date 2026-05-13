@@ -13,7 +13,7 @@
                     </div>
                     <div class="text-end">
                         <small>
-                            By: {{ $history->user->name ?? 'System' }}<br>
+                            Created By: {{ $history->user->name ?? 'System' }}<br>
                             On: {{ $history->created_at->format('d M Y h:i A') }}
                         </small>
                     </div>
