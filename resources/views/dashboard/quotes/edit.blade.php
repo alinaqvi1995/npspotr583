@@ -434,8 +434,9 @@
                 // Reset inputs and selects to defaults
                 $clone.find('input, select, textarea').each(function() {
                     const oldName = $(this).attr('name');
+                    let newName = oldName;
                     if (oldName) {
-                        const newName = oldName.replace(/\[\d+\]/, `[${vehicleIndex}]`);
+                        newName = oldName.replace(/\[\d+\]/, `[${vehicleIndex}]`);
                         $(this).attr('name', newName);
                     }
 
