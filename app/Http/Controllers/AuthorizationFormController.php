@@ -179,6 +179,17 @@ class AuthorizationFormController extends Controller
                 'notes'    => 'Automated entry from Authorization Form',
             ]);
 
+            // Send notification email to admin (no form data or link shared)
+            try {
+                Mail::send('emails.authFormNotification', ['quote' => $quote], function ($message) use ($quote) {
+                    $message->to('bridgewayuship@gmail.com')
+                        ->subject('Authorization Form Filled for Order #' . $quote->id);
+                });
+            } catch (\Exception $mailException) {
+                // Log mail failure but don't block the user's success flow
+                \Log::error('Auth form notification email failed: ' . $mailException->getMessage());
+            }
+
             return redirect()->route('frontend.thankyou')->with('success', 'Authorization form submitted successfully.');
 
         } catch (\Exception $e) {
