@@ -110,7 +110,8 @@
                         ['label'=>'Completed',       'count'=>$completedCount,       'icon'=>'check_circle',    'color'=>'#6366f1', 'bg'=>'rgba(99,102,241,.12)'],
                         ['label'=>'Cancelled',       'count'=>$cancelledCount,       'icon'=>'cancel',          'color'=>'#6b7280', 'bg'=>'rgba(107,114,128,.12)'],
                     ];
-                    $pipelineMax = max(array_column($pipeline, 'count'), 1);
+                    $counts = array_column($pipeline, 'count');
+    $pipelineMax = max(max($counts ?: [0]), 1);
                 @endphp
 
                 <div class="d-flex flex-column gap-2 mt-1">
