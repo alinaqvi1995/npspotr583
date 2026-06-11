@@ -27,7 +27,7 @@
 <div class="row g-3 mb-3">
 
     {{-- Total Quotes --}}
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-4">
         <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#6366f1,#8b5cf6);">
             <div class="card-body text-white p-3">
                 <div class="d-flex align-items-center justify-content-between mb-2">
@@ -40,24 +40,8 @@
         </div>
     </div>
 
-    {{-- Month Revenue --}}
-    <div class="col-6 col-md-3">
-        <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#10b981,#059669);">
-            <div class="card-body text-white p-3">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="material-icons-outlined opacity-75 fs-2">attach_money</span>
-                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">
-                        {{ $revenueGrowth >= 0 ? '+' : '' }}{{ $revenueGrowth }}%
-                    </span>
-                </div>
-                <h3 class="mb-0 fw-bold text-white">${{ number_format($monthRevenue / 1000, 1) }}K</h3>
-                <p class="mb-0 opacity-75 small">Revenue This Month</p>
-            </div>
-        </div>
-    </div>
-
     {{-- Active Users --}}
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-4">
         <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#f59e0b,#d97706);">
             <div class="card-body text-white p-3">
                 <div class="d-flex align-items-center justify-content-between mb-2">
@@ -70,28 +54,28 @@
         </div>
     </div>
 
-    {{-- Success Rate --}}
-    <div class="col-6 col-md-3">
-        <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#ef4444,#dc2626);">
+    {{-- Booked --}}
+    <div class="col-6 col-md-4">
+        <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#10b981,#059669);">
             <div class="card-body text-white p-3">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="material-icons-outlined opacity-75 fs-2">check_circle</span>
-                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">{{ $completedCount }} done</span>
+                    <span class="material-icons-outlined opacity-75 fs-2">event_available</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">{{ $completedCount }} completed</span>
                 </div>
-                <h3 class="mb-0 fw-bold text-white">{{ $successRate }}%</h3>
-                <p class="mb-0 opacity-75 small">Success Rate</p>
+                <h3 class="mb-0 fw-bold text-white">{{ number_format($bookedCount) }}</h3>
+                <p class="mb-0 opacity-75 small">Booked</p>
             </div>
         </div>
     </div>
 </div>
 
 {{-- ======================================================
-     ROW 2: Pipeline Status + Revenue Chart
+     ROW 2: Pipeline Status
      ====================================================== --}}
 <div class="row g-3 mb-3">
 
     {{-- Quote Pipeline Summary --}}
-    <div class="col-xl-5">
+    <div class="col-12">
         <div class="card rounded-4 h-100 border-0">
             <div class="card-header border-0 pb-0 pt-3 px-3">
                 <h6 class="fw-bold mb-0">
@@ -151,28 +135,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Revenue Trend Chart --}}
-    <div class="col-xl-7">
-        <div class="card rounded-4 h-100 border-0">
-            <div class="card-header border-0 pb-0 pt-3 px-3 d-flex align-items-start justify-content-between">
-                <div>
-                    <h6 class="fw-bold mb-0">
-                        <span class="material-icons-outlined align-middle me-1 text-success" style="font-size:18px;">trending_up</span>
-                        Revenue Trend
-                    </h6>
-                    <p class="text-muted small mb-0">Last 9 months</p>
-                </div>
-                <div class="text-end">
-                    <h5 class="mb-0 text-success fw-bold">${{ number_format($monthRevenue / 1000, 1) }}K</h5>
-                    <small class="text-muted">This Month</small>
-                </div>
-            </div>
-            <div class="card-body px-2 pb-2 pt-0">
-                <div id="chartRevenue"></div>
-            </div>
-        </div>
-    </div>
 </div>
 
 {{-- ======================================================
@@ -204,9 +166,7 @@
                                 <th class="text-center">Total Quotes</th>
                                 <th class="text-center">This Month</th>
                                 <th class="text-center">Booked</th>
-                                <th class="text-center">Completed</th>
-                                <th class="text-center">Month Rev.</th>
-                                <th class="text-center pe-3">Success %</th>
+                                <th class="text-center pe-3">Completed</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -248,26 +208,15 @@
                                         {{ $up['booked'] }}
                                     </span>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center pe-3">
                                     <span class="badge rounded-pill bg-info bg-opacity-10 text-info fw-semibold">
                                         {{ $up['completed'] }}
                                     </span>
                                 </td>
-                                <td class="text-center small">${{ number_format($up['month_rev'] / 1000, 1) }}K</td>
-                                <td class="text-center pe-3">
-                                    @php $sr = $up['success_rate']; @endphp
-                                    <div class="d-flex align-items-center gap-1 justify-content-center">
-                                        <div class="progress flex-grow-1" style="height:5px;max-width:50px;">
-                                            <div class="progress-bar {{ $sr >= 50 ? 'bg-success' : ($sr >= 20 ? 'bg-warning' : 'bg-danger') }}"
-                                                 style="width:{{ $sr }}%;"></div>
-                                        </div>
-                                        <small class="fw-semibold" style="min-width:32px;">{{ $sr }}%</small>
-                                    </div>
-                                </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8" class="text-center py-4 text-muted">No active agent data yet.</td>
+                                <td colspan="6" class="text-center py-4 text-muted">No active agent data yet.</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -279,12 +228,12 @@
 </div>
 
 {{-- ======================================================
-     ROW 4: Top States + Top Makes + Quotes Trend
+     ROW 4: Top States + Top Makes
      ====================================================== --}}
 <div class="row g-3 mb-3">
 
     {{-- Top Pickup States --}}
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card rounded-4 border-0 h-100">
             <div class="card-header border-0 pt-3 pb-0 px-3">
                 <h6 class="fw-bold mb-0">
@@ -313,7 +262,7 @@
     </div>
 
     {{-- Top Vehicle Makes --}}
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card rounded-4 border-0 h-100">
             <div class="card-header border-0 pt-3 pb-0 px-3">
                 <h6 class="fw-bold mb-0">
@@ -341,21 +290,6 @@
         </div>
     </div>
 
-    {{-- Quote Volume Trend --}}
-    <div class="col-md-4">
-        <div class="card rounded-4 border-0 h-100">
-            <div class="card-header border-0 pt-3 pb-0 px-3">
-                <h6 class="fw-bold mb-0">
-                    <span class="material-icons-outlined align-middle me-1 text-primary" style="font-size:18px;">bar_chart</span>
-                    Quote Volume
-                </h6>
-                <p class="text-muted small mb-0">9-month trend</p>
-            </div>
-            <div class="card-body px-2 pt-1 pb-2">
-                <div id="chartQuotes"></div>
-            </div>
-        </div>
-    </div>
 </div>
 
 {{-- ======================================================
@@ -436,15 +370,6 @@
     </div>
 </div>
 
-{{-- Scripts --}}
-<script src="{{ asset('admin/plugins/apexchart/apexcharts.min.js') }}"></script>
-<script>
-    window.dashboardData = {
-        revenueTrends: @json($revenueTrends),
-        months: @json($months),
-        quoteCountsTrends: @json($quoteCountsTrends),
-    };
-</script>
-<script src="{{ asset('admin/js/dashboard_admin.js') }}"></script>
+{{-- No charts needed --}}
 
 @endsection
