@@ -14,88 +14,125 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        // Check if user is Admin using the model helper we found earlier
         if ($user->isAdmin()) {
             $now = Carbon::now();
             $today = $now->toDateString();
             $yesterday = $now->copy()->subDay()->toDateString();
+            $startOfMonth = $now->copy()->startOfMonth();
+            $endOfMonth = $now->copy()->endOfMonth();
 
-            // 1. Today's Sales
-            $todaySales = Quote::whereDate('created_at', $today)->sum('amount_to_pay');
-            $yesterdaySales = Quote::whereDate('created_at', $yesterday)->sum('amount_to_pay');
+            // --- KPI Cards ---
+            $totalQuotes = Quote::count();
 
-            $salesGrowth = 0;
-            if ($yesterdaySales > 0) {
-                $salesGrowth = (($todaySales - $yesterdaySales) / $yesterdaySales) * 100;
-            } elseif ($todaySales > 0) {
-                $salesGrowth = 100;
-            }
+            $monthRevenue = Quote::whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('amount_to_pay');
+            $lastMonthRevenue = Quote::whereBetween('created_at', [
+                $now->copy()->subMonth()->startOfMonth(),
+                $now->copy()->subMonth()->endOfMonth()
+            ])->sum('amount_to_pay');
+            $revenueGrowth = $lastMonthRevenue > 0
+                ? round((($monthRevenue - $lastMonthRevenue) / $lastMonthRevenue) * 100, 1)
+                : ($monthRevenue > 0 ? 100 : 0);
 
-            // 2. Growth Rate (Quotes volume change)
-            $todayQuotesCount = Quote::whereDate('created_at', $today)->count();
-            $yesterdayQuotesCount = Quote::whereDate('created_at', $yesterday)->count();
-
-            $quotesGrowth = 0;
-            if ($yesterdayQuotesCount > 0) {
-                $quotesGrowth = (($todayQuotesCount - $yesterdayQuotesCount) / $yesterdayQuotesCount) * 100;
-            } elseif ($todayQuotesCount > 0) {
-                $quotesGrowth = 100;
-            }
-
-            // 3. User Stats
             $activeUsers = User::where('is_active', 1)->count();
-            $totalUsers = User::count();
-            $userGrowth = 0; // Simplified for now
+            $totalUsers  = User::count();
 
-            // 4. Revenue Trends (Last 9 months)
+            // Pipeline counts (active/hot leads)
+            $bookedCount       = Quote::where('status', 'Booked')->count();
+            $inProgressCount   = Quote::where('status', 'In Progress')->count();
+            $paymentMissingCount = Quote::where('status', 'Payment Missing')->count();
+            $completedCount    = Quote::where('status', 'Completed')->count();
+            $cancelledCount    = Quote::where('status', 'Cancelled')->count();
+
+            // Success rate
+            $successRate = $totalQuotes > 0 ? round(($completedCount / $totalQuotes) * 100, 1) : 0;
+
+            // --- Revenue Trends (Last 9 months) ---
             $revenueTrends = collect();
             $months = collect();
             for ($i = 8; $i >= 0; $i--) {
                 $date = $now->copy()->subMonths($i);
-                $monthName = $date->format('M');
-                $months->push($monthName);
-
-                $sum = Quote::whereYear('created_at', $date->year)
+                $months->push($date->format('M Y'));
+                $revenueTrends->push(Quote::whereYear('created_at', $date->year)
                     ->whereMonth('created_at', $date->month)
-                    ->sum('amount_to_pay');
-                $revenueTrends->push($sum);
+                    ->sum('amount_to_pay'));
             }
 
-            // 5. Quote Status Distribution
+            $quoteCountsTrends = collect();
+            for ($i = 8; $i >= 0; $i--) {
+                $date = $now->copy()->subMonths($i);
+                $quoteCountsTrends->push(Quote::whereYear('created_at', $date->year)
+                    ->whereMonth('created_at', $date->month)
+                    ->count());
+            }
+
+            // --- Simplified status funnel ---
             $statuses = [
-                'New' => 'fiber_new',
-                'In Progress' => 'hourglass_top',
-                'Completed' => 'check_circle',
-                'Cancelled' => 'cancel',
-                'Asking Low' => 'trending_down',
-                'Interested' => 'thumb_up',
-                'Follow Up' => 'schedule',
-                'Not Interested' => 'thumb_down',
-                'No Response' => 'phone_missed',
-                'Booked' => 'event_available',
+                'New'             => 'fiber_new',
+                'In Progress'     => 'hourglass_top',
+                'Completed'       => 'check_circle',
+                'Cancelled'       => 'cancel',
+                'Asking Low'      => 'trending_down',
+                'Interested'      => 'thumb_up',
+                'Follow Up'       => 'schedule',
+                'Not Interested'  => 'thumb_down',
+                'No Response'     => 'phone_missed',
+                'Booked'          => 'event_available',
                 'Payment Missing' => 'payment',
-                'Listed' => 'list',
-                'Dispatch' => 'local_shipping',
-                'Pickup' => 'shopping_bag',
-                'Delivery' => 'done_all',
-                'Deleted' => 'delete',
+                'Listed'          => 'list',
+                'Dispatch'        => 'local_shipping',
+                'Pickup'          => 'shopping_bag',
+                'Delivery'        => 'done_all',
+                'Deleted'         => 'delete',
             ];
 
-            $totalQuotes = Quote::count();
             $statusStats = collect($statuses)->map(function ($icon, $status) use ($totalQuotes) {
                 $count = Quote::where('status', $status)->count();
                 return [
-                    'status' => $status,
-                    'icon' => $icon,
-                    'count' => $count,
+                    'status'     => $status,
+                    'icon'       => $icon,
+                    'count'      => $count,
                     'percentage' => $totalQuotes > 0 ? round(($count / $totalQuotes) * 100, 1) : 0,
                 ];
             });
 
-            // 6. Recent Quotes
-            $recentQuotes = Quote::latest()->take(10)->get();
+            // --- User Performance Leaderboard (non-admin users) ---
+            $userPerformance = User::with('detail')
+                ->whereDoesntHave('roles', fn($q) => $q->where('slug', 'admin'))
+                ->where('is_active', 1)
+                ->get()
+                ->map(function ($u) use ($startOfMonth, $endOfMonth) {
+                    $monthQuotes   = Quote::where('user_id', $u->id)
+                        ->whereBetween('created_at', [$startOfMonth, $endOfMonth]);
+                    $totalQ  = Quote::where('user_id', $u->id)->count();
+                    $monthQ  = (clone $monthQuotes)->count();
+                    $booked  = Quote::where('user_id', $u->id)->where('status', 'Booked')->count();
+                    $completed = Quote::where('user_id', $u->id)->where('status', 'Completed')->count();
+                    $revenue   = Quote::where('user_id', $u->id)->sum('amount_to_pay');
+                    $monthRev  = (clone $monthQuotes)->sum('amount_to_pay');
+                    return [
+                        'id'          => $u->id,
+                        'name'        => $u->name,
+                        'designation' => $u->detail->designation ?? '-',
+                        'department'  => $u->detail->department ?? '-',
+                        'total'       => $totalQ,
+                        'this_month'  => $monthQ,
+                        'booked'      => $booked,
+                        'completed'   => $completed,
+                        'revenue'     => $revenue,
+                        'month_rev'   => $monthRev,
+                        'success_rate'=> $totalQ > 0 ? round(($completed / $totalQ) * 100, 1) : 0,
+                    ];
+                })
+                ->sortByDesc('total')
+                ->values();
 
-            // 7. Top Pickup States
+            // --- Recent Quotes ---
+            $recentQuotes = Quote::with(['user', 'vehicles', 'pickupLocation', 'deliveryLocation'])
+                ->latest()
+                ->take(10)
+                ->get();
+
+            // --- Top Pickup States ---
             $topStates = DB::table('quote_locations')
                 ->select('state', DB::raw('count(*) as total'))
                 ->where('type', 'pickup')
@@ -105,7 +142,7 @@ class DashboardController extends Controller
                 ->take(5)
                 ->get();
 
-            // 8. Top Vehicle Makes
+            // --- Top Vehicle Makes ---
             $topMakes = DB::table('vehicles')
                 ->select('make', DB::raw('count(*) as total'))
                 ->whereNotNull('make')
@@ -114,35 +151,31 @@ class DashboardController extends Controller
                 ->take(5)
                 ->get();
 
-            // 9. Revenue by Category
+            // --- Revenue by Category ---
             $revenueByCategory = DB::table('quotes')
                 ->join('categories', 'quotes.category_id', '=', 'categories.id')
                 ->select('categories.name', DB::raw('sum(amount_to_pay) as total'))
                 ->groupBy('categories.name')
                 ->get();
 
-            // 10. Data for Charts
-            $quoteCountsTrends = collect();
-            for ($i = 8; $i >= 0; $i--) {
-                $date = $now->copy()->subMonths($i);
-                $count = Quote::whereYear('created_at', $date->year)
-                    ->whereMonth('created_at', $date->month)
-                    ->count();
-                $quoteCountsTrends->push($count);
-            }
-
             return view('dashboard.index', compact(
-                'todaySales',
-                'salesGrowth',
-                'quotesGrowth',
+                'totalQuotes',
+                'monthRevenue',
+                'revenueGrowth',
                 'activeUsers',
                 'totalUsers',
+                'bookedCount',
+                'inProgressCount',
+                'paymentMissingCount',
+                'completedCount',
+                'cancelledCount',
+                'successRate',
                 'months',
                 'revenueTrends',
-                'statusStats',
-                'recentQuotes',
                 'quoteCountsTrends',
-                'totalQuotes',
+                'statusStats',
+                'userPerformance',
+                'recentQuotes',
                 'topStates',
                 'topMakes',
                 'revenueByCategory'
@@ -150,45 +183,41 @@ class DashboardController extends Controller
         } else {
             // USER DASHBOARD LOGIC
             $statuses = [
-                'New' => 'fiber_new',
-                'In Progress' => 'hourglass_top',
-                'Completed' => 'check_circle',
-                'Cancelled' => 'cancel',
-                'Asking Low' => 'trending_down',
-                'Interested' => 'thumb_up',
-                'Follow Up' => 'schedule',
-                'Not Interested' => 'thumb_down',
-                'No Response' => 'phone_missed',
-                'Booked' => 'event_available',
+                'New'             => 'fiber_new',
+                'In Progress'     => 'hourglass_top',
+                'Completed'       => 'check_circle',
+                'Cancelled'       => 'cancel',
+                'Asking Low'      => 'trending_down',
+                'Interested'      => 'thumb_up',
+                'Follow Up'       => 'schedule',
+                'Not Interested'  => 'thumb_down',
+                'No Response'     => 'phone_missed',
+                'Booked'          => 'event_available',
                 'Payment Missing' => 'payment',
-                'Listed' => 'list',
-                'Dispatch' => 'local_shipping',
-                'Pickup' => 'shopping_bag',
-                'Delivery' => 'done_all',
-                'Deleted' => 'delete',
+                'Listed'          => 'list',
+                'Dispatch'        => 'local_shipping',
+                'Pickup'          => 'shopping_bag',
+                'Delivery'        => 'done_all',
+                'Deleted'         => 'delete',
             ];
 
-            // Get 'active' statuses (filter out some if needed, but user asked for "just the boxes for all statuses")
-            // Stats for THIS MONTH only
             $startOfMonth = Carbon::now()->startOfMonth();
-            $endOfMonth = Carbon::now()->endOfMonth();
+            $endOfMonth   = Carbon::now()->endOfMonth();
 
             $statusStats = collect($statuses)->map(function ($icon, $status) use ($user, $startOfMonth, $endOfMonth) {
-                // Count quotes for this user, with this status, created this month
                 $count = Quote::where('user_id', $user->id)
                     ->where('status', $status)
                     ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
                     ->count();
 
-                // Get class color helper from Quote model if available, or default
                 $statusConfig = Quote::$statuses[$status] ?? [];
-                $colorClass = $statusConfig['class'] ?? 'bg-primary';
+                $colorClass   = $statusConfig['class'] ?? 'bg-primary';
 
                 return [
                     'status' => $status,
-                    'icon' => $icon,
-                    'count' => $count,
-                    'color' => $colorClass // Pass color for UI
+                    'icon'   => $icon,
+                    'count'  => $count,
+                    'color'  => $colorClass,
                 ];
             });
 

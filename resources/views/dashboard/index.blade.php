@@ -1,435 +1,449 @@
 @extends('dashboard.includes.partial.base')
-@section('title', 'Home')
-@section('meta_description', 'Explore our SaaS solutions tailored to your business.')
-@section('meta_keywords', 'SaaS, services, business software')
+@section('title', 'Admin Dashboard')
+@section('meta_description', 'Overview of system performance, user activity and quote pipeline.')
+@section('meta_keywords', 'admin, dashboard, quotes, users, revenue')
 
 @section('content')
-    <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Dashboard</div>
-        <div class="ps-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0 p-0">
-                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Analysis</li>
-                </ol>
-            </nav>
+
+{{-- Breadcrumb --}}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Dashboard</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Overview</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="ms-auto">
+        <span class="text-muted small"><i class="bx bx-calendar me-1"></i>{{ now()->format('D, M d Y') }}</span>
+    </div>
+</div>
+
+{{-- ======================================================
+     ROW 1: KPI CARDS
+     ====================================================== --}}
+<div class="row g-3 mb-3">
+
+    {{-- Total Quotes --}}
+    <div class="col-6 col-md-3">
+        <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#6366f1,#8b5cf6);">
+            <div class="card-body text-white p-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="material-icons-outlined opacity-75 fs-2">receipt_long</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">All Time</span>
+                </div>
+                <h3 class="mb-0 fw-bold text-white">{{ number_format($totalQuotes) }}</h3>
+                <p class="mb-0 opacity-75 small">Total Quotes</p>
+            </div>
         </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <button type="button" class="btn btn-outline-primary">Settings</button>
-                <button type="button"
-                    class="btn btn-outline-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-                    data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-                        href="javascript:;">Action</a>
-                    <a class="dropdown-item" href="javascript:;">Another action</a>
-                    <a class="dropdown-item" href="javascript:;">Something else here</a>
-                    <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated link</a>
+    </div>
+
+    {{-- Month Revenue --}}
+    <div class="col-6 col-md-3">
+        <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#10b981,#059669);">
+            <div class="card-body text-white p-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="material-icons-outlined opacity-75 fs-2">attach_money</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">
+                        {{ $revenueGrowth >= 0 ? '+' : '' }}{{ $revenueGrowth }}%
+                    </span>
+                </div>
+                <h3 class="mb-0 fw-bold text-white">${{ number_format($monthRevenue / 1000, 1) }}K</h3>
+                <p class="mb-0 opacity-75 small">Revenue This Month</p>
+            </div>
+        </div>
+    </div>
+
+    {{-- Active Users --}}
+    <div class="col-6 col-md-3">
+        <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#f59e0b,#d97706);">
+            <div class="card-body text-white p-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="material-icons-outlined opacity-75 fs-2">group</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">{{ $totalUsers }} total</span>
+                </div>
+                <h3 class="mb-0 fw-bold text-white">{{ $activeUsers }}</h3>
+                <p class="mb-0 opacity-75 small">Active Users</p>
+            </div>
+        </div>
+    </div>
+
+    {{-- Success Rate --}}
+    <div class="col-6 col-md-3">
+        <div class="card rounded-4 h-100 border-0" style="background: linear-gradient(135deg,#ef4444,#dc2626);">
+            <div class="card-body text-white p-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="material-icons-outlined opacity-75 fs-2">check_circle</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">{{ $completedCount }} done</span>
+                </div>
+                <h3 class="mb-0 fw-bold text-white">{{ $successRate }}%</h3>
+                <p class="mb-0 opacity-75 small">Success Rate</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- ======================================================
+     ROW 2: Pipeline Status + Revenue Chart
+     ====================================================== --}}
+<div class="row g-3 mb-3">
+
+    {{-- Quote Pipeline Summary --}}
+    <div class="col-xl-5">
+        <div class="card rounded-4 h-100 border-0">
+            <div class="card-header border-0 pb-0 pt-3 px-3">
+                <h6 class="fw-bold mb-0">
+                    <span class="material-icons-outlined align-middle me-1 text-primary" style="font-size:18px;">funnel</span>
+                    Quote Pipeline
+                </h6>
+                <p class="text-muted small mb-0">Live status distribution</p>
+            </div>
+            <div class="card-body px-3 pt-2 pb-3">
+
+                @php
+                    $pipeline = [
+                        ['label'=>'Booked',          'count'=>$bookedCount,          'icon'=>'event_available', 'color'=>'#10b981', 'bg'=>'rgba(16,185,129,.12)'],
+                        ['label'=>'In Progress',     'count'=>$inProgressCount,      'icon'=>'hourglass_top',   'color'=>'#f59e0b', 'bg'=>'rgba(245,158,11,.12)'],
+                        ['label'=>'Payment Missing', 'count'=>$paymentMissingCount,  'icon'=>'payment',         'color'=>'#ef4444', 'bg'=>'rgba(239,68,68,.12)'],
+                        ['label'=>'Completed',       'count'=>$completedCount,       'icon'=>'check_circle',    'color'=>'#6366f1', 'bg'=>'rgba(99,102,241,.12)'],
+                        ['label'=>'Cancelled',       'count'=>$cancelledCount,       'icon'=>'cancel',          'color'=>'#6b7280', 'bg'=>'rgba(107,114,128,.12)'],
+                    ];
+                    $pipelineMax = max(array_column($pipeline, 'count'), 1);
+                @endphp
+
+                <div class="d-flex flex-column gap-2 mt-1">
+                    @foreach($pipeline as $p)
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="flex-shrink-0 d-flex align-items-center justify-content-center rounded-3"
+                             style="width:34px;height:34px;background:{{ $p['bg'] }};">
+                            <span class="material-icons-outlined" style="font-size:17px;color:{{ $p['color'] }};">{{ $p['icon'] }}</span>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="small fw-semibold">{{ $p['label'] }}</span>
+                                <span class="small fw-bold" style="color:{{ $p['color'] }};">{{ number_format($p['count']) }}</span>
+                            </div>
+                            <div class="progress" style="height:5px;border-radius:99px;">
+                                <div class="progress-bar" role="progressbar"
+                                     style="width:{{ $pipelineMax > 0 ? round(($p['count']/$pipelineMax)*100) : 0 }}%;background:{{ $p['color'] }};border-radius:99px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                {{-- Extra status counts in compact chips --}}
+                @php
+                    $extraStatuses = $statusStats->whereNotIn('status', ['Booked','In Progress','Payment Missing','Completed','Cancelled','Deleted']);
+                @endphp
+                <div class="d-flex flex-wrap gap-2 mt-3 pt-2 border-top">
+                    @foreach($extraStatuses as $s)
+                    <span class="badge rounded-pill text-dark border fw-normal px-2 py-1 small"
+                          style="background:#f8f9fa;">
+                        {{ $s['status'] }}: <strong>{{ $s['count'] }}</strong>
+                    </span>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-    <!--end breadcrumb-->
-    <div class="row">
-        <div class="col-xxl-8 d-flex align-items-stretch">
-            <div class="card w-100 overflow-hidden rounded-4">
-                <div class="card-body position-relative p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-7">
-                            <div class="d-flex align-items-center gap-3 mb-5">
-                                <img src="https://placehold.co/110x110/png" class="rounded-circle bg-grd-info p-1"
-                                    width="60" height="60" alt="user">
-                                <div class="">
-                                    <p class="mb-0 fw-semibold">Welcome back</p>
-                                    <h4 class="fw-semibold mb-0 fs-4 mb-0">{{ auth()->user()->name }}!</h4>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-5">
-                                <div class="">
-                                    <h4 class="mb-1 fw-semibold d-flex align-content-center">
-                                        ${{ number_format($todaySales / 1000, 1) }}K<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base {{ $salesGrowth >= 0 ? 'text-success' : 'text-danger' }}"></i>
-                                    </h4>
-                                    <p class="mb-3">Today's Sales</p>
-                                    <div class="progress mb-0" style="height:5px;">
-                                        <div class="progress-bar bg-grd-success" role="progressbar"
-                                            style="width: {{ min(100, max(0, $salesGrowth)) }}%"
-                                            aria-valuenow="{{ $salesGrowth }}" aria-valuemin="0" aria-valuemax="100"></div>
+
+    {{-- Revenue Trend Chart --}}
+    <div class="col-xl-7">
+        <div class="card rounded-4 h-100 border-0">
+            <div class="card-header border-0 pb-0 pt-3 px-3 d-flex align-items-start justify-content-between">
+                <div>
+                    <h6 class="fw-bold mb-0">
+                        <span class="material-icons-outlined align-middle me-1 text-success" style="font-size:18px;">trending_up</span>
+                        Revenue Trend
+                    </h6>
+                    <p class="text-muted small mb-0">Last 9 months</p>
+                </div>
+                <div class="text-end">
+                    <h5 class="mb-0 text-success fw-bold">${{ number_format($monthRevenue / 1000, 1) }}K</h5>
+                    <small class="text-muted">This Month</small>
+                </div>
+            </div>
+            <div class="card-body px-2 pb-2 pt-0">
+                <div id="chartRevenue"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- ======================================================
+     ROW 3: User Performance Leaderboard
+     ====================================================== --}}
+<div class="row g-3 mb-3">
+    <div class="col-12">
+        <div class="card rounded-4 border-0">
+            <div class="card-header border-0 pt-3 pb-0 px-3 d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="fw-bold mb-0">
+                        <span class="material-icons-outlined align-middle me-1 text-warning" style="font-size:18px;">leaderboard</span>
+                        User Performance Leaderboard
+                    </h6>
+                    <p class="text-muted small mb-0">Active users · all-time quotes & this month</p>
+                </div>
+                <a href="{{ route('dashboard.users.index') }}" class="btn btn-sm btn-outline-primary">
+                    <span class="material-icons-outlined" style="font-size:15px;vertical-align:middle;">open_in_new</span>
+                    All Users
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-3" style="width:30px;">#</th>
+                                <th>Agent</th>
+                                <th class="text-center">Total Quotes</th>
+                                <th class="text-center">This Month</th>
+                                <th class="text-center">Booked</th>
+                                <th class="text-center">Completed</th>
+                                <th class="text-center">Month Rev.</th>
+                                <th class="text-center pe-3">Success %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($userPerformance as $idx => $up)
+                            <tr>
+                                <td class="ps-3">
+                                    @if($idx === 0)
+                                        <span class="material-icons-outlined text-warning" style="font-size:18px;">workspace_premium</span>
+                                    @elseif($idx === 1)
+                                        <span class="material-icons-outlined text-secondary" style="font-size:18px;">military_tech</span>
+                                    @elseif($idx === 2)
+                                        <span class="material-icons-outlined" style="font-size:18px;color:#cd7f32;">military_tech</span>
+                                    @else
+                                        <span class="text-muted small">{{ $idx + 1 }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white"
+                                             style="width:34px;height:34px;font-size:13px;background:hsl({{ ($up['id'] * 47) % 360 }},60%,50%);">
+                                            {{ strtoupper(substr($up['name'], 0, 1)) }}
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold small">{{ $up['name'] }}</div>
+                                            <div class="text-muted" style="font-size:11px;">
+                                                {{ $up['designation'] }}{{ $up['department'] !== '-' ? ' · '.$up['department'] : '' }}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="vr"></div>
-                                <div class="">
-                                    <h4 class="mb-1 fw-semibold d-flex align-content-center">
-                                        {{ number_format($quotesGrowth, 1) }}%<i
-                                            class="ti ti-arrow-up-right fs-5 lh-base {{ $quotesGrowth >= 0 ? 'text-success' : 'text-danger' }}"></i>
-                                    </h4>
-                                    <p class="mb-3">Growth Rate</p>
-                                    <div class="progress mb-0" style="height:5px;">
-                                        <div class="progress-bar bg-grd-danger" role="progressbar"
-                                            style="width: {{ min(100, max(0, $quotesGrowth)) }}%"
-                                            aria-valuenow="{{ $quotesGrowth }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </td>
+                                <td class="text-center fw-bold">{{ number_format($up['total']) }}</td>
+                                <td class="text-center">
+                                    <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary fw-semibold">
+                                        {{ $up['this_month'] }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success fw-semibold">
+                                        {{ $up['booked'] }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge rounded-pill bg-info bg-opacity-10 text-info fw-semibold">
+                                        {{ $up['completed'] }}
+                                    </span>
+                                </td>
+                                <td class="text-center small">${{ number_format($up['month_rev'] / 1000, 1) }}K</td>
+                                <td class="text-center pe-3">
+                                    @php $sr = $up['success_rate']; @endphp
+                                    <div class="d-flex align-items-center gap-1 justify-content-center">
+                                        <div class="progress flex-grow-1" style="height:5px;max-width:50px;">
+                                            <div class="progress-bar {{ $sr >= 50 ? 'bg-success' : ($sr >= 20 ? 'bg-warning' : 'bg-danger') }}"
+                                                 style="width:{{ $sr }}%;"></div>
+                                        </div>
+                                        <small class="fw-semibold" style="min-width:32px;">{{ $sr }}%</small>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-5">
-                            <div class="welcome-back-img pt-4">
-                                <img src="{{ asset('admin/images/gallery/welcome-back-3.png') }}" height="180"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div><!--end row-->
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8" class="text-center py-4 text-muted">No active agent data yet.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-xxl-2 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between mb-1">
-                        <div class="">
-                            <h5 class="mb-0">{{ number_format($activeUsers / 1000, 1) }}K</h5>
-                            <p class="mb-0">Active Users</p>
-                        </div>
-                    </div>
-                    <div class="chart-container2">
-                        <div id="chart1"></div>
-                    </div>
-                    <div class="text-center">
-                        <p class="mb-0 font-12">{{ $activeUsers }} active users out of {{ $totalUsers }}</p>
-                    </div>
-                </div>
+    </div>
+</div>
+
+{{-- ======================================================
+     ROW 4: Top States + Top Makes + Quotes Trend
+     ====================================================== --}}
+<div class="row g-3 mb-3">
+
+    {{-- Top Pickup States --}}
+    <div class="col-md-4">
+        <div class="card rounded-4 border-0 h-100">
+            <div class="card-header border-0 pt-3 pb-0 px-3">
+                <h6 class="fw-bold mb-0">
+                    <span class="material-icons-outlined align-middle me-1 text-info" style="font-size:18px;">location_on</span>
+                    Top Pickup States
+                </h6>
             </div>
-        </div>
-        <div class="col-xl-6 col-xxl-2 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between mb-3">
-                        <div class="">
-                            <h5 class="mb-0">Top States</h5>
-                            <p class="mb-0">Pickup Volume</p>
+            <div class="card-body px-3 pt-2">
+                @php $stateMax = $topStates->max('total') ?: 1; @endphp
+                @foreach($topStates as $i => $state)
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="fw-bold text-muted" style="min-width:18px;font-size:12px;">{{ $i+1 }}</span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="small fw-semibold">{{ $state->state }}</span>
+                            <span class="small text-muted">{{ number_format($state->total) }}</span>
                         </div>
-                    </div>
-                    <div class="chart-container2">
-                        <div id="chart2"></div>
-                    </div>
-                    <div class="text-center">
-                        <p class="mb-0 font-12">Top states by pickup count</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-body">
-                    <div class="text-center">
-                        <h6 class="mb-0">Monthly Revenue</h6>
-                    </div>
-                    <div class="mt-4" id="chart5"></div>
-                    <p>Trends over the last 9 months</p>
-                    <div class="d-flex align-items-center gap-3 mt-4">
-                        <div class="">
-                            <h1 class="mb-0 text-primary">${{ number_format($revenueTrends->last() / 1000, 1) }}K</h1>
-                        </div>
-                        <div class="d-flex align-items-center align-self-end text-success">
-                            <p class="mb-0">Current Month</p>
-                            <span class="material-icons-outlined">trending_up</span>
+                        <div class="progress" style="height:4px;">
+                            <div class="progress-bar bg-info" style="width:{{ round(($state->total/$stateMax)*100) }}%;"></div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
-        <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex flex-column gap-3">
-                        <div class="d-flex align-items-start justify-content-between">
-                            <div class="">
-                                <h5 class="mb-0">Revenue by Category</h5>
-                            </div>
+    </div>
+
+    {{-- Top Vehicle Makes --}}
+    <div class="col-md-4">
+        <div class="card rounded-4 border-0 h-100">
+            <div class="card-header border-0 pt-3 pb-0 px-3">
+                <h6 class="fw-bold mb-0">
+                    <span class="material-icons-outlined align-middle me-1 text-warning" style="font-size:18px;">directions_car</span>
+                    Top Vehicle Makes
+                </h6>
+            </div>
+            <div class="card-body px-3 pt-2">
+                @php $makeMax = $topMakes->max('total') ?: 1; @endphp
+                @foreach($topMakes as $i => $make)
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="fw-bold text-muted" style="min-width:18px;font-size:12px;">{{ $i+1 }}</span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="small fw-semibold">{{ $make->make ?: 'Unknown' }}</span>
+                            <span class="small text-muted">{{ number_format($make->total) }}</span>
                         </div>
-                        <div class="position-relative">
-                            <div class="piechart-legend">
-                                <h2 class="mb-1">${{ number_format($revenueTrends->sum() / 1000, 1) }}K</h2>
-                                <h6 class="mb-0">Total Revenue</h6>
-                            </div>
-                            <div id="chart6"></div>
+                        <div class="progress" style="height:4px;">
+                            <div class="progress-bar bg-warning" style="width:{{ round(($make->total/$makeMax)*100) }}%;"></div>
                         </div>
-                        <div class="d-flex flex-column gap-3">
-                            @foreach ($revenueByCategory->take(3) as $rev)
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="mb-0 d-flex align-items-center gap-2 w-50">
-                                        <span class="material-icons-outlined fs-6 text-primary">category</span>
-                                        {{ $rev->name }}
-                                    </p>
-                                    <div class="">
-                                        <p class="mb-0">${{ number_format($rev->total / 1000, 1) }}K</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- Quote Volume Trend --}}
+    <div class="col-md-4">
+        <div class="card rounded-4 border-0 h-100">
+            <div class="card-header border-0 pt-3 pb-0 px-3">
+                <h6 class="fw-bold mb-0">
+                    <span class="material-icons-outlined align-middle me-1 text-primary" style="font-size:18px;">bar_chart</span>
+                    Quote Volume
+                </h6>
+                <p class="text-muted small mb-0">9-month trend</p>
+            </div>
+            <div class="card-body px-2 pt-1 pb-2">
+                <div id="chartQuotes"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- ======================================================
+     ROW 5: Recent Activity
+     ====================================================== --}}
+<div class="row g-3 mb-3">
+    <div class="col-12">
+        <div class="card rounded-4 border-0">
+            <div class="card-header border-0 pt-3 pb-0 px-3 d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="fw-bold mb-0">
+                        <span class="material-icons-outlined align-middle me-1 text-primary" style="font-size:18px;">history</span>
+                        Recent Quotes
+                    </h6>
+                    <p class="text-muted small mb-0">Latest 10 entries across all agents</p>
+                </div>
+                <a href="{{ route('dashboard.quotes.index', 'New') }}" class="btn btn-sm btn-outline-primary">
+                    View All
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-3">Quote #</th>
+                                <th>Agent</th>
+                                <th>Customer</th>
+                                <th>Vehicle(s)</th>
+                                <th>Route</th>
+                                <th>Status</th>
+                                <th class="pe-3">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recentQuotes as $quote)
+                            <tr>
+                                <td class="ps-3">
+                                    <a href="{{ route('dashboard.quotes.details', $quote->id) }}"
+                                       class="fw-semibold text-decoration-none text-primary">
+                                        #{{ $quote->id }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="small">{{ $quote->user?->name ?? '—' }}</span>
+                                </td>
+                                <td>
+                                    <div class="fw-semibold small">{{ $quote->customer_name }}</div>
+                                    <div class="text-muted" style="font-size:11px;">{{ $quote->customer_phone }}</div>
+                                </td>
+                                <td>
+                                    @foreach($quote->vehicles->take(2) as $vehicle)
+                                        <div class="small">{{ $vehicle->year }} {{ $vehicle->make }} {{ $vehicle->model }}</div>
+                                    @endforeach
+                                    @if($quote->vehicles->count() > 2)
+                                        <div class="text-muted" style="font-size:11px;">+{{ $quote->vehicles->count()-2 }} more</div>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="small">
+                                        <span class="material-icons-outlined text-success" style="font-size:13px;vertical-align:middle;">arrow_upward</span>
+                                        {{ $quote->pickupLocation?->full_location ?? '—' }}
                                     </div>
-                                </div>
+                                    <div class="small">
+                                        <span class="material-icons-outlined text-danger" style="font-size:13px;vertical-align:middle;">arrow_downward</span>
+                                        {{ $quote->deliveryLocation?->full_location ?? '—' }}
+                                    </div>
+                                </td>
+                                <td>{!! $quote->status_label !!}</td>
+                                <td class="pe-3 text-muted small">{{ $quote->created_at->format('M d') }}</td>
+                            </tr>
                             @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-4">
-            <div class="row">
-                <div class="col-md-6 d-flex align-items-stretch">
-                    <div class="card w-100 rounded-4">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start justify-content-between mb-1">
-                                <div class="">
-                                    <h5 class="mb-0">{{ $totalQuotes }}</h5>
-                                    <p class="mb-0">Total Quotes</p>
-                                </div>
-                            </div>
-                            <div class="chart-container2">
-                                <div id="chart3"></div>
-                            </div>
-                            <div class="text-center">
-                                <p class="mb-0 font-12">Quotes volume trends</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 d-flex align-items-stretch">
-                    <div class="card w-100 rounded-4">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start justify-content-between mb-1">
-                                <div class="">
-                                    <h5 class="mb-0">Top Makes</h5>
-                                    <p class="mb-0">Vehicle Volume</p>
-                                </div>
-                            </div>
-                            <div class="chart-container2">
-                                <div id="chart4"></div>
-                            </div>
-                            <div class="text-center">
-                                <p class="mb-0 font-12">Most common vehicles</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card rounded-4 text-center p-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-center gap-3 mb-2 justify-content-center">
-                        <h3 class="mb-0">{{ number_format($totalQuotes) }}</h3>
-                        <p
-                            class="dash-lable d-flex align-items-center gap-1 rounded mb-0 bg-success text-success bg-opacity-10">
-                            <span class="material-icons-outlined fs-6">arrow_upward</span>Dynamic
-                        </p>
-                    </div>
-                    <p class="mb-0">Total Life-time Quotes</p>
-                    <div id="chart7"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between mb-3">
-                        <h6 class="mb-0 fw-bold">Quote Stats Detail</h6>
-                    </div>
-
-                    <ul class="list-group list-group-flush">
-                        @foreach ($statusStats as $stat)
-                            <li class="list-group-item px-0 bg-transparent">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div
-                                        class="wh-42 d-flex align-items-center justify-content-center rounded-3 bg-grd-primary">
-                                        <span class="material-icons-outlined text-white">{{ $stat['icon'] }}</span>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-0">{{ $stat['status'] }}</h6>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <p class="mb-0">{{ $stat['count'] }}</p>
-                                        <p class="mb-0 fw-bold text-success">{{ $stat['percentage'] }}%</p>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-body text-center">
-                    <div id="chart8"></div>
-                    <div class="d-flex align-items-center gap-3 mt-4 justify-content-center">
-                        <h1 class="mb-0">
-                            {{ $totalQuotes > 0 ? round((($statusStats->where('status', 'Completed')->first()['count'] ?? 0) / $totalQuotes) * 100, 1) : 0 }}%
-                        </h1>
-                        <div class="d-flex align-items-center align-self-end gap-2 text-success">
-                            <span class="material-icons-outlined">trending_up</span>
-                            <p class="mb-0">Success Rate</p>
-                        </div>
-                    </div>
-                    <p class="mb-4">Overall Performance</p>
-                    <div class="d-flex flex-column gap-3 text-start">
-                        @foreach ($statusStats->take(4) as $stat)
-                            <div class="">
-                                <p class="mb-1">{{ $stat['status'] }} <span
-                                        class="float-end">{{ $stat['count'] }}</span></p>
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-grd-info" style="width: {{ $stat['percentage'] }}%">
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between mb-3">
-                        <h6 class="mb-0 fw-bold">Top Pickup States</h6>
-                    </div>
-
-                    <ul class="list-group list-group-flush">
-                        @foreach ($topStates as $state)
-                            <li class="list-group-item px-0 bg-transparent">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div
-                                        class="wh-42 d-flex align-items-center justify-content-center rounded-3 bg-grd-info">
-                                        <span class="material-icons-outlined text-white">location_on</span>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-0">{{ $state->state }}</h6>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <p class="mb-0">{{ $state->total }}</p>
-                                        <p class="mb-0 fw-bold text-success">
-                                            {{ $totalQuotes > 0 ? round(($state->total / $totalQuotes) * 100, 1) : 0 }}%
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-6 col-xxl-4 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4">
-                <div class="card-header border-0 p-3 border-bottom">
-                    <h5 class="mb-0">Top Vehicle Makes</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        @foreach ($topMakes as $make)
-                            <li class="list-group-item px-0 bg-transparent">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div
-                                        class="wh-42 d-flex align-items-center justify-content-center rounded-3 bg-grd-warning">
-                                        <span class="material-icons-outlined text-white">directions_car</span>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-0">{{ $make->make }}</h6>
-                                    </div>
-                                    <div class="">
-                                        <p class="mb-0 fw-bold">{{ $make->total }}</p>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-12 col-xxl-12 d-flex align-items-stretch">
-            <div class="card w-100 rounded-4 text-center">
-                <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between mb-3">
-                        <h5 class="mb-0">Recent Activity</h5>
-                        <a href="{{ route('dashboard.quotes.index', 'New') }}" class="btn btn-sm btn-outline-primary">
-                            View All Quotes
-                        </a>
-                    </div>
-
-                    <div class="table-responsive text-start">
-                        <table class="table align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Sr#.</th>
-                                    <th>Quote #</th>
-                                    <th>Customer</th>
-                                    <th>Vehicles</th>
-                                    <th>Pickup / Delivery</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($recentQuotes as $quote)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            <a href="{{ route('dashboard.quotes.details', $quote->id) }}"
-                                                class="text-decoration-none">
-                                                #{{ $quote->id }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            {{ $quote->customer_name }}<br>
-                                            <small>{{ $quote->customer_email }}</small><br>
-                                            <small>{{ $quote->customer_phone }}</small>
-                                        </td>
-                                        <td>
-                                            @foreach ($quote->vehicles as $vehicle)
-                                                <p class="mb-1">{{ $vehicle->year }} {{ $vehicle->make }}
-                                                    {{ $vehicle->model }}</p>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            <strong>P:</strong> {{ $quote->pickupLocation?->full_location ?? '-' }}<br>
-                                            <strong>D:</strong> {{ $quote->deliveryLocation?->full_location ?? '-' }}
-                                        </td>
-                                        <td>
-                                            {!! $quote->status_label !!}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <script src="{{ asset('admin/plugins/peity/jquery.peity.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/apexchart/apexcharts.min.js') }}"></script>
-    <script>
-        // Inject data for global use in dashboard js
-        window.dashboardData = {
-            revenueTrends: @json($revenueTrends),
-            months: @json($months),
-            quoteCountsTrends: @json($quoteCountsTrends),
-            statusStats: @json($statusStats->values()),
-            totalQuotes: {{ $totalQuotes }},
-            activeUsers: {{ $activeUsers }},
-            totalUsers: {{ $totalUsers }},
-            topStatesValue: @json($topStates->pluck('total')),
-            topStatesName: @json($topStates->pluck('state')),
-            topMakesValue: @json($topMakes->pluck('total')),
-            topMakesName: @json($topMakes->pluck('make')),
-            revenueByCategory: @json($revenueByCategory->pluck('total')),
-            categoryNames: @json($revenueByCategory->pluck('name'))
-        };
-    </script>
-    <script src="{{ asset('admin/js/dashboard1.js') }}"></script>
-    <script>
-        $(".data-attributes span").peity("donut")
-        new PerfectScrollbar(".user-list")
-    </script>
+</div>
+
+{{-- Scripts --}}
+<script src="{{ asset('admin/plugins/apexchart/apexcharts.min.js') }}"></script>
+<script>
+    window.dashboardData = {
+        revenueTrends: @json($revenueTrends),
+        months: @json($months),
+        quoteCountsTrends: @json($quoteCountsTrends),
+    };
+</script>
+<script src="{{ asset('admin/js/dashboard_admin.js') }}"></script>
+
 @endsection
