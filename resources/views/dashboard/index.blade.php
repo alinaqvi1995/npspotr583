@@ -32,7 +32,7 @@
             <div class="card-body text-white p-3">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="material-icons-outlined opacity-75 fs-2">receipt_long</span>
-                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">All Time</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small text-dark">All Time</span>
                 </div>
                 <h3 class="mb-0 fw-bold text-white">{{ number_format($totalQuotes) }}</h3>
                 <p class="mb-0 opacity-75 small">Total Quotes</p>
@@ -46,7 +46,7 @@
             <div class="card-body text-white p-3">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="material-icons-outlined opacity-75 fs-2">group</span>
-                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">{{ $totalUsers }} total</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small text-dark">{{ $totalUsers }} total</span>
                 </div>
                 <h3 class="mb-0 fw-bold text-white">{{ $activeUsers }}</h3>
                 <p class="mb-0 opacity-75 small">Active Users</p>
@@ -60,7 +60,7 @@
             <div class="card-body text-white p-3">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="material-icons-outlined opacity-75 fs-2">event_available</span>
-                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small">{{ $completedCount }} completed</span>
+                    <span class="badge bg-white bg-opacity-20 text-white fw-normal small text-dark">{{ $completedCount }} completed</span>
                 </div>
                 <h3 class="mb-0 fw-bold text-white">{{ number_format($bookedCount) }}</h3>
                 <p class="mb-0 opacity-75 small">Booked</p>
