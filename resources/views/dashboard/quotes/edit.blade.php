@@ -348,7 +348,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 d-none">
                                 <label class="form-label">Load-Specific Terms</label>
                                 <textarea class="form-control" rows="3" maxlength="500" name="contract[terms]"
                                     placeholder="Add any additional terms">{{ old('contract.terms', $quote->load_specific_terms) }}</textarea>

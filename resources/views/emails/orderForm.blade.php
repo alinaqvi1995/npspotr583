@@ -64,6 +64,14 @@
         <span style="color:#1a73e8;">{{ $quote->delivery_date_formatted }}</span>
     </p>
 
+    <!-- Amount -->
+    <h4 style="margin:25px 0 10px; font-size:16px; font-weight:600; color:#333;">
+        Amount
+    </h4>
+    <p style="font-size:14px; color:#555; margin:0; line-height:22px;">
+        ${{ $quote->amount_to_pay ?? 0 }}
+    </p>
+
     <!-- Footer Note -->
     <p style="margin-top:35px; font-size:13px; color:#777; line-height:20px; text-align:center;">
         If you have any questions, please contact us directly. <br>
