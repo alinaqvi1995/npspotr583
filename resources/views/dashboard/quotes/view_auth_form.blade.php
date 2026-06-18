@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Company Name</label>
+                            <label class="form-label fw-semibold">Customer Name</label>
                             <input type="text" class="form-control" value="{{ $authForm->company_name ?? '-' }}"
                                 readonly>
                         </div>
