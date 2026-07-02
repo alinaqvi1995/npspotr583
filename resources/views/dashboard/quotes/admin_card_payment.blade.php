@@ -399,6 +399,162 @@ $(document).ready(function () {
 
         const btn = $(this);
         btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
+
+        $('#lookupError').hide();
+        $('#quoteInfo').hide();
+        $('#adminPayForm').hide();
+
+        $.get(`{{ url('/admin/quotes') }}/${quoteNum}/card-payment-info`, function (res) {
+            if (res.success) {
+                currentQuote = res.quote;
+                renderQuoteInfo(res.quote);
+                $('#quoteInfo').slideDown(200);
+            } else {
+                showLookupError(res.message || 'Quote not found.');
+            }
+        }).fail(function (xhr) {
+            showLookupError(xhr.responseJSON?.message || 'Quote not found or error occurred.');
+        }).always(function () {
+            btn.prop('disabled', false).html('<i class="material-icons-outlined align-middle" style="font-size:1rem">search</i> Lookup');
+        });
+    });
+
+    // Enter key support
+    $('#quoteNumberInput').on('keypress', function (e) {
+        if (e.which === 13) $('#lookupQuoteBtn').click();
+    });
+
+    function showLookupError(msg) {
+        $('#lookupError').text(msg).show();
+    }
+
+    function renderQuoteInfo(q) {
+        $('#qi_id').text(q.id);
+        $('#qi_customer').text(q.customer_name || '—');
+        $('#qi_status').text(q.status || '—');
+        $('#qi_pickup').text(q.pickup || '—');
+        $('#qi_delivery').text(q.delivery || '—');
+        $('#qi_amount').text(parseFloat(q.amount_to_pay || 0).toFixed(2));
+
+        if (q.vehicles && q.vehicles.length > 0) {
+            $('#qi_vehicles').html(q.vehicles.map(v => `<span class="vehicle-pill">${v}</span>`).join(''));
+            $('#qi_vehicles_wrap').show();
+        } else {
+            $('#qi_vehicles_wrap').hide();
+        }
+    }
+
+    // ── Fill Form ─────────────────────────────────────────────────────────────
+    $('#fillFormBtn').on('click', function () {
+        if (!currentQuote) return;
+        const q = currentQuote;
+
+        // Hidden quote_id
+        $('#formQuoteId').val(q.id);
+
+        // Charge summary
+        $('#cs_id').text(q.id);
+        $('#cs_customer').text(q.customer_name || '—');
+        const baseAmt = parseFloat(q.amount_to_pay || 0);
+        $('#cs_amount').text(baseAmt.toFixed(2));
+        $('#cs_fee').text((baseAmt * 0.04).toFixed(2));
+
+        // Customer Info
+        $('#f_customer_name').val(q.customer_name || '');
+        $('#f_customer_email').val(q.customer_email || '');
+        $('#f_customer_phone').val(q.customer_phone || '');
+
+        // Pickup
+        $('#f_pickup_address').val(q.pickup_address1 || '');
+        $('#f_pickup_city_state_zip').val(q.pickup || '');           // full location
+        $('#f_pickup_contact_name').val(q.pickup_contact_name || '');
+        $('#f_pickup_contact_email').val(q.pickup_contact_email || '');
+        $('#f_pickup_date').val(q.pickup_date || '');
+
+        // Delivery
+        $('#f_delivery_address').val(q.delivery_address1 || '');
+        $('#f_delivery_city_state_zip').val(q.delivery || '');
+        $('#f_delivery_contact_name').val(q.delivery_contact_name || '');
+        $('#f_delivery_contact_email').val(q.delivery_contact_email || '');
+
+        // Charge amount
+        $('#f_charge_amount').val(baseAmt.toFixed(2));
+        updateTotalDisplay();
+
+        // Signature
+        $('#f_signature_name').val(q.customer_name || '');
+
+        $('#adminPayForm').slideDown(300);
+        $('html, body').animate({ scrollTop: $('#adminPayForm').offset().top - 80 }, 400);
+    });
+
+    // ── Live fee display ──────────────────────────────────────────────────────
+    $('#f_charge_amount').on('input', updateTotalDisplay);
+
+    function updateTotalDisplay() {
+        const base = parseFloat($('#f_charge_amount').val() || 0);
+        const total = base + (base * 0.04);
+        $('#f_total_display').text(total.toFixed(2));
+    }
+
+    // ── Form Submit with Stripe Token ─────────────────────────────────────
+    document.getElementById('adminCardForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const btn = document.getElementById('chargeBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+
+        const { token, error } = await stripe.createToken(cardElement);
+
+        if (error) {
+            document.getElementById('StripeCardErrors').textContent = error.message;
+            btn.disabled = false;
+            btn.innerHTML = '<i class="material-icons-outlined align-middle me-1" style="font-size:1.1rem">credit_card</i> Charge Card & Book Quote';
+        } else {
+            document.getElementById('StripeToken').value = token.id;
+            this.submit();
+        }
+    });
+});
+</script>
+@endsection
+
+{{-- @section('extra_js')
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+$(document).ready(function () {
+    const stripe = Stripe(`{{ config('services.stripe.key') }}`);
+    const elements = stripe.elements();
+    const cardElement = elements.create('card', {
+        style: {
+            base: {
+                fontSize: '15px',
+                color: '#1a1a2e',
+                fontFamily: 'system-ui, sans-serif',
+                '::placeholder': { color: '#9ca3af' }
+            }
+        }
+    });
+    cardElement.mount('#StripeCardElement');
+
+    cardElement.on('change', function (event) {
+        const displayError = document.getElementById('StripeCardErrors');
+        displayError.textContent = event.error ? event.error.message : '';
+    });
+
+    let currentQuote = null;
+
+    // ── Quote Lookup ──────────────────────────────────────────────────────────
+    $('#lookupQuoteBtn').on('click', function () {
+        const quoteNum = $('#quoteNumberInput').val().trim();
+        if (!quoteNum || isNaN(quoteNum)) {
+            showLookupError('Please enter a valid quote number.');
+            return;
+        }
+
+        const btn = $(this);
+        btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
         $('#lookupError').hide();
         $('#quoteInfo').hide();
         $('#adminPayForm').hide();
@@ -514,4 +670,4 @@ $(document).ready(function () {
     });
 });
 </script>
-@endsection
+@endsection --}}
