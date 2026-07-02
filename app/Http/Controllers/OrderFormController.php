@@ -359,27 +359,27 @@ class OrderFormController extends Controller
             ]);
 
             // Create / update OrderForm record
-            OrderForm::updateOrCreate(
-                ['quote_id' => $quote->id],
-                [
-                    'customer_name' => $validated['customer_name'],
-                    'customer_email' => $validated['customer_email'],
-                    'customer_phone' => $validated['customer_phone'] ?? null,
-                    'pickup_address1' => $validated['pickup_address1'],
-                    'pickup_contact_name' => $validated['pickup_contact_name'],
-                    'pickup_contact_email' => $validated['pickup_contact_email'] ?? null,
-                    'pickup_date' => $validated['pickup_date'],
-                    'delivery_address1' => $validated['delivery_address1'],
-                    'delivery_contact_name' => $validated['delivery_contact_name'],
-                    'delivery_contact_email' => $validated['delivery_contact_email'] ?? null,
-                    'payment_option' => 'now',
-                    'pay_amount_option' => $validated['pay_amount_option'] ?? 'full',
-                    'signature_name' => $validated['signature_name'],
-                    'signature_date' => $validated['signature_date'],
-                    'stripe_charge_id' => $charge->id,
-                    'paid_amount' => $totalCharge,
-                ]
-            );
+            // OrderForm::updateOrCreate(
+            //     ['quote_id' => $quote->id],
+            //     [
+            //         'customer_name' => $validated['customer_name'],
+            //         'customer_email' => $validated['customer_email'],
+            //         'customer_phone' => $validated['customer_phone'] ?? null,
+            //         'pickup_address1' => $validated['pickup_address1'],
+            //         'pickup_contact_name' => $validated['pickup_contact_name'],
+            //         'pickup_contact_email' => $validated['pickup_contact_email'] ?? null,
+            //         'pickup_date' => $validated['pickup_date'],
+            //         'delivery_address1' => $validated['delivery_address1'],
+            //         'delivery_contact_name' => $validated['delivery_contact_name'],
+            //         'delivery_contact_email' => $validated['delivery_contact_email'] ?? null,
+            //         'payment_option' => 'now',
+            //         'pay_amount_option' => $validated['pay_amount_option'] ?? 'full',
+            //         'signature_name' => $validated['signature_name'],
+            //         'signature_date' => $validated['signature_date'],
+            //         'stripe_charge_id' => $charge->id,
+            //         'paid_amount' => $totalCharge,
+            //     ]
+            // );
 
             // Record payment
             QuotePayment::create([

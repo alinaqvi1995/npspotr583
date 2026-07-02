@@ -353,7 +353,7 @@
         <div class="text-center pb-4">
             <button type="submit" class="btn-charge" id="chargeBtn">
                 <i class="material-icons-outlined align-middle me-1" style="font-size:1.1rem">credit_card</i>
-                Charge Card &amp; Book Quote
+                Charge Card
             </button>
             <div class="text-muted small mt-2">
                 <i class="material-icons-outlined align-middle me-1" style="font-size:0.9rem">lock</i>
