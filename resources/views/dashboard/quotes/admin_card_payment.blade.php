@@ -429,7 +429,7 @@ $(document).ready(function () {
 
     function renderQuoteInfo(q) {
         $('#qi_id').text(q.id);
-        $('#qi_customer').text(q.pickupLocation.contact_name || '—');
+        $('#qi_customer').text(q[pickupLocation][contact_name] || '—');
         $('#qi_status').text(q.status || '—');
         $('#qi_pickup').text(q.pickup || '—');
         $('#qi_delivery').text(q.delivery || '—');
