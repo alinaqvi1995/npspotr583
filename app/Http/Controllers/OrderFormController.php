@@ -44,9 +44,9 @@ class OrderFormController extends Controller
         // ✅ Validate upfront
         $validated = $request->validate([
             'quote_id' => 'required|exists:quotes,id',
-            'email'    => 'required|email',
-            'amount_to_pay'    => 'required',
-            'initial_amount'    => 'nullable',
+            'email' => 'required|email',
+            'amount_to_pay' => 'required',
+            'initial_amount' => 'nullable',
         ]);
 
         try {
@@ -70,27 +70,27 @@ class OrderFormController extends Controller
                 });
 
                 $mailStatus = 'success';
-                $mailError  = null;
+                $mailError = null;
             } catch (\Exception $e) {
                 // If email sending fails, don’t crash
                 $mailStatus = 'failed';
-                $mailError  = $e->getMessage();
+                $mailError = $e->getMessage();
             }
 
             // ✅ Log the attempt regardless of outcome
             Activity::create([
-                'log_name'     => 'Send_OrderForm',
-                'description'  => "Order form for Quote #{$quote->id} sent to {$validated['email']} ({$mailStatus})",
-                'causer_type'  => Auth::check() ? get_class(Auth::user()) : null,
-                'causer_id'    => Auth::id(),
+                'log_name' => 'Send_OrderForm',
+                'description' => "Order form for Quote #{$quote->id} sent to {$validated['email']} ({$mailStatus})",
+                'causer_type' => Auth::check() ? get_class(Auth::user()) : null,
+                'causer_id' => Auth::id(),
                 'subject_type' => Quote::class,
-                'subject_id'   => $quote->id,
-                'properties'   => [
-                    'to_email'   => $validated['email'],
-                    'sender_ip'  => $request->ip(),
+                'subject_id' => $quote->id,
+                'properties' => [
+                    'to_email' => $validated['email'],
+                    'sender_ip' => $request->ip(),
                     'user_agent' => $request->userAgent(),
-                    'status'     => $mailStatus,
-                    'error'      => $mailError,
+                    'status' => $mailStatus,
+                    'error' => $mailError,
                 ],
             ]);
 
@@ -130,7 +130,7 @@ class OrderFormController extends Controller
     {
         try {
             $quoteId = decrypt($encrypted);
-            $quote   = Quote::with(['pickupLocation', 'deliveryLocation'])->findOrFail($quoteId);
+            $quote = Quote::with(['pickupLocation', 'deliveryLocation'])->findOrFail($quoteId);
         } catch (\Exception $e) {
             abort(404);
         }
@@ -142,27 +142,27 @@ class OrderFormController extends Controller
         }
 
         $validated = $request->validate([
-            'customer_name'          => 'required|string|max:255',
-            'customer_email'         => 'required|email',
-            'customer_phone'         => 'nullable|string|max:50',
-            'pickup_address1'        => 'required|string|max:255',
-            'pickup_contact_name'    => 'required|string|max:255',
-            'pickup_contact_email'   => 'nullable|email',
-            'pickup_date'            => 'required|date',
-            'delivery_address1'      => 'required|string|max:255',
-            'delivery_contact_name'  => 'required|string|max:255',
+            'customer_name' => 'required|string|max:255',
+            'customer_email' => 'required|email',
+            'customer_phone' => 'nullable|string|max:50',
+            'pickup_address1' => 'required|string|max:255',
+            'pickup_contact_name' => 'required|string|max:255',
+            'pickup_contact_email' => 'nullable|email',
+            'pickup_date' => 'required|date',
+            'delivery_address1' => 'required|string|max:255',
+            'delivery_contact_name' => 'required|string|max:255',
             'delivery_contact_email' => 'nullable|email',
-            'delivery_date'          => 'nullable',
-            'special_instructions'   => 'nullable|string',
-            'payment_option'         => 'required|string|in:now,later',
-            'pay_amount_option'      => 'nullable|string|in:initial,full',
-            'signature_name'         => 'required|string|max:255',
-            'signature_date'         => 'required|date',
-            'stripeToken'            => 'nullable|string',
-            'pickup_phones'          => 'array',
-            'pickup_phones.*'        => 'nullable|string|max:50',
-            'delivery_phones'        => 'array',
-            'delivery_phones.*'      => 'nullable|string|max:50',
+            'delivery_date' => 'nullable',
+            'special_instructions' => 'nullable|string',
+            'payment_option' => 'required|string|in:now,later',
+            'pay_amount_option' => 'nullable|string|in:initial,full',
+            'signature_name' => 'required|string|max:255',
+            'signature_date' => 'required|date',
+            'stripeToken' => 'nullable|string',
+            'pickup_phones' => 'array',
+            'pickup_phones.*' => 'nullable|string|max:50',
+            'delivery_phones' => 'array',
+            'delivery_phones.*' => 'nullable|string|max:50',
         ]);
 
         $validated['quote_id'] = $quote->id;
@@ -182,24 +182,24 @@ class OrderFormController extends Controller
 
                 \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
                 $charge = \Stripe\Charge::create([
-                    'amount'        => round($amountToCharge * 100),
-                    'currency'      => 'usd',
-                    'source'        => $validated['stripeToken'],
-                    'description'   => 'Payment for Quote #' . $quote->id,
+                    'amount' => round($amountToCharge * 100),
+                    'currency' => 'usd',
+                    'source' => $validated['stripeToken'],
+                    'description' => 'Payment for Quote #' . $quote->id,
                     'receipt_email' => $validated['customer_email'],
                 ]);
 
                 $orderForm = OrderForm::create($validated + [
                     'stripe_charge_id' => $charge->id,
-                    'paid_amount'      => $amountToCharge,
+                    'paid_amount' => $amountToCharge,
                 ]);
 
                 QuotePayment::create([
                     'quote_id' => $quote->id,
-                    'amount'   => $amountToCharge,
-                    'channel'  => 'Stripe',
-                    'status'   => 'Paid',
-                    'notes'    => 'Automated payment via Order Form (Stripe ID: ' . $charge->id . ')',
+                    'amount' => $amountToCharge,
+                    'channel' => 'Stripe',
+                    'status' => 'Paid',
+                    'notes' => 'Automated payment via Order Form (Stripe ID: ' . $charge->id . ')',
                 ]);
 
                 $quote->status = ($validated['pay_amount_option'] ?? 'full') === 'initial'
@@ -209,8 +209,8 @@ class OrderFormController extends Controller
 
             if ($quote->pickupLocation) {
                 $quote->pickupLocation->update([
-                    'address1'      => $validated['pickup_address1'],
-                    'contact_name'  => $validated['pickup_contact_name'],
+                    'address1' => $validated['pickup_address1'],
+                    'contact_name' => $validated['pickup_contact_name'],
                     'contact_email' => $validated['pickup_contact_email'],
                 ]);
 
@@ -218,7 +218,7 @@ class OrderFormController extends Controller
                 foreach ($request->pickup_phones ?? [] as $phone) {
                     if (!empty($phone)) {
                         $quote->pickupLocation->phones()->create([
-                            'type'  => 'pickup',
+                            'type' => 'pickup',
                             'phone' => $phone,
                         ]);
                     }
@@ -227,8 +227,8 @@ class OrderFormController extends Controller
 
             if ($quote->deliveryLocation) {
                 $quote->deliveryLocation->update([
-                    'address1'      => $validated['delivery_address1'],
-                    'contact_name'  => $validated['delivery_contact_name'],
+                    'address1' => $validated['delivery_address1'],
+                    'contact_name' => $validated['delivery_contact_name'],
                     'contact_email' => $validated['delivery_contact_email'],
                 ]);
 
@@ -236,14 +236,14 @@ class OrderFormController extends Controller
                 foreach ($request->delivery_phones ?? [] as $phone) {
                     if (!empty($phone)) {
                         $quote->deliveryLocation->phones()->create([
-                            'type'  => 'delivery',
+                            'type' => 'delivery',
                             'phone' => $phone,
                         ]);
                     }
                 }
             }
 
-            $quote->pickup_date   = $validated['pickup_date'] ?? null;
+            $quote->pickup_date = $validated['pickup_date'] ?? null;
             $quote->delivery_date = $validated['delivery_date'] ?? null;
 
             $quote->save();
@@ -269,7 +269,9 @@ class OrderFormController extends Controller
      */
     public function adminCardPaymentPage()
     {
-        return view('dashboard.quotes.admin_card_payment');
+        return view('dashboard.quotes.admin_card_payment', [
+            'quote' => null,           
+        ]);
     }
 
     /**
@@ -283,29 +285,29 @@ class OrderFormController extends Controller
             return response()->json(['success' => false, 'message' => 'Quote #' . $id . ' not found.'], 404);
         }
 
-        $pickup   = $quote->pickupLocation;
+        $pickup = $quote->pickupLocation;
         $delivery = $quote->deliveryLocation;
 
         return response()->json([
             'success' => true,
-            'quote'   => [
-                'id'                   => $quote->id,
-                'customer_name'        => $quote->customer_name,
-                'customer_email'       => $quote->customer_email,
-                'customer_phone'       => $quote->customer_phone,
-                'status'               => $quote->status,
-                'amount_to_pay'        => $quote->amount_to_pay,
-                'initial_amount'       => $quote->initial_amount,
-                'pickup'               => $pickup?->full_location,
-                'delivery'             => $delivery?->full_location,
-                'pickup_address1'      => $pickup?->address1,
-                'pickup_contact_name'  => $pickup?->contact_name,
+            'quote' => [
+                'id' => $quote->id,
+                'customer_name' => $quote->customer_name,
+                'customer_email' => $quote->customer_email,
+                'customer_phone' => $quote->customer_phone,
+                'status' => $quote->status,
+                'amount_to_pay' => $quote->amount_to_pay,
+                'initial_amount' => $quote->initial_amount,
+                'pickup' => $pickup?->full_location,
+                'delivery' => $delivery?->full_location,
+                'pickup_address1' => $pickup?->address1,
+                'pickup_contact_name' => $pickup?->contact_name,
                 'pickup_contact_email' => $pickup?->contact_email,
-                'pickup_date'          => $quote->pickup_date?->format('Y-m-d'),
-                'delivery_address1'    => $delivery?->address1,
-                'delivery_contact_name'=> $delivery?->contact_name,
-                'delivery_contact_email'=> $delivery?->contact_email,
-                'vehicles'             => $quote->vehicles->map(
+                'pickup_date' => $quote->pickup_date?->format('Y-m-d'),
+                'delivery_address1' => $delivery?->address1,
+                'delivery_contact_name' => $delivery?->contact_name,
+                'delivery_contact_email' => $delivery?->contact_email,
+                'vehicles' => $quote->vehicles->map(
                     fn($v) => trim($v->year . ' ' . $v->make . ' ' . $v->model)
                 )->filter()->values()->toArray(),
             ],
@@ -318,30 +320,30 @@ class OrderFormController extends Controller
     public function adminChargeCard(Request $request)
     {
         $validated = $request->validate([
-            'quote_id'              => 'required|exists:quotes,id',
-            'customer_name'         => 'required|string|max:255',
-            'customer_email'        => 'required|email',
-            'customer_phone'        => 'nullable|string|max:50',
-            'pickup_address1'       => 'required|string|max:255',
-            'pickup_contact_name'   => 'required|string|max:255',
-            'pickup_contact_email'  => 'nullable|email',
-            'pickup_date'           => 'required|date',
-            'delivery_address1'     => 'required|string|max:255',
+            'quote_id' => 'required|exists:quotes,id',
+            'customer_name' => 'required|string|max:255',
+            'customer_email' => 'required|email',
+            'customer_phone' => 'nullable|string|max:50',
+            'pickup_address1' => 'required|string|max:255',
+            'pickup_contact_name' => 'required|string|max:255',
+            'pickup_contact_email' => 'nullable|email',
+            'pickup_date' => 'required|date',
+            'delivery_address1' => 'required|string|max:255',
             'delivery_contact_name' => 'required|string|max:255',
-            'delivery_contact_email'=> 'nullable|email',
-            'charge_amount'         => 'required|numeric|min:1',
-            'pay_amount_option'     => 'nullable|string|in:full,initial',
-            'notes'                 => 'nullable|string',
-            'stripeToken'           => 'required|string',
-            'signature_name'        => 'required|string|max:255',
-            'signature_date'        => 'required|date',
+            'delivery_contact_email' => 'nullable|email',
+            'charge_amount' => 'required|numeric|min:1',
+            'pay_amount_option' => 'nullable|string|in:full,initial',
+            'notes' => 'nullable|string',
+            'stripeToken' => 'required|string',
+            'signature_name' => 'required|string|max:255',
+            'signature_date' => 'required|date',
         ]);
 
         $quote = Quote::with(['pickupLocation', 'deliveryLocation'])->findOrFail($validated['quote_id']);
 
         // Add 4% Stripe processing fee
-        $baseAmount   = (float) $validated['charge_amount'];
-        $totalCharge  = round($baseAmount + ($baseAmount * 0.04), 2);
+        $baseAmount = (float) $validated['charge_amount'];
+        $totalCharge = round($baseAmount + ($baseAmount * 0.04), 2);
 
         DB::beginTransaction();
 
@@ -349,10 +351,10 @@ class OrderFormController extends Controller
             \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
             $charge = \Stripe\Charge::create([
-                'amount'        => (int) round($totalCharge * 100),
-                'currency'      => 'usd',
-                'source'        => $validated['stripeToken'],
-                'description'   => 'Admin payment for Quote #' . $quote->id,
+                'amount' => (int) round($totalCharge * 100),
+                'currency' => 'usd',
+                'source' => $validated['stripeToken'],
+                'description' => 'Admin payment for Quote #' . $quote->id,
                 'receipt_email' => $validated['customer_email'],
             ]);
 
@@ -360,43 +362,43 @@ class OrderFormController extends Controller
             OrderForm::updateOrCreate(
                 ['quote_id' => $quote->id],
                 [
-                    'customer_name'          => $validated['customer_name'],
-                    'customer_email'         => $validated['customer_email'],
-                    'customer_phone'         => $validated['customer_phone'] ?? null,
-                    'pickup_address1'        => $validated['pickup_address1'],
-                    'pickup_contact_name'    => $validated['pickup_contact_name'],
-                    'pickup_contact_email'   => $validated['pickup_contact_email'] ?? null,
-                    'pickup_date'            => $validated['pickup_date'],
-                    'delivery_address1'      => $validated['delivery_address1'],
-                    'delivery_contact_name'  => $validated['delivery_contact_name'],
+                    'customer_name' => $validated['customer_name'],
+                    'customer_email' => $validated['customer_email'],
+                    'customer_phone' => $validated['customer_phone'] ?? null,
+                    'pickup_address1' => $validated['pickup_address1'],
+                    'pickup_contact_name' => $validated['pickup_contact_name'],
+                    'pickup_contact_email' => $validated['pickup_contact_email'] ?? null,
+                    'pickup_date' => $validated['pickup_date'],
+                    'delivery_address1' => $validated['delivery_address1'],
+                    'delivery_contact_name' => $validated['delivery_contact_name'],
                     'delivery_contact_email' => $validated['delivery_contact_email'] ?? null,
-                    'payment_option'         => 'now',
-                    'pay_amount_option'      => $validated['pay_amount_option'] ?? 'full',
-                    'signature_name'         => $validated['signature_name'],
-                    'signature_date'         => $validated['signature_date'],
-                    'stripe_charge_id'       => $charge->id,
-                    'paid_amount'            => $totalCharge,
+                    'payment_option' => 'now',
+                    'pay_amount_option' => $validated['pay_amount_option'] ?? 'full',
+                    'signature_name' => $validated['signature_name'],
+                    'signature_date' => $validated['signature_date'],
+                    'stripe_charge_id' => $charge->id,
+                    'paid_amount' => $totalCharge,
                 ]
             );
 
             // Record payment
             QuotePayment::create([
                 'quote_id' => $quote->id,
-                'amount'   => $totalCharge,
-                'channel'  => 'Stripe (Admin)',
-                'status'   => 'Paid',
-                'notes'    => 'Admin card charge via dashboard. Stripe ID: ' . $charge->id
+                'amount' => $totalCharge,
+                'channel' => 'Stripe (Admin)',
+                'status' => 'Paid',
+                'notes' => 'Admin card charge via dashboard. Stripe ID: ' . $charge->id
                     . ($validated['notes'] ? ' | ' . $validated['notes'] : ''),
             ]);
 
             // Update quote status & customer info
             $newStatus = ($validated['pay_amount_option'] ?? 'full') === 'initial' ? 'Deposit Paid' : 'Booked';
             $quote->update([
-                'customer_name'  => $validated['customer_name'],
+                'customer_name' => $validated['customer_name'],
                 'customer_email' => $validated['customer_email'],
                 'customer_phone' => $validated['customer_phone'] ?? $quote->customer_phone,
-                'pickup_date'    => $validated['pickup_date'],
-                'status'         => $newStatus,
+                'pickup_date' => $validated['pickup_date'],
+                'status' => $newStatus,
             ]);
 
             DB::commit();
