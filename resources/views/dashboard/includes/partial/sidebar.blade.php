@@ -224,6 +224,13 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('admin.quotes.cardPayment') }}" class="{{ request()->routeIs('admin.quotes.*') ? 'active' : '' }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">credit_card</i></div>
+                        <div class="menu-title">Card Payment</div>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('roles.index') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">admin_panel_settings</i></div>
                         <div class="menu-title">Roles</div>

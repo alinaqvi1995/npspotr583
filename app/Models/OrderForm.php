@@ -27,8 +27,11 @@ class OrderForm extends Model
         'delivery_date',
         'special_instructions',
         'payment_option',
+        'pay_amount_option',
         'signature_name',
         'signature_date',
+        'stripe_charge_id',
+        'paid_amount',
     ];
 
     protected $casts = [

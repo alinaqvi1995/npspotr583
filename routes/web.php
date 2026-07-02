@@ -143,6 +143,14 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         Route::resource('roles', RoleController::class);
 
         Route::resource('permissions', PermissionController::class);
+
+        // Admin card payment (charge a quote via Stripe on admin's behalf)
+        Route::get('/admin/quotes/card-payment', [OrderFormController::class, 'adminCardPaymentPage'])
+            ->name('admin.quotes.cardPayment');
+        Route::get('/admin/quotes/{id}/card-payment-info', [OrderFormController::class, 'adminCardPaymentInfo'])
+            ->name('admin.quotes.cardPaymentInfo');
+        Route::post('/admin/quotes/card-payment/charge', [OrderFormController::class, 'adminChargeCard'])
+            ->name('admin.quotes.cardPayment.charge');
     });
 
     Route::get('/users/{id}', [UserManagementController::class, 'userEdit'])->name('dashboard.users.edit');

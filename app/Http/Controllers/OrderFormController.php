@@ -259,4 +259,157 @@ class OrderFormController extends Controller
             ->route('home')
             ->with('success', 'Your order has been submitted successfully.');
     }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // ADMIN CARD PAYMENT  (admin-only – never exposed to customers)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Show the admin card-payment page.
+     */
+    public function adminCardPaymentPage()
+    {
+        return view('dashboard.quotes.admin_card_payment');
+    }
+
+    /**
+     * AJAX: return quote info so the JS can pre-fill the form.
+     */
+    public function adminCardPaymentInfo(Request $request, $id)
+    {
+        $quote = Quote::with(['pickupLocation', 'deliveryLocation', 'vehicles'])->find($id);
+
+        if (!$quote) {
+            return response()->json(['success' => false, 'message' => 'Quote #' . $id . ' not found.'], 404);
+        }
+
+        $pickup   = $quote->pickupLocation;
+        $delivery = $quote->deliveryLocation;
+
+        return response()->json([
+            'success' => true,
+            'quote'   => [
+                'id'                   => $quote->id,
+                'customer_name'        => $quote->customer_name,
+                'customer_email'       => $quote->customer_email,
+                'customer_phone'       => $quote->customer_phone,
+                'status'               => $quote->status,
+                'amount_to_pay'        => $quote->amount_to_pay,
+                'initial_amount'       => $quote->initial_amount,
+                'pickup'               => $pickup?->full_location,
+                'delivery'             => $delivery?->full_location,
+                'pickup_address1'      => $pickup?->address1,
+                'pickup_contact_name'  => $pickup?->contact_name,
+                'pickup_contact_email' => $pickup?->contact_email,
+                'pickup_date'          => $quote->pickup_date?->format('Y-m-d'),
+                'delivery_address1'    => $delivery?->address1,
+                'delivery_contact_name'=> $delivery?->contact_name,
+                'delivery_contact_email'=> $delivery?->contact_email,
+                'vehicles'             => $quote->vehicles->map(
+                    fn($v) => trim($v->year . ' ' . $v->make . ' ' . $v->model)
+                )->filter()->values()->toArray(),
+            ],
+        ]);
+    }
+
+    /**
+     * Process admin Stripe card charge for a specific quote.
+     */
+    public function adminChargeCard(Request $request)
+    {
+        $validated = $request->validate([
+            'quote_id'              => 'required|exists:quotes,id',
+            'customer_name'         => 'required|string|max:255',
+            'customer_email'        => 'required|email',
+            'customer_phone'        => 'nullable|string|max:50',
+            'pickup_address1'       => 'required|string|max:255',
+            'pickup_contact_name'   => 'required|string|max:255',
+            'pickup_contact_email'  => 'nullable|email',
+            'pickup_date'           => 'required|date',
+            'delivery_address1'     => 'required|string|max:255',
+            'delivery_contact_name' => 'required|string|max:255',
+            'delivery_contact_email'=> 'nullable|email',
+            'charge_amount'         => 'required|numeric|min:1',
+            'pay_amount_option'     => 'nullable|string|in:full,initial',
+            'notes'                 => 'nullable|string',
+            'stripeToken'           => 'required|string',
+            'signature_name'        => 'required|string|max:255',
+            'signature_date'        => 'required|date',
+        ]);
+
+        $quote = Quote::with(['pickupLocation', 'deliveryLocation'])->findOrFail($validated['quote_id']);
+
+        // Add 4% Stripe processing fee
+        $baseAmount   = (float) $validated['charge_amount'];
+        $totalCharge  = round($baseAmount + ($baseAmount * 0.04), 2);
+
+        DB::beginTransaction();
+
+        try {
+            \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
+            $charge = \Stripe\Charge::create([
+                'amount'        => (int) round($totalCharge * 100),
+                'currency'      => 'usd',
+                'source'        => $validated['stripeToken'],
+                'description'   => 'Admin payment for Quote #' . $quote->id,
+                'receipt_email' => $validated['customer_email'],
+            ]);
+
+            // Create / update OrderForm record
+            OrderForm::updateOrCreate(
+                ['quote_id' => $quote->id],
+                [
+                    'customer_name'          => $validated['customer_name'],
+                    'customer_email'         => $validated['customer_email'],
+                    'customer_phone'         => $validated['customer_phone'] ?? null,
+                    'pickup_address1'        => $validated['pickup_address1'],
+                    'pickup_contact_name'    => $validated['pickup_contact_name'],
+                    'pickup_contact_email'   => $validated['pickup_contact_email'] ?? null,
+                    'pickup_date'            => $validated['pickup_date'],
+                    'delivery_address1'      => $validated['delivery_address1'],
+                    'delivery_contact_name'  => $validated['delivery_contact_name'],
+                    'delivery_contact_email' => $validated['delivery_contact_email'] ?? null,
+                    'payment_option'         => 'now',
+                    'pay_amount_option'      => $validated['pay_amount_option'] ?? 'full',
+                    'signature_name'         => $validated['signature_name'],
+                    'signature_date'         => $validated['signature_date'],
+                    'stripe_charge_id'       => $charge->id,
+                    'paid_amount'            => $totalCharge,
+                ]
+            );
+
+            // Record payment
+            QuotePayment::create([
+                'quote_id' => $quote->id,
+                'amount'   => $totalCharge,
+                'channel'  => 'Stripe (Admin)',
+                'status'   => 'Paid',
+                'notes'    => 'Admin card charge via dashboard. Stripe ID: ' . $charge->id
+                    . ($validated['notes'] ? ' | ' . $validated['notes'] : ''),
+            ]);
+
+            // Update quote status & customer info
+            $newStatus = ($validated['pay_amount_option'] ?? 'full') === 'initial' ? 'Deposit Paid' : 'Booked';
+            $quote->update([
+                'customer_name'  => $validated['customer_name'],
+                'customer_email' => $validated['customer_email'],
+                'customer_phone' => $validated['customer_phone'] ?? $quote->customer_phone,
+                'pickup_date'    => $validated['pickup_date'],
+                'status'         => $newStatus,
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->route('admin.quotes.cardPayment')
+                ->with('success', 'Card charged successfully! Quote #' . $quote->id . ' is now "' . $newStatus . '". Stripe ID: ' . $charge->id);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()
+                ->withInput()
+                ->with('error', 'Payment failed: ' . $e->getMessage());
+        }
+    }
 }
