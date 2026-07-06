@@ -308,7 +308,7 @@ class OrderFormController extends Controller
                 'delivery_contact_name' => $delivery?->contact_name,
                 'delivery_contact_email' => $delivery?->contact_email,
                 'vehicles' => $quote->vehicles->map(
-                    fn($v) => trim($v->year . ' ' . $v->make . ' ' . $v->model)
+                    fn($v) => trim($v->year . ' ' . $v->make . ' ' . $v->model . ' ' . ($v->available_at_auction ? ' <span style="font-weight:bold; color:orange;">(Available at Auction)</span>' : ''))
                 )->filter()->values()->toArray(),
             ],
         ]);

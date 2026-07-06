@@ -437,7 +437,6 @@ $(document).ready(function () {
         $('#qi_amount').text(parseFloat(q.amount_to_pay || 0).toFixed(2));
 
         if (q.vehicles && q.vehicles.length > 0) {
-            console.log('in vehicles');
             $('#qi_vehicles').html(q.vehicles.map(v => `<span class="vehicle-pill">${v}</span>`).join(''));
             $('#qi_vehicles_wrap').show();
         } else {
