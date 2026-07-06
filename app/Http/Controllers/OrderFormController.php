@@ -155,7 +155,7 @@ class OrderFormController extends Controller
             'delivery_date' => 'nullable',
             'special_instructions' => 'nullable|string',
             'payment_option' => 'required|string|in:now,later',
-            'pay_amount_option' => 'nullable|string|in:initial,full',
+            // 'pay_amount_option' => 'nullable|string|in:initial,full',
             'signature_name' => 'required|string|max:255',
             'signature_date' => 'required|date',
             'stripeToken' => 'nullable|string',
@@ -202,7 +202,7 @@ class OrderFormController extends Controller
                     'notes' => 'Automated payment via Order Form (Stripe ID: ' . $charge->id . ')',
                 ]);
 
-                $quote->status = ($validated['pay_amount_option'] ?? 'full') === 'initial'
+                $quote->status = ($request->pay_amount_option ?? 'full') === 'initial'
                     ? 'Deposit Paid'
                     : 'Booked';
             }
@@ -270,7 +270,7 @@ class OrderFormController extends Controller
     public function adminCardPaymentPage()
     {
         return view('dashboard.quotes.admin_card_payment', [
-            'quote' => null,           
+            'quote' => null,
         ]);
     }
 
