@@ -174,7 +174,7 @@ class OrderFormController extends Controller
                 $orderForm = OrderForm::create($validated);
                 $quote->status = 'Payment Missing';
             } else {
-                $amountToCharge = ($validated['pay_amount_option'] ?? 'full') === 'initial'
+                $amountToCharge = ($request->pay_amount_option ?? 'full') === 'initial'
                     ? ($quote->initial_amount ?? 100)
                     : $quote->amount_to_pay;
 
@@ -202,7 +202,7 @@ class OrderFormController extends Controller
                     'notes' => 'Automated payment via Order Form (Stripe ID: ' . $charge->id . ')',
                 ]);
 
-                $quote->status = ($request->pay_amount_option ?? 'full') === 'initial'
+                $quote->status = ($validated['pay_amount_option'] ?? 'full') === 'initial'
                     ? 'Deposit Paid'
                     : 'Booked';
             }
@@ -270,7 +270,7 @@ class OrderFormController extends Controller
     public function adminCardPaymentPage()
     {
         return view('dashboard.quotes.admin_card_payment', [
-            'quote' => null,
+            'quote' => null,           
         ]);
     }
 
