@@ -52,10 +52,26 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Contact Phone</label>
+
+                                @php
+                                    $isAdmin = auth()->user()?->isAdmin() ?? false;
+                                    $fullPhone = $quote->customer_phone ?? '';
+                                    $displayPhone = $isAdmin ? $fullPhone : $quote->masked_customer_phone ?? $fullPhone;
+                                @endphp
+
+                                {{-- Visible Input (Masked for non-admins) --}}
+                                <input type="text" class="form-control" value="{{ $displayPhone }}" placeholder="Phone"
+                                    {{ !$isAdmin ? 'readonly' : '' }}>
+
+                                {{-- Hidden Input - Always sends the FULL original number --}}
+                                <input type="hidden" name="customer_phone" value="{{ $fullPhone }}">
+                            </div>
+                            {{-- <div class="col-md-6">
+                                <label class="form-label">Contact Phone</label>
                                 <input type="text" name="customer_phone"
                                     value="{{ $isAdmin ? $quote->customer_phone : $quote->masked_customer_phone }}"
                                     class="form-control" placeholder="Phone">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -130,8 +146,8 @@
 
                                             <div class="col-md-4">
                                                 <label class="form-label">City *</label>
-                                                <input type="text" name="locations[{{ $index }}][city]" readonly
-                                                    id="{{ $location->type . '_city' }}" class="form-control"
+                                                <input type="text" name="locations[{{ $index }}][city]"
+                                                    readonly id="{{ $location->type . '_city' }}" class="form-control"
                                                     placeholder="City" value="{{ $location->city ?? '' }}">
                                             </div>
 
