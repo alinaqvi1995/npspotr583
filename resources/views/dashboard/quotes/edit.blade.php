@@ -52,10 +52,9 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Contact Phone</label>
-                                <input type="text" name="customer_phone" value="{{ $isAdmin ? $quote->customer_phone : $quote->masked_customer_phone }}"
+                                <input type="text" name="customer_phone"
+                                    value="{{ $isAdmin ? $quote->customer_phone : $quote->masked_customer_phone }}"
                                     class="form-control" placeholder="Phone">
-                                {{-- <small><a href="#" class="text-primary addPhoneBtn">+ Add
-                                        phone</a></small> --}}
                             </div>
                         </div>
                     </div>
@@ -169,6 +168,34 @@
                                                     @if ($location)
                                                         @foreach ($location->phones as $pIndex => $phone)
                                                             <div class="input-group mb-2">
+                                                                @php
+                                                                    $isAdmin = auth()->user()?->isAdmin() ?? false;
+                                                                    $fullPhone = $phone->phone;
+                                                                    $displayPhone = $isAdmin
+                                                                        ? $fullPhone
+                                                                        : $phone->masked_phone;
+                                                                @endphp
+
+                                                                {{-- Visible field (masked for non-admins) --}}
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $displayPhone }}"
+                                                                    {{ !$isAdmin ? 'readonly' : '' }} placeholder="Phone">
+
+                                                                {{-- Hidden field - Always sends the ORIGINAL full number --}}
+                                                                <input type="hidden"
+                                                                    name="locations[{{ $index }}][contact_phone][]"
+                                                                    value="{{ $fullPhone }}">
+
+                                                                @if ($isAdmin)
+                                                                    <button type="button"
+                                                                        class="btn btn-danger removePhoneBtn">-</button>
+                                                                @endif
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                    {{-- @if ($location)
+                                                        @foreach ($location->phones as $pIndex => $phone)
+                                                            <div class="input-group mb-2">
                                                                 <input type="text"
                                                                     name="locations[{{ $index }}][contact_phone][]"
                                                                     class="form-control" placeholder="Phone"
@@ -177,7 +204,7 @@
                                                                     class="btn btn-danger removePhoneBtn">-</button>
                                                             </div>
                                                         @endforeach
-                                                    @endif
+                                                    @endif --}}
                                                     <div class="input-group mb-2">
                                                         <input type="text"
                                                             name="locations[{{ $index }}][contact_phone][]"
