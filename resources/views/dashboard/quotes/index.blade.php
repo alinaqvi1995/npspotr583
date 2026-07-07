@@ -3,6 +3,9 @@
 @section('title', 'Quotes')
 
 @section('content')
+    @php
+        $canViewFullPhone = (auth()->user()?->isAdmin() ?? false) || (auth()->user()?->hasPermission('view-full-phone') ?? false);
+    @endphp
     <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
 
     <style>
@@ -109,17 +112,17 @@
                                         {{-- Case: Normal == Pickup → show Delivery --}}
                                         {{ optional($quote->deliveryLocation)->contact_name }}<br>
                                         <small>{{ optional($quote->deliveryLocation)->contact_email }}</small><br>
-                                        <small>{{ optional($quote->deliveryPhones->first())->phone }}</small>
+                                        <small>{{ $canViewFullPhone ? optional($quote->deliveryPhones->first())->phone : optional($quote->deliveryPhones->first())->masked_phone }}</small>
                                     @elseif ($quote->customer_name || $quote->customer_email || $quote->customer_phone)
                                         {{-- Case: Normal (customer) exists → show Customer --}}
                                         {{ $quote->customer_name ?? optional($quote->deliveryLocation)->contact_name }}<br>
                                         <small>{{ $quote->customer_email ?? optional($quote->deliveryLocation)->contact_email }}</small><br>
-                                        <small>{{ $quote->customer_phone ?? optional($quote->deliveryPhones->first())->phone }}</small>
+                                        <small>{{ $canViewFullPhone ? ($quote->customer_phone ?? optional($quote->deliveryPhones->first())->phone) : ($quote->masked_customer_phone ?? optional($quote->deliveryPhones->first())->masked_phone) }}</small>
                                     @else
                                         {{-- Fallback → Delivery --}}
                                         {{ optional($quote->deliveryLocation)->contact_name }}<br>
                                         <small>{{ optional($quote->deliveryLocation)->contact_email }}</small><br>
-                                        <small>{{ optional($quote->deliveryPhones->first())->phone }}</small>
+                                        <small>{{ $canViewFullPhone ? optional($quote->deliveryPhones->first())->phone : optional($quote->deliveryPhones->first())->masked_phone }}</small>
                                     @endif
                                 </td>
                                 <td>

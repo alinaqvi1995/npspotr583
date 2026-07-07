@@ -77,6 +77,10 @@
 </head>
 
 <body>
+    @php
+        $isAdmin = auth()->user()?->isAdmin() ?? false;
+        $canViewFullPhone = $isAdmin || (auth()->user()?->hasPermission('view-full-phone') ?? false);
+    @endphp
     <div class="container">
         <div class="header-bar d-flex justify-content-between align-items-center mb-4 flex-wrap">
             <div class="d-flex align-items-center">
@@ -96,11 +100,16 @@
                 <div class="card mb-3">
                     <div class="card-header bg-secondary text-white"><strong>Customer</strong></div>
                     <div class="card-body">
-                        @foreach (['customer_name' => 'Name', 'customer_email' => 'Email', 'customer_phone' => 'Phone'] as $field => $label)
+                        @foreach (['customer_name' => 'Name', 'customer_email' => 'Email'] as $field => $label)
                             @if ($quote->$field)
                                 <p><strong>{{ $label }}:</strong> {{ $quote->$field }}</p>
                             @endif
                         @endforeach
+                        @if ($quote->customer_phone)
+                            <p><strong>Phone:</strong>
+                                {{ $canViewFullPhone ? $quote->customer_phone : $quote->masked_customer_phone }}
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -208,7 +217,7 @@
                                 <p><strong>Phone(s):</strong></p>
                                 <ul class="mb-0">
                                     @foreach ($quote->pickupPhones as $phone)
-                                        <li>{{ $phone->phone }}</li>
+                                        <li>{{ $canViewFullPhone ? $phone->phone : $phone->masked_phone }}</li>
                                     @endforeach
                                 </ul>
                             @endif
@@ -267,7 +276,7 @@
                                 <p><strong>Phone(s):</strong></p>
                                 <ul class="mb-0">
                                     @foreach ($quote->deliveryPhones as $phone)
-                                        <li>{{ $phone->phone }}</li>
+                                        <li>{{ $canViewFullPhone ? $phone->phone : $phone->masked_phone }}</li>
                                     @endforeach
                                 </ul>
                             @endif

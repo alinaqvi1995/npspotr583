@@ -24,6 +24,8 @@
 
     @php
         $isAdmin = auth()->user()?->isAdmin() ?? false;
+        $canViewFullPhone = $isAdmin || (auth()->user()?->hasPermission('view-full-phone') ?? false);
+        $canEditPhone = $isAdmin || (auth()->user()?->hasPermission('edit-phone') ?? false);
     @endphp
 
     <div class="row">
@@ -54,16 +56,21 @@
                                 <label class="form-label">Contact Phone</label>
 
                                 @php
-                                    $isAdmin = auth()->user()?->isAdmin() ?? false;
                                     $fullPhone = $quote->customer_phone ?? '';
-                                    $displayPhone = $isAdmin ? $fullPhone : $quote->masked_customer_phone ?? $fullPhone;
                                 @endphp
 
-                                {{-- Visible Input (Masked for non-admins) --}}
-                                <input type="text" class="form-control" value="{{ $displayPhone }}" placeholder="Phone">
-
-                                {{-- Hidden Input - Always sends the FULL original number --}}
-                                <input type="hidden" name="customer_phone" value="{{ $fullPhone }}">
+                                @if ($canEditPhone)
+                                    {{-- User with edit-phone permission: editable input that submits the value --}}
+                                    <input type="text" name="customer_phone" class="form-control" value="{{ $fullPhone }}" placeholder="Phone">
+                                @elseif ($canViewFullPhone)
+                                    {{-- User with view-full-phone permission: can see but not edit --}}
+                                    <input type="text" class="form-control" value="{{ $fullPhone }}" placeholder="Phone" readonly>
+                                    <input type="hidden" name="customer_phone" value="{{ $fullPhone }}">
+                                @else
+                                    {{-- No phone permission: masked display + hidden original value --}}
+                                    <input type="text" class="form-control" value="{{ $quote->masked_customer_phone ?? $fullPhone }}" placeholder="Phone" readonly>
+                                    <input type="hidden" name="customer_phone" value="{{ $fullPhone }}">
+                                @endif
                             </div>
                             {{-- <div class="col-md-6">
                                 <label class="form-label">Contact Phone</label>
@@ -183,26 +190,28 @@
                                                     @if ($location)
                                                         @foreach ($location->phones as $pIndex => $phone)
                                                             <div class="input-group mb-2">
-                                                                @php
-                                                                    $isAdmin = auth()->user()?->isAdmin() ?? false;
-                                                                    $fullPhone = $phone->phone;
-                                                                    $displayPhone = $isAdmin
-                                                                        ? $fullPhone
-                                                                        : $phone->masked_phone;
-                                                                @endphp
-
-                                                                {{-- Visible field (masked for non-admins) --}}
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $displayPhone }}" placeholder="Phone">
-
-                                                                {{-- Hidden field - Always sends the ORIGINAL full number --}}
-                                                                <input type="hidden"
-                                                                    name="locations[{{ $index }}][contact_phone][]"
-                                                                    value="{{ $fullPhone }}">
-
-                                                                @if ($isAdmin)
+                                                                @if ($canEditPhone)
+                                                                    {{-- User with edit-phone: editable input --}}
+                                                                    <input type="text"
+                                                                        name="locations[{{ $index }}][contact_phone][]"
+                                                                        class="form-control" placeholder="Phone"
+                                                                        value="{{ $phone->phone }}">
                                                                     <button type="button"
                                                                         class="btn btn-danger removePhoneBtn">-</button>
+                                                                @elseif ($canViewFullPhone)
+                                                                    {{-- User with view-full-phone: read-only full number --}}
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{ $phone->phone }}" placeholder="Phone" readonly>
+                                                                    <input type="hidden"
+                                                                        name="locations[{{ $index }}][contact_phone][]"
+                                                                        value="{{ $phone->phone }}">
+                                                                @else
+                                                                    {{-- No phone permission: masked + hidden original --}}
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{ $phone->masked_phone }}" placeholder="Phone" readonly>
+                                                                    <input type="hidden"
+                                                                        name="locations[{{ $index }}][contact_phone][]"
+                                                                        value="{{ $phone->phone }}">
                                                                 @endif
                                                             </div>
                                                         @endforeach

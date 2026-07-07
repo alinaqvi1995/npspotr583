@@ -136,6 +136,10 @@ class PanelRolesSeeder extends Seeder
 
             // Invoices (dashboard)
             ['name' => 'View Invoices', 'slug' => 'view-invoices'],
+
+            // Phone visibility & editing
+            ['name' => 'View Full Phone Numbers', 'slug' => 'view-full-phone'],
+            ['name' => 'Edit Phone Numbers', 'slug' => 'edit-phone'],
         ];
 
         foreach ($permissions as $perm) {
