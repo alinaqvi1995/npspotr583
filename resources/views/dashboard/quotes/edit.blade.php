@@ -60,8 +60,7 @@
                                 @endphp
 
                                 {{-- Visible Input (Masked for non-admins) --}}
-                                <input type="text" class="form-control" value="{{ $displayPhone }}" placeholder="Phone"
-                                    {{ !$isAdmin ? 'readonly' : '' }}>
+                                <input type="text" class="form-control" value="{{ $displayPhone }}" placeholder="Phone">
 
                                 {{-- Hidden Input - Always sends the FULL original number --}}
                                 <input type="hidden" name="customer_phone" value="{{ $fullPhone }}">
@@ -194,8 +193,7 @@
 
                                                                 {{-- Visible field (masked for non-admins) --}}
                                                                 <input type="text" class="form-control"
-                                                                    value="{{ $displayPhone }}"
-                                                                    {{ !$isAdmin ? 'readonly' : '' }} placeholder="Phone">
+                                                                    value="{{ $displayPhone }}" placeholder="Phone">
 
                                                                 {{-- Hidden field - Always sends the ORIGINAL full number --}}
                                                                 <input type="hidden"
