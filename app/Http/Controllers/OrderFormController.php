@@ -155,7 +155,7 @@ class OrderFormController extends Controller
             'delivery_date' => 'nullable',
             'special_instructions' => 'nullable|string',
             'payment_option' => 'required|string|in:now,later',
-            // 'pay_amount_option' => 'nullable|string|in:initial,full',
+            'pay_amount_option' => 'nullable|string|in:initial,full',
             'signature_name' => 'required|string|max:255',
             'signature_date' => 'required|date',
             'stripeToken' => 'nullable|string',
