@@ -314,6 +314,27 @@ class Quote extends Model
     {
         return $this->hasMany(QuotePayment::class);
     }
+
+    public function getMaskedCustomerPhoneAttribute(): string
+    {
+        $phone = $this->customer_phone;
+
+        if (empty($phone)) {
+            return '';
+        }
+
+        // Remove non-numeric characters
+        $clean = preg_replace('/\D/', '', $phone);
+
+        if (strlen($clean) <= 4) {
+            return $clean;
+        }
+
+        $visible = substr($clean, -4);
+        $masked = str_repeat('*', strlen($clean) - 4);
+
+        return $masked . $visible;
+    }
 }
 
 

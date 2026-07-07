@@ -22,6 +22,10 @@
         </ul>
     @endif
 
+    @php
+        $isAdmin = auth()->user()?->isAdmin() ?? false;
+    @endphp
+
     <div class="row">
         <form action="{{ route('dashboard.quotes.update', $quote->id) }}" id="quoteForm" method="POST"
             enctype="multipart/form-data">
@@ -48,7 +52,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Contact Phone</label>
-                                <input type="text" name="customer_phone" value="{{ $quote->customer_phone }}"
+                                <input type="text" name="customer_phone" value="{{ $isAdmin ? $quote->customer_phone : $quote->masked_customer_phone }}"
                                     class="form-control" placeholder="Phone">
                                 {{-- <small><a href="#" class="text-primary addPhoneBtn">+ Add
                                         phone</a></small> --}}
@@ -165,9 +169,6 @@
                                                     @if ($location)
                                                         @foreach ($location->phones as $pIndex => $phone)
                                                             <div class="input-group mb-2">
-                                                                @php
-                                                                    $isAdmin = auth()->user()?->isAdmin() ?? false;
-                                                                @endphp
                                                                 <input type="text"
                                                                     name="locations[{{ $index }}][contact_phone][]"
                                                                     class="form-control" placeholder="Phone"
