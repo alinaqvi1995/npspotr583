@@ -165,10 +165,13 @@
                                                     @if ($location)
                                                         @foreach ($location->phones as $pIndex => $phone)
                                                             <div class="input-group mb-2">
+                                                                @php
+                                                                    $isAdmin = auth()->user()?->isAdmin() ?? false;
+                                                                @endphp
                                                                 <input type="text"
                                                                     name="locations[{{ $index }}][contact_phone][]"
                                                                     class="form-control" placeholder="Phone"
-                                                                    value="{{ $phone->phone }}">
+                                                                    value="{{ $isAdmin ? $phone->phone : $phone->masked_phone }}">
                                                                 <button type="button"
                                                                     class="btn btn-danger removePhoneBtn">-</button>
                                                             </div>
@@ -212,8 +215,9 @@
                             @php
                                 $vehicles = $quote->vehicles;
                                 if (old('vehicles')) {
-                                    $vehicles = collect(old('vehicles'))->map(function($vData) use ($quote) {
-                                        return $quote->vehicles->where('id', $vData['id'] ?? null)->first() ?? new \App\Models\Vehicle();
+                                    $vehicles = collect(old('vehicles'))->map(function ($vData) use ($quote) {
+                                        return $quote->vehicles->where('id', $vData['id'] ?? null)->first() ??
+                                            new \App\Models\Vehicle();
                                     });
                                 }
                             @endphp
@@ -426,7 +430,7 @@
                 const $container = $('#vehiclesContainer');
                 const $firstVehicle = $container.find('.vehicle-item').first();
                 const $clone = $firstVehicle.clone();
-                
+
                 // Important: re-initialize vehicleIndex based on current count
                 vehicleIndex = $('.vehicle-item').length + 1;
                 $clone.attr('data-index', vehicleIndex);
@@ -452,7 +456,8 @@
                         $(this).prop('checked', false);
                     } else if ($(this).attr('type') === 'hidden') {
                         // Keep 'modified' and 'available_at_auction' hidden inputs as 0
-                        if (newName && (newName.includes('[modified]') || newName.includes('[available_at_auction]'))) {
+                        if (newName && (newName.includes('[modified]') || newName.includes(
+                                '[available_at_auction]'))) {
                             $(this).val('0');
                         } else {
                             $(this).val('');
@@ -460,16 +465,17 @@
                     } else {
                         $(this).val('');
                     }
-                    
+
                     $(this).removeAttr('disabled').show();
                 });
 
                 // Reset specific elements
                 $clone.find('.model-select').html('<option value="">-- Select Model --</option>');
                 $clone.find('h6').text('Vehicle #' + vehicleIndex);
-                $clone.find('.existing-images-container').html('<p class="text-muted small">No existing images.</p>');
+                $clone.find('.existing-images-container').html(
+                    '<p class="text-muted small">No existing images.</p>');
                 $clone.find('.new-images-preview').html('');
-                
+
                 const auctionToggle = $clone.find('.auction-toggle');
                 const auctionFields = $clone.find('.auction-fields');
                 auctionFields.attr('id', 'auctionFields-' + vehicleIndex).hide();
@@ -505,10 +511,10 @@
                 } else {
                     $previewContainer.html('');
                 }
-                
+
                 const previewContainer = $(this).closest('.col-md-12').find('.new-images-preview');
                 previewContainer.html('');
-                
+
                 const files = this.files;
                 if (files) {
                     Array.from(files).forEach((file, index) => {
@@ -540,7 +546,7 @@
                     }
                 }
                 $input[0].files = dt.files;
-                
+
                 // Refresh preview
                 $input.trigger('change');
             });
@@ -549,15 +555,17 @@
             $(document).on('click', '.remove-existing-image', function() {
                 const $wrapper = $(this).closest('.existing-image-wrapper');
                 const $checkbox = $wrapper.find('.delete-image-checkbox');
-                
+
                 if ($checkbox.is(':checked')) {
                     $checkbox.prop('checked', false);
                     $wrapper.css('opacity', '1');
-                    $(this).html('<i class="bx bx-x"></i>').removeClass('btn-success').addClass('btn-danger');
+                    $(this).html('<i class="bx bx-x"></i>').removeClass('btn-success').addClass(
+                        'btn-danger');
                 } else {
                     $checkbox.prop('checked', true);
                     $wrapper.css('opacity', '0.3');
-                    $(this).html('<i class="bx bx-undo"></i>').removeClass('btn-danger').addClass('btn-success');
+                    $(this).html('<i class="bx bx-undo"></i>').removeClass('btn-danger').addClass(
+                        'btn-success');
                 }
             });
 
