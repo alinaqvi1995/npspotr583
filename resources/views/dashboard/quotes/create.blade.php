@@ -340,7 +340,7 @@
                                                 <input type="text" class="form-control" name="vehicles[1][buyer]">
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="form-label">Lot #</label>
+                                                <label class="form-label">Lot/Stock #</label>
                                                 <input type="text" class="form-control" name="vehicles[1][lot]">
                                             </div>
                                             <div class="col-md-4">

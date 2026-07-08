@@ -394,7 +394,7 @@
                                                                 {{ $v->buyer }}</div>
                                                         @endif
                                                         @if ($v->lot)
-                                                            <div class="col-md-2"><strong>Lot:</strong>
+                                                            <div class="col-md-2"><strong>Lot/Stock:</strong>
                                                                 {{ $v->lot }}</div>
                                                         @endif
                                                         @if ($v->gatepin)

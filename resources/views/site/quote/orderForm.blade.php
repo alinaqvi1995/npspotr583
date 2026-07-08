@@ -511,7 +511,7 @@
                                                                     @endif
                                                                     @if ($vehicle->lot)
                                                                         <div class="col-md-3 mt-2">
-                                                                            <strong>Lot:</strong>
+                                                                            <strong>Lot/Stock:</strong>
                                                                             {{ $vehicle->lot }}
                                                                         </div>
                                                                     @endif
