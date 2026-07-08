@@ -39,13 +39,14 @@
         <div class="card shadow-lg border-0 rounded-4">
             <div class="card-body p-5">
                 <div class="text-center mb-4">
-                    <img src="{{ asset('web-assets/images/logo/logo_004.png') }}" alt="Logo" width="180" class="mb-3">
+                    <!-- The added style completely blocks out the checkerboard background -->
+                    <img src="{{ asset('web-assets/images/logo/logo_004.png') }}" alt="Logo" width="180"
+                        class="mb-3" style="background: white; padding: 10px; border-radius: 8px;">
                     {{-- <h2 style="color: #FC5523">Bridgeway Logistics LLC</h2> --}}
                     <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
                     <p class="text-muted">Submitted on
                         {{ \Carbon\Carbon::parse($authForm->created_at)->format('F j, Y, g:i a') }}</p>
                 </div>
-
                 <form>
                     <div class="row g-3">
 
@@ -128,10 +129,9 @@
                             <label class="form-label fw-semibold">Card Number</label>
                             <div class="input-group">
                                 <input type="text" id="cardNumberField" class="form-control"
-                                    value="**** **** **** {{ substr($authForm->card_number, -4) }}" 
+                                    value="**** **** **** {{ substr($authForm->card_number, -4) }}"
                                     data-full="{{ $authForm->card_number }}"
-                                    data-masked="**** **** **** {{ substr($authForm->card_number, -4) }}"
-                                    readonly>
+                                    data-masked="**** **** **** {{ substr($authForm->card_number, -4) }}" readonly>
                                 <button class="btn btn-outline-secondary" type="button" id="toggleCardNumber">
                                     <i class="material-icons-outlined align-middle fs-6">visibility</i>
                                 </button>
@@ -146,11 +146,8 @@
                         <div class="col-md-3">
                             <label class="form-label fw-semibold">Security Code (CVV)</label>
                             <div class="input-group">
-                                <input type="text" id="cvvField" class="form-control" 
-                                    value="***" 
-                                    data-full="{{ $authForm->cvv }}"
-                                    data-masked="***"
-                                    readonly>
+                                <input type="text" id="cvvField" class="form-control" value="***"
+                                    data-full="{{ $authForm->cvv }}" data-masked="***" readonly>
                                 <button class="btn btn-outline-secondary" type="button" id="toggleCvv">
                                     <i class="material-icons-outlined align-middle fs-6">visibility</i>
                                 </button>
@@ -172,7 +169,8 @@
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Invoice Amount ($)</label>
                             <input type="text" class="form-control fw-bold text-success fs-5"
-                                value="${{ number_format($authForm->invoice_amount, 2) }}" disabled style="cursor: not-allowed;">
+                                value="${{ number_format($authForm->invoice_amount, 2) }}" disabled
+                                style="cursor: not-allowed;">
                         </div>
 
                         <div class="col-md-12">
@@ -208,42 +206,42 @@
         <p class="text-center text-muted mt-3 small">&copy; {{ date('Y') }} Bridgeway Logistics LLC. All rights
             reserved.</p>
     </div>
-        <!-- Jquery -->
-        <script src="{{ asset('invoice-assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
-        <!-- Bootstrap -->
-        <script src="{{ asset('invoice-assets/js/bootstrap.min.js') }}"></script>
-        <!-- PDF Generator -->
-        <script src="{{ asset('invoice-assets/js/jspdf.min.js') }}"></script>
-        <script src="{{ asset('invoice-assets/js/html2canvas.min.js') }}"></script>
-        <!-- Main Js File -->
-        <script src="{{ asset('invoice-assets/js/main.js') }}"></script>
-        <script>
-            $(document).ready(function() {
-                $('#toggleCardNumber').on('click', function() {
-                    const field = $('#cardNumberField');
-                    const icon = $(this).find('i');
-                    if (field.val() === field.data('masked')) {
-                        field.val(field.data('full'));
-                        icon.text('visibility_off');
-                    } else {
-                        field.val(field.data('masked'));
-                        icon.text('visibility');
-                    }
-                });
-
-                $('#toggleCvv').on('click', function() {
-                    const field = $('#cvvField');
-                    const icon = $(this).find('i');
-                    if (field.val() === field.data('masked')) {
-                        field.val(field.data('full'));
-                        icon.text('visibility_off');
-                    } else {
-                        field.val(field.data('masked'));
-                        icon.text('visibility');
-                    }
-                });
+    <!-- Jquery -->
+    <script src="{{ asset('invoice-assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ asset('invoice-assets/js/bootstrap.min.js') }}"></script>
+    <!-- PDF Generator -->
+    <script src="{{ asset('invoice-assets/js/jspdf.min.js') }}"></script>
+    <script src="{{ asset('invoice-assets/js/html2canvas.min.js') }}"></script>
+    <!-- Main Js File -->
+    <script src="{{ asset('invoice-assets/js/main.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#toggleCardNumber').on('click', function() {
+                const field = $('#cardNumberField');
+                const icon = $(this).find('i');
+                if (field.val() === field.data('masked')) {
+                    field.val(field.data('full'));
+                    icon.text('visibility_off');
+                } else {
+                    field.val(field.data('masked'));
+                    icon.text('visibility');
+                }
             });
-        </script>
+
+            $('#toggleCvv').on('click', function() {
+                const field = $('#cvvField');
+                const icon = $(this).find('i');
+                if (field.val() === field.data('masked')) {
+                    field.val(field.data('full'));
+                    icon.text('visibility_off');
+                } else {
+                    field.val(field.data('masked'));
+                    icon.text('visibility');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
