@@ -39,7 +39,7 @@
         <div class="card shadow-lg border-0 rounded-4">
             <div class="card-body p-5">
                 <div class="text-center mb-4">
-                    {{-- <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Logo" width="180" class="mb-3"> --}}
+                    <img src="{{ asset('web-assets/images/logo/logo_001.png') }}" alt="Logo" width="180" class="mb-3">
                     <h2 style="color: #FC5523">Bridgeway Logistics LLC</h2>
                     <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
                     <p class="text-muted">Submitted on
@@ -48,6 +48,14 @@
 
                 <form>
                     <div class="row g-3">
+
+                        <div class="col-md-12">
+                            <div class="alert alert-light border">
+                                <i class="material-icons-outlined align-middle me-1">info</i>
+                                This signed form authorizes <strong>Bridgeway Logistics LLC</strong>
+                                to charge your credit card for the amount shown.
+                            </div>
+                        </div>
 
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Date</label>
