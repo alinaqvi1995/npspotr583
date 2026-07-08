@@ -348,6 +348,8 @@
                                             </div>
                                             <div class="card-body py-2 px-3">
                                                 <div class="row small mb-1">
+                                                    <div class="col-md-3"><strong>Vin:</strong> {{ $v->vin ?? '—' }}
+                                                    </div>
                                                     <div class="col-md-3"><strong>Type:</strong> {{ $v->type ?? '—' }}
                                                     </div>
                                                     <div class="col-md-3"><strong>Condition:</strong>
