@@ -40,7 +40,7 @@
             <div class="card-body p-5">
                 <div class="text-center mb-4">
                     <!-- The added style completely blocks out the checkerboard background -->
-                    <img src="{{ asset('web-assets/images/logo/logo_004.png') }}" alt="Logo" width="180"
+                    <img src="{{ asset('web-assets/images/logo/logo_003.png') }}" alt="Logo" width="180"
                         class="mb-3" style="background: white; padding: 10px; border-radius: 8px;">
                     {{-- <h2 style="color: #FC5523">Bridgeway Logistics LLC</h2> --}}
                     <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
