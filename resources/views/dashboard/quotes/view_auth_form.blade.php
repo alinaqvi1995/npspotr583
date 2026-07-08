@@ -39,7 +39,7 @@
         <div class="card shadow-lg border-0 rounded-4">
             <div class="card-body p-5">
                 <div class="text-center mb-4">
-                    <img src="{{ asset('web-assets/images/logo/logo_002.png') }}" alt="Logo" width="180" class="mb-3">
+                    <img src="{{ asset('web-assets/images/logo/logo_003.png') }}" alt="Logo" width="180" class="mb-3">
                     {{-- <h2 style="color: #FC5523">Bridgeway Logistics LLC</h2> --}}
                     <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
                     <p class="text-muted">Submitted on
