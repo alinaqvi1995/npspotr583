@@ -11,16 +11,23 @@
 
     <!-- Update Message -->
     <p style="font-size:15px; color:#555; line-height:22px; margin-bottom:20px;">
-        We wanted to let you know that your quote 
+        We wanted to let you know that your quote
         <strong style="color:#1a73e8;">#{{ $quote->id }}</strong> has been updated.
     </p>
 
     <!-- Current Status Highlight -->
-    <p style="font-size:15px; margin:20px 0; padding:12px 18px; background:#f4f8ff; 
+    <p
+        style="font-size:15px; margin:20px 0; padding:12px 18px; background:#f4f8ff; 
               border-left:4px solid #1a73e8; color:#333; border-radius:4px;">
-        <strong>Current Status:</strong> 
+        <strong>Current Status:</strong>
         <span style="font-weight:600; color:#1a73e8;">{{ $quote->status }}</span>
     </p>
+
+    @if (in_array($quote->status, ['New', 'Follow Up', 'Interested']))
+        <p style="font-size:14px; color:#555; line-height:22px;">
+            The price for your quote is {{ $quote->amount_to_pay }}
+        </p>
+    @endif
 
     <!-- Conditional Messages -->
     @if (in_array($quote->status, ['Booked', 'Dispatch', 'Pickup', 'Delivery']))
