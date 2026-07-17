@@ -27,6 +27,13 @@
         <p style="font-size:14px; color:#555; line-height:22px;">
             The price for your quote is {{ $quote->amount_to_pay }}
         </p>
+
+        <a href="{{ route('quotes.orderForm', ['encrypted' => encrypt($quote->id)]) }}"
+            style="display:inline-block; background:#1a73e8; color:#ffffff; text-decoration:none; 
+                   padding:14px 28px; border-radius:6px; font-weight:600; 
+                   font-size:15px; letter-spacing:0.3px;">
+            🔗 View Order Form
+        </a>
     @endif
 
     <!-- Conditional Messages -->
