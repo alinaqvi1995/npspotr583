@@ -137,7 +137,7 @@ class OrderFormController extends Controller
 
         if ($quote->orderForm()->exists()) {
             return redirect()
-                ->route('thankyou')
+                ->route('frontend.thankyou')
                 ->with('info', 'This order form has already been submitted.');
         }
 
