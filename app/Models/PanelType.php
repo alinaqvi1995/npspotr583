@@ -14,4 +14,9 @@ class PanelType extends Model
     {
         return $this->belongsToMany(User::class, 'panel_type_user');
     }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'panel_type_permission');
+    }
 }

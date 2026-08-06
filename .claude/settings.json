@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"extra_js\\\\|endsection\\\\|select2-checkbox\\\\|\\\\$\\(document\\).ready\\\\|<script\" resources/views/dashboard/users/edit.blade.php)",
+      "Bash(grep -n \"extra_js\\\\|endsection\\\\|\\\\$\\(document\\).ready\\\\|<script\" resources/views/dashboard/users/create.blade.php)",
+      "Bash(php artisan *)",
+      "Bash(php -l app/Http/Controllers/Backend/UserManagementController.php)"
+    ]
+  }
+}

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BlogController as BackendBlogController;
+use App\Http\Controllers\Backend\PanelTypeController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\QuoteManagementController;
 use App\Http\Controllers\Backend\RoleController;
@@ -143,6 +144,15 @@ Route::middleware(['auth', 'check_active', 'otp.verified'])->group(function () {
         Route::resource('roles', RoleController::class);
 
         Route::resource('permissions', PermissionController::class);
+
+        // Panels act as permission profiles - every user in a panel inherits its permissions
+        Route::resource('panels', PanelTypeController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::post('panels/{panel}/duplicate', [PanelTypeController::class, 'duplicate'])
+            ->name('panels.duplicate');
+
+        // Effective-permission breakdown: which role/panel/direct grant gives what
+        Route::get('/users/{id}/permissions', [UserManagementController::class, 'userPermissions'])
+            ->name('dashboard.users.permissions');
 
         // Admin card payment (charge a quote via Stripe on admin's behalf)
         Route::get('/admin/quotes/card-payment', [OrderFormController::class, 'adminCardPaymentPage'])

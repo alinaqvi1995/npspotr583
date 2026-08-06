@@ -140,6 +140,12 @@ class PanelRolesSeeder extends Seeder
             // Phone visibility & editing
             ['name' => 'View Full Phone Numbers', 'slug' => 'view-full-phone'],
             ['name' => 'Edit Phone Numbers', 'slug' => 'edit-phone'],
+
+            // Panels (permission profiles)
+            ['name' => 'View Panels', 'slug' => 'view-panels'],
+            ['name' => 'Create Panels', 'slug' => 'create-panels'],
+            ['name' => 'Edit Panels', 'slug' => 'edit-panels'],
+            ['name' => 'Delete Panels', 'slug' => 'delete-panels'],
         ];
 
         foreach ($permissions as $perm) {

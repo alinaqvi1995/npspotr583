@@ -21,6 +21,7 @@ class UserManagementController extends Controller
     {
         $permissions = [
             'allUsers' => 'view-users',
+            'userPermissions' => 'view-users',
             'userUpdate' => 'edit-users',
             'userDestroy' => 'delete-users',
         ];
@@ -66,7 +67,7 @@ class UserManagementController extends Controller
     public function userCreate()
     {
         $roles = Role::all();
-        $panelTypes = PanelType::all();
+        $panelTypes = PanelType::with('permissions')->get();
         $permissions = Permission::all();
         $users = User::all(); // For referral dropdown
 
@@ -190,6 +191,7 @@ class UserManagementController extends Controller
             $user->roles()->sync($request->roles);
             $user->panelTypes()->sync($request->panel_types ?? []);
             $user->directPermissions()->sync($request->permissions ?? []);
+            $user->refreshPermissionCache();
 
             DB::commit();
 
@@ -233,7 +235,7 @@ class UserManagementController extends Controller
         $user = User::with('detail')->where('id', '!=', 19)->findOrFail($id);
         $roles = Role::all();
         $permissions = Permission::all();
-        $panelTypes = PanelType::all();
+        $panelTypes = PanelType::with('permissions')->get();
         $users = User::where('id', '!=', 19)->get(); // For referral selection
 
         return view('dashboard.users.edit', compact('user', 'roles', 'permissions', 'panelTypes', 'users'));
@@ -317,12 +319,23 @@ class UserManagementController extends Controller
 
             $detail->save();
 
+            // Capture the before state so any access change stays auditable -
+            // model events do not fire on pivot syncs
+            $before = [
+                'roles' => $user->roles()->pluck('name')->all(),
+                'panels' => $user->panelTypes()->pluck('name')->all(),
+                'direct_permissions' => $user->directPermissions()->pluck('name')->all(),
+            ];
+
             // Sync roles, panels, permissions
             if ($request->has('roles') && !empty($request->roles)) {
                 $user->roles()->sync($request->roles);
             }
             $user->panelTypes()->sync($request->panel_types ?? []);
             $user->directPermissions()->sync($request->permissions ?? []);
+            $user->refreshPermissionCache();
+
+            $this->logAccessChange($user, $before);
 
             return redirect()->route('dashboard.users.index')
                 ->with('success', 'User updated successfully.');
@@ -412,6 +425,85 @@ class UserManagementController extends Controller
 
     //     return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
     // }
+
+    /**
+     * Record role / panel / direct-permission changes for a user in the
+     * activity log, so the audit trail can answer "who gave this user access".
+     */
+    private function logAccessChange(User $user, array $before): void
+    {
+        $after = [
+            'roles' => $user->roles()->pluck('name')->all(),
+            'panels' => $user->panelTypes()->pluck('name')->all(),
+            'direct_permissions' => $user->directPermissions()->pluck('name')->all(),
+        ];
+
+        foreach ($before as $key => $values) {
+            sort($values);
+            $before[$key] = $values;
+            sort($after[$key]);
+        }
+
+        if ($before === $after) {
+            return;
+        }
+
+        $user->logCustomActivity('access updated', $before, $after);
+    }
+
+    /**
+     * Effective-permission breakdown for one user: every permission they hold
+     * and where each one comes from (role, panel or direct grant). Auditors and
+     * support both need to answer "why can this user do that" without reading
+     * three pivot tables by hand.
+     */
+    public function userPermissions($id)
+    {
+        $user = User::with(['roles.permissions', 'panelTypes.permissions', 'directPermissions'])
+            ->findOrFail($id);
+
+        $matrix = [];
+
+        $add = function ($permission, string $bucket, ?string $via = null) use (&$matrix) {
+            $matrix[$permission->slug] ??= [
+                'name' => $permission->name,
+                'slug' => $permission->slug,
+                'roles' => [],
+                'panels' => [],
+                'direct' => false,
+            ];
+
+            if ($bucket === 'direct') {
+                $matrix[$permission->slug]['direct'] = true;
+            } else {
+                $matrix[$permission->slug][$bucket][] = $via;
+            }
+        };
+
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                $add($permission, 'roles', $role->name);
+            }
+        }
+
+        foreach ($user->panelTypes as $panel) {
+            foreach ($panel->permissions as $permission) {
+                $add($permission, 'panels', $panel->name);
+            }
+        }
+
+        foreach ($user->directPermissions as $permission) {
+            $add($permission, 'direct');
+        }
+
+        ksort($matrix);
+
+        return view('dashboard.users.permissions', [
+            'user' => $user,
+            'matrix' => $matrix,
+            'isAdmin' => $user->isAdmin(),
+        ]);
+    }
 
     public function userDestroy($id)
     {

@@ -36,6 +36,21 @@ trait LogsActivity
         });
     }
 
+    /**
+     * Log a change the model events cannot see - pivot syncs such as
+     * granting/revoking permissions, roles or panels. Pass the before/after
+     * lists so the activity log renders a readable "changed from X to Y".
+     *
+     * Use an $action containing "updated" to get the diff rendering.
+     */
+    public function logCustomActivity(string $action, array $oldValues = [], array $newValues = []): void
+    {
+        self::logActivity($this, $action, [
+            'old_values' => $oldValues,
+            'new_values' => $newValues,
+        ]);
+    }
+
     protected static function logActivity($model, $action, array $properties = [])
     {
         Activity::create([

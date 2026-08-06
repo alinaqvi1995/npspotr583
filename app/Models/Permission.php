@@ -14,4 +14,9 @@ class Permission extends Model
     {
         return $this->belongsToMany(Role::class, 'permission_role');
     }
+
+    public function panelTypes()
+    {
+        return $this->belongsToMany(PanelType::class, 'panel_type_permission');
+    }
 }

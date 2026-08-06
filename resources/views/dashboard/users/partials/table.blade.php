@@ -49,6 +49,14 @@
                                         </a>
                                     </li>
                                 @endcan
+                                @can('view-users')
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('dashboard.users.permissions', $user->id) }}">
+                                            <i class="material-icons-outlined me-1">policy</i> Effective Permissions
+                                        </a>
+                                    </li>
+                                @endcan
                                 @can('delete-users')
                                     <li>
                                         <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="POST">

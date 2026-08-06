@@ -103,8 +103,8 @@
                     </div> --}}
 
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Panel Types</label>
-                        <select name="panel_types[]" class="select2 form-control" multiple
+                        <label class="form-label">Panel Types <small class="text-muted">(permission profile)</small></label>
+                        <select name="panel_types[]" id="userPanelTypes" class="select2 form-control" multiple
                             data-placeholder="Select panel types">
                             @foreach ($panelTypes as $panel)
                                 <option value="{{ $panel->id }}"
@@ -130,6 +130,18 @@
                         @error('permissions')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
+                    </div>
+
+                    {{-- Permissions inherited from the selected panels (read-only) --}}
+                    <div class="col-12 mb-3">
+                        <label class="form-label mb-1">Permissions Inherited From Panels</label>
+                        <div id="panelInheritedPermissions" class="border rounded p-2 bg-light-subtle">
+                            <span class="text-muted">Select a panel to see its permissions.</span>
+                        </div>
+                        <small class="text-muted">
+                            Managed on the <a href="{{ route('panels.index') }}">Panels</a> page. These are granted
+                            automatically to every user in the panel, in addition to role and direct permissions.
+                        </small>
                     </div>
 
                     {{-- <div class="col-md-4 mb-3">
@@ -461,6 +473,26 @@
                 maximumSelectionLength: 50, // optional limit
                 dropdownCssClass: "bigdrop", // add custom height via CSS
             });
+
+            // Panel (profile) permissions preview
+            const panelPermissions = @json($panelTypes->mapWithKeys(fn($p) => [$p->id => $p->permissions->pluck('name')]));
+
+            function renderPanelPermissions() {
+                const selected = $('#userPanelTypes').val() || [];
+                const names = [...new Set(selected.flatMap(id => panelPermissions[id] || []))].sort();
+                const $box = $('#panelInheritedPermissions').empty();
+
+                if (!names.length) {
+                    $box.append($('<span class="text-muted">')
+                        .text('No permissions inherited from the selected panels.'));
+                    return;
+                }
+
+                names.forEach(name => $box.append($('<span class="badge bg-info me-1 mb-1">').text(name)));
+            }
+
+            $('#userPanelTypes').on('change', renderPanelPermissions);
+            renderPanelPermissions();
         });
     </script>
 @endsection

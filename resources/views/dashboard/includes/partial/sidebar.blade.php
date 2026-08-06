@@ -238,6 +238,13 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('panels.index') }}" class="{{ request()->routeIs('panels.*') ? 'active' : '' }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">dashboard_customize</i></div>
+                        <div class="menu-title">Panels</div>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('trusted-ips.index') }}">
                         <div class="parent-icon"><i class="material-icons-outlined">security</i></div>
                         <div class="menu-title">Trusted IPs</div>

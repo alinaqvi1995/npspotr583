@@ -27,6 +27,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /** Per-request cache for the merged role + panel + direct permission set */
+    protected $cachedAllPermissions = null;
+
     protected function casts(): array
     {
         return [
@@ -116,28 +119,54 @@ class User extends Authenticatable
             ->distinct();
     }
 
+    // permissions inherited from the panels (profiles) the user belongs to
+    public function panelPermissions()
+    {
+        return \App\Models\Permission::query()
+            ->select('permissions.*')
+            ->join('panel_type_permission', 'permissions.id', '=', 'panel_type_permission.permission_id')
+            ->join('panel_type_user', 'panel_type_permission.panel_type_id', '=', 'panel_type_user.panel_type_id')
+            ->where('panel_type_user.user_id', $this->id)
+            ->distinct();
+    }
+
     public function listPermissions(): array
     {
         return [
             'roles' => $this->roles()->pluck('slug')->all(),
+            'panels' => $this->panelTypes()->pluck('name')->all(),
             'role_permissions' => $this->permissions()->pluck('slug')->all(),
+            'panel_permissions' => $this->panelPermissions()->pluck('slug')->all(),
             'direct_permissions' => $this->directPermissions()->pluck('slug')->all(),
             'all_permissions' => $this->allPermissions()->pluck('slug')->all(),
         ];
     }
 
-    // Merge role-based and direct permissions
+    // Merge role-based, panel-based (profile) and direct permissions
     public function allPermissions()
     {
-        $rolePermissions = $this->permissions()->get();
-        $directPermissions = $this->directPermissions()->get();
+        if ($this->cachedAllPermissions !== null) {
+            return $this->cachedAllPermissions;
+        }
 
-        $all = $rolePermissions
-            ->merge($directPermissions)
+        $all = $this->permissions()->get()
+            ->merge($this->panelPermissions()->get())
+            ->merge($this->directPermissions()->get())
             ->unique('id')
             ->values();
 
-        return $all;
+        return $this->cachedAllPermissions = $all;
+    }
+
+    /**
+     * Drop the per-request permission cache. Call after syncing
+     * roles / panels / direct permissions inside the same request.
+     */
+    public function refreshPermissionCache(): static
+    {
+        $this->cachedAllPermissions = null;
+
+        return $this;
     }
 
     public function hasPermission(string $slug): bool
