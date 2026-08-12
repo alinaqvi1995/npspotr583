@@ -149,6 +149,17 @@
                         <input class="form-control" id="name" name="customer_name" value="{{ old('customer_name') }}" type="text"
                             placeholder="Customer Name" required>
                     </div>
+                    <div class="consent-checkbox">
+                        <input type="checkbox"
+                            id="agree_receive"
+                            name="agree_receive"
+                            value="1"
+                            required>
+
+                        <label for="agree_receive">
+                            I agree to receive calls and text messages.
+                        </label>
+                    </div>
                 </div>
                 <div class="col-xl-6">
                     <div class="input-form single-input-field">
