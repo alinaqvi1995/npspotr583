@@ -149,6 +149,17 @@
                         <input class="form-control" id="name" name="customer_name" value="{{ old('customer_name') }}" type="text"
                             placeholder="Customer Name" required>
                     </div>
+                    
+                </div>
+                <div class="col-xl-6">
+                    <div class="input-form single-input-field">
+                        <label>Phone:</label>
+                        <input class="form-control" id="phone" name="customer_phone" value="{{ old('customer_phone') }}" type="tel"
+                            placeholder="(123) 456-7890" required>
+                        <input type="hidden" name="country_code" id="country_code" value="+1" />
+                    </div>
+                </div>
+                <div class="col-xl-12">
                     <div class="consent-checkbox">
                         <input type="checkbox"
                             id="agree_receive"
@@ -161,15 +172,6 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-xl-6">
-                    <div class="input-form single-input-field">
-                        <label>Phone:</label>
-                        <input class="form-control" id="phone" name="customer_phone" value="{{ old('customer_phone') }}" type="tel"
-                            placeholder="(123) 456-7890" required>
-                        <input type="hidden" name="country_code" id="country_code" value="+1" />
-                    </div>
-                </div>
-
                 <div class="col-xl-12">
                     <div class="input-form single-input-field">
                         <label>Email Address:</label>
