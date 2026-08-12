@@ -161,7 +161,7 @@
 
                 <div class="col-xl-12">
                     <div class="input-form single-input-field">
-                        <label>Email Addressss:</label>
+                        <label>Email Address:</label>
                         <input class="form-control" id="email" name="customer_email" type="email" placeholder="Email address"
                             value="{{ old('customer_email') }}" required>
                     </div>
