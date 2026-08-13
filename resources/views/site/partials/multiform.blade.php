@@ -175,7 +175,7 @@
                         <input type="checkbox" id="agree_receive" name="agree_receive" value="1" required="" class="ms-2 mb-1">
 
                         <label for="agree_receive" class="ms-2 text-white">
-                            I agree to receive calls and text messages.
+                            I consent to receiving text messages. Message and Data Rates may apply.
                         </label>
                     </div>
                 </div>
