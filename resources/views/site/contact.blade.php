@@ -155,8 +155,8 @@
 
                     <form
                         class="animate-form"
-                        method="POST"
-                        action="{{ route('frontend.submit.quote') }}"
+                            method="GET"
+                              action="{{ url('/contact') }}"
                     >
 
                         @csrf
