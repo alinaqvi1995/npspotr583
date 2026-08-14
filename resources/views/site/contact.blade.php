@@ -156,7 +156,7 @@
                     <form
                         class="animate-form"
                             method="GET"
-                              action="{{ url('/contact') }}"
+                              action="{{ url('/contact') }}" enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled
                     >
 
                         @csrf
