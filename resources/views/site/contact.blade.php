@@ -264,7 +264,7 @@
                                         name="sms_consent"
                                         id="sms_consent"
                                         value="1"
-                                        required
+                                        
                                     >
 
                                     <label
