@@ -158,6 +158,12 @@
             });
             
             function bindSearch(inputId, suggestionBoxId) {
+                // Bail out on pages that don't have this location input (e.g. contact page),
+                // otherwise the submit guard below would block every form on the page.
+                if (!$(inputId).length) {
+                    return;
+                }
+
                 let selected = false;
 
                 $(inputId).on('keyup', function () {
@@ -205,8 +211,8 @@
                     }
                 });
 
-                // Validate on form submit
-                $('form').on('submit', function (e) {
+                // Validate on form submit (only the form that owns this location input)
+                $(inputId).closest('form').on('submit', function (e) {
                     if (!selected) {
                         e.preventDefault();
 

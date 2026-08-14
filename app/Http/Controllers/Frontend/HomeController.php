@@ -225,7 +225,10 @@ class HomeController extends Controller
                     ->subject('New Contact Enquiry: '.$validated['subject']);
             });
         } catch (\Throwable $e) {
-            Log::error('Contact form mail failed: '.$e->getMessage(), $validated);
+            Log::error('Contact form mail failed: '.$e->getMessage(), [
+                'input'     => $validated,
+                'exception' => $e,
+            ]);
 
             return back()
                 ->withInput()
