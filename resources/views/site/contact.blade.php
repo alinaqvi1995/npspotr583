@@ -153,171 +153,203 @@
 
                 <div class="tj-animate-form d-flex align-items-center">
 
+                    <form
+                        class="animate-form"
+                        method="POST"
+                        action="{{ route('frontend.contact.submit') }}">
 
-<form
-    class="animate-form"
-    method="GET"
-    action="{{ url('/contact') }}"
-    id="calculatePriceFrom"
->
-
-    <div class="row">
-
-        <!-- First Name -->
-        <div class="col-lg-6 col-md-6">
-            <div class="form__div">
-                <input
-                    type="text"
-                    name="first_name"
-                    class="form__input"
-                    placeholder=" "
-                />
-
-                <label class="form__label">
-                    First Name
-                </label>
-            </div>
-        </div>
+                        @csrf
 
 
-        <!-- Last Name -->
-        <div class="col-lg-6 col-md-6">
-            <div class="form__div">
-                <input
-                    type="text"
-                    name="last_name"
-                    class="form__input"
-                    placeholder=" "
-                />
+                        <div class="row">
 
-                <label class="form__label">
-                    Last Name
-                </label>
-            </div>
-        </div>
+                            <!-- First Name -->
+                            <div class="col-lg-6 col-md-6">
 
+                                <div class="form__div">
 
-        <!-- Phone -->
-        <div class="col-lg-6 col-md-6">
-            <div class="form__div">
-                <input
-                    type="tel"
-                    name="phone"
-                    id="phone"
-                    class="form__input"
-                    placeholder=" "
-                />
+                                    <input
+                                        type="text"
+                                        name="first_name"
+                                        class="form__input"
+                                        placeholder=" "
+                                        required
+                                    />
 
-                <label class="form__label">
-                    Phone
-                </label>
-            </div>
-        </div>
+                                    <label class="form__label">
+                                        First Name
+                                    </label>
+
+                                </div>
+
+                            </div>
 
 
-        <!-- Email -->
-        <div class="col-lg-6 col-md-6">
-            <div class="form__div">
-                <input
-                    type="email"
-                    name="email"
-                    class="form__input"
-                    placeholder=" "
-                />
+                            <!-- Last Name -->
+                            <div class="col-lg-6 col-md-6">
 
-                <label class="form__label">
-                    Email Address
-                </label>
-            </div>
-        </div>
+                                <div class="form__div">
 
+                                    <input
+                                        type="text"
+                                        name="last_name"
+                                        class="form__input"
+                                        placeholder=" "
+                                        required
+                                    />
 
-        <!-- Subject -->
-        <div class="col-lg-12 col-md-12">
-            <div class="form__div">
-                <input
-                    type="text"
-                    name="subject"
-                    class="form__input"
-                    placeholder=" "
-                />
+                                    <label class="form__label">
+                                        Last Name
+                                    </label>
 
-                <label class="form__label">
-                    Subject
-                </label>
-            </div>
-        </div>
+                                </div>
+
+                            </div>
 
 
-        <!-- Message -->
-        <div class="col-lg-12">
-            <div class="form__div">
-                <textarea
-                    name="message"
-                    class="form__input textarea"
-                    placeholder=" "
-                ></textarea>
+                            <!-- Phone -->
+                            <div class="col-lg-6 col-md-6">
 
-                <label class="form__label">
-                    Message
-                </label>
-            </div>
-        </div>
+                                <div class="form__div">
 
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        id="phone"
+                                        class="form__input"
+                                        placeholder=" "
+                                        required
+                                    />
 
-        <!-- SMS Consent -->
-        <div class="col-lg-12 mt-3 mb-4">
+                                    <label class="form__label">
+                                        Phone
+                                    </label>
 
-            <div class="form-check d-flex align-items-start">
+                                </div>
 
-                <input
-                    class="form-check-input flex-shrink-0 mt-1 me-2"
-                    type="checkbox"
-                    name="sms_consent"
-                    id="sms_consent"
-                    value="1"
-                >
-
-                <label
-                    class="form-check-label"
-                    for="sms_consent"
-                >
-                    By providing a telephone number and submitting this form you
-                    are consenting to be contacted by SMS text message. Message
-                    &amp; data rates may apply. Message frequency may vary.
-                    <a
-                        href="{{ url('/privacy-policy') }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Privacy Policy
-                    </a>.
-                    Reply Help for more information. You can reply STOP to
-                    opt-out of further messaging.
-                </label>
-
-            </div>
-
-        </div>
-
-    </div>
+                            </div>
 
 
-    <!-- Submit -->
-    <div class="tj-theme-button mt-2">
+                            <!-- Email -->
+                            <div class="col-lg-6 col-md-6">
 
-        <button
-            class="tj-primary-btn contact-btn"
-            type="submit"
-        >
-            Send Message
-            <i class="flaticon-right-1"></i>
-        </button>
+                                <div class="form__div">
 
-    </div>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        class="form__input"
+                                        placeholder=" "
+                                        required
+                                    />
 
-</form>
+                                    <label class="form__label">
+                                        Email Address
+                                    </label>
 
+                                </div>
+
+                            </div>
+
+                                                        <!-- SMS Consent -->
+                            <div class="col-lg-12 mt-3 mb-4">
+
+                                <div class="form-check d-flex align-items-start">
+
+                                    <input
+                                        class="form-check-input flex-shrink-0 mt-1 me-2"
+                                        type="checkbox"
+                                        name="sms_consent"
+                                        id="sms_consent"
+                                        value="1"
+                                        
+                                    >
+
+                                    <label
+                                        class="form-check-label"
+                                        for="sms_consent"
+                                    >
+                                        By providing a telephone number and submitting
+                                        this form you are consenting to be contacted by
+                                        SMS text message. Message &amp; data rates may
+                                        apply. Message frequency may vary.
+                                        <a
+                                            href="{{ url('/privacy-policy') }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Privacy Policy
+                                        </a>.
+                                        Reply Help for more information. You can reply
+                                        STOP to opt-out of further messaging.
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="col-lg-12 col-md-12">
+
+                                <div class="form__div">
+
+                                    <input
+                                        type="text"
+                                        name="subject"
+                                        class="form__input"
+                                        placeholder=" "
+                                        required
+                                    />
+
+                                    <label class="form__label">
+                                        Subject
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Message -->
+                            <div class="col-lg-12">
+
+                                <div class="form__div">
+
+                                    <textarea
+                                        name="message"
+                                        class="form__input textarea"
+                                        placeholder=" "
+                                        required
+                                    ></textarea>
+
+                                    <label class="form__label">
+                                        Message
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <!-- Submit Button -->
+                        <div class="tj-theme-button mt-2">
+
+                            <button
+                                class="tj-primary-btn contact-btn"
+                                 type="submit"
+                            >
+                                Send Message
+                                <i class="flaticon-right-1"></i>
+                            </button>
+
+                        </div>
+
+                    </form>
 
                 </div>
 
