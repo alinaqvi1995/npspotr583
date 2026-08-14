@@ -68,6 +68,10 @@ Route::get('/thank-you', function () {
     return view('frontend.thankyou');
 })->name('frontend.thankyou');
 
+Route::post('/contact', function () {
+    return redirect('/contact');
+})->name('frontend.contact.submit');
+
 // 🔹 Blog
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [FrontendBlogController::class, 'show'])->name('blog.show');
