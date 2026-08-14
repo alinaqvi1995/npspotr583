@@ -4,7 +4,6 @@
 
 @section('content')
 
-```html id="f5p8xz"
 <!--========== breadcrumb Start ==============-->
 <section class="breadcrumb-wrapper"
     data-bg-image="{{ asset('web-assets/images/banner/cta-bg.webp') }}">
@@ -157,7 +156,7 @@
                     <form
                         class="animate-form"
                         method="POST"
-                        action=""
+                        action="{{ url('/contact') }}"
                     >
 
                         @csrf
@@ -264,7 +263,7 @@
                                         name="sms_consent"
                                         id="sms_consent"
                                         value="1"
-                                        checked
+                                        
                                     >
 
                                     <label
@@ -383,9 +382,6 @@
     </div>
 
 </section>
-<!--========== Contact Page End ==============-->
-```
-
 
     <!--========== Contact Page End ==============-->
 @endsection
