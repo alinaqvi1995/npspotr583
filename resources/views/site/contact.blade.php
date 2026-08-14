@@ -155,7 +155,7 @@
 
                     <form
                         class="animate-form"
-                            method="GET"
+                            method="GET" id="calculatePriceFrom"
                               action="{{ url('/contact') }}" enctype="multipart/form-data" novalidate data-parsley-validate data-parsley-errors-messages-disabled
                     >
 
