@@ -342,7 +342,6 @@
 
                             <button
                                 class="tj-primary-btn contact-btn"
-                                type="submit"
                                 value="submit"
                             >
                                 Send Message
