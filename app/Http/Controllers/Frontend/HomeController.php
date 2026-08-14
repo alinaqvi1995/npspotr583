@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Models\VehicleMakeModel;
 use App\Models\Blog;
@@ -200,5 +202,36 @@ class HomeController extends Controller
         public function faq()
     {
         return view('site.faq');
+    }
+
+    public function contactSubmit(Request $request)
+    {
+        $validated = $request->validate([
+            'first_name'  => 'required|string|max:255',
+            'last_name'   => 'required|string|max:255',
+            'phone'       => 'required|string|max:50',
+            'email'       => 'required|email|max:255',
+            'subject'     => 'required|string|max:255',
+            'message'     => 'required|string|max:5000',
+            'sms_consent' => 'nullable|boolean',
+        ]);
+
+        $validated['sms_consent'] = $request->boolean('sms_consent');
+
+        try {
+            Mail::send('emails.contactMessage', ['data' => $validated], function ($message) use ($validated) {
+                $message->to('bridgewayuship@gmail.com')
+                    ->replyTo($validated['email'], $validated['first_name'].' '.$validated['last_name'])
+                    ->subject('New Contact Enquiry: '.$validated['subject']);
+            });
+        } catch (\Throwable $e) {
+            Log::error('Contact form mail failed: '.$e->getMessage(), $validated);
+
+            return back()
+                ->withInput()
+                ->with('error', 'Sorry, we could not send your message right now. Please call us at +1 (713) 470-6157.');
+        }
+
+        return back()->with('success', 'Thank you! Your message has been sent. We will get back to you shortly.');
     }
 }

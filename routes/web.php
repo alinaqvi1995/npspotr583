@@ -34,6 +34,7 @@ Route::get('/states/{slug}', [StateFrontendController::class, 'show'])->name('st
 
 Route::get('/quote-form', [HomeController::class, 'multiform'])->name('multiform');
 Route::view('/contact', 'site.contact')->name('contact');
+Route::post('/contact', [HomeController::class, 'contactSubmit'])->name('frontend.contact.submit');
 Route::get('/track-order', [HomeController::class, 'trackOrder'])->name('track.order');
 Route::post('/track-order/fetch', [HomeController::class, 'fetchOrder'])->name('track.order.fetch');
 
@@ -67,10 +68,6 @@ Route::post('/submit_quote', [QuoteController::class, 'submitQuote'])->name('fro
 Route::get('/thank-you', function () {
     return view('frontend.thankyou');
 })->name('frontend.thankyou');
-
-Route::post('/contact', function () {
-    return redirect('/contact');
-})->name('frontend.contact.submit');
 
 // 🔹 Blog
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('blog.index');

@@ -151,14 +151,37 @@
                 </div>
 
 
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="tj-animate-form d-flex align-items-center">
 
                     <form
                         class="animate-form"
-                        method="GET"
-                        action="{{ url('/contact') }}">
+                        method="POST"
+                        action="{{ route('frontend.contact.submit') }}"
+                    >
 
-                        {{-- @csrf --}}
+                        @csrf
 
 
                         <div class="row">
@@ -173,6 +196,7 @@
                                         name="first_name"
                                         class="form__input"
                                         placeholder=" "
+                                        value="{{ old('first_name') }}"
                                         required
                                     />
 
@@ -195,6 +219,7 @@
                                         name="last_name"
                                         class="form__input"
                                         placeholder=" "
+                                        value="{{ old('last_name') }}"
                                         required
                                     />
 
@@ -218,6 +243,7 @@
                                         id="phone"
                                         class="form__input"
                                         placeholder=" "
+                                        value="{{ old('phone') }}"
                                         required
                                     />
 
@@ -240,6 +266,7 @@
                                         name="email"
                                         class="form__input"
                                         placeholder=" "
+                                        value="{{ old('email') }}"
                                         required
                                     />
 
@@ -262,7 +289,7 @@
                                         name="sms_consent"
                                         id="sms_consent"
                                         value="1"
-                                        
+                                        {{ old('sms_consent') ? 'checked' : '' }}
                                     >
 
                                     <label
@@ -298,6 +325,7 @@
                                         name="subject"
                                         class="form__input"
                                         placeholder=" "
+                                        value="{{ old('subject') }}"
                                         required
                                     />
 
@@ -320,7 +348,7 @@
                                         class="form__input textarea"
                                         placeholder=" "
                                         required
-                                    ></textarea>
+                                    >{{ old('message') }}</textarea>
 
                                     <label class="form__label">
                                         Message
@@ -341,7 +369,8 @@
 
                             <button
                                 class="tj-primary-btn contact-btn"
-                                 type="submit"
+                                type="submit"
+                                value="submit"
                             >
                                 Send Message
                                 <i class="flaticon-right-1"></i>
@@ -380,6 +409,5 @@
     </div>
 
 </section>
-
-    <!--========== Contact Page End ==============-->
+<!--========== Contact Page End ==============-->
 @endsection
