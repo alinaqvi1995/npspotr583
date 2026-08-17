@@ -364,14 +364,14 @@
             </div>
         </div>
     </section>
-                    {{-- <div class="container auth-container">
-                        <div class="card shadow-lg border-0 rounded-4">
-                            <div class="card-body p-5">
-                                <div class="text-center mb-4">
-                                    <img src="{{ asset('web-assets/images/logo/logo_004.jpeg') }}" alt="Logo" width="180" class="mb-3">
-                                    <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
-                                    <p class="text-muted">Please complete the form below to authorize the transaction.</p>
-                                </div> --}}
+    {{-- <div class="container auth-container">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <img src="{{ asset('web-assets/images/logo/logo_004.jpeg') }}" alt="Logo" width="180" class="mb-3">
+                    <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
+                    <p class="text-muted">Please complete the form below to authorize the transaction.</p>
+                </div> --}}
     <section class="tj-cta-section-three">
         <div class="container">
             <div class="row">
@@ -504,19 +504,22 @@
 
                                                     <div class="col-md-6">
                                                         <label class="form-label fw-semibold">Card Number</label>
-                                                        <input type="text" name="card_number" class="form-control"
+                                                        <input type="text" name="card_number" class="form-control card-number-mask"
+                                                            inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456"
                                                             value="{{ old('card_number') }}" required>
                                                     </div>
 
                                                     <div class="col-md-3">
                                                         <label class="form-label fw-semibold">Expiration Date</label>
-                                                        <input type="text" name="expiry_date" placeholder="MM/YY" class="form-control"
+                                                        <input type="text" name="expiry_date" placeholder="MM/YY" class="form-control expiry-mask"
+                                                            inputmode="numeric" autocomplete="cc-exp"
                                                             value="{{ old('expiry_date') }}" required>
                                                     </div>
 
                                                     <div class="col-md-3">
                                                         <label class="form-label fw-semibold">Security Code (CVV)</label>
-                                                        <input type="text" name="cvv" class="form-control" value="{{ old('cvv') }}"
+                                                        <input type="text" name="cvv" class="form-control cvv-mask"
+                                                            inputmode="numeric" autocomplete="cc-csc" value="{{ old('cvv') }}"
                                                             required>
                                                     </div>
 
@@ -911,6 +914,25 @@
                     signature_name: "Signature name is required",
                     signature_date: "Signature date is required"
                 }
+            });
+        });
+    </script>
+    <script>
+        // Card-style input masking (Card Number / Expiry / CVV)
+        $(document).ready(function() {
+            $('.card-number-mask').inputmask({
+                mask: "9999 9999 9999 9999",
+                placeholder: " "
+            });
+
+            $('.expiry-mask').inputmask({
+                mask: "99/99",
+                placeholder: "MM/YY"
+            });
+
+            $('.cvv-mask').inputmask({
+                mask: "999[9]",
+                placeholder: " "
             });
         });
     </script>
