@@ -364,14 +364,14 @@
             </div>
         </div>
     </section>
-    {{-- <div class="container auth-container">
-        <div class="card shadow-lg border-0 rounded-4">
-            <div class="card-body p-5">
-                <div class="text-center mb-4">
-                    <img src="{{ asset('web-assets/images/logo/logo_004.jpeg') }}" alt="Logo" width="180" class="mb-3">
-                    <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
-                    <p class="text-muted">Please complete the form below to authorize the transaction.</p>
-                </div> --}}
+                    {{-- <div class="container auth-container">
+                        <div class="card shadow-lg border-0 rounded-4">
+                            <div class="card-body p-5">
+                                <div class="text-center mb-4">
+                                    <img src="{{ asset('web-assets/images/logo/logo_004.jpeg') }}" alt="Logo" width="180" class="mb-3">
+                                    <h3 class="fw-bold text-primary">Credit Card Authorization Form</h3>
+                                    <p class="text-muted">Please complete the form below to authorize the transaction.</p>
+                                </div> --}}
     <section class="tj-cta-section-three">
         <div class="container">
             <div class="row">
@@ -564,22 +564,23 @@
 
 
                                                     <div class="col-md-12 mt-4 text-center">
-                                                        <button type="submit" id="submitBtn"
-                                                            class="btn btn-lg btn-primary px-5 rounded-pill shadow">
-                                                            <span id="btnText">Submit Authorization</span>
-                                                            <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status"
-                                                                aria-hidden="true"></span>
-                                                        </button>
+                                                        <div class="tj-theme-button d-inline-block">
+                                                            <button type="submit" id="submitBtn" class="tj-primary-btn">
+                                                                <span id="btnText">Submit Authorization</span>
+                                                                <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status"
+                                                                    aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
                                                     </div>
 
                                                 </div>
                                             </form>
-                                {{-- </div>
-                            </div>
-                            <p class="text-center text-muted mt-3 small">&copy; {{ date('Y') }} Bridgeway Logistics LLC. All rights
-                                reserved.</p>
-                        </div> --}}
-                        <!-- Footer -->
+                                    {{-- </div>
+                                </div>
+                                <p class="text-center text-muted mt-3 small">&copy; {{ date('Y') }} Bridgeway Logistics LLC. All rights
+                                    reserved.</p>
+                            </div> --}}
+                            <!-- Footer -->
                                             <div class="border-top pt-3 mt-4 text-center small text-muted">
                                                 © {{ date('Y') }} Bridgeway Logistics LLC. All rights reserved.
                                             </div>
