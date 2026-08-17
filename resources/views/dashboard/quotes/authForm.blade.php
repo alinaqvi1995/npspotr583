@@ -354,7 +354,7 @@
         <div class="container">
             <div class="row">
                 <div class="tj-section-heading text-center">
-                    <span class="sub-title active-shape"> Authorization Form #{{ $quote->id }} | Bridgeway Logistics LLC </span>
+                    <span class="sub-title active-shape"> Authorization Form | Bridgeway Logistics LLC </span>
                     <h2 class="title">Complete Your Order Form</h2>
                     <p class="mt-2 text-muted">
                         Please review your details carefully and fill out the required information to confirm your
