@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Order Form - Quote #{{ $quote->id }}</title>
@@ -30,10 +29,8 @@
     <link rel="stylesheet" href="{{ asset('web-assets/css/style.css') }}" />
     <!-- Responsive css -->
     <link rel="stylesheet" href="{{ asset('web-assets/css/responsive.css') }}" />
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     <style>
         .letterhead {
             border: 2px solid #427ece;
@@ -347,9 +344,7 @@
             padding: 50px 45px 60px;
         }
     </style>
-
 </head>
-
 <body>
     <section class="tj-service-section-three pt-5 pb-0">
         <div class="container">
@@ -788,7 +783,6 @@
             </div>
         </div>
     </section>
-
     <!-- Modernizr.JS -->
     <script src="{{ asset('web-assets/js/modernizr-2.8.3.min.js') }}"></script>
     <!-- jQuery.min JS -->
@@ -820,11 +814,8 @@
     <script src="{{ asset('web-assets/js/jquery.nice-select.min.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('web-assets/js/main.js') }}"></script>
-
     <script src="https://js.stripe.com/v3/"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-
     <script>
         $(document).ready(function() {
             const stripe = Stripe(`{{ config('services.stripe.key') }}`);
@@ -873,9 +864,7 @@
             });
         });
     </script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-
     <script>
         $(document).ready(function() {
             // Custom phone rule
@@ -963,7 +952,5 @@
             });
         });
     </script>
-
 </body>
-
 </html>
