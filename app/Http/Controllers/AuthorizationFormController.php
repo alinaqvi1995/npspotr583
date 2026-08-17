@@ -108,26 +108,45 @@ class AuthorizationFormController extends Controller
         }
 
         $validated = $request->validate([
-            'auth_date' => 'required',
-            'purchase_for' => 'required',
-            'company_name' => 'nullable',
-            'cardholder_name' => 'required',
-            'billing_address' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip' => 'required',
-            'phone' => 'required',
-            'card_type' => 'required',
-            'card_number' => 'required',
-            'expiry_date' => 'required',
-            'cvv' => 'required',
-            'issuing_bank' => 'nullable',
-            'bank_number' => 'nullable',
-            'invoice_amount' => 'required|numeric',
+            'auth_date' => 'required|date',
+            'purchase_for' => 'required|string',
+            'company_name' => 'nullable|string|max:255',
+            'cardholder_name' => 'required|string|max:255|regex:/^[a-zA-Z\s.\-\']+$/',
+            'billing_address' => 'required|string|max:255',
+            'city' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
+            'zip' => 'required|regex:/^\d{5}(-\d{4})?$/',
+            'phone' => 'required|regex:/^\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}$/',
+            'card_type' => 'required|in:Visa,Mastercard,American Express,Discover',
+            'card_number' => [
+                'required',
+                'regex:/^[\d\s]{12,23}$/',
+                function ($attribute, $value, $fail) {
+                    if (! $this->isValidCardNumber($value)) {
+                        $fail('Please enter a valid card number.');
+                    }
+                },
+            ],
+            'expiry_date' => [
+                'required',
+                'regex:/^(0[1-9]|1[0-2])\/\d{2}$/',
+                function ($attribute, $value, $fail) {
+                    if (! $this->isCardNotExpired($value)) {
+                        $fail('The card expiration date is invalid or has already passed.');
+                    }
+                },
+            ],
+            'cvv' => 'required|regex:/^\d{3,4}$/',
+            'issuing_bank' => 'nullable|string|max:255',
+            'bank_number' => 'nullable|string|max:20',
+            'invoice_amount' => 'required|numeric|min:0.01',
             'signature_image' => 'required',
             'attachments' => 'required|array',
             'attachments.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        // Strip spaces left over from the card-number input mask before persisting
+        $validated['card_number'] = preg_replace('/\D/', '', $validated['card_number']);
 
         try {
             $attachments = [];
@@ -195,6 +214,54 @@ class AuthorizationFormController extends Controller
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Submission failed: '.$e->getMessage()])->withInput();
         }
+    }
+
+    /**
+     * Luhn check, after stripping any spaces left by the input mask.
+     */
+    private function isValidCardNumber(string $number): bool
+    {
+        $digits = preg_replace('/\D/', '', $number);
+
+        if (strlen($digits) < 13 || strlen($digits) > 19) {
+            return false;
+        }
+
+        $sum = 0;
+        $alternate = false;
+
+        for ($i = strlen($digits) - 1; $i >= 0; $i--) {
+            $n = (int) $digits[$i];
+
+            if ($alternate) {
+                $n *= 2;
+                if ($n > 9) {
+                    $n -= 9;
+                }
+            }
+
+            $sum += $n;
+            $alternate = ! $alternate;
+        }
+
+        return $sum % 10 === 0;
+    }
+
+    /**
+     * Confirms an "MM/YY" expiry string is a real month and is not already in the past.
+     */
+    private function isCardNotExpired(string $expiry): bool
+    {
+        if (! preg_match('/^(0[1-9]|1[0-2])\/(\d{2})$/', $expiry, $matches)) {
+            return false;
+        }
+
+        $month = (int) $matches[1];
+        $year = 2000 + (int) $matches[2];
+
+        $expiryDate = \Carbon\Carbon::createFromDate($year, $month, 1)->endOfMonth();
+
+        return $expiryDate->isFuture();
     }
 
     public function view($id)
