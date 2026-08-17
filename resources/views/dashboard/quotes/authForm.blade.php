@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,8 +21,12 @@
     </style>
 </head>
 
-<body>
+<body> --}}
+@extends('dashboard.includes.partial.base')
 
+@section('title', 'Order Forms')
+
+@section('content')
     <div class="container auth-container">
         <div class="card shadow-lg border-0 rounded-4">
             <div class="card-body p-5">
@@ -208,6 +212,34 @@
         <p class="text-center text-muted mt-3 small">&copy; {{ date('Y') }} Bridgeway Logistics LLC. All rights
             reserved.</p>
     </div>
+@endsection
+@section('extra_js')
+    <script>
+        $(document).ready(function () {
+            // DataTable
+            var table = $('#orderFormTable').DataTable({
+                pageLength: 10,
+                autoWidth: false,
+                order: [
+                    [0, 'asc']
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    targets: [1, 2, 3, 5]
+                }]
+            });
+
+            // Column filter
+            $('#orderFormSearch').on('keyup', function () {
+                var colIndex = $('#columnFilter').val();
+                if (colIndex === '') {
+                    table.search(this.value).draw();
+                } else {
+                    table.column(colIndex).search(this.value).draw();
+                }
+            });
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
@@ -359,6 +391,7 @@
 
         });
     </script>
-</body>
+@endsection
+{{-- </body>
 
-</html>
+</html> --}}
