@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- <title>Authorization Form | Bridgeway Logistics LLC</title> --}}
-    <title>Authorization Form #{{ $quote->id }} | Bridgeway Logistics LLC</title>
+    <title>Authorization Form | Bridgeway Logistics LLC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('web-assets/images/logo/1-logo.png') }}" type="image/png">
     <!-- Bootstrap  v5.1.3 css -->
