@@ -430,14 +430,14 @@
     </div>
 
     <!-- Auto-show script -->
-    <script>
+    {{-- <script>
         window.addEventListener('load', () => {
             setTimeout(() => {
             const promoModal = new bootstrap.Modal(document.getElementById('promoModal'));
             promoModal.show();
             }, 3000); // show after 3 seconds
         });
-    </script>
+    </script> --}}
 
     <style>
         /* Remove modal background overlay */
