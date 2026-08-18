@@ -114,4 +114,16 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Notification Address
+    |--------------------------------------------------------------------------
+    |
+    | Internal alerts (authorization form submitted, etc.) are delivered here.
+    | Override it per environment with MAIL_ADMIN_ADDRESS.
+    |
+    */
+
+    'admin_address' => env('MAIL_ADMIN_ADDRESS', 'bridgewayuship@gmail.com'),
+
 ];

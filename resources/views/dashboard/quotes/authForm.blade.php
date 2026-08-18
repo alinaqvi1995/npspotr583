@@ -102,15 +102,20 @@
             border-color: #427ece !important;
         }
 
-        /* pickup delivery suggestion */
+        /* location suggestion dropdown — overlays rather than pushing the form */
         .suggestions-box {
-            position: relative;
-            top: 100%;
+            position: absolute;
+            top: calc(100% + 2px);
             left: 0;
             right: 0;
+            width: 100%;
+            height: auto;
+            padding: 0;
             background: #fff;
             border: 1px solid #ddd;
-            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            max-height: 220px;
             overflow-y: auto;
             z-index: 9999;
             display: none;
@@ -119,6 +124,9 @@
         .suggestions-box div {
             padding: 8px 12px;
             cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .suggestions-box div:hover {
@@ -418,16 +426,17 @@
                                                 </div>
                                             @endif
 
-                                            <form action="{{ route('authorization.store', $encrypted) }}" method="POST"
-                                                enctype="multipart/form-data">
+                                            <form id="authorizationForm"
+                                                action="{{ route('authorization.store', $encrypted) }}" method="POST"
+                                                enctype="multipart/form-data" autocomplete="off">
                                                 @csrf
 
                                                 <div class="row g-3">
 
                                                     <div class="col-md-4">
                                                         <label class="form-label fw-semibold">Date</label>
-                                                        <input type="text" name="auth_date" class="form-control bg-light"
-                                                            value="{{ date('Y-m-d') }}" readonly required style="cursor: not-allowed;">
+                                                        <input type="text" class="form-control bg-light"
+                                                            value="{{ date('Y-m-d') }}" readonly style="cursor: not-allowed;">
                                                     </div>
 
                                                     <div class="col-md-12">
@@ -440,56 +449,57 @@
 
                                                     <div class="col-md-12">
                                                         <label class="form-label fw-semibold">This form is for the purchase of</label>
-                                                        <input type="text" name="purchase_for" class="form-control"
-                                                            value="{{ $quote->vehicles->map(fn($v) => $v->year . ' ' . $v->make . ' ' . $v->model . ' ' . $v->vin)->implode(', ') }}"
-                                                            readonly required>
+                                                        <input type="text" class="form-control bg-light"
+                                                            value="{{ $purchaseFor }}" readonly style="cursor: not-allowed;">
                                                         <small class="text-muted">Vehicle information from Quote #{{ $quote->id }}</small>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <label class="form-label fw-semibold">Company Name</label>
                                                         <input type="text" name="company_name" class="form-control"
-                                                            value="{{ old('company_name') }}">
+                                                            value="{{ old('company_name') }}" maxlength="255" autocomplete="organization">
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <label class="form-label fw-semibold">Cardholder's Name (As on Card)</label>
-                                                        <input type="text" name="cardholder_name" class="form-control" required>
+                                                        <label class="form-label fw-semibold">Cardholder's Name (As on Card) <span class="text-danger">*</span></label>
+                                                        <input type="text" name="cardholder_name" class="form-control"
+                                                            value="{{ old('cardholder_name') }}" maxlength="255"
+                                                            autocomplete="cc-name" required>
                                                     </div>
 
                                                     <div class="col-md-12">
-                                                        <label class="form-label fw-semibold">Billing Address</label>
+                                                        <label class="form-label fw-semibold">Billing Address <span class="text-danger">*</span></label>
                                                         <input type="text" name="billing_address" class="form-control"
-                                                            value="{{ old('billing_address') }}" required>
-                                                    </div>
-
-                                                    <div class="col-md-4">
-                                                        <label class="form-label fw-semibold">City</label>
-                                                        <input type="text" name="city" class="form-control" value="{{ old('city') }}"
-                                                            required>
-                                                    </div>
-
-                                                    <div class="col-md-4">
-                                                        <label class="form-label fw-semibold">State</label>
-                                                        <input type="text" name="state" class="form-control" value="{{ old('state') }}"
-                                                            required>
-                                                    </div>
-
-                                                    <div class="col-md-4">
-                                                        <label class="form-label fw-semibold">Zip Code</label>
-                                                        <input type="text" name="zip" class="form-control" value="{{ old('zip') }}"
-                                                            required>
+                                                            value="{{ old('billing_address') }}" maxlength="255"
+                                                            autocomplete="billing street-address" required>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <label class="form-label fw-semibold">Phone Number</label>
-                                                        <input type="text" name="phone" class="form-control"
+                                                        <label class="form-label fw-semibold">City, State, Zip <span class="text-danger">*</span></label>
+                                                        <div class="input-form single-input-field position-relative">
+                                                            <input class="form-control" type="text" id="billing-location"
+                                                                placeholder="Enter City or ZipCode" autocomplete="off"
+                                                                value="{{ old('city') ? old('city') . ', ' . old('state') . ', ' . old('zip') : '' }}"
+                                                                required>
+                                                            <div id="billing-suggestions" class="form-control suggestions-box"></div>
+                                                        </div>
+                                                        <small class="text-muted">Start typing and pick your location from the list.</small>
+
+                                                        <input type="hidden" name="city" id="billing-city" value="{{ old('city') }}">
+                                                        <input type="hidden" name="state" id="billing-state" value="{{ old('state') }}">
+                                                        <input type="hidden" name="zip" id="billing-zip" value="{{ old('zip') }}">
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
+                                                        <input type="text" name="phone" class="form-control phone"
+                                                            placeholder="(123) 456-7890" autocomplete="tel"
                                                             value="{{ old('phone', $quote->customer_phone) }}" required>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <label class="form-label fw-semibold">Card Type</label>
-                                                        <select name="card_type" class="form-select" required>
+                                                        <label class="form-label fw-semibold">Card Type <span class="text-danger">*</span></label>
+                                                        <select name="card_type" id="cardType" class="form-select" required>
                                                             <option value="">Select</option>
                                                             <option value="Visa" {{ old('card_type') == 'Visa' ? 'selected' : '' }}>Visa</option>
                                                             <option value="Mastercard" {{ old('card_type') == 'Mastercard' ? 'selected' : '' }}>
@@ -500,25 +510,26 @@
                                                             <option value="Discover" {{ old('card_type') == 'Discover' ? 'selected' : '' }}>
                                                                 Discover</option>
                                                         </select>
+                                                        <small class="text-muted" id="cardTypeHint">Detected automatically from your card number.</small>
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <label class="form-label fw-semibold">Card Number</label>
-                                                        <input type="text" name="card_number" class="form-control card-number-mask"
+                                                        <label class="form-label fw-semibold">Card Number <span class="text-danger">*</span></label>
+                                                        <input type="text" name="card_number" id="cardNumber" class="form-control card-number-mask"
                                                             inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456"
                                                             value="{{ old('card_number') }}" required>
                                                     </div>
 
                                                     <div class="col-md-3">
-                                                        <label class="form-label fw-semibold">Expiration Date</label>
+                                                        <label class="form-label fw-semibold">Expiration Date <span class="text-danger">*</span></label>
                                                         <input type="text" name="expiry_date" placeholder="MM/YY" class="form-control expiry-mask"
                                                             inputmode="numeric" autocomplete="cc-exp"
                                                             value="{{ old('expiry_date') }}" required>
                                                     </div>
 
                                                     <div class="col-md-3">
-                                                        <label class="form-label fw-semibold">Security Code (CVV)</label>
-                                                        <input type="text" name="cvv" class="form-control cvv-mask"
+                                                        <label class="form-label fw-semibold">Security Code (CVV) <span class="text-danger">*</span></label>
+                                                        <input type="text" name="cvv" id="cvv" class="form-control cvv-mask"
                                                             inputmode="numeric" autocomplete="cc-csc" value="{{ old('cvv') }}"
                                                             required>
                                                     </div>
@@ -526,43 +537,50 @@
                                                     <div class="col-md-6">
                                                         <label class="form-label fw-semibold">Issuing Bank</label>
                                                         <input type="text" name="issuing_bank" class="form-control"
-                                                            value="{{ old('issuing_bank') }}">
+                                                            value="{{ old('issuing_bank') }}" maxlength="255">
                                                     </div>
 
                                                     <div class="col-md-6" style="display: none;">
                                                         <label class="form-label fw-semibold">Bank Phone Number</label>
                                                         <input type="text" name="bank_number" class="form-control"
-                                                            value="{{ old('bank_number') }}">
+                                                            value="{{ old('bank_number') }}" maxlength="20">
                                                     </div>
 
+                                                    {{-- Display only: the amount actually charged is taken from the
+                                                         signed link server-side, so nothing here is trusted. --}}
                                                     <div class="col-md-6">
                                                         <label class="form-label fw-semibold">Invoice Amount ($)</label>
-                                                        <input type="number" step="0.01" name="invoice_amount" class="form-control bg-light"
-                                                            value="{{ old('invoice_amount', $quote->amount_to_pay) }}" readonly required style="cursor: not-allowed;">
+                                                        <input type="text" class="form-control bg-light fw-bold"
+                                                            value="{{ number_format($invoiceAmount, 2) }}" readonly
+                                                            style="cursor: not-allowed;">
                                                     </div>
 
                                                     <div class="col-md-12">
-                                                        <label class="form-label fw-semibold">Upload Card & Driving License (Front & Back)</label>
-                                                        <input type="file" name="attachments[]" class="form-control" multiple required>
+                                                        <label class="form-label fw-semibold">Upload Card & Driving License (Front & Back) <span class="text-danger">*</span></label>
+                                                        <input type="file" name="attachments[]" id="attachments" class="form-control"
+                                                            accept="image/jpeg,image/png,image/webp" multiple required>
                                                         <div id="attachmentPreview" class="mt-3"></div>
-                                                        <small class="text-danger">Upload clear pictures of the front & back of your card and
-                                                            driving license.</small>
+                                                        <div id="attachmentError" class="text-danger small mt-1 d-none"></div>
+                                                        <small class="text-danger d-block">Upload clear pictures of the front &amp; back of your card and
+                                                            driving license. JPG, PNG or WEBP, up to 6 images, 4 MB each.</small>
                                                     </div>
 
                                                     <div class="col-md-12">
-                                                        <label class="form-label fw-semibold">Cardholder’s Signature (Electronic)</label>
+                                                        <label class="form-label fw-semibold">Cardholder’s Signature (Electronic) <span class="text-danger">*</span></label>
 
                                                         <div class="border rounded p-2 bg-white" style="width:100%; max-width:400px;">
                                                             <canvas id="signaturePad"
-                                                                style="width:100%; height:200px; border:1px solid #ccc;"></canvas>
+                                                                style="width:100%; height:200px; border:1px solid #ccc; touch-action:none;"></canvas>
                                                         </div>
 
                                                         <button type="button" class="btn btn-sm btn-secondary mt-2"
                                                             id="clearSignature">Clear</button>
+                                                        <div id="signatureError" class="text-danger small mt-1 d-none">
+                                                            Please sign in the box above before submitting.
+                                                        </div>
 
                                                         <!-- Hidden input to store Base64 signature -->
-                                                        <input type="hidden" name="signature_image" id="signatureImage"
-                                                            value="{{ old('signature_image') }}" required>
+                                                        <input type="hidden" name="signature_image" id="signatureImage" value="">
                                                     </div>
 
 
@@ -597,342 +615,373 @@
             </div>
         </div>
     </section>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
 
-            // UX: Disable button and show spinner on submit
-            const form = document.querySelector('form');
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const btnSpinner = document.getElementById('btnSpinner');
-
-            if (form) {
-                form.addEventListener('submit', function() {
-                    // Check validity first (if using browser validation)
-                    if (this.checkValidity()) {
-                        submitBtn.disabled = true;
-                        btnText.textContent = 'Submitting...';
-                        btnSpinner.classList.remove('d-none');
-                    }
-                });
-            }
-
-            // ---------------------------------------
-            // IMAGE PREVIEW FOR ATTACHMENTS
-            // ---------------------------------------
-            const fileInput = document.querySelector('input[name="attachments[]"]');
-
-            if (fileInput) {
-                fileInput.addEventListener("change", function() {
-                    const previewContainer = document.getElementById("attachmentPreview");
-                    previewContainer.innerHTML = "";
-
-                    Array.from(this.files).forEach((file, index) => {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const div = document.createElement("div");
-                            div.classList.add("d-inline-block", "position-relative", "m-2");
-                            div.style.width = "100px";
-                            div.style.height = "100px";
-
-                            div.innerHTML = `
-                            <img src="${e.target.result}" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">
-                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 removePreview" data-index="${index}">&times;</button>
-                        `;
-
-                            previewContainer.appendChild(div);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                });
-
-                document.addEventListener("click", function(e) {
-                    if (e.target.classList.contains("removePreview")) {
-                        const index = e.target.dataset.index;
-                        const dt = new DataTransfer();
-
-                        Array.from(fileInput.files).forEach((file, i) => {
-                            if (i !== Number(index)) dt.items.add(file);
-                        });
-
-                        fileInput.files = dt.files;
-                        e.target.parentElement.remove();
-                    }
-                });
-            }
-
-
-            // ---------------------------------------
-            // SIGNATURE PAD
-            // ---------------------------------------
-            const canvas = document.getElementById("signaturePad");
-            const signatureImage = document.getElementById("signatureImage");
-            const clearBtn = document.getElementById("clearSignature");
-
-            const ctx = canvas.getContext("2d");
-
-            // Fix canvas resolution
-            function resizeCanvas() {
-                const ratio = Math.max(window.devicePixelRatio || 1, 1);
-                const width = canvas.offsetWidth;
-                const height = canvas.offsetHeight;
-                canvas.width = width * ratio;
-                canvas.height = height * ratio;
-                ctx.scale(ratio, ratio);
-            }
-            resizeCanvas();
-            // window.addEventListener("resize", resizeCanvas); // resizing clears canvas, handle better if needed
-
-            let drawing = false;
-
-            function startDrawing(e) {
-                drawing = true;
-                ctx.beginPath();
-                ctx.moveTo(getX(e), getY(e));
-                e.preventDefault(); // prevent scrolling on touch
-            }
-
-            function draw(e) {
-                if (!drawing) return;
-                ctx.lineTo(getX(e), getY(e));
-                ctx.strokeStyle = "#000";
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                e.preventDefault();
-            }
-
-            function stopDrawing() {
-                if (drawing) {
-                    drawing = false;
-                    // Save signature in hidden input
-                    signatureImage.value = canvas.toDataURL("image/png");
-                }
-            }
-
-            function getX(e) {
-                let clientX = e.clientX;
-                if (e.touches && e.touches.length > 0) {
-                    clientX = e.touches[0].clientX;
-                }
-                return clientX - canvas.getBoundingClientRect().left;
-            }
-
-            function getY(e) {
-                let clientY = e.clientY;
-                if (e.touches && e.touches.length > 0) {
-                    clientY = e.touches[0].clientY;
-                }
-                return clientY - canvas.getBoundingClientRect().top;
-            }
-
-            // Mouse events
-            canvas.addEventListener("mousedown", startDrawing);
-            canvas.addEventListener("mousemove", draw);
-            canvas.addEventListener("mouseup", stopDrawing);
-            canvas.addEventListener("mouseleave", stopDrawing);
-
-            // Touch events (mobile)
-            canvas.addEventListener("touchstart", startDrawing, {
-                passive: false
-            });
-            canvas.addEventListener("touchmove", draw, {
-                passive: false
-            });
-            canvas.addEventListener("touchend", stopDrawing);
-
-            // Clear signature
-            clearBtn.addEventListener("click", function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                signatureImage.value = "";
-            });
-
-        });
-    </script>
     <!-- Modernizr.JS -->
     <script src="{{ asset('web-assets/js/modernizr-2.8.3.min.js') }}"></script>
-    <!-- jQuery.min JS -->
+    <!-- jQuery -->
     <script src="{{ asset('web-assets/js/jquery.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Input masking -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.9/jquery.inputmask.min.js"></script>
-
     <!-- Bootstrap.min JS -->
     <script src="{{ asset('web-assets/js/bootstrap.min.js') }}"></script>
     <!-- Meanmenu JS -->
     <script src="{{ asset('web-assets/js/meanmenu.js') }}"></script>
-    <!-- Imagesloaded JS -->
-    <script src="{{ asset('web-assets/js/imagesloaded.pkgd.min.js') }}"></script>
-    <!-- Isotope JS -->
-    <script src="{{ asset('web-assets/js/isotope.pkgd.min.js') }}"></script>
-    <!-- Magnific JS -->
-    <script src="{{ asset('web-assets/js/jquery.magnific-popup.min.js') }}"></script>
-    <!-- Swiper.min JS -->
-    <script src="{{ asset('web-assets/js/swiper.min.js') }}"></script>
-    <!-- Owl.min JS -->
-    <script src="{{ asset('web-assets/js/owl.carousel.js') }}"></script>
-    <!-- Appear JS -->
-    <script src="{{ asset('web-assets/js/jquery.appear.min.js') }}"></script>
-    <!-- Odometer JS -->
-    <script src="{{ asset('web-assets/js/odometer.min.js') }}"></script>
     <!-- Sal JS -->
     <script src="{{ asset('web-assets/js/sal.js') }}"></script>
-    <!-- Nice JS -->
-    <script src="{{ asset('web-assets/js/jquery.nice-select.min.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('web-assets/js/main.js') }}"></script>
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
     <script>
-        $(document).ready(function() {
-            const stripe = Stripe(`{{ config('services.stripe.key') }}`);
-            const elements = stripe.elements();
-            const card = elements.create('card');
-            card.mount('#card-element');
+        $(function () {
+            'use strict';
 
-            // Toggle card fields when payment option changes
-            $('#payment_option').on('change', function() {
-                if ($(this).val() === 'now') {
-                    $('#custom-card-fields').show();
-                    $('#pay-now-options').show();
-                } else {
-                    $('#custom-card-fields').hide();
-                    $('#pay-now-options').hide();
+            var MAX_ATTACHMENTS = 6;
+            var MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
+            var ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+            var $form = $('#authorizationForm');
+
+            // ─────────────────────────────────────────────────────────────
+            // Input masks
+            // ─────────────────────────────────────────────────────────────
+            $('.card-number-mask').inputmask({ mask: '9999 9999 9999 9999[ 999]', placeholder: ' ' });
+            $('.expiry-mask').inputmask({ mask: '99/99', placeholder: 'MM/YY' });
+            $('.cvv-mask').inputmask({ mask: '999[9]', placeholder: ' ' });
+            $('.phone').inputmask({ mask: '(999) 999-9999' });
+
+            // ─────────────────────────────────────────────────────────────
+            // Billing location — city / state / zip from the zipcodes table.
+            // Mirrors the picker used on the quote and order forms: the visible
+            // field is a search box, the three hidden inputs are what actually post.
+            // ─────────────────────────────────────────────────────────────
+            (function bindLocationSearch() {
+                var $input = $('#billing-location');
+                var $box = $('#billing-suggestions');
+                var $city = $('#billing-city');
+                var $state = $('#billing-state');
+                var $zip = $('#billing-zip');
+                var request = null;
+                var debounce = null;
+
+                if (!$input.length) {
+                    return;
                 }
-            });
 
-            const form = document.getElementById('order-form');
+                function clearSelection() {
+                    $city.val('');
+                    $state.val('');
+                    $zip.val('');
+                }
 
-            form.addEventListener('submit', async function(event) {
-                // Only tokenize if paying now
-                if ($('#payment_option').val() === 'now') {
-                    event.preventDefault();
-
-                    const {
-                        token,
-                        error
-                    } = await stripe.createToken(card);
-
-                    if (error) {
-                        document.getElementById('card-errors').textContent = error.message;
-                    } else {
-                        document.getElementById('stripeToken').value = token.id;
-                        form.submit();
+                function showError(message) {
+                    $input.addClass('is-invalid');
+                    if (!$input.siblings('.invalid-feedback').length) {
+                        $input.after('<div class="invalid-feedback d-block">' + message + '</div>');
                     }
                 }
-            });
 
-            $(document).on("focus", ".phone", function() {
-                if (!$(this).data("inputmask")) {
-                    $(this).inputmask({
-                        mask: "(999) 999-9999"
+                function clearError() {
+                    $input.removeClass('is-invalid');
+                    $input.siblings('.invalid-feedback').remove();
+                }
+
+                $input.on('input', function () {
+                    var query = $.trim($(this).val());
+
+                    clearSelection();
+                    clearError();
+                    clearTimeout(debounce);
+
+                    if (query.length < 2) {
+                        $box.stop(true, true).slideUp(150);
+                        return;
+                    }
+
+                    debounce = setTimeout(function () {
+                        if (request) {
+                            request.abort();
+                        }
+
+                        request = $.ajax({
+                            url: "{{ route('zipcode.searchByLocation') }}",
+                            data: { q: query },
+                            dataType: 'json'
+                        }).done(function (data) {
+                            var html = '';
+
+                            if (data && data.length) {
+                                $.each(data, function (_, item) {
+                                    html += '<div class="suggestion-item"' +
+                                        ' data-city="' + item.city + '"' +
+                                        ' data-state="' + item.state + '"' +
+                                        ' data-zip="' + item.zip + '">' + item.label + '</div>';
+                                });
+                            } else {
+                                html = '<div class="p-2 text-muted">No results found</div>';
+                            }
+
+                            $box.html(html).stop(true, true).slideDown(150);
+                        }).fail(function (xhr, status) {
+                            if (status !== 'abort') {
+                                $box.html('<div class="p-2 text-muted">Search unavailable, please try again.</div>')
+                                    .stop(true, true).slideDown(150);
+                            }
+                        });
+                    }, 250);
+                });
+
+                $(document).on('click', '#billing-suggestions .suggestion-item', function () {
+                    var $item = $(this);
+
+                    $input.val($item.text());
+                    $city.val($item.data('city'));
+                    $state.val($item.data('state'));
+                    $zip.val($item.data('zip'));
+
+                    clearError();
+                    $box.stop(true, true).slideUp(150);
+                });
+
+                $(document).on('click', function (e) {
+                    if (!$(e.target).closest('#billing-location, #billing-suggestions').length) {
+                        $box.stop(true, true).slideUp(150);
+                    }
+                });
+
+                // Exposed so the submit handler can reuse the same messaging.
+                window.__validateBillingLocation = function () {
+                    if (!$city.val() || !$state.val() || !$zip.val()) {
+                        showError('Please select your city, state and ZIP from the suggestion list.');
+                        $box.stop(true, true).slideDown(150);
+                        return false;
+                    }
+                    return true;
+                };
+            })();
+
+            // ─────────────────────────────────────────────────────────────
+            // Card brand detection — keeps the select in step with the number
+            // and switches the CVV length for American Express.
+            // ─────────────────────────────────────────────────────────────
+            function detectBrand(digits) {
+                if (/^4/.test(digits)) return 'Visa';
+                if (/^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[01]|2720)/.test(digits)) return 'Mastercard';
+                if (/^3[47]/.test(digits)) return 'American Express';
+                if (/^(6011|65|64[4-9]|622)/.test(digits)) return 'Discover';
+                return null;
+            }
+
+            $('#cardNumber').on('input', function () {
+                var digits = ($(this).val() || '').replace(/\D/g, '');
+
+                if (digits.length < 2) {
+                    $('#cardTypeHint').text('Detected automatically from your card number.');
+                    return;
+                }
+
+                var brand = detectBrand(digits);
+
+                if (brand) {
+                    $('#cardType').val(brand);
+                    $('#cardTypeHint').text('Detected: ' + brand);
+                } else {
+                    $('#cardTypeHint').text('Card type not recognised — please select it manually.');
+                }
+
+                var amex = brand === 'American Express';
+                $('#cardNumber').inputmask(amex
+                    ? { mask: '9999 999999 99999', placeholder: ' ' }
+                    : { mask: '9999 9999 9999 9999[ 999]', placeholder: ' ' });
+                $('#cvv').inputmask(amex ? { mask: '9999' } : { mask: '999' });
+            }).trigger('input');
+
+            // ─────────────────────────────────────────────────────────────
+            // Attachments — preview, plus client-side count/size/type guards
+            // that mirror the server rules.
+            // ─────────────────────────────────────────────────────────────
+            var fileInput = document.getElementById('attachments');
+
+            function renderAttachmentPreview() {
+                var $preview = $('#attachmentPreview').empty();
+
+                Array.prototype.forEach.call(fileInput.files, function (file, index) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $preview.append(
+                            '<div class="d-inline-block position-relative m-2" style="width:100px;height:100px;">' +
+                            '<img src="' + e.target.result + '" class="img-thumbnail" style="width:100%;height:100%;object-fit:cover;">' +
+                            '<button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 removePreview" data-index="' + index + '">&times;</button>' +
+                            '</div>'
+                        );
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            function validateAttachments(showMessage) {
+                var $error = $('#attachmentError');
+                var files = fileInput ? fileInput.files : [];
+                var message = null;
+
+                if (!files.length) {
+                    message = 'Please upload photos of your card and driving license.';
+                } else if (files.length > MAX_ATTACHMENTS) {
+                    message = 'You may upload at most ' + MAX_ATTACHMENTS + ' images.';
+                } else {
+                    Array.prototype.forEach.call(files, function (file) {
+                        if (message) return;
+                        if (ALLOWED_TYPES.indexOf(file.type) === -1) {
+                            message = '"' + file.name + '" is not a JPG, PNG or WEBP image.';
+                        } else if (file.size > MAX_ATTACHMENT_BYTES) {
+                            message = '"' + file.name + '" is larger than 4 MB.';
+                        }
                     });
                 }
-            });
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Custom phone rule
-            $.validator.addMethod("phoneUS", function(phone_number, element) {
-                return this.optional(element) || /^\(\d{3}\) \d{3}-\d{4}$/.test(phone_number);
-            }, "Please enter a valid phone number (e.g. (123) 456-7890)");
 
-            $("#order-form").validate({
-                errorClass: "is-invalid",
-                validClass: "is-valid",
-                errorElement: "div",
-                errorPlacement: function(error, element) {
-                    error.addClass("invalid-feedback");
-                    if (element.parent(".input-group").length) {
-                        error.insertAfter(element.parent());
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-                highlight: function(element) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
-                },
-                unhighlight: function(element) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
-                },
-                rules: {
-                    customer_name: {
-                        required: true,
-                        minlength: 2
-                    },
-                    customer_email: {
-                        required: true,
-                        email: true
-                    },
-                    customer_phone: {
-                        required: true,
-                        phoneUS: true
-                    },
-
-                    pickup_address1: "required",
-                    pickup_contact_name: "required",
-                    pickup_contact_email: {
-                        email: true
-                    },
-
-                    delivery_address1: "required",
-                    delivery_contact_name: "required",
-                    delivery_contact_email: {
-                        email: true
-                    },
-
-                    "pickup_phones[]": {
-                        phoneUS: true
-                    },
-                    "delivery_phones[]": {
-                        phoneUS: true
-                    },
-
-                    confirm_terms: "required",
-                    payment_option: "required",
-                    signature_name: "required",
-                    signature_date: "required"
-                },
-                messages: {
-                    customer_name: "Please enter your name",
-                    customer_email: {
-                        required: "Please enter your email",
-                        email: "Enter a valid email"
-                    },
-                    customer_phone: "Enter a valid phone number",
-
-                    pickup_address1: "Pickup address is required",
-                    pickup_contact_name: "Pickup contact name is required",
-                    pickup_contact_email: "Enter a valid email for pickup contact",
-
-                    delivery_address1: "Delivery address is required",
-                    delivery_contact_name: "Delivery contact name is required",
-                    delivery_contact_email: "Enter a valid email for delivery contact",
-
-                    confirm_terms: "You must accept the Terms & Conditions",
-                    payment_option: "Please select a payment option",
-                    signature_name: "Signature name is required",
-                    signature_date: "Signature date is required"
+                if (message && showMessage) {
+                    $error.text(message).removeClass('d-none');
+                } else if (!message) {
+                    $error.addClass('d-none').text('');
                 }
-            });
-        });
-    </script>
-    <script>
-        // Card-style input masking (Card Number / Expiry / CVV)
-        $(document).ready(function() {
-            $('.card-number-mask').inputmask({
-                mask: "9999 9999 9999 9999",
-                placeholder: " "
-            });
 
-            $('.expiry-mask').inputmask({
-                mask: "99/99",
-                placeholder: "MM/YY"
-            });
+                return !message;
+            }
 
-            $('.cvv-mask').inputmask({
-                mask: "999[9]",
-                placeholder: " "
+            if (fileInput) {
+                $(fileInput).on('change', function () {
+                    renderAttachmentPreview();
+                    validateAttachments(true);
+                });
+
+                $(document).on('click', '.removePreview', function () {
+                    var index = Number($(this).data('index'));
+                    var transfer = new DataTransfer();
+
+                    Array.prototype.forEach.call(fileInput.files, function (file, i) {
+                        if (i !== index) transfer.items.add(file);
+                    });
+
+                    fileInput.files = transfer.files;
+                    renderAttachmentPreview();
+                    validateAttachments(true);
+                });
+            }
+
+            // ─────────────────────────────────────────────────────────────
+            // Signature pad
+            // ─────────────────────────────────────────────────────────────
+            var canvas = document.getElementById('signaturePad');
+            var signatureImage = document.getElementById('signatureImage');
+            var hasSignature = false;
+
+            if (canvas) {
+                var ctx = canvas.getContext('2d');
+                var drawing = false;
+
+                (function resizeCanvas() {
+                    var ratio = Math.max(window.devicePixelRatio || 1, 1);
+                    canvas.width = canvas.offsetWidth * ratio;
+                    canvas.height = canvas.offsetHeight * ratio;
+                    ctx.scale(ratio, ratio);
+                    ctx.lineWidth = 2;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    ctx.strokeStyle = '#000';
+                })();
+
+                function pointerX(e) {
+                    var clientX = e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
+                    return clientX - canvas.getBoundingClientRect().left;
+                }
+
+                function pointerY(e) {
+                    var clientY = e.touches && e.touches.length ? e.touches[0].clientY : e.clientY;
+                    return clientY - canvas.getBoundingClientRect().top;
+                }
+
+                function startDrawing(e) {
+                    drawing = true;
+                    ctx.beginPath();
+                    ctx.moveTo(pointerX(e), pointerY(e));
+                    e.preventDefault();
+                }
+
+                function draw(e) {
+                    if (!drawing) return;
+                    ctx.lineTo(pointerX(e), pointerY(e));
+                    ctx.stroke();
+                    hasSignature = true;
+                    e.preventDefault();
+                }
+
+                function stopDrawing() {
+                    if (!drawing) return;
+                    drawing = false;
+
+                    if (hasSignature) {
+                        signatureImage.value = canvas.toDataURL('image/png');
+                        $('#signatureError').addClass('d-none');
+                    }
+                }
+
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mouseup', stopDrawing);
+                canvas.addEventListener('mouseleave', stopDrawing);
+                canvas.addEventListener('touchstart', startDrawing, { passive: false });
+                canvas.addEventListener('touchmove', draw, { passive: false });
+                canvas.addEventListener('touchend', stopDrawing);
+
+                $('#clearSignature').on('click', function () {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    signatureImage.value = '';
+                    hasSignature = false;
+                });
+            }
+
+            // ─────────────────────────────────────────────────────────────
+            // Submit guard — block the post until everything the server will
+            // reject has been fixed, then lock the button against double sends.
+            // ─────────────────────────────────────────────────────────────
+            var submitting = false;
+
+            $form.on('submit', function (e) {
+                if (submitting) {
+                    e.preventDefault();
+                    return;
+                }
+
+                var $firstInvalid = null;
+
+                if (!window.__validateBillingLocation()) {
+                    $firstInvalid = $('#billing-location');
+                }
+
+                if (!validateAttachments(true) && !$firstInvalid) {
+                    $firstInvalid = $('#attachments');
+                }
+
+                if (!hasSignature || !signatureImage.value) {
+                    $('#signatureError').removeClass('d-none');
+                    if (!$firstInvalid) $firstInvalid = $('#signaturePad');
+                }
+
+                if ($firstInvalid) {
+                    e.preventDefault();
+                    $('html, body').animate({ scrollTop: $firstInvalid.offset().top - 120 }, 300);
+                    return;
+                }
+
+                if (!this.checkValidity()) {
+                    return; // let the browser surface its own field messages
+                }
+
+                submitting = true;
+                $('#submitBtn').prop('disabled', true);
+                $('#btnText').text('Submitting...');
+                $('#btnSpinner').removeClass('d-none');
             });
         });
     </script>

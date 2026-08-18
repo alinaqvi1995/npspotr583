@@ -93,10 +93,13 @@ Route::get('/order-form/{encrypted}', [OrderFormController::class, 'orderForm'])
 Route::post('/quote/{encrypted}/submit-order-form', [OrderFormController::class, 'submitOrderForm'])
     ->name('site.quote.submitOrderForm');
 
-// authorization form for customer
+// authorization form for customer — public, so both ends are rate limited to
+// blunt link-guessing and repeated card submissions from one address.
 Route::get('/authorization-form/{encrypted}', [App\Http\Controllers\AuthorizationFormController::class, 'show'])
+    ->middleware('throttle:30,1')
     ->name('authorization.show');
 Route::post('/authorization-form/{encrypted}', [App\Http\Controllers\AuthorizationFormController::class, 'store'])
+    ->middleware('throttle:10,1')
     ->name('authorization.store');
 
 // order invoice

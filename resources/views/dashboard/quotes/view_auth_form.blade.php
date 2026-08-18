@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Customer Name</label>
+                            <label class="form-label fw-semibold">Company Name</label>
                             <input type="text" class="form-control" value="{{ $authForm->company_name ?? '-' }}"
                                 readonly>
                         </div>
@@ -116,8 +116,10 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">IP Address</label>
-                            <input type="text" class="form-control" value="{{ $authForm->ip_address }}" readonly>
+                            <label class="form-label fw-semibold">Submitted From (IP)</label>
+                            <input type="text" class="form-control"
+                                value="{{ $authForm->ip_address ?? '-' }}{{ $authForm->submitted_at ? ' — ' . $authForm->submitted_at->format('M j, Y g:i a') : '' }}"
+                                readonly>
                         </div>
 
                         <div class="col-md-6">
@@ -129,9 +131,9 @@
                             <label class="form-label fw-semibold">Card Number</label>
                             <div class="input-group">
                                 <input type="text" id="cardNumberField" class="form-control"
-                                    value="**** **** **** {{ substr($authForm->card_number, -4) }}"
+                                    value="{{ $authForm->masked_card_number }}"
                                     data-full="{{ $authForm->card_number }}"
-                                    data-masked="**** **** **** {{ substr($authForm->card_number, -4) }}" readonly>
+                                    data-masked="{{ $authForm->masked_card_number }}" readonly>
                                 <button class="btn btn-outline-secondary" type="button" id="toggleCardNumber">
                                     <i class="material-icons-outlined align-middle fs-6">visibility</i>
                                 </button>
@@ -196,7 +198,11 @@
                             <label class="form-label fw-semibold">Cardholder’s Signature</label>
 
                             <div class="border rounded p-2 bg-white" style="width:100%; max-width:400px;">
-                                <img src="{{ $authForm->signature_image }}" alt="Signature" class="img-fluid">
+                                @if ($authForm->signature_url)
+                                    <img src="{{ $authForm->signature_url }}" alt="Signature" class="img-fluid">
+                                @else
+                                    <span class="text-muted fst-italic">No signature on file.</span>
+                                @endif
                             </div>
                         </div>
                     </div>
