@@ -226,14 +226,7 @@ class AuthorizationFormController extends Controller
                     ->with('success', 'An authorization form has already been submitted for this order.');
             }
 
-            Log::error('Authorization form submission failed', [
-                'quote_id' => $quote->id,
-                'error' => $e->getMessage(),
-            ]);
-
-            return back()
-                ->withErrors(['error' => 'We could not save your authorization. Please try again.'])
-                ->withInput($request->except($this->sensitiveFields()));
+            return $this->submissionFailed($request, $quote, $e);
         } catch (QueryException $e) {
             $this->deleteFiles($storedFiles);
 
@@ -245,26 +238,11 @@ class AuthorizationFormController extends Controller
                     ->with('success', 'An authorization form has already been submitted for this order.');
             }
 
-            Log::error('Authorization form submission failed', [
-                'quote_id' => $quote->id,
-                'error' => $e->getMessage(),
-            ]);
-
-            return back()
-                ->withErrors(['error' => 'We could not save your authorization. Please try again.'])
-                ->withInput($request->except($this->sensitiveFields()));
+            return $this->submissionFailed($request, $quote, $e);
         } catch (\Throwable $e) {
             $this->deleteFiles($storedFiles);
 
-            Log::error('Authorization form submission failed', [
-                'quote_id' => $quote->id,
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-
-            return back()
-                ->withErrors(['error' => 'We could not save your authorization. Please try again.'])
-                ->withInput($request->except($this->sensitiveFields()));
+            return $this->submissionFailed($request, $quote, $e);
         }
 
         $this->logActivity(
@@ -581,6 +559,32 @@ class AuthorizationFormController extends Controller
             // Never let audit logging take down the request it is describing.
             Log::warning('Activity log write failed', ['log_name' => $logName, 'error' => $e->getMessage()]);
         }
+    }
+
+    /**
+     * Logs the real cause against a short reference and shows the customer a
+     * message carrying that same reference, so a support report can be matched
+     * to a log line without exposing anything about the failure.
+     */
+    private function submissionFailed(Request $request, Quote $quote, \Throwable $e)
+    {
+        $reference = strtoupper(bin2hex(random_bytes(3)));
+
+        Log::error('Authorization form submission failed', [
+            'reference' => $reference,
+            'quote_id' => $quote->id,
+            'exception' => get_class($e),
+            'error' => $e->getMessage(),
+            'at' => $e->getFile().':'.$e->getLine(),
+            'ip' => $request->ip(),
+        ]);
+
+        return back()
+            ->withErrors([
+                'error' => 'We could not save your authorization. Please try again, '
+                    ."or contact us quoting reference {$reference}.",
+            ])
+            ->withInput($request->except($this->sensitiveFields()));
     }
 
     /** Fields that must never survive into the session via withInput(). */
