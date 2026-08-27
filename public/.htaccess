@@ -6,18 +6,7 @@
     RewriteEngine On
 
     # ---------------------------------------------------
-    # ✅ Security Headers
-    # ---------------------------------------------------
-    <IfModule mod_headers.c>
-        Header always set X-Frame-Options "SAMEORIGIN"
-        Header always set X-XSS-Protection "1; mode=block"
-        Header always set X-Content-Type-Options "nosniff"
-        Header always set Referrer-Policy "strict-origin-when-cross-origin"
-        Header always set Permissions-Policy "geolocation=(), microphone=()"
-    </IfModule>
-
-    # ---------------------------------------------------
-    # ✅ Force HTTPS (SEO + Security)
+    # ✅ Force HTTPS
     # ---------------------------------------------------
     RewriteCond %{HTTPS} !=on
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
@@ -29,7 +18,7 @@
     RewriteRule ^index\.php(.*)$ $1 [R=301,L]
 
     # ---------------------------------------------------
-    # ✅ Redirect Trailing Slashes (except folders)
+    # ✅ Redirect Trailing Slashes except folders
     # ---------------------------------------------------
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
@@ -44,7 +33,24 @@
 </IfModule>
 
 # ---------------------------------------------------
-# ✅ Browser Caching (improves page speed)
+# ✅ Authorization form uploads can legitimately exceed
+#    the default Apache request body limit.
+# ---------------------------------------------------
+LimitRequestBody 52428800
+
+# ---------------------------------------------------
+# ✅ Security Headers
+# ---------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=()"
+</IfModule>
+
+# ---------------------------------------------------
+# ✅ Browser Caching
 # ---------------------------------------------------
 <IfModule mod_expires.c>
     ExpiresActive On
