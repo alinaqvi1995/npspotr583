@@ -198,6 +198,19 @@ class Quote extends Model
         return $this->hasMany(QuoteHistory::class)->orderBy('created_at');
     }
 
+    /**
+     * Date the quote was booked - the first history entry that put the quote
+     * into the "Booked" status. Falls back to the creation date.
+     */
+    public function getBookedAtAttribute()
+    {
+        $booked = $this->histories()
+            ->where('status', 'Booked')
+            ->first();
+
+        return $booked?->created_at ?? $this->created_at;
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

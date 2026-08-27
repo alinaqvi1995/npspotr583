@@ -50,7 +50,8 @@
                                 <div class="invoice-right">
                                     <h1 style="color: #062e39">INVOICE</h1>
                                     <p class="invoice-number"><b>Invoice No:</b> #INV-{{ $quote->id }}</p>
-                                    <p class="invoice-date"><b>Date:</b> August 23, 2025</p>
+                                    <p class="invoice-date"><b>Date:</b>
+                                        {{ ($quote->booked_at ?? now())->format('F d, Y') }}</p>
                                 </div>
                             </div>
                         </div>
