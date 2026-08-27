@@ -105,29 +105,13 @@
                                                     <i class="material-icons-outlined fs-6 me-1">visibility</i> View
                                                 </a>
                                             </li>
-                                            {{-- <li>
-                                                <a class="dropdown-item"
-                                                    href="{{ route('dashboard.orderForms.download', $form->id) }}">
-                                                    <i class="material-icons-outlined fs-6 me-1">download</i> Download PDF
-                                                </a>
-                                            </li> --}}
                                         </ul>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="mt-4">
-                                        <h5 class="fw-semibold mb-3">Load-Specific Terms</h5>
-                                        <div class="form-check">
-                                            <label class="form-check-label" for="termsCheck">
-                                                {{ $form->quote->load_specific_terms }}
-                                            </label>
-                                        </div>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">No order forms found.</td>
+                                <td colspan="7" class="text-center">No order forms found.</td>
                             </tr>
                         @endforelse
                     </tbody>
