@@ -29,6 +29,9 @@ class AuthorizationFormController extends Controller
 
     private const MAX_ATTACHMENTS = 6;
 
+    /** Longest side, in pixels, that stored attachment photos are scaled down to. */
+    private const MAX_IMAGE_EDGE = 2000;
+
     // ─────────────────────────────────────────────────────────────────────────
     // ADMIN — send the form link to a customer
     // ─────────────────────────────────────────────────────────────────────────
@@ -230,9 +233,13 @@ class AuthorizationFormController extends Controller
         } catch (QueryException $e) {
             $this->deleteFiles($storedFiles);
 
-            // 23000 = integrity constraint violation, i.e. the unique index on
-            // quote_id caught a second submit that slipped past the checks above.
-            if ($e->getCode() === '23000') {
+            // SQLSTATE 23000 covers every integrity violation (NOT NULL, foreign
+            // key, any duplicate key), so only treat it as a duplicate submit when
+            // it is a duplicate-key error (1062) and a form really exists now.
+            // Anything else must surface as a failure, not a fake thank-you.
+            $isDuplicateKey = ($e->errorInfo[1] ?? null) === 1062;
+
+            if ($isDuplicateKey && AuthorizationForm::where('quote_id', $quote->id)->exists()) {
                 return redirect()
                     ->route('frontend.thankyou')
                     ->with('success', 'An authorization form has already been submitted for this order.');
@@ -384,6 +391,7 @@ class AuthorizationFormController extends Controller
             'attachments.max' => 'You may upload at most '.self::MAX_ATTACHMENTS.' images.',
             'attachments.*.max' => 'Each image must be 4 MB or smaller.',
             'attachments.*.mimes' => 'Only JPG, PNG and WEBP images are accepted.',
+            'attachments.*.uploaded' => 'One of your photos was too large to upload. Please choose a smaller photo and try again.',
         ]);
     }
 
@@ -430,20 +438,95 @@ class AuthorizationFormController extends Controller
 
         $paths = [];
 
-        foreach ($request->file('attachments', []) as $file) {
-            $extension = strtolower($file->getClientOriginalExtension() ?: $file->guessExtension() ?: 'jpg');
+        try {
+            foreach ($request->file('attachments', []) as $file) {
+                $baseName = bin2hex(random_bytes(16));
 
-            if (! in_array($extension, ['jpeg', 'jpg', 'png', 'webp'], true)) {
-                $extension = 'jpg';
+                $fileName = $this->reencodeImage($file->getRealPath(), $destination, $baseName);
+
+                if ($fileName === null) {
+                    $extension = strtolower($file->guessExtension() ?: 'jpg');
+
+                    if (! in_array($extension, ['jpeg', 'jpg', 'png', 'webp'], true)) {
+                        $extension = 'jpg';
+                    }
+
+                    $fileName = $baseName.'.'.$extension;
+                    $file->move($destination, $fileName);
+                }
+
+                $paths[] = self::ATTACHMENT_DIRECTORY.'/'.$fileName;
             }
+        } catch (\Throwable $e) {
+            $this->deleteFiles($paths);
 
-            $fileName = bin2hex(random_bytes(16)).'.'.$extension;
-            $file->move($destination, $fileName);
-
-            $paths[] = self::ATTACHMENT_DIRECTORY.'/'.$fileName;
+            throw $e;
         }
 
         return $paths;
+    }
+
+    /**
+     * Redraws an uploaded photo into a fresh JPEG: scaled down, upright, and with
+     * EXIF (GPS etc.) and anything smuggled after the image data thrown away.
+     * Returns null when GD is unavailable or the image is too big to decode
+     * safely, in which case the caller stores the validated original.
+     */
+    private function reencodeImage(string $sourcePath, string $destination, string $baseName): ?string
+    {
+        if (! function_exists('imagecreatefromstring')) {
+            return null;
+        }
+
+        $info = @getimagesize($sourcePath);
+
+        // Decoding costs ~5 bytes per pixel; refuse anything over ~40 MP so a
+        // crafted image can't exhaust memory.
+        if (! $info || $info[0] < 1 || $info[1] < 1 || $info[0] * $info[1] > 40_000_000) {
+            return null;
+        }
+
+        $source = @imagecreatefromstring((string) file_get_contents($sourcePath));
+
+        if ($source === false) {
+            return null;
+        }
+
+        try {
+            if (($info[2] ?? null) === IMAGETYPE_JPEG && function_exists('exif_read_data')) {
+                $orientation = (int) (@exif_read_data($sourcePath)['Orientation'] ?? 1);
+                $rotated = match ($orientation) {
+                    3 => imagerotate($source, 180, 0),
+                    6 => imagerotate($source, -90, 0),
+                    8 => imagerotate($source, 90, 0),
+                    default => null,
+                };
+
+                if ($rotated) {
+                    imagedestroy($source);
+                    $source = $rotated;
+                }
+            }
+
+            $width = imagesx($source);
+            $height = imagesy($source);
+            $scale = min(1, self::MAX_IMAGE_EDGE / max($width, $height));
+            $newWidth = max(1, (int) round($width * $scale));
+            $newHeight = max(1, (int) round($height * $scale));
+
+            $canvas = imagecreatetruecolor($newWidth, $newHeight);
+            // White behind transparent PNG/WEBP areas instead of black.
+            imagefill($canvas, 0, 0, imagecolorallocate($canvas, 255, 255, 255));
+            imagecopyresampled($canvas, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+            $fileName = $baseName.'.jpg';
+            $written = imagejpeg($canvas, $destination.DIRECTORY_SEPARATOR.$fileName, 85);
+            imagedestroy($canvas);
+
+            return $written ? $fileName : null;
+        } finally {
+            imagedestroy($source);
+        }
     }
 
     /**

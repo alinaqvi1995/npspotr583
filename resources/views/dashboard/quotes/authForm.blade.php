@@ -558,11 +558,11 @@
                                                     <div class="col-md-12">
                                                         <label class="form-label fw-semibold">Upload Card & Driving License (Front & Back) <span class="text-danger">*</span></label>
                                                         <input type="file" name="attachments[]" id="attachments" class="form-control"
-                                                            accept="image/jpeg,image/png,image/webp" multiple required>
+                                                            accept="image/jpeg,image/png,image/webp,image/heic,image/heif" multiple required>
                                                         <div id="attachmentPreview" class="mt-3"></div>
                                                         <div id="attachmentError" class="text-danger small mt-1 d-none"></div>
                                                         <small class="text-danger d-block">Upload clear pictures of the front &amp; back of your card and
-                                                            driving license. JPG, PNG or WEBP, up to 6 images, 4 MB each.</small>
+                                                            driving license. Up to 6 photos; large photos are resized automatically.</small>
                                                     </div>
 
                                                     <div class="col-md-12">
@@ -636,8 +636,14 @@
             'use strict';
 
             var MAX_ATTACHMENTS = 6;
-            var MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
+            // Phone photos are shrunk in the browser before upload, so the post
+            // stays well inside the server's PHP limits (2 MB per file, 8 MB total).
+            var MAX_ORIGINAL_BYTES = 30 * 1024 * 1024;
+            var MAX_ATTACHMENT_BYTES = 1.5 * 1024 * 1024;
+            var TARGET_ATTACHMENT_BYTES = 900 * 1024;
+            var MAX_IMAGE_EDGE = 1600;
             var ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            var processingAttachments = false;
 
             var $form = $('#authorizationForm');
 
@@ -849,11 +855,126 @@
                 return !message;
             }
 
-            if (fileInput) {
-                $(fileInput).on('change', function () {
+            function loadImage(file) {
+                return new Promise(function (resolve, reject) {
+                    var url = URL.createObjectURL(file);
+                    var img = new Image();
+
+                    img.onload = function () {
+                        URL.revokeObjectURL(url);
+                        resolve(img);
+                    };
+                    img.onerror = function () {
+                        URL.revokeObjectURL(url);
+                        reject(new Error('decode'));
+                    };
+                    img.src = url;
+                });
+            }
+
+            function canvasToBlob(canvas, quality) {
+                return new Promise(function (resolve) {
+                    canvas.toBlob(resolve, 'image/jpeg', quality);
+                });
+            }
+
+            // Redraws the photo as a JPEG no larger than MAX_IMAGE_EDGE on its long
+            // side, stepping quality and size down until it is under the target.
+            // Browsers apply EXIF rotation when drawing, so the result is upright.
+            function shrinkImage(file) {
+                return loadImage(file).then(function (img) {
+                    var edge = MAX_IMAGE_EDGE;
+                    var quality = 0.82;
+
+                    function attempt() {
+                        var scale = Math.min(1, edge / Math.max(img.naturalWidth, img.naturalHeight));
+                        var canvas = document.createElement('canvas');
+                        canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
+                        canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
+
+                        var context = canvas.getContext('2d');
+                        context.fillStyle = '#fff';
+                        context.fillRect(0, 0, canvas.width, canvas.height);
+                        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                        return canvasToBlob(canvas, quality).then(function (blob) {
+                            if (!blob) {
+                                throw new Error('encode');
+                            }
+
+                            if (blob.size > TARGET_ATTACHMENT_BYTES && edge > 800) {
+                                quality = Math.max(0.6, quality - 0.1);
+                                edge = Math.round(edge * 0.8);
+                                return attempt();
+                            }
+
+                            var name = (file.name || 'photo').replace(/\.[^.]+$/, '') + '.jpg';
+                            return new File([blob], name, { type: 'image/jpeg', lastModified: Date.now() });
+                        });
+                    }
+
+                    return attempt();
+                });
+            }
+
+            function processAttachments() {
+                var originals = Array.prototype.slice.call(fileInput.files);
+                var $error = $('#attachmentError');
+
+                if (!originals.length || typeof DataTransfer === 'undefined' || !window.Promise) {
                     renderAttachmentPreview();
                     validateAttachments(true);
+                    return;
+                }
+
+                if (originals.length > MAX_ATTACHMENTS) {
+                    validateAttachments(true);
+                    return;
+                }
+
+                var tooBig = originals.filter(function (file) { return file.size > MAX_ORIGINAL_BYTES; })[0];
+                if (tooBig) {
+                    fileInput.value = '';
+                    $('#attachmentPreview').empty();
+                    $error.text('"' + tooBig.name + '" is too large. Please choose a smaller photo.').removeClass('d-none');
+                    return;
+                }
+
+                processingAttachments = true;
+                $('#submitBtn').prop('disabled', true);
+                $error.addClass('d-none').text('');
+                $('#attachmentPreview').html('<div class="small text-muted">Preparing your photos…</div>');
+
+                Promise.all(originals.map(function (file) {
+                    return shrinkImage(file).catch(function () {
+                        // Could not decode (e.g. HEIC on a desktop browser): fall back
+                        // to the original if it would still be accepted as-is.
+                        if (ALLOWED_TYPES.indexOf(file.type) !== -1 && file.size <= MAX_ATTACHMENT_BYTES) {
+                            return file;
+                        }
+                        throw new Error('"' + file.name + '" could not be processed. Please upload a JPG or PNG photo.');
+                    });
+                })).then(function (files) {
+                    var transfer = new DataTransfer();
+                    files.forEach(function (file) { transfer.items.add(file); });
+                    fileInput.files = transfer.files;
+
+                    renderAttachmentPreview();
+                    validateAttachments(true);
+                }).catch(function (err) {
+                    fileInput.value = '';
+                    $('#attachmentPreview').empty();
+                    $error.text(err.message).removeClass('d-none');
+                }).then(function () {
+                    processingAttachments = false;
+                    if (!submitting) {
+                        $('#submitBtn').prop('disabled', false);
+                    }
                 });
+            }
+
+            if (fileInput) {
+                $(fileInput).on('change', processAttachments);
 
                 $(document).on('click', '.removePreview', function () {
                     var index = Number($(this).data('index'));
@@ -948,7 +1069,7 @@
             var submitting = false;
 
             $form.on('submit', function (e) {
-                if (submitting) {
+                if (submitting || processingAttachments) {
                     e.preventDefault();
                     return;
                 }

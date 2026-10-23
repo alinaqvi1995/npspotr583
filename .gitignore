@@ -22,3 +22,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Customer card / licence photos and signatures must never be committed.
+/public/quote/authorization_attachments/*
+/public/quote/authorization_signatures/*
